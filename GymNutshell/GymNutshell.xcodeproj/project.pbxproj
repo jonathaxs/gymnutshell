@@ -12,6 +12,9 @@
 		694791702FA591B500E26A2B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947916F2FA591B500E26A2B /* SwiftUI.framework */; };
 		6947917D2FA591B600E26A2B /* GymNutshellWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6947916C2FA591B500E26A2B /* GymNutshellWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		694791A82FA5923A00E26A2B /* GymNutshellWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 694791882FA5923900E26A2B /* GymNutshellWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		694791D22FA6BE0D00E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694791D12FA6BE0D00E26A2B /* GymNutshellCore */; };
+		694791D42FA6BE1B00E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694791D32FA6BE1B00E26A2B /* GymNutshellCore */; };
+		694791D62FA6BE2200E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694791D52FA6BE2200E26A2B /* GymNutshellCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				694791D22FA6BE0D00E26A2B /* GymNutshellCore in Frameworks */,
 				694791332FA58E5400E26A2B /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				694791D42FA6BE1B00E26A2B /* GymNutshellCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +221,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				694791D62FA6BE2200E26A2B /* GymNutshellCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +292,7 @@
 			);
 			name = GymNutshellApp;
 			packageProductDependencies = (
+				694791D12FA6BE0D00E26A2B /* GymNutshellCore */,
 			);
 			productName = GymNutshell;
 			productReference = 694791032FA58B3B00E26A2B /* GymNutshellApp.app */;
@@ -376,6 +383,7 @@
 			);
 			name = GymNutshellWatch;
 			packageProductDependencies = (
+				694791D32FA6BE1B00E26A2B /* GymNutshellCore */,
 			);
 			productName = "GymNutshellWatch Watch App";
 			productReference = 694791882FA5923900E26A2B /* GymNutshellWatch.app */;
@@ -423,6 +431,7 @@
 			);
 			name = GymNutshellWatchUITests;
 			packageProductDependencies = (
+				694791D52FA6BE2200E26A2B /* GymNutshellCore */,
 			);
 			productName = "GymNutshellWatch Watch AppUITests";
 			productReference = 6947919E2FA5923A00E26A2B /* GymNutshellWatchUITests.xctest */;
@@ -475,6 +484,9 @@
 			);
 			mainGroup = 694790FA2FA58B3B00E26A2B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				694791D02FA6BDEB00E26A2B /* XCLocalSwiftPackageReference "GymNutshellCore" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 694791042FA58B3B00E26A2B /* Products */;
 			projectDirPath = "";
@@ -1245,6 +1257,28 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		694791D02FA6BDEB00E26A2B /* XCLocalSwiftPackageReference "GymNutshellCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = GymNutshellCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		694791D12FA6BE0D00E26A2B /* GymNutshellCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GymNutshellCore;
+		};
+		694791D32FA6BE1B00E26A2B /* GymNutshellCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GymNutshellCore;
+		};
+		694791D52FA6BE2200E26A2B /* GymNutshellCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GymNutshellCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 694790FB2FA58B3B00E26A2B /* Project object */;
 }

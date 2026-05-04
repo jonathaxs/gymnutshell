@@ -1,9 +1,8 @@
+// ⌘
+//  GymNutshellWidget/GymNutshellWidgetBundle.swift
 //
-//  GymNutshellWidgetBundle.swift
-//  GymNutshellWidget
-//
-//  Created by Jonathas Motta on 01/05/26.
-//
+//  Created by Jonathas Motta (@jonathaxs) on 2026-04-29.
+// ⌘
 
 import WidgetKit
 import SwiftUI
@@ -12,5 +11,7 @@ import SwiftUI
 struct GymNutshellWidgetBundle: WidgetBundle {
     var body: some Widget {
         GymNutshellWidget()
+        GymNutshellWidgetControl()
+        GymNutshellWidgetLiveActivity()
     }
 }

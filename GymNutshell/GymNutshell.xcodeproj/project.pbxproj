@@ -15,6 +15,7 @@
 		694791D22FA6BE0D00E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694791D12FA6BE0D00E26A2B /* GymNutshellCore */; };
 		694791D42FA6BE1B00E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694791D32FA6BE1B00E26A2B /* GymNutshellCore */; };
 		694791D62FA6BE2200E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694791D52FA6BE2200E26A2B /* GymNutshellCore */; };
+		694793192FA85DD900E26A2B /* GymNutshellCore in Frameworks */ = {isa = PBXBuildFile; productRef = 694793182FA85DD900E26A2B /* GymNutshellCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,7 @@
 			files = (
 				694791702FA591B500E26A2B /* SwiftUI.framework in Frameworks */,
 				6947916E2FA591B500E26A2B /* WidgetKit.framework in Frameworks */,
+				694793192FA85DD900E26A2B /* GymNutshellCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +363,7 @@
 			);
 			name = GymNutshellWidgetExtension;
 			packageProductDependencies = (
+				694793182FA85DD900E26A2B /* GymNutshellCore */,
 			);
 			productName = GymNutshellWidgetExtension;
 			productReference = 6947916C2FA591B500E26A2B /* GymNutshellWidgetExtension.appex */;
@@ -779,7 +782,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellApp/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Gym Nutshell";
+				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your health data to display workout activity and track gym sessions.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Write workout data to Apple Health after gym check-ins.";
@@ -819,7 +822,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellApp/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Gym Nutshell";
+				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your health data to display workout activity and track gym sessions.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Write workout data to Apple Health after gym check-ins.";
@@ -946,7 +949,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellWidget/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = GymNutshellWidget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gym Nutshell Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -990,7 +993,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellWidget/Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = GymNutshellWidget;
+				INFOPLIST_KEY_CFBundleDisplayName = "Gym Nutshell Widget";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1033,7 +1036,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_CFBundleDisplayName = "Gym Nutshell";
+				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jonathaxs.GymNutshell;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1068,7 +1071,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
-				INFOPLIST_KEY_CFBundleDisplayName = "Gym Nutshell";
+				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jonathaxs.GymNutshell;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1275,6 +1278,10 @@
 			productName = GymNutshellCore;
 		};
 		694791D52FA6BE2200E26A2B /* GymNutshellCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GymNutshellCore;
+		};
+		694793182FA85DD900E26A2B /* GymNutshellCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GymNutshellCore;
 		};

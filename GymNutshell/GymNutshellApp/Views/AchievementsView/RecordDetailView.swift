@@ -1,0 +1,154 @@
+// ⌘
+//  GymNutshell/GymNutshellApp/Views/AchievementsView/RecordDetailView.swift
+//
+//  Propósito: Tela de detalhe somente leitura pra um DailyRecord histórico.
+//
+//  Created by Jonathas Motta (@jonathaxs) on 2026-01-29.
+// ⌘
+
+import SwiftUI
+import GymNutshellCore
+
+struct RecordDetailView: View {
+
+    @Environment(\.dismiss) private var dismiss
+    @AppStorage(AppTheme.storageKey) private var selectedTheme: AppTheme = .gym
+    @AppStorage(UserProfile.sexKey) private var sex: String = "male"
+
+    // MARK: - Ações de navegação
+    let canEdit: Bool
+    let onEdit: () -> Void
+
+    // MARK: - Entradas
+    let record: DailyRecord
+
+    // MARK: - Metas
+    // Por enquanto usamos as metas padrão do app (provider fixo).
+    // No futuro isso pode vir de Settings.
+    private let waterGoal: Int = GoalsProvider.water
+    private let proteinGoal: Int = GoalsProvider.protein
+    private let carbGoal: Int = GoalsProvider.carbs
+    private let goodFatGoal: Int = GoalsProvider.goodFat
+    private let fiberGoal: Int = GoalsProvider.fiber
+    private let sleepGoal: Int = GoalsProvider.sleep
+
+    // MARK: - View
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+
+                // Card de resumo pra este dia específico
+                let achievement = DailyAchievement.from(emoji: record.achievementEmoji)
+                HStack(spacing: 12) {
+                    Text(selectedTheme.emoji(for: achievement))
+                        .font(.system(size: 40))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(record.date.formatted(date: .long, time: .omitted))
+                            .font(.headline)
+                        Text("\(selectedTheme.name(for: achievement, sex: sex)) · \(record.percent)%")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                        Text(String(localized: "ring.info.level.label", bundle: .gymNutshellCore) + "\(tierLevel(for: achievement))")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                }
+                .padding()
+                .background(achievement.color, in: RoundedRectangle(cornerRadius: 16))
+
+                Divider()
+                    .opacity(0.6)
+
+                // Linhas de métricas somente leitura
+                TrackingGoalRow(
+                    icon: "💤",
+                    title: String(localized: "today.metric.sleep", bundle: .gymNutshellCore),
+                    unit: "h",
+                    goal: sleepGoal,
+                    value: record.sleep
+                )
+
+                TrackingGoalRow(
+                    icon: "💧",
+                    title: String(localized: "today.metric.water", bundle: .gymNutshellCore),
+                    unit: "ml",
+                    goal: waterGoal,
+                    value: record.water
+                )
+
+                TrackingGoalRow(
+                    icon: "🍗",
+                    title: String(localized: "today.metric.protein", bundle: .gymNutshellCore),
+                    unit: "g",
+                    goal: proteinGoal,
+                    value: record.protein
+                )
+
+                TrackingGoalRow(
+                    icon: "🍞",
+                    title: String(localized: "today.metric.carbs", bundle: .gymNutshellCore),
+                    unit: "g",
+                    goal: carbGoal,
+                    value: record.carbs
+                )
+
+                TrackingGoalRow(
+                    icon: "🧈",
+                    title: String(localized: "today.metric.fats", bundle: .gymNutshellCore),
+                    unit: "g",
+                    goal: goodFatGoal,
+                    value: record.goodFat
+                )
+
+                TrackingGoalRow(
+                    icon: "🌾",
+                    title: String(localized: "today.metric.fiber", bundle: .gymNutshellCore),
+                    unit: "g",
+                    goal: fiberGoal,
+                    value: record.fiber
+                )
+
+                Spacer(minLength: 0)
+            }
+            .padding()
+        }
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle(String(localized: "record.detail.title", bundle: .gymNutshellCore))
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button(String(localized: "record.detail.back", bundle: .gymNutshellCore)) {
+                    dismiss()
+                }
+            }
+
+            if canEdit {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(String(localized: "record.detail.edit", bundle: .gymNutshellCore)) {
+                        onEdit()
+                    }
+                }
+            }
+        }
+    }
+
+    private func tierLevel(for achievement: DailyAchievement) -> Int {
+        switch achievement {
+        case .level1: return 1
+        case .level2: return 2
+        case .level3: return 3
+        case .level4: return 4
+        }
+    }
+
+    // MARK: - Notas
+    // Essa tela é intencionalmente somente leitura.
+    // Quando um registro ainda está dentro da janela de edição, uma ação Editar é exposta
+    // via barra de navegação, delegando a edição pra `EditTodayView`.
+}
+
+#Preview {
+    // NOTA: Previews com modelo do SwiftData podem ser adicionados depois.
+    Text("RecordDetailView Preview")
+}

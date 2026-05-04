@@ -1,0 +1,63 @@
+// ⌘
+//  GymNutshell/GymNutshellApp/Views/SettingsView/Preferences/MeasurementSettingsView.swift
+//
+//  Propósito: Permite ao usuário escolher entre os sistemas de medidas Métrico, US e UK.
+//             Selecionar uma linha salva imediatamente via @AppStorage — sem botão de Salvar.
+//
+//  Created by Jonathas Motta (@jonathaxs) on 2026-03-22.
+// ⌘
+
+import SwiftUI
+import GymNutshellCore
+
+/// Tela de settings pra escolher o sistema de medidas (Métrico, US ou UK).
+/// Selecionar uma linha aplica a mudança imediatamente. A nova preferência é
+/// refletida no Perfil e nas Settings sem precisar reiniciar o app.
+struct MeasurementSettingsView: View {
+
+    @AppStorage(UserProfile.measurementSystemKey) private var measurementSystem: MeasurementSystem = .metric
+
+    var body: some View {
+        List {
+            Section {
+                systemRow(.metric)
+                systemRow(.us)
+                systemRow(.uk)
+            } footer: {
+                Text(String(localized: "settings.measurementSystem.footer", bundle: .gymNutshellCore))
+            }
+        }
+        .navigationTitle(String(localized: "settings.preference.measurementSystem", bundle: .gymNutshellCore))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    // MARK: - Linha
+
+    /// Linha tocável que exibe o nome do sistema e um checkmark quando está selecionado.
+    @ViewBuilder
+    private func systemRow(_ system: MeasurementSystem) -> some View {
+        let label: String = {
+            switch system {
+            case .metric: return String(localized: "settings.preference.measurementSystem.metric", bundle: .gymNutshellCore)
+            case .us:     return String(localized: "settings.preference.measurementSystem.us", bundle: .gymNutshellCore)
+            case .uk:     return String(localized: "settings.preference.measurementSystem.uk", bundle: .gymNutshellCore)
+            }
+        }()
+
+        Button {
+            measurementSystem = system
+        } label: {
+            HStack {
+                Text(label)
+                Spacer()
+                if measurementSystem == system {
+                    Image(systemName: "checkmark")
+                        .foregroundStyle(Color.accentColor)
+                        .fontWeight(.semibold)
+                }
+            }
+            // Mantém o texto na cor primária mesmo que a linha esteja dentro de um Button.
+            .foregroundStyle(.primary)
+        }
+    }
+}

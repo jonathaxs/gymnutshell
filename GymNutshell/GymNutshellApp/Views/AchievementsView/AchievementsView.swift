@@ -1,0 +1,559 @@
+// ⌘
+//  GymNutshell/GymNutshellApp/Views/AchievementsView/AchievementsView.swift
+//
+//  Propósito: Tela de histórico que lista os DailyRecords e StreakBonus salvos,
+//             mostra o saldo total de pontos e permite editar registros recentes.
+//
+//  Created by Jonathas Motta (@jonathaxs) on 2025-11-14.
+// ⌘
+
+import SwiftUI
+import GymNutshellCore
+import SwiftData
+
+// View de calendário customizado pra exibir emojis de conquista por dia.
+// (Definida em MonthlyCalendarView.swift)
+
+// MARK: - Tela de conquistas
+// Exibe todos os DailyRecord e StreakBonus salvos via SwiftData,
+// ordenados do mais recente pro mais antigo. Bônus de streak aparecem inline na lista.
+struct AchievementsView: View {
+
+    /// Query do SwiftData que busca todos os registros diários.
+    /// Ordenar por data em ordem reversa coloca o dia mais recente primeiro.
+    @Query(sort: \DailyRecord.date, order: .reverse) private var records: [DailyRecord]
+
+    /// Query do SwiftData para entradas de bônus de streak (semanal e mensal).
+    @Query(sort: \StreakBonus.anchorDate, order: .reverse) private var bonuses: [StreakBonus]
+
+    @Environment(\.modelContext) private var modelContext
+    @AppStorage(AppTheme.storageKey) private var selectedTheme: AppTheme = .gym
+    @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
+    private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
+    @AppStorage(UserProfile.sexKey) private var sex: String = "male"
+
+    /// Controla qual registro está sendo exibido em um sheet.
+    /// - view: detalhes somente leitura pra qualquer dia
+    /// - edit: sheet editável pra entradas recentes
+    @State private var activeSheet: ActiveSheet?
+    @State private var showBonusInfoSheet = false
+    @State private var showNotificationHistory = false
+
+    private enum ActiveSheet: Identifiable {
+        case view(DailyRecord)
+        case edit(DailyRecord)
+
+        var id: String {
+            switch self {
+            case .view(let record):
+                return "view-\(record.id)"
+            case .edit(let record):
+                return "edit-\(record.id)"
+            }
+        }
+
+        var record: DailyRecord {
+            switch self {
+            case .view(let record), .edit(let record):
+                return record
+            }
+        }
+    }
+
+    private enum FilterMode: String {
+        case all
+        case day
+    }
+
+    // Persiste a última seleção do usuário nos filtros da tela de conquistas.
+    @AppStorage(UserProfile.achievementsFilterModeKey) private var storedFilterMode: String = FilterMode.day.rawValue
+    @AppStorage(UserProfile.achievementsSelectedDateKey) private var storedSelectedDateTimestamp: Double = Date().timeIntervalSince1970
+
+    // Controla a filtragem da lista na tela de conquistas.
+    @State private var filterMode: FilterMode = .all
+    @State private var selectedDate: Date = Date()
+    @State private var visibleMonthDate: Date = Date()
+
+    // Define por quanto tempo um registro permanece editável após ser criado.
+    private static let editWindowHours: Int = 72
+    private static let editWindow: TimeInterval = TimeInterval(Self.editWindowHours * 60 * 60)
+
+    // MARK: - Saldo de pontos
+
+    /// Total de pontos ganhos em todos os registros diários e bônus de streak.
+    /// É a pontuação acumulada do usuário mostrada no topo da tela.
+    private var totalPoints: Int {
+        let dailyTotal = records.reduce(0) { $0 + $1.points }
+        let bonusTotal = bonuses.reduce(0) { $0 + $1.bonusPoints }
+        return dailyTotal + bonusTotal
+    }
+
+    // MARK: - Lista de histórico unificada
+
+    /// Uma entrada da lista que representa um registro diário ou um bônus de streak.
+    /// Usada pra que os dois tipos possam ser renderizados juntos num único ForEach ordenado.
+    private enum HistoryItem: Identifiable {
+        case daily(DailyRecord)
+        case bonus(StreakBonus)
+
+        var id: String {
+            switch self {
+            case .daily(let r): return "daily-\(r.id)"
+            case .bonus(let b): return "bonus-\(b.id)"
+            }
+        }
+
+        // Data usada pra ordenação — daily usa a data do registro, bonus usa anchorDate.
+        var date: Date {
+            switch self {
+            case .daily(let r): return r.date
+            case .bonus(let b): return b.anchorDate
+            }
+        }
+    }
+
+    /// Mescla registros diários e bônus de streak em uma lista única ordenada do mais recente.
+    /// No modo de filtro "day", só itens do dia selecionado são incluídos.
+    private var visibleItems: [HistoryItem] {
+        let calendar = Calendar.current
+
+        let filteredRecords: [DailyRecord]
+        let filteredBonuses: [StreakBonus]
+
+        switch filterMode {
+        case .all:
+            filteredRecords = records
+            filteredBonuses = bonuses
+        case .day:
+            filteredRecords = records.filter { calendar.isDate($0.date, inSameDayAs: selectedDate) }
+            filteredBonuses = bonuses.filter { calendar.isDate($0.anchorDate, inSameDayAs: selectedDate) }
+        }
+
+        let dailyItems = filteredRecords.map { HistoryItem.daily($0) }
+        let bonusItems = filteredBonuses.map { HistoryItem.bonus($0) }
+
+        // Ordena do mais recente pro mais antigo, igual ao comportamento da lista de registros diários.
+        return (dailyItems + bonusItems).sorted { $0.date > $1.date }
+    }
+
+    // MARK: - Mapeamento de emojis do calendário
+
+    // Cria um mapeamento de cada dia registrado -> emoji pra mostrar no calendário.
+    // Emojis diários são convertidos pro tema atual. Emojis de bônus (✍️ 🪽 🦾 ☠️)
+    // têm prioridade nas datas âncora. Bônus mensal vence sobre o semanal na mesma data.
+    private var emojiByDay: [Date: String] {
+        let calendar = Calendar.current
+
+        // Usa o emoji do tema atual pra cada registro diário (não o achievementEmoji salvo)
+        // pra que o calendário sempre reflita o tema ativo, mesmo pra registros antigos.
+        var result: [Date: String] = Dictionary(
+            uniqueKeysWithValues: records.map {
+                let tier = DailyAchievement.from(emoji: $0.achievementEmoji)
+                return (calendar.startOfDay(for: $0.date), selectedTheme.emoji(for: tier))
+            }
+        )
+
+        // Aplica bônus semanais primeiro, depois mensais pra que o mensal tenha prioridade na sobreposição.
+        let weeklyBonuses = bonuses.filter { $0.bonusType.hasPrefix("weekly") }
+        let monthlyBonuses = bonuses.filter { $0.bonusType.hasPrefix("monthly") }
+
+        for bonus in weeklyBonuses + monthlyBonuses {
+            let key = calendar.startOfDay(for: bonus.anchorDate)
+            result[key] = bonusEmoji(for: bonus.bonusType)
+        }
+
+        return result
+    }
+
+    // MARK: - Ações
+
+    // Apaga o registro diário selecionado do banco de dados.
+    // Bônus de streak não são deletáveis pelo usuário — são calculados a partir de períodos concluídos.
+    private func deleteItem(offsets: IndexSet) {
+        for index in offsets {
+            if case .daily(let record) = visibleItems[index] {
+                modelContext.delete(record)
+            }
+        }
+    }
+
+    // Um registro só pode ser editado dentro da janela de edição configurada (padrão: 72 horas).
+    private func canEdit(_ record: DailyRecord) -> Bool {
+        let now = Date()
+        let interval = now.timeIntervalSince(record.date)
+        return interval >= 0 && interval <= Self.editWindow
+    }
+
+    private func dailyAchievement(for record: DailyRecord) -> DailyAchievement {
+        // Usa o emoji salvo como fonte da verdade pro nível histórico.
+        // Isso evita inconsistências quando `percent` é arredondado perto dos limiares.
+        return DailyAchievement.from(emoji: record.achievementEmoji)
+    }
+
+    // Retorna o início do mês pra qualquer data fornecida.
+    private func startOfMonth(for date: Date) -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: date)
+        return calendar.date(from: components) ?? date
+    }
+
+    // Título do mês legível usado acima do calendário customizado.
+    private var visibleMonthTitle: String {
+        let formatter = DateFormatter()
+        formatter.locale = .current
+        formatter.dateFormat = "LLLL yyyy"
+        return formatter.string(from: visibleMonthDate)
+    }
+
+    // Move o mês visível pelo offset fornecido (ex.: -1 = mês anterior).
+    private func changeMonth(by offset: Int) {
+        let calendar = Calendar.current
+        if let next = calendar.date(byAdding: .month, value: offset, to: visibleMonthDate) {
+            visibleMonthDate = startOfMonth(for: next)
+        }
+    }
+
+    // Mapeia o bonusType salvo ao emoji atual, evitando mostrar emojis antigos persistidos.
+    private func bonusEmoji(for bonusType: String) -> String {
+        switch bonusType {
+        case "weekly.level3":   return "✍️"
+        case "weekly.level4":   return "🪽"
+        case "monthly.level3":  return "🦾"
+        case "monthly.level4":  return "☠️"
+        default:                return "🏅"
+        }
+    }
+
+    // Converte a string bonusType salva pra um nome de exibição localizado na linha da lista.
+    private func bonusTitle(for bonusType: String) -> String {
+        switch bonusType {
+        case "weekly.level3":   return String(localized: "streak.bonus.weekly.level3.title", bundle: .gymNutshellCore)
+        case "weekly.level4":   return String(localized: "streak.bonus.weekly.level4.title", bundle: .gymNutshellCore)
+        case "monthly.level3":  return String(localized: "streak.bonus.monthly.level3.title", bundle: .gymNutshellCore)
+        case "monthly.level4":  return String(localized: "streak.bonus.monthly.level4.title", bundle: .gymNutshellCore)
+        default:                return String(localized: "streak.bonus.generic.title", bundle: .gymNutshellCore)
+        }
+    }
+
+    // Converte a string bonusType salva pra uma descrição localizada explicando por que o bônus foi ganho.
+    private func bonusDescription(for bonusType: String) -> String {
+        switch bonusType {
+        case "weekly.level3":   return String(localized: "streak.bonus.weekly.level3.description", bundle: .gymNutshellCore)
+        case "weekly.level4":   return String(localized: "streak.bonus.weekly.level4.description", bundle: .gymNutshellCore)
+        case "monthly.level3":  return String(localized: "streak.bonus.monthly.level3.description", bundle: .gymNutshellCore)
+        case "monthly.level4":  return String(localized: "streak.bonus.monthly.level4.description", bundle: .gymNutshellCore)
+        default:                return ""
+        }
+    }
+
+    // MARK: - Estado vazio
+
+    // Card de estado vazio com ícone na cor de destaque do usuário e texto sem truncação.
+    @ViewBuilder
+    private var emptyStateView: some View {
+        VStack(spacing: 16) {
+            Image(systemName: "trophy.fill")
+                .font(.system(size: 40))
+                .foregroundStyle(accentColor)
+            Text(String(localized: "achievements.empty.title", bundle: .gymNutshellCore))
+                .font(.headline)
+                .multilineTextAlignment(.center)
+            Text(String(localized: "achievements.empty.description", bundle: .gymNutshellCore))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 40)
+        .padding(.horizontal)
+    }
+
+    // MARK: - Seção de calendário (extraída pra reuso no layout wide/narrow)
+
+    @ViewBuilder
+    private var calendarSection: some View {
+        Section {
+            Picker(String(localized: "achievements.filter.title", bundle: .gymNutshellCore), selection: $filterMode) {
+                Text(String(localized: "achievements.filter.day", bundle: .gymNutshellCore)).tag(FilterMode.day)
+                Text(String(localized: "achievements.filter.all", bundle: .gymNutshellCore)).tag(FilterMode.all)
+            }
+            .pickerStyle(.segmented)
+
+            if filterMode == .day {
+                AchievementsCalendarSection(
+                    visibleMonthTitle: visibleMonthTitle,
+                    visibleMonthDate: visibleMonthDate,
+                    selectedDate: $selectedDate,
+                    emojiByDay: emojiByDay,
+                    onChangeMonth: { changeMonth(by: $0) }
+                )
+            }
+        }
+    }
+
+    // MARK: - Body
+
+    var body: some View {
+        NavigationStack {
+            GeometryReader { geo in
+                let isWide = geo.size.width >= 700
+                Group {
+                    if isWide {
+                        // Wide: cap em 860pt e centralizado, com cabeçalho customizado
+                        // alinhado à mesma borda que o conteúdo (igual StatisticsView).
+                        VStack(alignment: .leading, spacing: 0) {
+                            wideTitleBar
+                            if filterMode == .day {
+                                // Calendário à esquerda, histórico à direita.
+                                HStack(alignment: .top, spacing: 0) {
+                                    List {
+                                        calendarSection
+                                    }
+                                    .frame(maxWidth: 400)
+                                    .listStyle(.insetGrouped)
+
+                                    Divider()
+
+                                    List {
+                                        if visibleItems.isEmpty {
+                                            Section {
+                                                emptyStateView
+                                                    .listRowBackground(Color.clear)
+                                            }
+                                        } else {
+                                            // Section header invisível só pra forçar o mesmo
+                                            // inset superior que o calendário tem por causa do
+                                            // header da `calendarSection`. Sem isso, no macOS e
+                                            // iPhone landscape o `.insetGrouped` deixa a lista
+                                            // colada no topo enquanto o calendário tem respiro.
+                                            Section {
+                                                historySection
+                                            } header: {
+                                                Color.clear.frame(height: 0)
+                                            }
+                                        }
+                                    }
+                                    .listStyle(.insetGrouped)
+                                }
+                            } else {
+                                // Lista completa: painel único sem coluna de calendário.
+                                List {
+                                    calendarSection
+
+                                    if visibleItems.isEmpty {
+                                        Section {
+                                            emptyStateView
+                                                .listRowBackground(Color.clear)
+                                        }
+                                    } else {
+                                        historySection
+                                    }
+                                }
+                                .listStyle(.insetGrouped)
+                            }
+                        }
+                        .frame(maxWidth: 860)
+                        .frame(maxWidth: .infinity)
+                    } else {
+                        // Narrow (iPhone portrait): layout original com tudo numa List.
+                        List {
+                            calendarSection
+
+                            if visibleItems.isEmpty {
+                                Section {
+                                    emptyStateView
+                                        .listRowBackground(Color.clear)
+                                }
+                            } else {
+                                historySection
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                // Fundo cinza por toda a viewport — sem isso, no modo wide, as
+                // margens fora do cap de 860pt ficam brancas em light mode.
+                .background(Color(.systemGroupedBackground))
+                .toolbar(isWide ? .hidden : .visible, for: .navigationBar)
+            }
+            .navigationTitle(String(localized: "achievements.header.title", bundle: .gymNutshellCore))
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        showNotificationHistory = true
+                    } label: {
+                        Image(systemName: "bell")
+                    }
+                }
+            }
+            .onAppear {
+                filterMode = FilterMode(rawValue: storedFilterMode) ?? .all
+                selectedDate = Date(timeIntervalSince1970: storedSelectedDateTimestamp)
+                visibleMonthDate = startOfMonth(for: selectedDate)
+            }
+            .onChange(of: filterMode) { _, newValue in
+                storedFilterMode = newValue.rawValue
+            }
+            .onChange(of: selectedDate) { _, newValue in
+                storedSelectedDateTimestamp = newValue.timeIntervalSince1970
+                visibleMonthDate = startOfMonth(for: newValue)
+            }
+            // Deep-link das notificações de Conquista / Bônus — força filtro "dia" na data
+            // que veio no userInfo (data real da conquista); cai pra hoje se ausente.
+            .onReceive(NotificationCenter.default.publisher(for: .gaAchievementsShowToday)) { note in
+                let target: Date
+                if let ts = note.userInfo?["achievementDate"] as? Double {
+                    target = Date(timeIntervalSince1970: ts)
+                } else {
+                    target = Date()
+                }
+                filterMode = .day
+                selectedDate = target
+                visibleMonthDate = startOfMonth(for: target)
+            }
+        }
+        .sheet(item: $activeSheet) { sheet in
+            switch sheet {
+            case .view(let record):
+                NavigationStack {
+                    RecordDetailView(
+                        canEdit: canEdit(record),
+                        onEdit: {
+                            activeSheet = .edit(record)
+                        },
+                        record: record
+                    )
+                }
+            case .edit(let record):
+                EditTodayView(record: record)
+            }
+        }
+        .sheet(isPresented: $showBonusInfoSheet) {
+            NavigationStack {
+                StreakBonusInfoView(isSheet: true)
+            }
+        }
+        .sheet(isPresented: $showNotificationHistory) {
+            NotificationHistorySheet()
+        }
+    }
+
+    // Cabeçalho customizado usado no wideLayout — bell + título alinhados ao
+    // mesmo maxWidth (860pt) do conteúdo, mesma técnica usada em StatisticsView.
+    @ViewBuilder
+    private var wideTitleBar: some View {
+        HStack(spacing: 14) {
+            Button {
+                showNotificationHistory = true
+            } label: {
+                Image(systemName: "bell")
+                    .font(.title3)
+                    // Sino segue accent color — sem isso o `.buttonStyle(.plain)`
+                    // força cor primária e o sino fica preto/branco.
+                    .foregroundStyle(accentColor)
+            }
+            .buttonStyle(.plain)
+            Text(String(localized: "achievements.header.title", bundle: .gymNutshellCore))
+                .font(.largeTitle.bold())
+            Spacer()
+        }
+        .padding(.horizontal)
+        .padding(.top, 12)
+        // iPad/Mac/Vision precisam de respiro extra abaixo do título —
+        // o calendário cola no texto sem isso. iPhone landscape já fica bom
+        // com o espaçamento natural do List inset, então não recebe o padding.
+        .padding(.bottom, UIDevice.current.userInterfaceIdiom == .phone ? 0 : 20)
+    }
+
+    // MARK: - Seção de histórico (extraída pra reuso no layout wide/narrow)
+
+    @ViewBuilder
+    private var historySection: some View {
+        ForEach(visibleItems) { item in
+                        switch item {
+                        case .daily(let record):
+                            // Linha de histórico individual — mostra o emoji do nível, nome, data e pontos.
+                            HStack(spacing: 16) {
+                                Text(selectedTheme.emoji(for: dailyAchievement(for: record)))
+                                    .font(.largeTitle)
+
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(selectedTheme.name(for: dailyAchievement(for: record), sex: sex))
+                                        .font(.headline)
+
+                                    Text(String(format: String(localized: "achievements.daily.row.description", bundle: .gymNutshellCore), record.percent))
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+
+                                    Text(record.date, style: .date)
+                                        .foregroundStyle(.secondary)
+                                        .font(.caption)
+                                }
+
+                                Spacer()
+
+                                Text("\(record.points) \(String(localized: "achievements.points.total", bundle: .gymNutshellCore))")
+                                    .font(.subheadline.bold())
+
+                                // Botão de edição — visível só pra registros das últimas 72 horas.
+                                if canEdit(record) {
+                                    Button {
+                                        activeSheet = .edit(record)
+                                    } label: {
+                                        Image(systemName: "square.and.pencil")
+                                            .font(.system(size: 18, weight: .regular))
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
+                                }
+                            }
+                            .padding(.vertical, 8)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                activeSheet = .view(record)
+                            }
+
+                        case .bonus(let bonus):
+                            // Linha de bônus de streak — mostra emoji do bônus, nome do tipo, data e pontos.
+                            // O prefixo "+" diferencia pontos de bônus dos pontos diários normais.
+                            HStack(spacing: 16) {
+                                Text(bonusEmoji(for: bonus.bonusType))
+                                    .font(.largeTitle)
+
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(bonusTitle(for: bonus.bonusType))
+                                        .font(.headline)
+
+                                    Text(bonusDescription(for: bonus.bonusType))
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+
+                                    Text(bonus.anchorDate, style: .date)
+                                        .foregroundStyle(.secondary)
+                                        .font(.caption)
+                                }
+
+                                Spacer()
+
+                                Text("+\(bonus.bonusPoints) \(String(localized: "achievements.points.total", bundle: .gymNutshellCore))")
+                                    .font(.subheadline.bold())
+                                    .foregroundStyle(Color.accentColor)
+                            }
+                            .padding(.vertical, 8)
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                showBonusInfoSheet = true
+                            }
+                        }
+                    }
+                    .onDelete { offsets in
+                        // Só registros diários podem ser deletados; linhas de bônus são silenciosamente ignoradas.
+                        deleteItem(offsets: offsets)
+                    }
+    }
+}
+
+#Preview {
+    AchievementsView()
+        .modelContainer(for: [DailyRecord.self, StreakBonus.self], inMemory: true)
+}

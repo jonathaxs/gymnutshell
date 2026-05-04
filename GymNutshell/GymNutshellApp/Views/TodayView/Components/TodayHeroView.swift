@@ -1,0 +1,143 @@
+// ⌘
+//  GymNutshell/GymNutshellApp/Views/TodayView/Components/TodayHeroView.swift
+//
+//  Propósito: Bloco hero fixo exibido no topo (retrato) ou na coluna esquerda (landscape).
+//             Contém: botão de data, nível de conquista + anel de progresso, frase do próximo nível.
+//
+//  Created by Jonathas Motta (@jonathaxs) on 2026-03-29.
+// ⌘
+
+import SwiftUI
+import GymNutshellCore
+
+/// Bloco hero da TodayView — data, nível de conquista, anel de progresso e frase do próximo nível.
+struct TodayHeroView: View {
+
+    let formattedDate: String
+    let dailyAchievement: DailyAchievement
+    let dailyProgress: Double
+    let selectedTheme: AppTheme
+    let onDateTap: () -> Void
+    /// Quando true, conquista e progresso ficam empilhados verticalmente em vez de lado a lado.
+    /// Usado apenas no iPad, onde sobra altura suficiente pra esse formato.
+    var verticalLayout: Bool = false
+
+    // Sexo do usuário — usado pra nomes de tier com gênero correto.
+    @AppStorage(UserProfile.sexKey) private var sex: String = "male"
+
+    // Cor de destaque — segue a escolha do usuário em Settings > Cores.
+    @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
+    private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
+
+    // Sheets de informação do tier e do anel de progresso.
+    @State private var showTierSheet = false
+    @State private var showRingSheet = false
+
+    // Percentual inteiro (0-100) calculado a partir do progresso normalizado.
+    private var dailyPercentage: Int {
+        Int((dailyProgress * 100).rounded(.down))
+    }
+
+    // Label de nível localizado pra um tier (ex: "Nível 2").
+    private func tierLevelString(for tier: DailyAchievement) -> String {
+        switch tier {
+        case .level1: return String(localized: "today.tier.level.1", bundle: .gymNutshellCore)
+        case .level2: return String(localized: "today.tier.level.2", bundle: .gymNutshellCore)
+        case .level3: return String(localized: "today.tier.level.3", bundle: .gymNutshellCore)
+        case .level4: return String(localized: "today.tier.level.4", bundle: .gymNutshellCore)
+        }
+    }
+
+    // Saudação baseada no horário atual.
+    private var greeting: String {
+        let hour = Calendar.current.component(.hour, from: Date())
+        switch hour {
+        case 5..<12: return String(localized: "today.greeting.morning", bundle: .gymNutshellCore)
+        case 12..<18: return String(localized: "today.greeting.afternoon", bundle: .gymNutshellCore)
+        default: return String(localized: "today.greeting.night", bundle: .gymNutshellCore)
+        }
+    }
+
+    // Componentes do próximo nível — (percent, tierName, levelNumber).
+    // nil quando o usuário já está no nível máximo (90%+).
+    private var nextLevelComponents: (percent: Int, name: String, level: Int)? {
+        if dailyPercentage >= 90 { return nil }
+        if dailyPercentage >= 70 {
+            return (90 - dailyPercentage, selectedTheme.name(for: .level4, sex: sex), 4)
+        } else if dailyPercentage >= 50 {
+            return (70 - dailyPercentage, selectedTheme.name(for: .level3, sex: sex), 3)
+        } else {
+            return (50 - dailyPercentage, selectedTheme.name(for: .level2, sex: sex), 2)
+        }
+    }
+
+    var body: some View {
+        VStack(spacing: 12) {
+
+            // Botão da data — navega pra Achievements em modo calendário com hoje selecionado.
+            Button {
+                onDateTap()
+            } label: {
+                Text(formattedDate)
+                    .font(.title3.weight(.semibold))
+                    .multilineTextAlignment(.center)
+            }
+            .buttonStyle(.plain)
+            .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
+            .accessibilityLabel(String(localized: "today.hero.date.a11y.label", bundle: .gymNutshellCore))
+            .accessibilityHint(String(localized: "today.hero.date.a11y.hint", bundle: .gymNutshellCore))
+
+            // Nível de conquista e anel de progresso — lado a lado no iPhone,
+            // empilhados verticalmente no iPad pra aproveitar a altura extra.
+            if verticalLayout {
+                VStack(spacing: 24) {
+                    VStack(spacing: 12) {
+                        Text(String(localized: "today.ring.label.progresso", bundle: .gymNutshellCore))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        TodayProgressRingView(progress: dailyProgress,
+                                              onTap: { showRingSheet = true })
+                    }
+                    DailyTierView(achievement: dailyAchievement, theme: selectedTheme,
+                                  onTap: { showTierSheet = true })
+                }
+                .padding(.vertical, 8)
+            } else {
+                // Modo horizontal (iPhone / iPad janela pequena): progresso à esquerda,
+                // conquista à direita.
+                HStack(spacing: 0) {
+                    VStack(spacing: 20) {
+                        Text(String(localized: "today.ring.label.progresso", bundle: .gymNutshellCore))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                        TodayProgressRingView(progress: dailyProgress,
+                                              onTap: { showRingSheet = true })
+                    }
+                    .frame(maxWidth: .infinity)
+
+                    DailyTierView(achievement: dailyAchievement, theme: selectedTheme,
+                                  onTap: { showTierSheet = true })
+                        .frame(maxWidth: .infinity)
+                }
+                .padding(.vertical, 4)
+            }
+
+        }
+        .sheet(isPresented: $showTierSheet) {
+            NavigationStack {
+                TierInfoView(
+                    theme: selectedTheme, sex: sex, isSheet: true,
+                    nextLevelPercent: nextLevelComponents?.percent,
+                    nextLevelName: nextLevelComponents?.name ?? "",
+                    nextLevelNumber: nextLevelComponents?.level,
+                    isAtMaxLevel: dailyPercentage >= 90
+                )
+            }
+        }
+        .sheet(isPresented: $showRingSheet) {
+            NavigationStack {
+                ProgressRingInfoView(isSheet: true, currentPercent: dailyPercentage)
+            }
+        }
+    }
+}

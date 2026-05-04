@@ -1,0 +1,65 @@
+// ⌘
+//  GymNutshell/GymNutshellApp/Views/AchievementsView/Components/AchievementsCalendarSection.swift
+//
+//  Propósito: Cabeçalho de navegação mensal + MonthlyCalendarView pra tela de Conquistas.
+//             Exibido só quando o filtro "Dia" está ativo.
+//
+//  Created by Jonathas Motta (@jonathaxs) on 2026-03-29.
+// ⌘
+
+import SwiftUI
+import GymNutshellCore
+
+/// Seção de calendário pra AchievementsView — título do mês, chevrons anterior/próximo e a grade de emojis.
+struct AchievementsCalendarSection: View {
+
+    let visibleMonthTitle: String
+    let visibleMonthDate: Date
+    @Binding var selectedDate: Date
+    let emojiByDay: [Date: String]
+    let onChangeMonth: (Int) -> Void
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Text(String(localized: "achievements.calendar.title", bundle: .gymNutshellCore))
+                    .font(.headline)
+
+                Spacer()
+
+                Button {
+                    onChangeMonth(-1)
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 14, weight: .semibold))
+                        .padding(8)
+                        .background(.ultraThinMaterial, in: Circle())
+                }
+                .buttonStyle(.plain)
+
+                Text(visibleMonthTitle)
+                    .font(.callout.weight(.semibold))
+                    .foregroundStyle(.primary)
+
+                Button {
+                    onChangeMonth(1)
+                } label: {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 14, weight: .semibold))
+                        .padding(8)
+                        .background(.ultraThinMaterial, in: Circle())
+                }
+                .buttonStyle(.plain)
+            }
+
+            MonthlyCalendarView(
+                monthDate: visibleMonthDate,
+                selectedDate: $selectedDate,
+                emojiByDay: emojiByDay
+            )
+            .frame(maxWidth: 400)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .padding(.vertical, 4)
+    }
+}

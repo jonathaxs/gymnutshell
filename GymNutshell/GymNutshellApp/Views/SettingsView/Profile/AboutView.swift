@@ -2,7 +2,6 @@
 //  GymNutshell/GymNutshellApp/Views/SettingsView/Profile/AboutView.swift
 //
 //  Propósito: Exibe a versão do app e as informações de contato do desenvolvedor.
-//             Usa o ícone real do app vindo do imageset GymNutshellIcon (troca auto entre light/dark).
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-12.
 // ⌘
@@ -12,10 +11,6 @@ import GymNutshellCore
 
 /// Mostra as informações básicas do app: versão, número de build e link pra enviar feedback.
 struct AboutView: View {
-
-    // Controla se o usuário está pressionando o ícone do app.
-    @GestureState private var isIconPressed: Bool = false
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
@@ -97,29 +92,13 @@ struct AboutView: View {
 
     // MARK: - Ícone do app
 
-    // O imageset GymNutshellIcon tem variantes claro/escuro — o sistema escolhe automaticamente.
-    // Ao pressionar, o ícone troca pra variante tintada e expande (mesmo efeito da DailyTierView).
-    // Renderizado com o raio de canto padrão do iOS pra ícone de app (22% do tamanho).
     private var appIcon: some View {
         let size: CGFloat = 80
-        let imageName = isIconPressed ? "GymNutshellTintedIcon" : "GymNutshellIcon"
-
-        return Image(imageName)
+        return Image("AboutIcon")
             .resizable()
             .interpolation(.high)
             .frame(width: size, height: size)
             .clipShape(RoundedRectangle(cornerRadius: size * 0.22, style: .continuous))
-            .scaleEffect(isIconPressed ? 1.20 : 1.0)
-            .animation(
-                reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.50),
-                value: isIconPressed
-            )
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .updating($isIconPressed) { _, state, _ in
-                        state = true
-                    }
-            )
     }
 
     // MARK: - Helpers de versão

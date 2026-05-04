@@ -203,7 +203,7 @@
 "settings.about.developer.value" = "@jonathaxs";
 "settings.about.website" = "Site do desenvolvedor";
 "settings.about.feedback" = "Enviar feedback";
-"settings.about.description" = "Gym Nutshell — suas metas diárias em resumo.\n\nMarque, acompanhe e veja a constância virar resultado.";
+"settings.about.description" = "Gym Nutshell, suas metas diárias em resumo.\n\nMarque, acompanhe e veja a constância virar resultado.";
 
 /* AboutView — entrada do Tip Jar */
 "settings.about.support.header" = "Apoie o desenvolvedor";

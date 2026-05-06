@@ -123,8 +123,8 @@ struct TrackingGoalRowView: View {
         .accessibilityElement(children: .contain)
     }
 
-    // Botão OFF/ON para alternar modo "dia de descanso".
-    // OFF (cinza) → tap aciona descanso. ON (accent) → tap volta slider com valor zerado.
+    // Botão ON/OFF para alternar modo "dia de descanso".
+    // ON (cinza) → tap aciona descanso. OFF (accent) → tap volta slider com valor zerado.
     private func restDayToggle(isOn: Binding<Bool>) -> some View {
         Button {
             UISelectionFeedbackGenerator().selectionChanged()
@@ -138,8 +138,8 @@ struct TrackingGoalRowView: View {
             }
         } label: {
             Text(isOn.wrappedValue
-                 ? String(localized: "today.restday.on", bundle: .gymNutshellCore)
-                 : String(localized: "today.restday.off", bundle: .gymNutshellCore))
+                 ? String(localized: "today.restday.off", bundle: .gymNutshellCore)
+                 : String(localized: "today.restday.on", bundle: .gymNutshellCore))
                 .font(.caption.weight(.bold))
                 .foregroundStyle(isOn.wrappedValue ? Color.secondary : accentColor)
                 .padding(.horizontal, 10)

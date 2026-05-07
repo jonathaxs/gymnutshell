@@ -81,8 +81,18 @@ struct TodayHeroView: View {
                 Text(formattedDate)
                     .font(.title3.weight(.semibold))
                     .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 14)
+                    .background {
+                        RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            .fill(Color(.secondarySystemGroupedBackground))
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
             }
             .buttonStyle(.plain)
+            .frame(maxWidth: 330)
+            .frame(maxWidth: .infinity, alignment: .center)
             .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
             .accessibilityLabel(String(localized: "today.hero.date.a11y.label", bundle: .gymNutshellCore))
             .accessibilityHint(String(localized: "today.hero.date.a11y.hint", bundle: .gymNutshellCore))

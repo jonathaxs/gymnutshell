@@ -32,6 +32,9 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
 
     private let center = UNUserNotificationCenter.current()
 
+    // Identifiers já gravados no histórico nesta sessão — evita duplicatas entre willPresent e didReceive.
+    private var loggedNotificationIdentifiers: Set<String> = []
+
     // MARK: - Setup
 
     public func configure() {
@@ -45,6 +48,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        appendIntervalNotificationToHistoryIfNeeded(notification.request)
         completionHandler([.banner, .sound, .badge])
     }
 
@@ -53,10 +57,11 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         didReceive response: UNNotificationResponse,
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
-        if let raw = response.notification.request.content.userInfo["route"] as? String,
+        let request = response.notification.request
+        if let raw = request.content.userInfo["route"] as? String,
            let route = NotificationRoute(rawValue: raw) {
             var userInfo: [String: Any] = ["route": route.rawValue]
-            if let ts = response.notification.request.content.userInfo["achievementDate"] as? Double {
+            if let ts = request.content.userInfo["achievementDate"] as? Double {
                 userInfo["achievementDate"] = ts
             }
             NotificationCenter.default.post(
@@ -65,8 +70,33 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
                 userInfo: userInfo
             )
         }
-        center.removeDeliveredNotifications(withIdentifiers: [response.notification.request.identifier])
+        // Grava no histórico somente se não foi gravado via willPresent (foreground).
+        appendIntervalNotificationToHistoryIfNeeded(request)
+        center.removeDeliveredNotifications(withIdentifiers: [request.identifier])
         completionHandler()
+    }
+
+    // Grava notificações de intervalo (água, progresso, metas) no histórico.
+    // Notificações de evento (conquista, streak, saúde, backup) já são gravadas no ponto de disparo.
+    private func appendIntervalNotificationToHistoryIfNeeded(_ request: UNNotificationRequest) {
+        guard !loggedNotificationIdentifiers.contains(request.identifier) else { return }
+        let userInfo = request.content.userInfo
+        guard let kindIdRaw = userInfo["kindId"] as? String,
+              let routeRaw = userInfo["route"] as? String,
+              let route = NotificationRoute(rawValue: routeRaw) else { return }
+        // Evento puros (achievement, streakBonus, appleHealth, backup) são gravados no ponto de
+        // disparo — não precisam de segunda gravação aqui.
+        if let kind = NotificationKind(rawValue: kindIdRaw), !kind.isIntervalBased { return }
+        loggedNotificationIdentifiers.insert(request.identifier)
+        let title = request.content.title
+        let body  = request.content.body
+        Task { @MainActor in
+            if let kind = NotificationKind(rawValue: kindIdRaw) {
+                NotificationHistoryStore.shared.append(
+                    kind: kind, title: title, body: body, route: route
+                )
+            }
+        }
     }
 
     private func route(for kind: NotificationKind) -> NotificationRoute {
@@ -355,7 +385,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         content.title = title ?? NSLocalizedString(titleKey ?? "", bundle: .module, comment: "")
         content.body  = body  ?? NSLocalizedString(bodyKey  ?? "", bundle: .module, comment: "")
         content.sound = sound
-        content.userInfo = ["route": route.rawValue]
+        content.userInfo = ["route": route.rawValue, "kindId": kindId]
 
         let calendar = Calendar.current
         var next = Date().addingTimeInterval(TimeInterval(intervalMinutes * 60))

@@ -79,13 +79,6 @@ struct TodayView: View {
     // Ordem das categorias — sincronizada com TrackingGoalsSettingsView.
     @State private var orderedCategories: [GoalCategory] = GoalCategoryOrderStore.defaultOrder
 
-    // Histórico de notificações — sheet acionada pelo sino do hero block.
-    @State private var showNotificationHistory: Bool = false
-
-    // Navegação de abas — compartilhado via AppStorage pra o botão de data conseguir trocar pra Conquistas.
-    @AppStorage(UserProfile.selectedTabKey) private var selectedTab: Int = 0
-    @AppStorage(UserProfile.achievementsSelectedDateKey) private var achievementsDateTimestamp: Double = Date().timeIntervalSince1970
-    @AppStorage(UserProfile.achievementsFilterModeKey) private var achievementsFilterMode: String = "day"
 
     // MARK: - Constantes de layout
 
@@ -478,11 +471,6 @@ struct TodayView: View {
             dailyAchievement: dailyAchievement,
             dailyProgress: dailyProgress,
             selectedTheme: selectedTheme,
-            onDateTap: {
-                achievementsDateTimestamp = Date().timeIntervalSince1970
-                achievementsFilterMode = "day"
-                selectedTab = MainView.Tab.achievements
-            },
             verticalLayout: vertical
         )
     }

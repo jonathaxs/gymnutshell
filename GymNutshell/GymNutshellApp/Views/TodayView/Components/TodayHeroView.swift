@@ -17,7 +17,6 @@ struct TodayHeroView: View {
     let dailyAchievement: DailyAchievement
     let dailyProgress: Double
     let selectedTheme: AppTheme
-    let onDateTap: () -> Void
     /// Quando true, conquista e progresso ficam empilhados verticalmente em vez de lado a lado.
     /// Usado apenas no iPad, onde sobra altura suficiente pra esse formato.
     var verticalLayout: Bool = false
@@ -29,9 +28,10 @@ struct TodayHeroView: View {
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
-    // Sheets de informação do tier e do anel de progresso.
+    // Sheets de informação do tier, do anel de progresso e do histórico de notificações.
     @State private var showTierSheet = false
     @State private var showRingSheet = false
+    @State private var showNotificationHistory = false
 
     // Percentual inteiro (0-100) calculado a partir do progresso normalizado.
     private var dailyPercentage: Int {
@@ -74,21 +74,21 @@ struct TodayHeroView: View {
     var body: some View {
         VStack(spacing: 12) {
 
-            // Botão da data — navega pra Achievements em modo calendário com hoje selecionado.
+            // Botão da data — abre o histórico de notificações.
             Button {
-                onDateTap()
+                showNotificationHistory = true
             } label: {
                 Text(formattedDate)
                     .font(.title3.weight(.semibold))
+                    .foregroundStyle(Color.primary)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
                     .padding(.horizontal, 14)
-                    .background {
-                        RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .fill(Color(.secondarySystemGroupedBackground))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(accentColor.opacity(0.33), lineWidth: 1.5)
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
             }
             .buttonStyle(.plain)
             .frame(maxWidth: 330)
@@ -148,6 +148,9 @@ struct TodayHeroView: View {
             NavigationStack {
                 ProgressRingInfoView(isSheet: true, currentPercent: dailyPercentage)
             }
+        }
+        .sheet(isPresented: $showNotificationHistory) {
+            NotificationHistorySheet()
         }
     }
 }

@@ -335,14 +335,14 @@
 "settings.about.link" = "Gym Nutshell";
 "settings.profile.edit" = "Profile";
 "settings.section.physicaldata" = "Profile";
-"settings.fitness.goal.edit" = "Goal";
-"settings.goals.edit" = "Goals";
+"settings.fitness.goal.edit" = "Fitness Goal";
+"settings.goals.edit" = "Daily Goals";
 "settings.preference.appleHealth" = "Apple Health";
 "settings.preference.appleHealth.syncSleep" = "Record Sleep";
 "settings.preference.appleHealth.autoWorkoutCheckin" = "Workout Detection";
 "settings.preference.appleHealth.footer" = "Sync Sleep records your sleep hours in Apple Health if there are no records there for the day.\n\nWorkout Detection detects a completed workout and automatically records it in Strength Training or Cardio.";
 "settings.preference.language" = "Language";
-"settings.preference.measurementSystem" = "Measurement system";
+"settings.preference.measurementSystem" = "Measurements";
 "settings.preference.measurementSystem.metric" = "Metric (kg, cm)";
 "settings.preference.measurementSystem.metric.short" = "Metric";
 "settings.preference.measurementSystem.us" = "US (lbs, ft, fl oz)";
@@ -653,7 +653,7 @@
 
 
 /* TierInfoView.swift / ProgressRingInfoView.swift — links in Settings > About */
-"settings.about.achievement"  = "Day's Achievement";
+"settings.about.achievement"  = "Achievement";
 "settings.about.progressRing" = "Progress Ring";
 "settings.about.streakBonus"  = "Streak Bonuses";
 

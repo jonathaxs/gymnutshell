@@ -39,6 +39,11 @@ struct SettingsView: View {
                 // Seção Editar — dados físicos, metas e gerenciamento de tema.
                 Section(header: Text(String(localized: "settings.section.edit", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
                     NavigationLink {
+                        TrackingGoalsSettingsView()
+                    } label: {
+                        Label(String(localized: "settings.goals.edit", bundle: .gymNutshellCore), systemImage: "target")
+                    }
+                    NavigationLink {
                         PhysicalDataSettingsView()
                     } label: {
                         Label(String(localized: "settings.section.physicaldata", bundle: .gymNutshellCore), systemImage: "person.circle")
@@ -48,22 +53,17 @@ struct SettingsView: View {
                     } label: {
                         Label(String(localized: "settings.fitness.goal.edit", bundle: .gymNutshellCore), systemImage: "flame")
                     }
+                    // Cores — cor de destaque independente do sexo.
                     NavigationLink {
-                        TrackingGoalsSettingsView()
+                        ColorSettingsView()
                     } label: {
-                        Label(String(localized: "settings.goals.edit", bundle: .gymNutshellCore), systemImage: "target")
+                        Label(String(localized: "settings.color.title", bundle: .gymNutshellCore), systemImage: "paintpalette")
                     }
                     // Tema — controla os emojis de mascote e nomes de nível em todo o app.
                     NavigationLink {
                         ThemeSettingsView()
                     } label: {
                         Label(String(localized: "settings.theme.title", bundle: .gymNutshellCore), systemImage: "theatermasks")
-                    }
-                    // Cores — cor de destaque independente do sexo.
-                    NavigationLink {
-                        ColorSettingsView()
-                    } label: {
-                        Label(String(localized: "settings.color.title", bundle: .gymNutshellCore), systemImage: "paintpalette")
                     }
                 }
 

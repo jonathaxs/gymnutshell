@@ -10,13 +10,22 @@
 // ⌘
 
 import SwiftUI
+import UserNotifications
 import GymNutshellCore
 
 /// Lista agrupada por dia das notificações de evento disparadas nos últimos 3 dias.
 struct NotificationHistorySheet: View {
 
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     @Bindable private var store = NotificationHistoryStore.shared
+
+    @State private var authStatus: UNAuthorizationStatus = .notDetermined
+    @State private var showDeniedAlert = false
+
+    private var isAuthorized: Bool {
+        authStatus == .authorized || authStatus == .provisional
+    }
 
     private var grouped: [(date: Date, items: [NotificationHistoryEntry])] {
         let calendar = Calendar.current
@@ -35,6 +44,9 @@ struct NotificationHistorySheet: View {
                     emptyState
                 } else {
                     List {
+                        if !isAuthorized {
+                            authorizeSection
+                        }
                         ForEach(grouped, id: \.date) { group in
                             Section(header: Text(dayTitle(for: group.date))) {
                                 ForEach(group.items) { entry in
@@ -65,6 +77,28 @@ struct NotificationHistorySheet: View {
                     Button(String(localized: "notifications.history.back", bundle: .gymNutshellCore)) { dismiss() }
                 }
             }
+            .task {
+                authStatus = await NotificationManager.shared.authorizationStatus()
+            }
+            .alert(String(localized: "settings.notifications.denied.title", bundle: .gymNutshellCore), isPresented: $showDeniedAlert) {
+                Button(String(localized: "common.cancel", bundle: .gymNutshellCore), role: .cancel) {}
+                Button(String(localized: "settings.notifications.denied.open", bundle: .gymNutshellCore)) {
+                    if let url = NotificationManager.systemSettingsURL { openURL(url) }
+                }
+            } message: {
+                Text(String(localized: "settings.notifications.denied.message", bundle: .gymNutshellCore))
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var authorizeSection: some View {
+        Section {
+            Button(String(localized: "settings.notifications.authorize.button", bundle: .gymNutshellCore)) {
+                requestAuthorization()
+            }
+        } footer: {
+            Text(String(localized: "settings.notifications.authorize.footer", bundle: .gymNutshellCore))
         }
     }
 
@@ -81,9 +115,32 @@ struct NotificationHistorySheet: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+            if !isAuthorized {
+                Button(String(localized: "settings.notifications.authorize.button", bundle: .gymNutshellCore)) {
+                    requestAuthorization()
+                }
+                .buttonStyle(.borderedProminent)
+                .padding(.top, 4)
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+
+    private func requestAuthorization() {
+        Task {
+            let granted = await NotificationManager.shared.requestAuthorization()
+            let status = await NotificationManager.shared.authorizationStatus()
+            await MainActor.run {
+                authStatus = status
+                if granted {
+                    NotificationManager.shared.applyDefaultEnabledKinds()
+                    NotificationManager.shared.rescheduleAllActive()
+                } else if status == .denied {
+                    showDeniedAlert = true
+                }
+            }
+        }
     }
 
     @ViewBuilder

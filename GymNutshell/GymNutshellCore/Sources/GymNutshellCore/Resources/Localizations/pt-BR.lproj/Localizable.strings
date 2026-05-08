@@ -377,7 +377,7 @@
 "settings.preference.appleHealth.autoWorkoutCheckin" = "Detecção de Exercícios";
 "settings.preference.appleHealth.footer" = "Sincronizar Sono registra suas horas de sono no Apple Saúde, caso não tenha nenhum registro lá no dia.\n\nDetecção de Exercícios detecta um Exercício concluído e registra em Musculação ou Cardio automaticamente.";
 "settings.preference.language" = "Idioma";
-"settings.preference.measurementSystem" = "Sistema de medidas";
+"settings.preference.measurementSystem" = "Medidas";
 "settings.preference.measurementSystem.metric" = "Métrico (kg, cm)";
 "settings.preference.measurementSystem.metric.short" = "Métrico";
 "settings.preference.measurementSystem.us" = "EUA (lbs, pés, fl oz)";

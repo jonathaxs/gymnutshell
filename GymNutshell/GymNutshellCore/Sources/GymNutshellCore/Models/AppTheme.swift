@@ -11,22 +11,31 @@ import Foundation
 // MARK: - AppTheme
 
 public enum AppTheme: String, CaseIterable, Sendable {
+    // Sport
     case gym
+    case running
+    // Animals
     case cat
     case dog
     case bear
-    case bird
-    case ocean
+    case dino
     case dragon
     case horse
+    case ocean
     case monkey
-    case fire
-    case plant
-    case champion
-    case number
+    case bird
+    // Hero (warrior)
+    case doctor
     case ninja
+    // Elements
+    case plant
+    case fire
+    // Space
     case astronaut
     case celestial
+    // Competition
+    case champion
+    case number
 
     public static let storageKey = "app.theme"
 
@@ -35,10 +44,10 @@ public enum AppTheme: String, CaseIterable, Sendable {
     public enum ThemeCategory: CaseIterable, Sendable {
         case sport
         case animals
-        case competition
-        case elements
-        case space
         case warrior
+        case space
+        case elements
+        case competition
 
         public var localizedName: String {
             switch self {
@@ -60,12 +69,12 @@ public enum AppTheme: String, CaseIterable, Sendable {
 
     public var category: ThemeCategory {
         switch self {
-        case .gym: return .sport
-        case .cat, .dog, .bear, .bird, .ocean, .dragon, .horse, .monkey: return .animals
+        case .gym, .running: return .sport
+        case .cat, .dog, .bear, .dino, .dragon, .horse, .ocean, .monkey, .bird: return .animals
+        case .doctor, .ninja: return .warrior
         case .fire, .plant: return .elements
-        case .champion, .number: return .competition
-        case .ninja: return .warrior
         case .astronaut, .celestial: return .space
+        case .champion, .number: return .competition
         }
     }
 
@@ -80,9 +89,16 @@ public enum AppTheme: String, CaseIterable, Sendable {
         case .gym:
             switch tier {
             case .level1: return "🐓"
-            case .level2: return "💪"
+            case .level2: return "🏋️‍♂️"
             case .level3: return "🐀"
-            case .level4: return "🏋️‍♂️"
+            case .level4: return "💪"
+            }
+        case .running:
+            switch tier {
+            case .level1: return "🚶‍♂️"
+            case .level2: return "👟"
+            case .level3: return "🏃‍♂️"
+            case .level4: return "🏅"
             }
         case .cat:
             switch tier {
@@ -105,19 +121,12 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level3: return "🐻‍❄️"
             case .level4: return "🦬"
             }
-        case .bird:
+        case .dino:
             switch tier {
-            case .level1: return "🐣"
-            case .level2: return "🐦"
-            case .level3: return "🦅"
-            case .level4: return "🦉"
-            }
-        case .ocean:
-            switch tier {
-            case .level1: return "🐟"
-            case .level2: return "🐬"
-            case .level3: return "🦈"
-            case .level4: return "🐋"
+            case .level1: return "🐢"
+            case .level2: return "🐊"
+            case .level3: return "🦖"
+            case .level4: return "🦕"
             }
         case .dragon:
             switch tier {
@@ -129,9 +138,16 @@ public enum AppTheme: String, CaseIterable, Sendable {
         case .horse:
             switch tier {
             case .level1: return "🐴"
-            case .level2: return "🏇"
-            case .level3: return "🦄"
+            case .level2: return "🦄"
+            case .level3: return "🏇"
             case .level4: return "🎠"
+            }
+        case .ocean:
+            switch tier {
+            case .level1: return "🐟"
+            case .level2: return "🐬"
+            case .level3: return "🪼"
+            case .level4: return "🐋"
             }
         case .monkey:
             switch tier {
@@ -139,6 +155,27 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level2: return "🐵"
             case .level3: return "🦍"
             case .level4: return "🦧"
+            }
+        case .bird:
+            switch tier {
+            case .level1: return "🐣"
+            case .level2: return "🐦"
+            case .level3: return "🦅"
+            case .level4: return "🦉"
+            }
+        case .doctor:
+            switch tier {
+            case .level1: return "🥼"
+            case .level2: return "💉"
+            case .level3: return "⚕️"
+            case .level4: return "👨‍⚕️"
+            }
+        case .ninja:
+            switch tier {
+            case .level1: return "🥋"
+            case .level2: return "⚔️"
+            case .level3: return "🥷"
+            case .level4: return "🦸"
             }
         case .fire:
             switch tier {
@@ -154,6 +191,20 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level3: return "🌳"
             case .level4: return "🎄"
             }
+        case .astronaut:
+            switch tier {
+            case .level1: return "🛰️"
+            case .level2: return "🧑‍🚀"
+            case .level3: return "🚀"
+            case .level4: return "🛸"
+            }
+        case .celestial:
+            switch tier {
+            case .level1: return "☄️"
+            case .level2: return "🌔"
+            case .level3: return "🌎"
+            case .level4: return "🪐"
+            }
         case .champion:
             switch tier {
             case .level1: return "🥉"
@@ -167,27 +218,6 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level2: return "2️⃣"
             case .level3: return "3️⃣"
             case .level4: return "4️⃣"
-            }
-        case .ninja:
-            switch tier {
-            case .level1: return "🥋"
-            case .level2: return "⚔️"
-            case .level3: return "🥷"
-            case .level4: return "🦸"
-            }
-        case .astronaut:
-            switch tier {
-            case .level1: return "🧑‍🚀"
-            case .level2: return "🛰️"
-            case .level3: return "🚀"
-            case .level4: return "🛸"
-            }
-        case .celestial:
-            switch tier {
-            case .level1: return "☄️"
-            case .level2: return "🌔"
-            case .level3: return "🪐"
-            case .level4: return "🌎"
             }
         }
     }
@@ -203,6 +233,13 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level2: key = "daily.achievement.gym.level2"
             case .level3: key = "daily.achievement.gym.level3"
             case .level4: key = "daily.achievement.gym.level4"
+            }
+        case .running:
+            switch tier {
+            case .level1: key = "daily.achievement.running.level1"
+            case .level2: key = "daily.achievement.running.level2"
+            case .level3: key = "daily.achievement.running.level3"
+            case .level4: key = "daily.achievement.running.level4"
             }
         case .cat:
             switch tier {
@@ -225,19 +262,12 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level3: key = "daily.achievement.bear.level3"
             case .level4: key = "daily.achievement.bear.level4"
             }
-        case .bird:
+        case .dino:
             switch tier {
-            case .level1: key = "daily.achievement.bird.level1"
-            case .level2: key = "daily.achievement.bird.level2"
-            case .level3: key = "daily.achievement.bird.level3"
-            case .level4: key = "daily.achievement.bird.level4"
-            }
-        case .ocean:
-            switch tier {
-            case .level1: key = "daily.achievement.ocean.level1"
-            case .level2: key = "daily.achievement.ocean.level2"
-            case .level3: key = "daily.achievement.ocean.level3"
-            case .level4: key = "daily.achievement.ocean.level4"
+            case .level1: key = "daily.achievement.dino.level1"
+            case .level2: key = "daily.achievement.dino.level2"
+            case .level3: key = "daily.achievement.dino.level3"
+            case .level4: key = "daily.achievement.dino.level4"
             }
         case .dragon:
             switch tier {
@@ -253,12 +283,40 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level3: key = "daily.achievement.horse.level3"
             case .level4: key = "daily.achievement.horse.level4"
             }
+        case .ocean:
+            switch tier {
+            case .level1: key = "daily.achievement.ocean.level1"
+            case .level2: key = "daily.achievement.ocean.level2"
+            case .level3: key = "daily.achievement.ocean.level3"
+            case .level4: key = "daily.achievement.ocean.level4"
+            }
         case .monkey:
             switch tier {
             case .level1: key = "daily.achievement.monkey.level1"
             case .level2: key = "daily.achievement.monkey.level2"
             case .level3: key = "daily.achievement.monkey.level3"
             case .level4: key = "daily.achievement.monkey.level4"
+            }
+        case .bird:
+            switch tier {
+            case .level1: key = "daily.achievement.bird.level1"
+            case .level2: key = "daily.achievement.bird.level2"
+            case .level3: key = "daily.achievement.bird.level3"
+            case .level4: key = "daily.achievement.bird.level4"
+            }
+        case .doctor:
+            switch tier {
+            case .level1: key = "daily.achievement.doctor.level1"
+            case .level2: key = "daily.achievement.doctor.level2"
+            case .level3: key = "daily.achievement.doctor.level3"
+            case .level4: key = "daily.achievement.doctor.level4"
+            }
+        case .ninja:
+            switch tier {
+            case .level1: key = "daily.achievement.ninja.level1"
+            case .level2: key = "daily.achievement.ninja.level2"
+            case .level3: key = "daily.achievement.ninja.level3"
+            case .level4: key = "daily.achievement.ninja.level4"
             }
         case .fire:
             switch tier {
@@ -274,27 +332,6 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level3: key = "daily.achievement.plant.level3"
             case .level4: key = "daily.achievement.plant.level4"
             }
-        case .champion:
-            switch tier {
-            case .level1: key = "daily.achievement.champion.level1"
-            case .level2: key = "daily.achievement.champion.level2"
-            case .level3: key = "daily.achievement.champion.level3"
-            case .level4: key = "daily.achievement.champion.level4"
-            }
-        case .number:
-            switch tier {
-            case .level1: key = "daily.achievement.number.level1"
-            case .level2: key = "daily.achievement.number.level2"
-            case .level3: key = "daily.achievement.number.level3"
-            case .level4: key = "daily.achievement.number.level4"
-            }
-        case .ninja:
-            switch tier {
-            case .level1: key = "daily.achievement.ninja.level1"
-            case .level2: key = "daily.achievement.ninja.level2"
-            case .level3: key = "daily.achievement.ninja.level3"
-            case .level4: key = "daily.achievement.ninja.level4"
-            }
         case .astronaut:
             switch tier {
             case .level1: key = "daily.achievement.astronaut.level1"
@@ -308,6 +345,20 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level2: key = "daily.achievement.celestial.level2"
             case .level3: key = "daily.achievement.celestial.level3"
             case .level4: key = "daily.achievement.celestial.level4"
+            }
+        case .champion:
+            switch tier {
+            case .level1: key = "daily.achievement.champion.level1"
+            case .level2: key = "daily.achievement.champion.level2"
+            case .level3: key = "daily.achievement.champion.level3"
+            case .level4: key = "daily.achievement.champion.level4"
+            }
+        case .number:
+            switch tier {
+            case .level1: key = "daily.achievement.number.level1"
+            case .level2: key = "daily.achievement.number.level2"
+            case .level3: key = "daily.achievement.number.level3"
+            case .level4: key = "daily.achievement.number.level4"
             }
         }
         return String(localized: String.LocalizationValue(key), bundle: .module)
@@ -331,13 +382,17 @@ public enum AppTheme: String, CaseIterable, Sendable {
             let baseName = name(for: tier)
             let themePrefix: String
             switch self {
-            case .gym:       themePrefix = "daily.achievement.gym"
-            case .bear:      themePrefix = "daily.achievement.bear"
-            case .horse:     themePrefix = "daily.achievement.horse"
-            case .dog:       themePrefix = "daily.achievement.dog"
-            case .dragon:    themePrefix = "daily.achievement.dragon"
-            case .ninja:     themePrefix = "daily.achievement.ninja"
-            default:         return baseName
+            case .gym:     themePrefix = "daily.achievement.gym"
+            case .running: themePrefix = "daily.achievement.running"
+            case .bear:    themePrefix = "daily.achievement.bear"
+            case .horse:   themePrefix = "daily.achievement.horse"
+            case .dog:     themePrefix = "daily.achievement.dog"
+            case .dragon:  themePrefix = "daily.achievement.dragon"
+            case .dino:    themePrefix = "daily.achievement.dino"
+            case .doctor:  themePrefix = "daily.achievement.doctor"
+            case .ninja:   themePrefix = "daily.achievement.ninja"
+            case .fire:    themePrefix = "daily.achievement.fire"
+            default:       return baseName
             }
             let tierSuffix: String
             switch tier {
@@ -368,6 +423,7 @@ public enum AppTheme: String, CaseIterable, Sendable {
         case .dog:    femKey = "app.theme.dog.fem"
         case .dragon: femKey = "app.theme.dragon.fem"
         case .ninja:  femKey = "app.theme.ninja.fem"
+        case .doctor: femKey = "app.theme.doctor.fem"
         default:      return displayName
         }
         let femValue = NSLocalizedString(femKey, bundle: .module, comment: "")
@@ -377,22 +433,25 @@ public enum AppTheme: String, CaseIterable, Sendable {
     public var displayName: String {
         let key: String
         switch self {
-        case .gym:    key = "app.theme.gym"
-        case .cat:    key = "app.theme.cat"
-        case .dog:    key = "app.theme.dog"
-        case .bear:   key = "app.theme.bear"
-        case .bird:   key = "app.theme.bird"
-        case .ocean:  key = "app.theme.ocean"
-        case .dragon: key = "app.theme.dragon"
-        case .horse:  key = "app.theme.horse"
+        case .gym:       key = "app.theme.gym"
+        case .running:   key = "app.theme.running"
+        case .cat:       key = "app.theme.cat"
+        case .dog:       key = "app.theme.dog"
+        case .bear:      key = "app.theme.bear"
+        case .dino:      key = "app.theme.dino"
+        case .dragon:    key = "app.theme.dragon"
+        case .horse:     key = "app.theme.horse"
+        case .ocean:     key = "app.theme.ocean"
         case .monkey:    key = "app.theme.monkey"
+        case .bird:      key = "app.theme.bird"
+        case .doctor:    key = "app.theme.doctor"
+        case .ninja:     key = "app.theme.ninja"
         case .fire:      key = "app.theme.fire"
         case .plant:     key = "app.theme.plant"
+        case .astronaut: key = "app.theme.astronaut"
+        case .celestial: key = "app.theme.celestial"
         case .champion:  key = "app.theme.champion"
         case .number:    key = "app.theme.number"
-        case .ninja:      key = "app.theme.ninja"
-        case .astronaut:  key = "app.theme.astronaut"
-        case .celestial:  key = "app.theme.celestial"
         }
         return String(localized: String.LocalizationValue(key), bundle: .module)
     }
@@ -402,10 +461,23 @@ public enum AppTheme: String, CaseIterable, Sendable {
     }
 
     public func emoji(for tier: DailyAchievement, sex: String) -> String {
-        if self == .gym, sex != "male" {
-            switch tier {
-            case .level1: return "🐔"
-            case .level3: return "🐁"
+        if sex != "male" {
+            switch self {
+            case .gym:
+                switch tier {
+                case .level1: return "🐔"
+                case .level2: return "🏋️‍♀️"
+                case .level3: return "🐁"
+                case .level4: return "🍑"
+                }
+            case .running:
+                switch tier {
+                case .level1: return "🚶‍♀️"
+                case .level3: return "🏃‍♀️"
+                default: break
+                }
+            case .doctor:
+                if tier == .level4 { return "👩‍⚕️" }
             default: break
             }
         }

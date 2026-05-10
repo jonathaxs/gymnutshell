@@ -15,7 +15,7 @@
 "daily.achievement.level1" = "Little Cat";
 "daily.achievement.level2" = "Fitness Cat";
 "daily.achievement.level3" = "Big Cat";
-"daily.achievement.level4" = "Lion";
+"daily.achievement.level4" = "Leader Cat";
 
 /* AppTheme.swift — Dog theme tier names */
 "daily.achievement.dog.level1" = "Little Dog";
@@ -29,6 +29,12 @@
 "daily.achievement.bear.level3" = "Polar Bear";
 "daily.achievement.bear.level4" = "Mighty Bison";
 
+/* AppTheme.swift — Dino theme tier names */
+"daily.achievement.dino.level1" = "Baby Turtle";
+"daily.achievement.dino.level2" = "Crocodile";
+"daily.achievement.dino.level3" = "T-Rex";
+"daily.achievement.dino.level4" = "Big Dino";
+
 /* AppTheme.swift — Bird theme tier names */
 "daily.achievement.bird.level1" = "Little Chick";
 "daily.achievement.bird.level2" = "Bluebird";
@@ -38,7 +44,7 @@
 /* AppTheme.swift — Ocean theme tier names */
 "daily.achievement.ocean.level1" = "Little Fish";
 "daily.achievement.ocean.level2" = "Dolphin";
-"daily.achievement.ocean.level3" = "Shark";
+"daily.achievement.ocean.level3" = "Jellyfish";
 "daily.achievement.ocean.level4" = "Blue Whale";
 
 /* AppTheme.swift — Dragon theme tier names */
@@ -49,20 +55,21 @@
 
 /* AppTheme.swift — Horse theme tier names */
 "daily.achievement.horse.level1" = "Colt";
-"daily.achievement.horse.level2" = "Jockey";
-"daily.achievement.horse.level3" = "Unicorn";
+"daily.achievement.horse.level2" = "Unicorn";
+"daily.achievement.horse.level3" = "Jockey";
 "daily.achievement.horse.level4" = "Carousel Champion";
 
 /* AppTheme.swift — Primate theme tier names (enum case is still `.monkey` for compatibility) */
 "daily.achievement.monkey.level1" = "Little Primate";
 "daily.achievement.monkey.level2" = "Banana Primate";
 "daily.achievement.monkey.level3" = "Donkey Primate";
-"daily.achievement.monkey.level4" = "Strong Primate";
+"daily.achievement.monkey.level4" = "Ancient Primate";
 
 /* AppTheme.swift — Theme display names */
 "app.theme.cat" = "Cat";
 "app.theme.dog" = "Dog";
 "app.theme.bear" = "Bear";
+"app.theme.dino" = "Dino";
 "app.theme.bird" = "Bird";
 "app.theme.ocean" = "Fish";
 "app.theme.dragon" = "Dragon";
@@ -129,10 +136,10 @@
 "statistics.section.activity" = "Gym Activity";
 "statistics.section.goals" = "Goals";
 "statistics.tier.days" = "%d days";
-"statistics.bonus.weekly.level3" = "Fitness Week ✍️";
-"statistics.bonus.weekly.level4" = "Muscular Week 🪽";
-"statistics.bonus.monthly.level3" = "Fitness Month 🦾";
-"statistics.bonus.monthly.level4" = "Muscular Month ☠️";
+"statistics.bonus.weekly.level3" = "🎖️ Fitness Week";
+"statistics.bonus.weekly.level4" = "💀 Muscular Week";
+"statistics.bonus.monthly.level3" = "🏆 Fitness Month";
+"statistics.bonus.monthly.level4" = "☠️ Muscular Month";
 "statistics.bonus.times" = "%d times";
 "statistics.activity.workout" = "Workout Days";
 "statistics.activity.cardio" = "Cardio Days";
@@ -589,23 +596,28 @@
 "app.theme.category.animals" = "Animals";
 "app.theme.category.elements" = "Elements & Nature";
 "app.theme.category.competition" = "Progress";
-"app.theme.category.warrior" = "Fighter";
+"app.theme.category.warrior" = "Hero";
 "app.theme.category.space" = "Space";
 
 /* AppTheme — Gym */
 "app.theme.gym" = "Gym";
+"app.theme.running" = "Running";
+"daily.achievement.running.level1" = "Walker";
+"daily.achievement.running.level2" = "On pace";
+"daily.achievement.running.level3" = "Runner";
+"daily.achievement.running.level4" = "Marathoner";
 "daily.achievement.gym.level1" = "Rooster";
 "daily.achievement.gym.level1.fem" = "Hen";
 "daily.achievement.gym.level2" = "Strongling";
 "daily.achievement.gym.level3" = "Gym Rat";
-"daily.achievement.gym.level4" = "Athlete";
+"daily.achievement.gym.level4" = "Muscly";
 
 /* AppTheme — Fire */
 "app.theme.fire" = "Fire";
 "daily.achievement.fire.level1" = "Candle";
 "daily.achievement.fire.level2" = "Flame";
 "daily.achievement.fire.level3" = "Volcano";
-"daily.achievement.fire.level4" = "Sun";
+"daily.achievement.fire.level4" = "Solar";
 
 /* AppTheme — Plant */
 "app.theme.plant" = "Forest";
@@ -628,17 +640,24 @@
 "daily.achievement.number.level3" = "Three";
 "daily.achievement.number.level4" = "Four";
 
-/* AppTheme — Ninja (Warrior) */
-"app.theme.ninja" = "Warrior";
+/* AppTheme — Doctor */
+"app.theme.doctor" = "Doctor";
+"daily.achievement.doctor.level1" = "Apprentice";
+"daily.achievement.doctor.level2" = "Beginner";
+"daily.achievement.doctor.level3" = "Graduate";
+"daily.achievement.doctor.level4" = "Doctor Who";
+
+/* AppTheme — Ninja (Fighter) */
+"app.theme.ninja" = "Fighter";
 "daily.achievement.ninja.level1" = "Trainee";
 "daily.achievement.ninja.level2" = "Swordsman";
 "daily.achievement.ninja.level3" = "Ninja";
-"daily.achievement.ninja.level4" = "Hero";
+"daily.achievement.ninja.level4" = "Super";
 
-/* AppTheme — Astronaut */
-"app.theme.astronaut" = "Astronaut";
-"daily.achievement.astronaut.level1" = "Astronaut";
-"daily.achievement.astronaut.level2" = "Satellite";
+/* AppTheme — Astronaut (Exploration) */
+"app.theme.astronaut" = "Exploration";
+"daily.achievement.astronaut.level1" = "Satellite";
+"daily.achievement.astronaut.level2" = "Astronaut";
 "daily.achievement.astronaut.level3" = "Space rocket";
 "daily.achievement.astronaut.level4" = "Flying Saucer";
 
@@ -646,8 +665,8 @@
 "app.theme.celestial" = "Celestial Bodies";
 "daily.achievement.celestial.level1" = "Comet";
 "daily.achievement.celestial.level2" = "Moon";
-"daily.achievement.celestial.level3" = "Saturn";
-"daily.achievement.celestial.level4" = "Earth";
+"daily.achievement.celestial.level3" = "Earth";
+"daily.achievement.celestial.level4" = "Saturn";
 
 
 /* AppAccentColor.swift — Color names */

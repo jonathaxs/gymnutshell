@@ -85,16 +85,16 @@
 "daily.achievement.horse.level4" = "Cavaludo";
 
 /* AppTheme.swift — Horse theme tier names — feminino */
-"daily.achievement.horse.level1.fem" = "Éguinha";
+"daily.achievement.horse.level1.fem" = "Éguinha pocotó";
 "daily.achievement.horse.level2.fem" = "Unicórnia";
 "daily.achievement.horse.level3.fem" = "Cavala Fitness";
 "daily.achievement.horse.level4.fem" = "Cavaluda";
 
 /* AppTheme.swift — Primata theme tier names (enum case ainda é `.monkey` por compatibilidade) */
-"daily.achievement.monkey.level1" = "Primatinha";
-"daily.achievement.monkey.level2" = "Primata Banana";
+"daily.achievement.monkey.level1" = "Primata Filhote";
+"daily.achievement.monkey.level2" = "Primata Bananinha";
 "daily.achievement.monkey.level3" = "Primata Fitness";
-"daily.achievement.monkey.level4" = "Primata Líder";
+"daily.achievement.monkey.level4" = "Primata Mestre";
 
 /* AppTheme.swift — Theme display names (fem = feminino para PT-BR) */
 "app.theme.cat" = "Gato";

@@ -63,7 +63,7 @@
 "daily.achievement.monkey.level1" = "Little Primate";
 "daily.achievement.monkey.level2" = "Banana Primate";
 "daily.achievement.monkey.level3" = "Donkey Primate";
-"daily.achievement.monkey.level4" = "Ancient Primate";
+"daily.achievement.monkey.level4" = "Master Primate";
 
 /* AppTheme.swift — Theme display names */
 "app.theme.cat" = "Cat";

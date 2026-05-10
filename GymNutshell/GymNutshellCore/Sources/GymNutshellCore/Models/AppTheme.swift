@@ -17,10 +17,10 @@ public enum AppTheme: String, CaseIterable, Sendable {
     // Animals
     case cat
     case dog
-    case bear
-    case dino
-    case dragon
     case horse
+    case bear
+    case dragon
+    case dino
     case ocean
     case monkey
     case bird

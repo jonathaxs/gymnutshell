@@ -589,7 +589,7 @@
 "app.theme.category.animals" = "Animals";
 "app.theme.category.elements" = "Elements & Nature";
 "app.theme.category.competition" = "Progress";
-"app.theme.category.warrior" = "Warrior";
+"app.theme.category.warrior" = "Fighter";
 "app.theme.category.space" = "Space";
 
 /* AppTheme — Gym */
@@ -619,14 +619,21 @@
 "daily.achievement.champion.level1" = "Bronze";
 "daily.achievement.champion.level2" = "Silver";
 "daily.achievement.champion.level3" = "Gold";
-"daily.achievement.champion.level4" = "Athlete";
+"daily.achievement.champion.level4" = "Diamond";
 
-/* AppTheme — Ninja */
-"app.theme.ninja" = "Ninja";
+/* AppTheme — Number */
+"app.theme.number" = "Numbers";
+"daily.achievement.number.level1" = "One";
+"daily.achievement.number.level2" = "Two";
+"daily.achievement.number.level3" = "Three";
+"daily.achievement.number.level4" = "Four";
+
+/* AppTheme — Ninja (Warrior) */
+"app.theme.ninja" = "Warrior";
 "daily.achievement.ninja.level1" = "Trainee";
-"daily.achievement.ninja.level2" = "Ninja";
-"daily.achievement.ninja.level3" = "Warrior";
-"daily.achievement.ninja.level4" = "Master";
+"daily.achievement.ninja.level2" = "Swordsman";
+"daily.achievement.ninja.level3" = "Ninja";
+"daily.achievement.ninja.level4" = "Hero";
 
 /* AppTheme — Astronaut */
 "app.theme.astronaut" = "Astronaut";
@@ -634,6 +641,13 @@
 "daily.achievement.astronaut.level2" = "Satellite";
 "daily.achievement.astronaut.level3" = "Space rocket";
 "daily.achievement.astronaut.level4" = "Flying Saucer";
+
+/* AppTheme — Celestial */
+"app.theme.celestial" = "Celestial Bodies";
+"daily.achievement.celestial.level1" = "Comet";
+"daily.achievement.celestial.level2" = "Moon";
+"daily.achievement.celestial.level3" = "Saturn";
+"daily.achievement.celestial.level4" = "Earth";
 
 
 /* AppAccentColor.swift — Color names */

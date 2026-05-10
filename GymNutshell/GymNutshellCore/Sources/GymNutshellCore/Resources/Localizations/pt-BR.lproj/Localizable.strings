@@ -625,8 +625,8 @@
 "app.theme.category.animals" = "Animais";
 "app.theme.category.elements" = "Elementos & Natureza";
 "app.theme.category.competition" = "Progresso";
-"app.theme.category.warrior" = "Guerreiro";
-"app.theme.category.warrior.fem" = "Guerreira";
+"app.theme.category.warrior" = "Lutador";
+"app.theme.category.warrior.fem" = "Lutadora";
 "app.theme.category.space" = "Espaço";
 
 /* AppTheme — Gym (Academia) */
@@ -642,10 +642,10 @@
 
 /* AppTheme — Fire */
 "app.theme.fire" = "Fogo";
-"daily.achievement.fire.level1" = "Vela";
-"daily.achievement.fire.level2" = "Chama";
+"daily.achievement.fire.level1" = "Velinha";
+"daily.achievement.fire.level2" = "Chama Viva";
 "daily.achievement.fire.level3" = "Vulcão";
-"daily.achievement.fire.level4" = "Sol";
+"daily.achievement.fire.level4" = "Solzão";
 
 /* AppTheme — Plant */
 "app.theme.plant" = "Floresta";
@@ -659,14 +659,23 @@
 "daily.achievement.champion.level1" = "Bronze";
 "daily.achievement.champion.level2" = "Prata";
 "daily.achievement.champion.level3" = "Ouro";
-"daily.achievement.champion.level4" = "Atleta";
+"daily.achievement.champion.level4" = "Diamante";
 
-/* AppTheme — Ninja */
-"app.theme.ninja" = "Ninja";
+/* AppTheme — Number */
+"app.theme.number" = "Números";
+"daily.achievement.number.level1" = "Um";
+"daily.achievement.number.level2" = "Dois";
+"daily.achievement.number.level3" = "Três";
+"daily.achievement.number.level4" = "Quatro";
+
+/* AppTheme — Ninja (Guerreiro/Guerreira) */
+"app.theme.ninja" = "Guerreiro";
+"app.theme.ninja.fem" = "Guerreira";
 "daily.achievement.ninja.level1" = "Aprendiz";
-"daily.achievement.ninja.level2" = "Ninja";
-"daily.achievement.ninja.level3" = "Guerreiro";
-"daily.achievement.ninja.level4" = "Mestre";
+"daily.achievement.ninja.level2" = "Espadachim";
+"daily.achievement.ninja.level3" = "Ninja";
+"daily.achievement.ninja.level4" = "Herói";
+"daily.achievement.ninja.level4.fem" = "Heroína";
 
 /* AppTheme — Astronaut */
 "app.theme.astronaut" = "Astronauta";
@@ -674,6 +683,13 @@
 "daily.achievement.astronaut.level2" = "Satélite";
 "daily.achievement.astronaut.level3" = "Foguetão";
 "daily.achievement.astronaut.level4" = "Disco Voador";
+
+/* AppTheme — Celestial */
+"app.theme.celestial" = "Corpos Celestes";
+"daily.achievement.celestial.level1" = "Cometa";
+"daily.achievement.celestial.level2" = "Lua";
+"daily.achievement.celestial.level3" = "Saturno";
+"daily.achievement.celestial.level4" = "Terra";
 
 
 /* AppAccentColor.swift — Nomes de cores */

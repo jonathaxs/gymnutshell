@@ -69,7 +69,7 @@ struct ThemeInfoView: View {
 
                         Text(String(localized: "ring.info.level.label", bundle: .gymNutshellCore) + "\(tierLevel(for: tier))")
                             .font(.caption.weight(.semibold))
-                            .foregroundStyle(.primary)
+                            .foregroundStyle(accentColor)
                     }
                     .padding(.vertical, 2)
                 }

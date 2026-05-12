@@ -11,7 +11,6 @@ import SwiftUI
 struct GymNutshellWidgetBundle: WidgetBundle {
     var body: some Widget {
         GymNutshellWidget()
-        GymNutshellWidgetControl()
         GymNutshellWidgetLiveActivity()
     }
 }

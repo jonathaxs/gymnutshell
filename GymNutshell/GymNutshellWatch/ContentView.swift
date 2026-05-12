@@ -384,9 +384,9 @@ struct ContentView: View {
             Text(isOn ? "OFF" : "ON")
                 .font(.caption.weight(.bold))
                 .frame(maxWidth: .infinity, minHeight: 36)
-                .foregroundStyle(isOn ? Color.secondary : Color.white)
+                .foregroundStyle(isOn ? Color.secondary : accent.color)
                 .background(
-                    Capsule().fill(isOn ? Color.secondary.opacity(0.25) : accent.color)
+                    Capsule().fill(isOn ? accent.color.opacity(0.25) : Color.secondary.opacity(0.20))
                 )
         }
         .buttonStyle(.plain)

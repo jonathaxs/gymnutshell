@@ -71,6 +71,27 @@ struct GymNutshellWidgetEntryView: View {
         AppAccentColor(rawValue: entry.snapshot.accentColorRaw)?.color ?? .blue
     }
 
+    /// Pontos por tier — espelha `DailyAchievement.points`.
+    private var tierPoints: Int {
+        switch entry.snapshot.tier {
+        case 2:  return 40
+        case 3:  return 60
+        case 4:  return 90
+        default: return 0
+        }
+    }
+
+    /// Cor do anel acompanha o progresso, mesma regra do Watch e da TodayView:
+    /// <30% vermelho, <60% laranja, <100% verde, 100% azul.
+    private var ringColor: Color {
+        switch entry.snapshot.progressNormalized {
+        case ..<0.30: return .red
+        case ..<0.60: return .orange
+        case ..<1.0:  return .green
+        default:      return .blue
+        }
+    }
+
     var body: some View {
         switch family {
         case .systemMedium: mediumView
@@ -81,17 +102,25 @@ struct GymNutshellWidgetEntryView: View {
     // MARK: Small
 
     private var smallView: some View {
-        VStack(spacing: 6) {
-            ProgressRingView(
-                progress: entry.snapshot.progressNormalized,
-                emoji: entry.snapshot.tierEmoji,
-                accentColor: accent,
-                lineWidth: 10,
-                emojiSize: 30
-            )
+        VStack(spacing: 0) {
+            Text(entry.snapshot.tierName)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(accent)
+                .lineLimit(1)
+                .minimumScaleFactor(0.7)
+
+            Spacer(minLength: 10)
+
+            Text(entry.snapshot.tierEmoji)
+                .font(.system(size: 60))
+                .minimumScaleFactor(0.6)
+
+            Spacer(minLength: 10)
+
             Text("\(entry.snapshot.progressPercent)%")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(.secondary)
+                .font(.system(size: 18, weight: .bold))
+                .foregroundStyle(ringColor)
+                .minimumScaleFactor(0.7)
         }
         .padding(12)
     }
@@ -103,7 +132,7 @@ struct GymNutshellWidgetEntryView: View {
             ProgressRingView(
                 progress: entry.snapshot.progressNormalized,
                 emoji: entry.snapshot.tierEmoji,
-                accentColor: accent,
+                accentColor: ringColor,
                 lineWidth: 10,
                 emojiSize: 28
             )
@@ -113,10 +142,15 @@ struct GymNutshellWidgetEntryView: View {
                 Text(entry.snapshot.tierName)
                     .font(.headline)
                     .lineLimit(1)
-                Text("\(entry.snapshot.progressPercent)%")
-                    .font(.system(size: 34, weight: .bold))
-                    .foregroundStyle(accent)
-                    .minimumScaleFactor(0.8)
+                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                    Text("\(entry.snapshot.progressPercent)%")
+                        .font(.system(size: 34, weight: .bold))
+                        .foregroundStyle(accent)
+                        .minimumScaleFactor(0.8)
+                    Text("— \(tierPoints) pts")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                }
                 Text(entry.date, style: .date)
                     .font(.caption2)
                     .foregroundStyle(.secondary)

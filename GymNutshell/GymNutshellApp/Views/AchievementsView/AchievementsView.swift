@@ -216,9 +216,9 @@ struct AchievementsView: View {
     // Mapeia o bonusType salvo ao emoji atual, evitando mostrar emojis antigos persistidos.
     private func bonusEmoji(for bonusType: String) -> String {
         switch bonusType {
-        case "weekly.level3":   return "✍️"
-        case "weekly.level4":   return "🪽"
-        case "monthly.level3":  return "🦾"
+        case "weekly.level3":   return "🎖️"
+        case "weekly.level4":   return "💀"
+        case "monthly.level3":  return "🏆"
         case "monthly.level4":  return "☠️"
         default:                return "🏅"
         }

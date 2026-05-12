@@ -50,17 +50,17 @@ public struct StreakBonusChecker {
                     anchorDate: saturday,
                     bonusType: "weekly.level4",
                     initialPoints: 800,
-                    initialEmoji: "🪽"
+                    initialEmoji: "💀"
                 ))
-                NotificationManager.shared.fireStreakBonus(emoji: "🪽", points: 800, typeKey: "weekly.level4", date: saturday)
+                NotificationManager.shared.fireStreakBonus(emoji: "💀", points: 800, typeKey: "weekly.level4", date: saturday)
             } else if allStrongOrExpert(weekRecords) {
                 modelContext.insert(StreakBonus(
                     anchorDate: saturday,
                     bonusType: "weekly.level3",
                     initialPoints: 400,
-                    initialEmoji: "✍️"
+                    initialEmoji: "🎖️"
                 ))
-                NotificationManager.shared.fireStreakBonus(emoji: "✍️", points: 400, typeKey: "weekly.level3", date: saturday)
+                NotificationManager.shared.fireStreakBonus(emoji: "🎖️", points: 400, typeKey: "weekly.level3", date: saturday)
             }
         }
 
@@ -107,9 +107,9 @@ public struct StreakBonusChecker {
                     anchorDate: lastDay,
                     bonusType: "monthly.level3",
                     initialPoints: 2000,
-                    initialEmoji: "🦾"
+                    initialEmoji: "🏆"
                 ))
-                NotificationManager.shared.fireStreakBonus(emoji: "🦾", points: 2000, typeKey: "monthly.level3", date: lastDay)
+                NotificationManager.shared.fireStreakBonus(emoji: "🏆", points: 2000, typeKey: "monthly.level3", date: lastDay)
             }
         }
     }

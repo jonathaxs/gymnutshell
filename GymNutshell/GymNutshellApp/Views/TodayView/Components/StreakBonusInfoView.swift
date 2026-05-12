@@ -30,9 +30,9 @@ struct StreakBonusInfoView: View {
     }
 
     private let bonuses: [BonusInfo] = [
-        BonusInfo(emoji: "✍️", id: "weekly.level3",  titleKey: "streak.bonus.weekly.level3.title",  descKey: "streak.bonus.weekly.level3.description",  points: 400),
-        BonusInfo(emoji: "🪽", id: "weekly.level4",  titleKey: "streak.bonus.weekly.level4.title",  descKey: "streak.bonus.weekly.level4.description",  points: 800),
-        BonusInfo(emoji: "🦾", id: "monthly.level3", titleKey: "streak.bonus.monthly.level3.title", descKey: "streak.bonus.monthly.level3.description", points: 2000),
+        BonusInfo(emoji: "🎖️", id: "weekly.level3",  titleKey: "streak.bonus.weekly.level3.title",  descKey: "streak.bonus.weekly.level3.description",  points: 400),
+        BonusInfo(emoji: "💀", id: "weekly.level4",  titleKey: "streak.bonus.weekly.level4.title",  descKey: "streak.bonus.weekly.level4.description",  points: 800),
+        BonusInfo(emoji: "🏆", id: "monthly.level3", titleKey: "streak.bonus.monthly.level3.title", descKey: "streak.bonus.monthly.level3.description", points: 2000),
         BonusInfo(emoji: "☠️", id: "monthly.level4", titleKey: "streak.bonus.monthly.level4.title", descKey: "streak.bonus.monthly.level4.description", points: 5000),
     ]
 

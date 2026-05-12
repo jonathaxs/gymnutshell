@@ -74,20 +74,20 @@ public enum FavoriteExercise: String, CaseIterable, Identifiable, Sendable {
 
     public var label: String {
         switch self {
-        case .unknown:    return String(localized: "favoriteExercise.unknown", bundle: .module)
-        case .back:       return String(localized: "favoriteExercise.back", bundle: .module)
-        case .arms:       return String(localized: "favoriteExercise.arms", bundle: .module)
-        case .chest:      return String(localized: "favoriteExercise.chest", bundle: .module)
-        case .legs:       return String(localized: "favoriteExercise.legs", bundle: .module)
-        case .hamstrings: return String(localized: "favoriteExercise.hamstrings", bundle: .module)
-        case .glutes:     return String(localized: "favoriteExercise.glutes", bundle: .module)
-        case .shoulders:  return String(localized: "favoriteExercise.shoulders", bundle: .module)
-        case .biceps:     return String(localized: "favoriteExercise.biceps", bundle: .module)
-        case .triceps:    return String(localized: "favoriteExercise.triceps", bundle: .module)
-        case .abs:        return String(localized: "favoriteExercise.abs", bundle: .module)
-        case .traps:      return String(localized: "favoriteExercise.traps", bundle: .module)
-        case .forearms:   return String(localized: "favoriteExercise.forearms", bundle: .module)
-        case .calves:     return String(localized: "favoriteExercise.calves", bundle: .module)
+        case .unknown:    return String(localized: "favoriteExercise.unknown", bundle: .gymNutshellCore)
+        case .back:       return String(localized: "favoriteExercise.back", bundle: .gymNutshellCore)
+        case .arms:       return String(localized: "favoriteExercise.arms", bundle: .gymNutshellCore)
+        case .chest:      return String(localized: "favoriteExercise.chest", bundle: .gymNutshellCore)
+        case .legs:       return String(localized: "favoriteExercise.legs", bundle: .gymNutshellCore)
+        case .hamstrings: return String(localized: "favoriteExercise.hamstrings", bundle: .gymNutshellCore)
+        case .glutes:     return String(localized: "favoriteExercise.glutes", bundle: .gymNutshellCore)
+        case .shoulders:  return String(localized: "favoriteExercise.shoulders", bundle: .gymNutshellCore)
+        case .biceps:     return String(localized: "favoriteExercise.biceps", bundle: .gymNutshellCore)
+        case .triceps:    return String(localized: "favoriteExercise.triceps", bundle: .gymNutshellCore)
+        case .abs:        return String(localized: "favoriteExercise.abs", bundle: .gymNutshellCore)
+        case .traps:      return String(localized: "favoriteExercise.traps", bundle: .gymNutshellCore)
+        case .forearms:   return String(localized: "favoriteExercise.forearms", bundle: .gymNutshellCore)
+        case .calves:     return String(localized: "favoriteExercise.calves", bundle: .gymNutshellCore)
         }
     }
 }
@@ -104,11 +104,11 @@ public enum UserGoal: String, CaseIterable, Identifiable, Sendable {
     public var label: String {
         switch self {
         case .bulking:
-            return String(localized: "fitness.goal.bulking", bundle: .module)
+            return String(localized: "fitness.goal.bulking", bundle: .gymNutshellCore)
         case .maintenance:
-            return String(localized: "fitness.goal.maintenance", bundle: .module)
+            return String(localized: "fitness.goal.maintenance", bundle: .gymNutshellCore)
         case .cutting:
-            return String(localized: "fitness.goal.cutting", bundle: .module)
+            return String(localized: "fitness.goal.cutting", bundle: .gymNutshellCore)
         }
     }
 }

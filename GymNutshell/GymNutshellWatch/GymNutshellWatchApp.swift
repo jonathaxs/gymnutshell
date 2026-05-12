@@ -15,6 +15,13 @@ import WidgetKit
 struct GymNutshellWatchApp: App {
 
     init() {
+        // Aplica o idioma sincronizado do iPhone antes do SwiftUI inicializar qualquer view.
+        // "AppleLanguages" só é lido pelo sistema de localização na inicialização do processo,
+        // por isso precisa ser definido aqui, não em onAppear ou similar.
+        if let lang = UserDefaults.standard.string(forKey: "app.preferredLanguage") {
+            UserDefaults.standard.set([lang], forKey: "AppleLanguages")
+        }
+
         WatchConnectivityManager.shared.activate()
         // Quando chega snapshot novo do iPhone com o app aberto, recarrega imediatamente.
         NotificationCenter.default.addObserver(

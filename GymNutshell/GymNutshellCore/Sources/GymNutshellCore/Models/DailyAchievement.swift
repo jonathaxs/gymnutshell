@@ -61,13 +61,13 @@ extension DailyAchievement {
     public var name: String {
         switch self {
         case .level1:
-            return String(localized: "daily.achievement.level1", bundle: .module)
+            return String(localized: "daily.achievement.level1", bundle: .gymNutshellCore)
         case .level2:
-            return String(localized: "daily.achievement.level2", bundle: .module)
+            return String(localized: "daily.achievement.level2", bundle: .gymNutshellCore)
         case .level3:
-            return String(localized: "daily.achievement.level3", bundle: .module)
+            return String(localized: "daily.achievement.level3", bundle: .gymNutshellCore)
         case .level4:
-            return String(localized: "daily.achievement.level4", bundle: .module)
+            return String(localized: "daily.achievement.level4", bundle: .gymNutshellCore)
         }
     }
 

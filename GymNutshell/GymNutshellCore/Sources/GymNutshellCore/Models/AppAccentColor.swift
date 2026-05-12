@@ -28,14 +28,14 @@ public enum AppAccentColor: String, CaseIterable, Sendable {
 
     public var displayName: String {
         switch self {
-        case .red:    return String(localized: "color.red", bundle: .module)
-        case .blue:   return String(localized: "color.blue", bundle: .module)
-        case .purple: return String(localized: "color.purple", bundle: .module)
-        case .green:  return String(localized: "color.green", bundle: .module)
-        case .yellow: return String(localized: "color.yellow", bundle: .module)
-        case .orange: return String(localized: "color.orange", bundle: .module)
-        case .cyan:   return String(localized: "color.cyan", bundle: .module)
-        case .pink:   return String(localized: "color.pink", bundle: .module)
+        case .red:    return String(localized: "color.red", bundle: .gymNutshellCore)
+        case .blue:   return String(localized: "color.blue", bundle: .gymNutshellCore)
+        case .purple: return String(localized: "color.purple", bundle: .gymNutshellCore)
+        case .green:  return String(localized: "color.green", bundle: .gymNutshellCore)
+        case .yellow: return String(localized: "color.yellow", bundle: .gymNutshellCore)
+        case .orange: return String(localized: "color.orange", bundle: .gymNutshellCore)
+        case .cyan:   return String(localized: "color.cyan", bundle: .gymNutshellCore)
+        case .pink:   return String(localized: "color.pink", bundle: .gymNutshellCore)
         }
     }
 

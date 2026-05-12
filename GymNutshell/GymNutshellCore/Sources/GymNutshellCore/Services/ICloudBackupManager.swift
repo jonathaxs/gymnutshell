@@ -89,7 +89,7 @@ public enum ICloudBackupManager {
         public var errorDescription: String? {
             switch self {
             case .unavailable:
-                return String(localized: "settings.backup.icloud.error.unavailable", bundle: .module)
+                return String(localized: "settings.backup.icloud.error.unavailable", bundle: .gymNutshellCore)
             }
         }
     }

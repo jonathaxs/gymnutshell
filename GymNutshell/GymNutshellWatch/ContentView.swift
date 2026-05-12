@@ -381,12 +381,12 @@ struct ContentView: View {
             toggleRestDay(for: goalId)
             WKInterfaceDevice.current().play(.click)
         } label: {
-            Text(isOn ? "ON" : "OFF")
+            Text(isOn ? "OFF" : "ON")
                 .font(.caption.weight(.bold))
                 .frame(maxWidth: .infinity, minHeight: 36)
-                .foregroundStyle(isOn ? Color.white : accent.color)
+                .foregroundStyle(isOn ? Color.secondary : Color.white)
                 .background(
-                    Capsule().fill(isOn ? accent.color : Color.secondary.opacity(0.25))
+                    Capsule().fill(isOn ? Color.secondary.opacity(0.25) : accent.color)
                 )
         }
         .buttonStyle(.plain)

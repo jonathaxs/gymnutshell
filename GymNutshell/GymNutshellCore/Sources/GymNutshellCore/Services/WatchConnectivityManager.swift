@@ -45,6 +45,10 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         AppAccentColor.storageKey,
         GoalCategory.vitaminDCategoryKey,
 
+        // Idioma — o iPhone escreve essa chave em sendSnapshot() antes de ler preferenceKeys.
+        // O Watch aplica no init() antes do SwiftUI inicializar, garantindo o idioma correto.
+        "app.preferredLanguage",
+
         // Ordem e visibilidade das metas (incluindo agrupamento por categoria)
         "tracking.fixedOrder",
         "app.removedBuiltinItems",
@@ -195,6 +199,14 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         for key in Self.intakeKeys {
             intakes[key] = defaults.integer(forKey: key)
         }
+
+        // Captura o idioma ativo do iPhone (respeita o per-app language do iOS Settings)
+        // e persiste antes de construir prefs, pra entrar no snapshot via preferenceKeys.
+        #if os(iOS)
+        if let lang = Bundle.main.preferredLocalizations.first {
+            defaults.set(lang, forKey: "app.preferredLanguage")
+        }
+        #endif
 
         var prefs: [String: Any] = [:]
         for key in Self.preferenceKeys {

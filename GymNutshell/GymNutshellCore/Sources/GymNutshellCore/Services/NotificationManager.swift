@@ -197,7 +197,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         scheduleInterval(
             kindId: "custom.\(goal.id.uuidString)",
             title: "\(goal.emoji) \(goal.name)",
-            body: String(format: String(localized: "notifications.custom.body", bundle: .module), goal.name),
+            body: String(format: String(localized: "notifications.custom.body", bundle: .gymNutshellCore), goal.name),
             intervalMinutes: interval,
             startHour: 6,
             cutoffHour: 22,
@@ -231,8 +231,8 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
 
     public func fireAchievementUnlocked(tierName: String, emoji: String, date: Date = Date()) {
         guard NotificationPreferences.isEnabled(.achievement) else { return }
-        let title = String(localized: "notifications.kind.achievement.title", bundle: .module)
-        let body = String(format: String(localized: "notifications.kind.achievement.body", bundle: .module), emoji, tierName)
+        let title = String(localized: "notifications.kind.achievement.title", bundle: .gymNutshellCore)
+        let body = String(format: String(localized: "notifications.kind.achievement.body", bundle: .gymNutshellCore), emoji, tierName)
         scheduleImmediate(
             identifier: "notif.achievement.\(Int(Date().timeIntervalSince1970))",
             title: title,
@@ -251,9 +251,9 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
 
     public func fireStreakBonus(emoji: String, points: Int, typeKey: String, date: Date = Date()) {
         guard NotificationPreferences.isEnabled(.streakBonus) else { return }
-        let title = String(localized: "notifications.kind.streakBonus.title", bundle: .module)
+        let title = String(localized: "notifications.kind.streakBonus.title", bundle: .gymNutshellCore)
         let body = String(
-            format: String(localized: "notifications.kind.streakBonus.body", bundle: .module),
+            format: String(localized: "notifications.kind.streakBonus.body", bundle: .gymNutshellCore),
             emoji, points
         )
         scheduleImmediate(
@@ -276,21 +276,21 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
 
     public func fireHealthLogged(_ kind: HealthLogKind, value: Int, activityName: String? = nil) {
         guard NotificationPreferences.isEnabled(.appleHealth) else { return }
-        let title = String(localized: "notifications.kind.appleHealth.title", bundle: .module)
+        let title = String(localized: "notifications.kind.appleHealth.title", bundle: .gymNutshellCore)
         let body: String
         switch kind {
         case .cardio:
             body = String(
-                format: String(localized: "notifications.kind.appleHealth.body.cardio", bundle: .module),
-                value, activityName ?? String(localized: "healthkit.activity.other", bundle: .module)
+                format: String(localized: "notifications.kind.appleHealth.body.cardio", bundle: .gymNutshellCore),
+                value, activityName ?? String(localized: "healthkit.activity.other", bundle: .gymNutshellCore)
             )
         case .workout:
             body = String(
-                format: String(localized: "notifications.kind.appleHealth.body.workout", bundle: .module),
-                value, activityName ?? String(localized: "healthkit.activity.other", bundle: .module)
+                format: String(localized: "notifications.kind.appleHealth.body.workout", bundle: .gymNutshellCore),
+                value, activityName ?? String(localized: "healthkit.activity.other", bundle: .gymNutshellCore)
             )
         case .sleep:
-            body = String(format: String(localized: "notifications.kind.appleHealth.body.sleep", bundle: .module), value)
+            body = String(format: String(localized: "notifications.kind.appleHealth.body.sleep", bundle: .gymNutshellCore), value)
         }
         scheduleImmediate(
             identifier: "notif.appleHealth.\(Int(Date().timeIntervalSince1970))",
@@ -308,8 +308,8 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
 
     public func fireBackupCompleted() {
         guard NotificationPreferences.isEnabled(.backup) else { return }
-        let title = String(localized: "notifications.kind.backup.title", bundle: .module)
-        let body = String(localized: "notifications.kind.backup.body", bundle: .module)
+        let title = String(localized: "notifications.kind.backup.title", bundle: .gymNutshellCore)
+        let body = String(localized: "notifications.kind.backup.body", bundle: .gymNutshellCore)
         scheduleImmediate(
             identifier: "notif.backup.\(Int(Date().timeIntervalSince1970))",
             title: title,
@@ -347,8 +347,8 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
 
         let content = UNMutableNotificationContent()
-        content.title = String(localized: "notifications.kind.achievement.title", bundle: .module)
-        content.body = String(format: String(localized: "notifications.kind.achievement.body", bundle: .module), emoji, tierName)
+        content.title = String(localized: "notifications.kind.achievement.title", bundle: .gymNutshellCore)
+        content.body = String(format: String(localized: "notifications.kind.achievement.body", bundle: .gymNutshellCore), emoji, tierName)
         content.sound = NotificationPreferences.sound(for: .achievement).systemSound
         content.userInfo = [
             "route": NotificationRoute.achievementsToday.rawValue,
@@ -382,8 +382,8 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         guard intervalMinutes > 0 else { return }
 
         let content = UNMutableNotificationContent()
-        content.title = title ?? NSLocalizedString(titleKey ?? "", bundle: .module, comment: "")
-        content.body  = body  ?? NSLocalizedString(bodyKey  ?? "", bundle: .module, comment: "")
+        content.title = title ?? NSLocalizedString(titleKey ?? "", bundle: .gymNutshellCore, comment: "")
+        content.body  = body  ?? NSLocalizedString(bodyKey  ?? "", bundle: .gymNutshellCore, comment: "")
         content.sound = sound
         content.userInfo = ["route": route.rawValue, "kindId": kindId]
 

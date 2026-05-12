@@ -51,18 +51,18 @@ public enum AppTheme: String, CaseIterable, Sendable {
 
         public var localizedName: String {
             switch self {
-            case .sport:       return String(localized: "app.theme.category.sport", bundle: .module)
-            case .animals:     return String(localized: "app.theme.category.animals", bundle: .module)
-            case .elements:    return String(localized: "app.theme.category.elements", bundle: .module)
-            case .competition: return String(localized: "app.theme.category.competition", bundle: .module)
-            case .warrior:     return String(localized: "app.theme.category.warrior", bundle: .module)
-            case .space:       return String(localized: "app.theme.category.space", bundle: .module)
+            case .sport:       return String(localized: "app.theme.category.sport", bundle: .gymNutshellCore)
+            case .animals:     return String(localized: "app.theme.category.animals", bundle: .gymNutshellCore)
+            case .elements:    return String(localized: "app.theme.category.elements", bundle: .gymNutshellCore)
+            case .competition: return String(localized: "app.theme.category.competition", bundle: .gymNutshellCore)
+            case .warrior:     return String(localized: "app.theme.category.warrior", bundle: .gymNutshellCore)
+            case .space:       return String(localized: "app.theme.category.space", bundle: .gymNutshellCore)
             }
         }
 
         public func localizedName(sex: String) -> String {
             guard self == .warrior, sex != "male" else { return localizedName }
-            let femValue = NSLocalizedString("app.theme.category.warrior.fem", bundle: .module, comment: "")
+            let femValue = NSLocalizedString("app.theme.category.warrior.fem", bundle: .gymNutshellCore, comment: "")
             return femValue != "app.theme.category.warrior.fem" ? femValue : localizedName
         }
     }
@@ -361,7 +361,7 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level4: key = "daily.achievement.number.level4"
             }
         }
-        return String(localized: String.LocalizationValue(key), bundle: .module)
+        return String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
     }
 
     // MARK: - Nome localizado por nível e sexo
@@ -402,12 +402,12 @@ public enum AppTheme: String, CaseIterable, Sendable {
             case .level4: tierSuffix = "level4"
             }
             let femKey = "\(themePrefix).\(tierSuffix).fem"
-            let femValue = NSLocalizedString(femKey, bundle: .module, comment: "")
+            let femValue = NSLocalizedString(femKey, bundle: .gymNutshellCore, comment: "")
             return femValue != femKey ? femValue : baseName
         }
         let femKey = masculineKey + ".fem"
-        let femValue = NSLocalizedString(femKey, bundle: .module, comment: "")
-        return femValue != femKey ? femValue : String(localized: String.LocalizationValue(masculineKey), bundle: .module)
+        let femValue = NSLocalizedString(femKey, bundle: .gymNutshellCore, comment: "")
+        return femValue != femKey ? femValue : String(localized: String.LocalizationValue(masculineKey), bundle: .gymNutshellCore)
     }
 
     // MARK: - Helpers de exibição
@@ -426,7 +426,7 @@ public enum AppTheme: String, CaseIterable, Sendable {
         case .doctor: femKey = "app.theme.doctor.fem"
         default:      return displayName
         }
-        let femValue = NSLocalizedString(femKey, bundle: .module, comment: "")
+        let femValue = NSLocalizedString(femKey, bundle: .gymNutshellCore, comment: "")
         return femValue != femKey ? femValue : displayName
     }
 
@@ -453,7 +453,7 @@ public enum AppTheme: String, CaseIterable, Sendable {
         case .champion:  key = "app.theme.champion"
         case .number:    key = "app.theme.number"
         }
-        return String(localized: String.LocalizationValue(key), bundle: .module)
+        return String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
     }
 
     public var themeEmojis: String {

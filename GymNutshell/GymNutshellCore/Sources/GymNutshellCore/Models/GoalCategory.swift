@@ -22,11 +22,11 @@ public enum GoalCategory: String, Codable, CaseIterable, Sendable {
 
     public var displayName: String {
         switch self {
-        case .essencial:  return String(localized: "goal.category.essencial", bundle: .module)
-        case .nutricao:   return String(localized: "goal.category.nutricao", bundle: .module)
-        case .treino:     return String(localized: "goal.category.treino", bundle: .module)
-        case .vitamina:   return String(localized: "goal.category.vitamina", bundle: .module)
-        case .suplemento: return String(localized: "goal.category.suplemento", bundle: .module)
+        case .essencial:  return String(localized: "goal.category.essencial", bundle: .gymNutshellCore)
+        case .nutricao:   return String(localized: "goal.category.nutricao", bundle: .gymNutshellCore)
+        case .treino:     return String(localized: "goal.category.treino", bundle: .gymNutshellCore)
+        case .vitamina:   return String(localized: "goal.category.vitamina", bundle: .gymNutshellCore)
+        case .suplemento: return String(localized: "goal.category.suplemento", bundle: .gymNutshellCore)
         }
     }
 

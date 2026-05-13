@@ -103,6 +103,7 @@ struct GymNutshellWatchWidgetEntryView: View {
                 .font(.system(size: 16))
                 .minimumScaleFactor(0.7)
         }
+        .padding(4)
         .widgetAccentable()
     }
 
@@ -116,6 +117,7 @@ struct GymNutshellWatchWidgetEntryView: View {
                     .font(.system(size: 22))
                     .minimumScaleFactor(0.5)
             }
+            .padding(3)
             .aspectRatio(1, contentMode: .fit)
             .widgetAccentable()
 

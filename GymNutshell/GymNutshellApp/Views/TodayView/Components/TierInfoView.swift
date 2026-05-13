@@ -112,15 +112,13 @@ struct TierInfoView: View {
                 }
             }
 
-            // Rodapé com link pra Settings > Tema
+            // Link pra Settings > Tema
             Section {
                 NavigationLink {
                     ThemeSettingsView()
                 } label: {
                     Label(String(localized: "tier.info.change.theme", bundle: .gymNutshellCore), systemImage: "paintpalette")
                 }
-            } footer: {
-                Text(String(localized: "tier.info.update.footer", bundle: .gymNutshellCore))
             }
         }
         .navigationTitle(String(localized: "settings.about.achievement", bundle: .gymNutshellCore))

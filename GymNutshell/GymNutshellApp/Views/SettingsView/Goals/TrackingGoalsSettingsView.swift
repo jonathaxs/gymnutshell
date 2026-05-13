@@ -115,7 +115,7 @@ struct TrackingGoalsSettingsView: View {
         case "tracking.creatine":
             return ("🧪", "g", DefaultGoals.creatine, storedIncrement(for: key, fallback: DefaultGoals.creatineIncrement))
         case "tracking.vitaminD":
-            return ("☀️",
+            return (vitaminDCategory == .suplemento ? "💊" : "☀️",
                     GoalCategory.vitaminDUnit(for: vitaminDCategory),
                     GoalCategory.vitaminDFallback(for: vitaminDCategory),
                     storedIncrement(for: key, fallback: GoalCategory.vitaminDIncrement(for: vitaminDCategory)))

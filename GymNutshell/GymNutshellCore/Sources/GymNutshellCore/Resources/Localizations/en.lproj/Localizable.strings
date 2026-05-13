@@ -21,7 +21,7 @@
 "daily.achievement.dog.level1" = "Little Dog";
 "daily.achievement.dog.level2" = "Fitness Dog";
 "daily.achievement.dog.level3" = "Snoop Dog";
-"daily.achievement.dog.level4" = "Caramel Dog";
+"daily.achievement.dog.level4" = "The Caramel Dog";
 
 /* AppTheme.swift — Bear theme tier names */
 "daily.achievement.bear.level1" = "Bear Cub";
@@ -61,7 +61,7 @@
 
 /* AppTheme.swift — Primate theme tier names (enum case is still `.monkey` for compatibility) */
 "daily.achievement.monkey.level1" = "Little Primate";
-"daily.achievement.monkey.level2" = "Banana Primate";
+"daily.achievement.monkey.level2" = "Fit Primate";
 "daily.achievement.monkey.level3" = "Donkey Primate";
 "daily.achievement.monkey.level4" = "Master Primate";
 
@@ -328,10 +328,11 @@
 /* SettingsView.swift */
 "settings.header.title" = "App Settings";
 "settings.detail.placeholder" = "Select a page";
-"settings.section.edit" = "Edit";
+"settings.section.edit" = "Profile";
 "settings.theme.title" = "Themes";
 "settings.section.appearance" = "Appearance";
 "settings.section.preferences" = "Preferences";
+"settings.section.system" = "System";
 "settings.section.backup" = "Backup";
 "settings.section.about" = "About";
 
@@ -341,7 +342,7 @@
 "app.error.dataStore.message" = "Gym Nutshell could not load your data.\nForce-close the app and reopen it to try again.";
 "settings.about.link" = "Gym Nutshell";
 "settings.profile.edit" = "Profile";
-"settings.section.physicaldata" = "Profile";
+"settings.section.physicaldata" = "Your data";
 "settings.fitness.goal.edit" = "Fitness Goal";
 "settings.goals.edit" = "Daily Goals";
 "settings.preference.appleHealth" = "Apple Health";

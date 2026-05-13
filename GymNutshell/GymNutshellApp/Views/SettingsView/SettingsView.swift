@@ -36,13 +36,8 @@ struct SettingsView: View {
         NavigationSplitView {
             // Sidebar: lista de seções de settings.
             List {
-                // Seção Editar — dados físicos, metas e gerenciamento de tema.
+                // Seção Perfil — dados físicos, objetivo fitness e metas do usuário.
                 Section(header: Text(String(localized: "settings.section.edit", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
-                    NavigationLink {
-                        TrackingGoalsSettingsView()
-                    } label: {
-                        Label(String(localized: "settings.goals.edit", bundle: .gymNutshellCore), systemImage: "target")
-                    }
                     NavigationLink {
                         PhysicalDataSettingsView()
                     } label: {
@@ -53,17 +48,26 @@ struct SettingsView: View {
                     } label: {
                         Label(String(localized: "settings.fitness.goal.edit", bundle: .gymNutshellCore), systemImage: "flame")
                     }
-                    // Cores — cor de destaque independente do sexo.
                     NavigationLink {
-                        ColorSettingsView()
+                        TrackingGoalsSettingsView()
                     } label: {
-                        Label(String(localized: "settings.color.title", bundle: .gymNutshellCore), systemImage: "paintpalette")
+                        Label(String(localized: "settings.goals.edit", bundle: .gymNutshellCore), systemImage: "target")
                     }
+                }
+
+                // Seção de preferências do usuário.
+                Section(header: Text(String(localized: "settings.section.preferences", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
                     // Tema — controla os emojis de mascote e nomes de nível em todo o app.
                     NavigationLink {
                         ThemeSettingsView()
                     } label: {
                         Label(String(localized: "settings.theme.title", bundle: .gymNutshellCore), systemImage: "theatermasks")
+                    }
+                    // Cores — cor de destaque independente do sexo.
+                    NavigationLink {
+                        ColorSettingsView()
+                    } label: {
+                        Label(String(localized: "settings.color.title", bundle: .gymNutshellCore), systemImage: "paintpalette")
                     }
                     // Widgets — fundo personalizado pros widgets da tela inicial.
                     NavigationLink {
@@ -71,10 +75,27 @@ struct SettingsView: View {
                     } label: {
                         Label(String(localized: "settings.edit.widgets", bundle: .gymNutshellCore), systemImage: "square.on.square")
                     }
+
+                    // Sistema de medidas — abre uma página de seleção dedicada.
+                    NavigationLink {
+                        MeasurementSettingsView()
+                    } label: {
+                        Label(String(localized: "settings.preference.measurementSystem", bundle: .gymNutshellCore), systemImage: "ruler")
+                    }
+
+                    // Orientação — trava o app em retrato/paisagem/ambas.
+                    // Só faz sentido no iPhone; em iPad/Mac/Vision sempre fica liberado.
+                    if UIDevice.current.userInterfaceIdiom == .phone {
+                        NavigationLink {
+                            OrientationSettingsView()
+                        } label: {
+                            Label(String(localized: "settings.preference.orientation", bundle: .gymNutshellCore), systemImage: "rotate.left")
+                        }
+                    }
                 }
 
-                // Seção de preferências do usuário.
-                Section(header: Text(String(localized: "settings.section.preferences", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
+                // Seção Sistema — notificações, integrações de plataforma e backup.
+                Section(header: Text(String(localized: "settings.section.system", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
                     // Notificações — configuração completa das notificações locais do app.
                     NavigationLink {
                         NotificationsSettingsView()
@@ -94,23 +115,6 @@ struct SettingsView: View {
                         BackupSettingsView()
                     } label: {
                         Label(String(localized: "settings.backup.nav.title", bundle: .gymNutshellCore), systemImage: "externaldrive")
-                    }
-
-                    // Sistema de medidas — abre uma página de seleção dedicada.
-                    NavigationLink {
-                        MeasurementSettingsView()
-                    } label: {
-                        Label(String(localized: "settings.preference.measurementSystem", bundle: .gymNutshellCore), systemImage: "ruler")
-                    }
-
-                    // Orientação — trava o app em retrato/paisagem/ambas.
-                    // Só faz sentido no iPhone; em iPad/Mac/Vision sempre fica liberado.
-                    if UIDevice.current.userInterfaceIdiom == .phone {
-                        NavigationLink {
-                            OrientationSettingsView()
-                        } label: {
-                            Label(String(localized: "settings.preference.orientation", bundle: .gymNutshellCore), systemImage: "rotate.left")
-                        }
                     }
 
                     // Idioma — abre Ajustes do iOS na página do Gym Nutshell (onde aparece
@@ -134,6 +138,11 @@ struct SettingsView: View {
                 // Seção Sobre — conquista, anel de progresso e info de versão.
                 Section(header: Text(String(localized: "settings.section.about", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
                     NavigationLink {
+                        AboutView()
+                    } label: {
+                        Label(String(localized: "settings.about.link", bundle: .gymNutshellCore), systemImage: "info.circle")
+                    }
+                    NavigationLink {
                         AppleWatchInstructionsView()
                     } label: {
                         Label(String(localized: "settings.preference.appleWatch", bundle: .gymNutshellCore), systemImage: "applewatch")
@@ -152,11 +161,6 @@ struct SettingsView: View {
                         StreakBonusInfoView()
                     } label: {
                         Label(String(localized: "settings.about.streakBonus", bundle: .gymNutshellCore), systemImage: "calendar.badge.checkmark")
-                    }
-                    NavigationLink {
-                        AboutView()
-                    } label: {
-                        Label(String(localized: "settings.about.link", bundle: .gymNutshellCore), systemImage: "info.circle")
                     }
                 }
 

@@ -65,6 +65,12 @@ struct SettingsView: View {
                     } label: {
                         Label(String(localized: "settings.theme.title", bundle: .gymNutshellCore), systemImage: "theatermasks")
                     }
+                    // Widgets — fundo personalizado pros widgets da tela inicial.
+                    NavigationLink {
+                        WidgetBackgroundSettingsView()
+                    } label: {
+                        Label(String(localized: "settings.edit.widgets", bundle: .gymNutshellCore), systemImage: "square.on.square")
+                    }
                 }
 
                 // Seção de preferências do usuário.
@@ -127,6 +133,11 @@ struct SettingsView: View {
 
                 // Seção Sobre — conquista, anel de progresso e info de versão.
                 Section(header: Text(String(localized: "settings.section.about", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
+                    NavigationLink {
+                        AppleWatchInstructionsView()
+                    } label: {
+                        Label(String(localized: "settings.preference.appleWatch", bundle: .gymNutshellCore), systemImage: "applewatch")
+                    }
                     NavigationLink {
                         ProgressRingInfoView()
                     } label: {
@@ -202,5 +213,74 @@ struct SettingsView: View {
         // Em portrait o size class nativo (.compact) é mantido — NavigationSplitView colapsa normalmente.
         .environment(\.horizontalSizeClass, geo.size.width >= 700 ? .regular : .compact)
         } // GeometryReader
+    }
+}
+
+// MARK: - Apple Watch instructions page
+
+/// Página com passos manuais pra instalar o app no Apple Watch — usada porque
+/// a Apple não expõe URL scheme público pra abrir o app companion Watch.
+private struct AppleWatchInstructionsView: View {
+    @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
+    private var accentColor: Color {
+        (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color
+    }
+
+    var body: some View {
+        List {
+            // Ícone do app — redondo, no padrão watchOS.
+            Section {
+                HStack {
+                    Spacer()
+                    appIcon
+                    Spacer()
+                }
+                .padding(.top, 12)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 6, trailing: 16))
+            }
+
+            Section {
+                Text(String(localized: "appleWatch.sheet.intro", bundle: .gymNutshellCore))
+                    .font(.body)
+            }
+            .listRowBackground(Color.clear)
+
+            Section {
+                step(number: 1, text: String(localized: "appleWatch.sheet.step1", bundle: .gymNutshellCore))
+                step(number: 2, text: String(localized: "appleWatch.sheet.step2", bundle: .gymNutshellCore))
+                step(number: 3, text: String(localized: "appleWatch.sheet.step3", bundle: .gymNutshellCore))
+            } footer: {
+                Text(String(localized: "appleWatch.sheet.note", bundle: .gymNutshellCore))
+            }
+        }
+        .navigationTitle(String(localized: "appleWatch.sheet.title", bundle: .gymNutshellCore))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    /// Ícone do app clipado em círculo — espelha o estilo da face do app no watchOS.
+    private var appIcon: some View {
+        let size: CGFloat = 80
+        return Image("AboutIcon")
+            .resizable()
+            .interpolation(.high)
+            .frame(width: size, height: size)
+            .clipShape(Circle())
+    }
+
+    @ViewBuilder
+    private func step(number: Int, text: String) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text("\(number)")
+                .font(.body.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 28, height: 28)
+                .background(Circle().fill(accentColor))
+            Text(text)
+                .font(.body)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.vertical, 4)
     }
 }

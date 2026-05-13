@@ -28,8 +28,6 @@ struct AboutView: View {
                     Spacer()
                     VStack(spacing: 12) {
                         appIcon
-                        Text("Gym Nutshell")
-                            .font(.title2.bold())
                         Text("\(String(localized: "settings.about.version", bundle: .gymNutshellCore)) \(appVersion)")
                             .font(.subheadline)
                             .foregroundStyle(accentColor)

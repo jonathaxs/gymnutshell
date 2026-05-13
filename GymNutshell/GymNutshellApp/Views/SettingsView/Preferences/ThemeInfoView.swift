@@ -78,11 +78,11 @@ struct ThemeInfoView: View {
         .navigationTitle(theme.displayName(sex: sex))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItem(placement: .topBarLeading) {
                 Button {
                     dismiss()
                 } label: {
-                    Text(String(localized: "welcome.button.back", bundle: .gymNutshellCore))
+                    Text(String(localized: "common.close", bundle: .gymNutshellCore))
                         .foregroundStyle(accentColor)
                 }
             }

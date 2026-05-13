@@ -22,6 +22,7 @@ struct NotificationHistorySheet: View {
 
     @State private var authStatus: UNAuthorizationStatus = .notDetermined
     @State private var showDeniedAlert = false
+    @State private var editMode: EditMode = .inactive
 
     private var isAuthorized: Bool {
         authStatus == .authorized || authStatus == .provisional
@@ -53,8 +54,7 @@ struct NotificationHistorySheet: View {
                                     row(for: entry)
                                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                             Button(role: .destructive) {
-                                                store.delete(id: entry.id)
-                                                WatchConnectivityManager.shared.sendHistoryDelete(id: entry.id)
+                                                delete(entry)
                                             } label: {
                                                 Label(
                                                     String(localized: "notifications.history.delete",
@@ -62,7 +62,16 @@ struct NotificationHistorySheet: View {
                                                     systemImage: "trash"
                                                 )
                                             }
+                                            // Força vermelho padrão iOS — o `.tint` do
+                                            // NavigationSplitView estava sobrescrevendo o
+                                            // vermelho do role `.destructive`.
+                                            .tint(.red)
                                         }
+                                }
+                                .onDelete { offsets in
+                                    for offset in offsets {
+                                        delete(group.items[offset])
+                                    }
                                 }
                             }
                         }
@@ -70,11 +79,26 @@ struct NotificationHistorySheet: View {
                     .listStyle(.insetGrouped)
                 }
             }
+            .environment(\.editMode, $editMode)
             .navigationTitle(String(localized: "notifications.history.title", bundle: .gymNutshellCore))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(String(localized: "notifications.history.back", bundle: .gymNutshellCore)) { dismiss() }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(String(localized: "common.close", bundle: .gymNutshellCore)) { dismiss() }
+                }
+                // Edit button manual — EditButton() do sistema não dispara o
+                // binding de editMode de forma confiável dentro de sheet+NavigationStack.
+                // Botão custom replicando o padrão da TrackingGoalsSettingsView.
+                if !store.entries.isEmpty {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button(editMode.isEditing
+                               ? String(localized: "common.done", bundle: .gymNutshellCore)
+                               : String(localized: "common.edit", bundle: .gymNutshellCore)) {
+                            withAnimation(.easeInOut(duration: 0.15)) {
+                                editMode = editMode.isEditing ? .inactive : .active
+                            }
+                        }
+                    }
                 }
             }
             .task {
@@ -127,6 +151,12 @@ struct NotificationHistorySheet: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
+    /// Apaga a entrada localmente e sincroniza com o Watch.
+    private func delete(_ entry: NotificationHistoryEntry) {
+        store.delete(id: entry.id)
+        WatchConnectivityManager.shared.sendHistoryDelete(id: entry.id)
+    }
+
     private func requestAuthorization() {
         Task {
             let granted = await NotificationManager.shared.requestAuthorization()
@@ -163,6 +193,8 @@ struct NotificationHistorySheet: View {
         .padding(.vertical, 4)
         .contentShape(Rectangle())
         .onTapGesture {
+            // No modo edit, o tap na linha não dispara deep-link — só o `-` do iOS age.
+            guard !editMode.isEditing else { return }
             handleTap(entry)
         }
     }

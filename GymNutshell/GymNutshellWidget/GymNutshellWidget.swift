@@ -53,11 +53,31 @@ struct GymNutshellWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: GymNutshellWidgetProvider()) { entry in
             GymNutshellWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .containerBackground(for: .widget) {
+                    widgetBackground(for: entry)
+                }
         }
         .configurationDisplayName("Gym Nutshell")
         .description("Acompanhe seu progresso diário.")
         .supportedFamilies([.systemSmall, .systemMedium])
+    }
+
+    /// Escolhe o fundo do widget conforme o modo selecionado pelo usuário em Ajustes.
+    @ViewBuilder
+    private func widgetBackground(for entry: GymNutshellWidgetEntry) -> some View {
+        switch WidgetBackgroundStore.loadMode() {
+        case .accent:
+            let accent = AppAccentColor(rawValue: entry.snapshot.accentColorRaw)?.color ?? .blue
+            WidgetBackground.gradient(from: accent)
+        case .custom:
+            if let bg = WidgetBackgroundStore.loadCustomColor() {
+                bg.gradient
+            } else {
+                Rectangle().fill(.fill.tertiary)
+            }
+        case .system:
+            Rectangle().fill(.fill.tertiary)
+        }
     }
 }
 
@@ -92,6 +112,29 @@ struct GymNutshellWidgetEntryView: View {
         }
     }
 
+    /// True quando o widget está usando fundo customizado (accent ou custom).
+    /// Usado pra decidir se o ring precisa de borda de contraste.
+    private var hasCustomBackground: Bool {
+        WidgetBackgroundStore.loadMode() != .system
+    }
+
+    /// Cor de texto que contrasta com o fundo atual do widget. Branco em fundos escuros,
+    /// preto em fundos claros. No modo .system segue `.primary` do iOS.
+    private var textColor: Color {
+        switch WidgetBackgroundStore.loadMode() {
+        case .accent:
+            let accentColor = AppAccentColor(rawValue: entry.snapshot.accentColorRaw)?.color ?? .blue
+            return WidgetBackground.contrastingForegroundColor(for: accentColor)
+        case .custom:
+            if let bg = WidgetBackgroundStore.loadCustomColor() {
+                return bg.contrastingForegroundColor
+            }
+            return .primary
+        case .system:
+            return .primary
+        }
+    }
+
     var body: some View {
         switch family {
         case .systemMedium: mediumView
@@ -105,7 +148,7 @@ struct GymNutshellWidgetEntryView: View {
         VStack(spacing: 0) {
             Text(entry.snapshot.tierName)
                 .font(.caption.weight(.semibold))
-                .foregroundStyle(accent)
+                .foregroundStyle(textColor)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)
 
@@ -119,7 +162,7 @@ struct GymNutshellWidgetEntryView: View {
 
             Text("\(entry.snapshot.progressPercent)%")
                 .font(.system(size: 18, weight: .bold))
-                .foregroundStyle(ringColor)
+                .foregroundStyle(textColor)
                 .minimumScaleFactor(0.7)
         }
         .padding(12)
@@ -134,26 +177,28 @@ struct GymNutshellWidgetEntryView: View {
                 emoji: entry.snapshot.tierEmoji,
                 accentColor: ringColor,
                 lineWidth: 10,
-                emojiSize: 28
+                emojiSize: 28,
+                borderColor: hasCustomBackground ? textColor : nil
             )
             .frame(width: 80, height: 80)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(entry.snapshot.tierName)
                     .font(.headline)
+                    .foregroundStyle(textColor)
                     .lineLimit(1)
                 HStack(alignment: .firstTextBaseline, spacing: 6) {
                     Text("\(entry.snapshot.progressPercent)%")
                         .font(.system(size: 34, weight: .bold))
-                        .foregroundStyle(accent)
+                        .foregroundStyle(textColor)
                         .minimumScaleFactor(0.8)
                     Text("— \(tierPoints) pts")
                         .font(.caption.weight(.semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(textColor)
                 }
                 Text(entry.date, style: .date)
                     .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(textColor)
             }
             Spacer()
         }
@@ -169,9 +214,16 @@ private struct ProgressRingView: View {
     let accentColor: Color
     let lineWidth: CGFloat
     let emojiSize: CGFloat
+    /// Quando não-nil, desenha um stroke mais largo nessa cor atrás do ring, criando
+    /// 1pt de borda em cada lado pra separar o ring de fundos coloridos.
+    var borderColor: Color? = nil
 
     var body: some View {
         ZStack {
+            if let borderColor {
+                Circle()
+                    .stroke(borderColor, lineWidth: lineWidth + 2)
+            }
             Circle()
                 .stroke(Color.secondary.opacity(0.2), lineWidth: lineWidth)
             Circle()

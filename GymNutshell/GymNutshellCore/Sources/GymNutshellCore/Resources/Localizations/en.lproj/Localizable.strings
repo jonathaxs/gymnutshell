@@ -167,7 +167,7 @@
 
 
 /* AboutView.swift */
-"settings.about.title" = "Gym Nutshell";
+"settings.about.title" = "About the App";
 "settings.about.version" = "Version";
 "settings.about.developer" = "Developer";
 "settings.about.developer.header" = "Talk to the developer";
@@ -348,6 +348,14 @@
 "settings.preference.appleHealth.syncSleep" = "Record Sleep";
 "settings.preference.appleHealth.autoWorkoutCheckin" = "Workout Detection";
 "settings.preference.appleHealth.footer" = "Sync Sleep records your sleep hours in Apple Health if there are no records there for the day.\n\nWorkout Detection detects a completed workout and automatically records it in Strength Training or Cardio.";
+"settings.preference.appleWatch" = "Apple Watch";
+"appleWatch.sheet.title" = "Install on Apple Watch";
+"appleWatch.sheet.intro" = "To install Gym Nutshell on your Apple Watch, follow the steps below:";
+"appleWatch.sheet.step1" = "Open the Watch app on your iPhone";
+"appleWatch.sheet.step2" = "Scroll to the \"Available Apps\" section";
+"appleWatch.sheet.step3" = "Tap Install next to Gym Nutshell";
+"appleWatch.sheet.note" = "If the app is already installed, it appears in the \"Installed on Apple Watch\" section above.";
+"appleWatch.sheet.close" = "Close";
 "settings.preference.language" = "Language";
 "settings.preference.measurementSystem" = "Measurements";
 "settings.preference.measurementSystem.metric" = "Metric (kg, cm)";
@@ -357,6 +365,17 @@
 "settings.preference.measurementSystem.uk" = "UK (st + lbs, ft)";
 "settings.preference.measurementSystem.uk.short" = "UK";
 "settings.measurementSystem.footer" = "How weight and height are shown and entered throughout the app.";
+"settings.edit.widgets" = "Widgets";
+"widgetBackground.title" = "Widgets";
+"widgetBackground.mode.label" = "Background";
+"widgetBackground.mode.system" = "System";
+"widgetBackground.mode.accent" = "Accent";
+"widgetBackground.mode.custom" = "Custom";
+"widgetBackground.footer.system" = "Widgets will use the iOS default background, with black or white text matching the system theme.";
+"widgetBackground.footer.accent" = "Widgets will use the app's accent color as the background.";
+"widgetBackground.footer.custom" = "Choose a color below. Widgets will use it as the background.";
+"widgetBackground.picker" = "Color";
+"widgetBackground.preview" = "Preview";
 
 
 /* TrackingGoalDetailView.swift */
@@ -716,7 +735,10 @@
 "common.done" = "Done";
 
 /* Notification history */
-"notifications.history.title" = "Notifications";
+"notifications.history.title" = "History";
+"common.close" = "Close";
+"common.edit" = "Edit";
+"common.done" = "Done";
 "notifications.history.today" = "Today";
 "notifications.history.yesterday" = "Yesterday";
 "notifications.history.empty.title" = "No notifications yet";

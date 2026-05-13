@@ -125,11 +125,11 @@ struct TierInfoView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if isSheet {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
-                        Text(String(localized: "welcome.button.back", bundle: .gymNutshellCore))
+                        Text(String(localized: "common.close", bundle: .gymNutshellCore))
                             .foregroundStyle(accentColor)
                     }
                 }

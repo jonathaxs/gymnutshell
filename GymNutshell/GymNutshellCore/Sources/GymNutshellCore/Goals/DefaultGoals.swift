@@ -13,7 +13,7 @@ import Foundation
 /// No futuro, deveriam vir das configurações definidas pelo usuário.
 public enum DefaultGoals {
     // MARK: - Treino
-    public static let workout: Int = 90
+    public static let workout: Int = 50
     public static let workoutIncrement: Int = 15
     public static let cardio: Int = 15
     public static let cardioIncrement: Int = 5

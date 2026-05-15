@@ -55,7 +55,7 @@ struct MainView: View {
                 }
                 .tag(Tab.achievements)
 
-            StatisticsView()
+            ProgressOverView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                 }

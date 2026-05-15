@@ -40,7 +40,7 @@ struct GymNutshellApp: App {
         WatchConnectivityManager.shared.activate()
 
         // Recalcula a idade a partir da data de nascimento salva. Mantém leitores que usam
-        // `UserProfile.ageKey` (StatisticsView, BackupManager) sem precisarem conhecer birthday.
+        // `UserProfile.ageKey` (ProgressOverView, BackupManager) sem precisarem conhecer birthday.
         UserProfile.refreshAgeFromBirthday()
 
         // Migração one-shot: chave antiga "profile.fitnessGoal" → nova "profile.userGoal".

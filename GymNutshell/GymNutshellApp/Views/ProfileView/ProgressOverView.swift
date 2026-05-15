@@ -1,7 +1,7 @@
 // ⌘
-//  GymNutshell/GymNutshellApp/Views/ProfileView/StatisticsView.swift
+//  GymNutshell/GymNutshellApp/Views/ProfileView/ProgressOverView.swift
 //
-//  Propósito: Tela de estatísticas — mostra dados de desempenho derivados dos registros diários
+//  Propósito: Tela de progresso — mostra dados de desempenho derivados dos registros diários
 //             e dos bônus de sequência. Seções: estatísticas de resumo, distribuição por nível,
 //             bônus de sequência, atividade, últimos 7 dias, metas ativas e dados físicos.
 //             Tocar num dia em "Últimos 7 dias" leva pra aquela data na AchievementsView.
@@ -21,11 +21,11 @@ private enum StatsDestination: Hashable {
     case physicalData
 }
 
-// MARK: - Tela de estatísticas
+// MARK: - Tela de progresso
 
-/// Tela de estatísticas. Busca os registros diários e bônus de streak do SwiftData,
+/// Tela de progresso. Busca os registros diários e bônus de streak do SwiftData,
 /// e compõe cada seção usando componentes de sub-view focados.
-struct StatisticsView: View {
+struct ProgressOverView: View {
 
     // MARK: - Dados
 
@@ -503,6 +503,6 @@ struct StatisticsView: View {
 }
 
 #Preview {
-    StatisticsView()
+    ProgressOverView()
         .modelContainer(for: [DailyRecord.self, StreakBonus.self], inMemory: true)
 }

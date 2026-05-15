@@ -164,9 +164,9 @@
 /* MARK: - Views/ProfileView */
 
 
-/* StatisticsView.swift */
-"statistics.tab" = "Estatísticas";
-"statistics.title" = "Estatísticas";
+/* ProgressOverView.swift */
+"statistics.tab" = "Progresso";
+"statistics.title" = "Progresso";
 "statistics.section.tiers" = "Conquistas por Níveis";
 "statistics.section.bonuses" = "Bônus de Sequência";
 "statistics.section.activity" = "Atividade nos Treinos";
@@ -187,7 +187,7 @@
 "watch.stats.syncing" = "Abra o Gym Nutshell no iPhone para ver as estatísticas.";
 "watch.stats.recent" = "Recentes";
 
-/* StatisticsView.swift — stats rows and physical data */
+/* ProgressOverView.swift — stats rows and physical data */
 "profile.stats.days" = "Dias";
 "profile.stats.points" = "Pontos";
 "profile.stats.bonuses" = "Bônus";

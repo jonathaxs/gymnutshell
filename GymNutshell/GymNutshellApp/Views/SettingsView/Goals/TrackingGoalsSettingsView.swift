@@ -430,5 +430,8 @@ struct TrackingGoalsSettingsView: View {
         }
         orderedGoalKeys = newOrder
         GoalOrderStore.save(newOrder)
+        // Sinaliza o app pra reconstruir o WidgetSnapshot — caso contrário, os widgets
+        // (especialmente o de Metas) ficam com a ordem antiga até o próximo intake change.
+        NotificationCenter.default.post(name: .gymNutshellIntakeDidChange, object: nil)
     }
 }

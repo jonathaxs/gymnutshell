@@ -53,13 +53,14 @@ struct GymNutshellWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: GymNutshellWidgetProvider()) { entry in
             GymNutshellWidgetEntryView(entry: entry)
+                .widgetURL(URL(string: "gymnutshell://today"))
                 .containerBackground(for: .widget) {
                     widgetBackground(for: entry)
                 }
         }
-        .configurationDisplayName("Gym Nutshell")
+        .configurationDisplayName("Progresso")
         .description("Acompanhe seu progresso diário.")
-        .supportedFamilies([.systemSmall, .systemMedium])
+        .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
     }
 
     /// Escolhe o fundo do widget conforme o modo selecionado pelo usuário em Ajustes.
@@ -78,6 +79,16 @@ struct GymNutshellWidget: Widget {
         case .system:
             Rectangle().fill(.fill.tertiary)
         }
+    }
+}
+
+/// Resolve a cor de progresso usada nos anéis dos widgets — espelha a regra do Watch / TodayView.
+internal func widgetRingColor(progress: Double) -> Color {
+    switch progress {
+    case ..<0.30: return .red
+    case ..<0.60: return .orange
+    case ..<1.0:  return .green
+    default:      return .blue
     }
 }
 
@@ -138,8 +149,31 @@ struct GymNutshellWidgetEntryView: View {
     var body: some View {
         switch family {
         case .systemMedium: mediumView
+        case .accessoryRectangular: lockScreenView
         default: smallView
         }
+    }
+
+    // MARK: Lock screen (accessoryRectangular)
+
+    /// Layout para a tela de bloqueio: tier emoji + nome em destaque, % e pontos abaixo.
+    /// Não usa background customizado — a tela de bloqueio aplica vibrant rendering.
+    private var lockScreenView: some View {
+        HStack(spacing: 8) {
+            Text(entry.snapshot.tierEmoji)
+                .font(.system(size: 28))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(entry.snapshot.tierName)
+                    .font(.headline)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                Text("\(entry.snapshot.progressPercent)% — \(tierPoints) pts")
+                    .font(.caption2)
+                    .lineLimit(1)
+            }
+            Spacer(minLength: 0)
+        }
+        .widgetAccentable()
     }
 
     // MARK: Small

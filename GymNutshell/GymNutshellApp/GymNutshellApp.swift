@@ -119,7 +119,14 @@ struct GymNutshellApp: App {
     }
 
     private func updateWidgetSnapshot() {
-        let snapshot = WidgetSnapshot.buildCurrent()
+        // Busca os últimos ~35 dias pra alimentar o widget grande de calendário.
+        // Fetch limit + sort decrescente mantém o trabalho barato mesmo com histórico longo.
+        let ctx = sharedModelContainer.mainContext
+        var descriptor = FetchDescriptor<DailyRecord>(sortBy: [SortDescriptor(\.date, order: .reverse)])
+        descriptor.fetchLimit = 40
+        let records = (try? ctx.fetch(descriptor)) ?? []
+
+        let snapshot = WidgetSnapshot.buildCurrent(recentRecords: records)
         WidgetSnapshotStore.save(snapshot)
         WidgetCenter.shared.reloadAllTimelines()
     }

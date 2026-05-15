@@ -77,6 +77,17 @@ struct MainView: View {
                 Task { await AutoBackupService.performIfNeeded(modelContext: modelContext) }
             }
         }
+        // Deep-links a partir dos widgets (esquema `gymnutshell://`).
+        // Mantém a regra de roteamento centralizada aqui em vez de espalhar
+        // pelos widget extensions, que só conhecem o URL.
+        .onOpenURL { url in
+            guard url.scheme == "gymnutshell" else { return }
+            switch url.host {
+            case "today":        selectedTab = Tab.today
+            case "achievements": selectedTab = Tab.achievements
+            default: break
+            }
+        }
         // Deep-link a partir de notificações: troca a aba e republica sub-eventos pras filhas
         // (AchievementsView e SettingsView) ajustarem seu estado.
         .onReceive(NotificationCenter.default.publisher(for: .gaNotificationRoute)) { note in

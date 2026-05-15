@@ -8,6 +8,7 @@
 // ⌘
 
 import Foundation
+import SwiftData
 
 public struct WidgetSnapshot: Codable, Sendable {
 
@@ -29,6 +30,13 @@ public struct WidgetSnapshot: Codable, Sendable {
     /// Momento em que o snapshot foi gerado.
     public let updatedAt: Date
 
+    /// Últimos ~35 dias com o percentual final de cada um (do mais antigo pro mais recente).
+    /// Inclui o dia de hoje no final, usando o progresso parcial atual.
+    public let recentDays: [DaySummary]
+
+    /// Metas ativas com progresso individual (na ordem do GoalOrderStore, sem as removidas).
+    public let goals: [GoalProgress]
+
     public var progressPercent: Int { Int((progressNormalized * 100).rounded(.down)) }
 
     public init(
@@ -37,7 +45,9 @@ public struct WidgetSnapshot: Codable, Sendable {
         tierEmoji: String,
         tierName: String,
         accentColorRaw: String,
-        updatedAt: Date = Date()
+        updatedAt: Date = Date(),
+        recentDays: [DaySummary] = [],
+        goals: [GoalProgress] = []
     ) {
         self.progressNormalized = max(0, min(1, progressNormalized))
         self.tier = max(1, min(4, tier))
@@ -45,6 +55,26 @@ public struct WidgetSnapshot: Codable, Sendable {
         self.tierName = tierName
         self.accentColorRaw = accentColorRaw
         self.updatedAt = updatedAt
+        self.recentDays = recentDays
+        self.goals = goals
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case progressNormalized, tier, tierEmoji, tierName,
+             accentColorRaw, updatedAt, recentDays, goals
+    }
+
+    // Decoder tolerante: snapshots antigos não têm recentDays/goals.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        self.progressNormalized = max(0, min(1, try c.decode(Double.self, forKey: .progressNormalized)))
+        self.tier = max(1, min(4, try c.decode(Int.self, forKey: .tier)))
+        self.tierEmoji = try c.decode(String.self, forKey: .tierEmoji)
+        self.tierName = try c.decode(String.self, forKey: .tierName)
+        self.accentColorRaw = try c.decode(String.self, forKey: .accentColorRaw)
+        self.updatedAt = try c.decode(Date.self, forKey: .updatedAt)
+        self.recentDays = (try? c.decode([DaySummary].self, forKey: .recentDays)) ?? []
+        self.goals = (try? c.decode([GoalProgress].self, forKey: .goals)) ?? []
     }
 
     public static let placeholder = WidgetSnapshot(
@@ -52,8 +82,52 @@ public struct WidgetSnapshot: Codable, Sendable {
         tier: 2,
         tierEmoji: "🐈",
         tierName: "---",
-        accentColorRaw: AppAccentColor.blue.rawValue
+        accentColorRaw: AppAccentColor.blue.rawValue,
+        recentDays: WidgetSnapshot.placeholderDays(),
+        goals: [
+            GoalProgress(key: "tracking.workout", emoji: "🏋️", label: "Treino",   percent: 80),
+            GoalProgress(key: "tracking.water",   emoji: "💧", label: "Água",     percent: 60),
+            GoalProgress(key: "tracking.protein", emoji: "🍗", label: "Proteína", percent: 40),
+            GoalProgress(key: "tracking.sleep",   emoji: "💤", label: "Sono",     percent: 100)
+        ]
     )
+
+    private static func placeholderDays() -> [DaySummary] {
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+        return (0..<35).reversed().map { i in
+            let d = cal.date(byAdding: .day, value: -i, to: today) ?? today
+            return DaySummary(date: d, percent: Int.random(in: 30...100))
+        }
+    }
+}
+
+// MARK: - Sub-structs
+
+public struct DaySummary: Codable, Sendable, Hashable {
+    public let date: Date
+    public let percent: Int
+
+    public init(date: Date, percent: Int) {
+        self.date = date
+        self.percent = max(0, min(100, percent))
+    }
+}
+
+public struct GoalProgress: Codable, Sendable, Hashable, Identifiable {
+    public let key: String
+    public let emoji: String
+    public let label: String
+    public let percent: Int
+
+    public var id: String { key }
+
+    public init(key: String, emoji: String, label: String, percent: Int) {
+        self.key = key
+        self.emoji = emoji
+        self.label = label
+        self.percent = max(0, min(100, percent))
+    }
 }
 
 // MARK: - Builder (executado apenas no processo do app principal)
@@ -62,19 +136,22 @@ extension WidgetSnapshot {
 
     /// Lê os intakes e metas do `UserDefaults.standard` e calcula o snapshot atual.
     /// Deve ser chamado apenas a partir do app principal (iOS), nunca do widget extension.
-    public static func buildCurrent() -> WidgetSnapshot {
+    ///
+    /// - Parameter recentRecords: histórico de `DailyRecord` (qualquer subconjunto contendo
+    ///   ao menos os últimos 35 dias). Quando vazio, `recentDays` no snapshot fica vazio.
+    public static func buildCurrent(recentRecords: [DailyRecord] = []) -> WidgetSnapshot {
         let defaults = UserDefaults.standard
 
-        let allKeys = GoalOrderStore.load()
-        let removed = RemovedItemsStore.load()
-        let activeKeys = allKeys.filter { !removed.contains($0) }
+        // Ordem canônica: categoria primeiro, meta depois. Mesmo algoritmo que
+        // TodayView, EditTodayView, Watch, Notifications, Settings → Goals usam.
+        let activeKeys = OrderedGoalsResolver.orderedActiveBuiltinKeys()
 
-        var values: [Double] = []
+        var perGoal: [(String, Double)] = []
         for key in activeKeys {
-            values.append(intakeProgress(key: key, defaults: defaults))
+            perGoal.append((key, intakeProgress(key: key, defaults: defaults)))
         }
 
-        let dailyProgress = values.isEmpty ? 0 : values.reduce(0, +) / Double(values.count)
+        let dailyProgress = perGoal.isEmpty ? 0 : perGoal.map(\.1).reduce(0, +) / Double(perGoal.count)
         let achievement = DailyAchievement.from(progress: dailyProgress)
 
         let themeRaw = defaults.string(forKey: AppTheme.storageKey) ?? ""
@@ -90,13 +167,83 @@ extension WidgetSnapshot {
         case .level4: tierNumber = 4
         }
 
+        let goals = perGoal.map { (key, value) in
+            GoalProgress(
+                key: key,
+                emoji: emoji(forTrackingKey: key),
+                label: label(forTrackingKey: key),
+                percent: Int((value * 100).rounded(.down))
+            )
+        }
+
+        let recentDays = buildRecentDays(records: recentRecords, todayProgress: dailyProgress)
+
         return WidgetSnapshot(
             progressNormalized: dailyProgress,
             tier: tierNumber,
             tierEmoji: theme.emoji(for: achievement, sex: sex),
             tierName: theme.name(for: achievement, sex: sex),
-            accentColorRaw: accentColorRaw
+            accentColorRaw: accentColorRaw,
+            recentDays: recentDays,
+            goals: goals
         )
+    }
+
+    /// Constrói a janela dos últimos 35 dias terminando em hoje.
+    /// Dias anteriores usam o `percent` armazenado em `DailyRecord`; hoje usa o progresso parcial.
+    /// Dias sem registro ficam com 0%.
+    private static func buildRecentDays(records: [DailyRecord], todayProgress: Double) -> [DaySummary] {
+        let cal = Calendar.current
+        let today = cal.startOfDay(for: Date())
+
+        var byDay: [Date: Int] = [:]
+        for r in records {
+            let day = cal.startOfDay(for: r.date)
+            byDay[day] = r.percent
+        }
+
+        return (0..<35).reversed().map { offset -> DaySummary in
+            let day = cal.date(byAdding: .day, value: -offset, to: today) ?? today
+            if offset == 0 {
+                return DaySummary(date: day, percent: Int((todayProgress * 100).rounded(.down)))
+            }
+            return DaySummary(date: day, percent: byDay[day] ?? 0)
+        }
+    }
+
+    // Emoji / label por chave de meta — espelha a tabela em `NotificationKind`.
+    private static func emoji(forTrackingKey key: String) -> String {
+        switch key {
+        case "tracking.workout":  return "🏋️"
+        case "tracking.cardio":   return "🏃"
+        case "tracking.sleep":    return "💤"
+        case "tracking.water":    return "💧"
+        case "tracking.protein":  return "🍗"
+        case "tracking.carbs":    return "🍞"
+        case "tracking.goodFat":  return "🧈"
+        case "tracking.fiber":    return "🌾"
+        case "tracking.creatine": return "🧪"
+        case "tracking.vitaminD": return "☀️"
+        default: return "•"
+        }
+    }
+
+    private static func label(forTrackingKey key: String) -> String {
+        let locKey: String
+        switch key {
+        case "tracking.workout":  locKey = "today.goals.workout"
+        case "tracking.cardio":   locKey = "today.goals.cardio"
+        case "tracking.sleep":    locKey = "today.metric.sleep"
+        case "tracking.water":    locKey = "today.metric.water"
+        case "tracking.protein":  locKey = "today.metric.protein"
+        case "tracking.carbs":    locKey = "today.metric.carbs"
+        case "tracking.goodFat":  locKey = "today.metric.fats"
+        case "tracking.fiber":    locKey = "today.metric.fiber"
+        case "tracking.creatine": locKey = "today.goals.creatine"
+        case "tracking.vitaminD": locKey = "today.goals.vitaminD"
+        default: return key
+        }
+        return String(localized: String.LocalizationValue(locKey), bundle: .gymNutshellCore)
     }
 
     private static func intakeProgress(key: String, defaults: UserDefaults) -> Double {

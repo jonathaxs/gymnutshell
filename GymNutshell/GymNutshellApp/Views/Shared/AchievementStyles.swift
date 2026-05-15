@@ -23,9 +23,9 @@ extension DailyAchievement {
         case .level2:
             return Color.yellow.opacity(0.30)
         case .level3:
-            return Color.blue.opacity(0.30)
-        case .level4:
             return Color.green.opacity(0.30)
+        case .level4:
+            return Color.blue.opacity(0.30)
         }
     }
 }

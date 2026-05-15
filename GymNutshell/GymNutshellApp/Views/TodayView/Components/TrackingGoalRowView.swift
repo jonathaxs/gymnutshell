@@ -59,8 +59,7 @@ struct TrackingGoalRowView: View {
         Binding(
             get: { Double(value) },
             set: { newDouble in
-                let snapped = Int((newDouble / Double(safeStep)).rounded()) * safeStep
-                let clamped = min(max(snapped, 0), safeGoal)
+                let clamped = snap(toNearest: newDouble)
                 guard clamped != value else { return }
                 UISelectionFeedbackGenerator().selectionChanged()
                 withAnimation(.easeInOut(duration: 0.12)) {
@@ -68,6 +67,17 @@ struct TrackingGoalRowView: View {
                 }
             }
         )
+    }
+
+    /// Snap pro alvo válido mais próximo.
+    /// Inclui múltiplos do incremento até `safeGoal` E o próprio `safeGoal` — sem isso,
+    /// metas que não são múltiplas do incremento (ex: 50 com passo 15) ficam inalcançáveis,
+    /// porque o último múltiplo ≤ goal seria 45 e o slider clampa em goal.
+    private func snap(toNearest raw: Double) -> Int {
+        var targets = stride(from: 0, through: safeGoal, by: safeStep).map { $0 }
+        if targets.last != safeGoal { targets.append(safeGoal) }
+        let best = targets.min(by: { abs(Double($0) - raw) < abs(Double($1) - raw) }) ?? 0
+        return min(max(best, 0), safeGoal)
     }
 
     // MARK: - Body

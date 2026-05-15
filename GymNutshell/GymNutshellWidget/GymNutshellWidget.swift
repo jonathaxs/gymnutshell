@@ -147,7 +147,7 @@ struct GymNutshellWidgetEntryView: View {
     private var smallView: some View {
         VStack(spacing: 0) {
             Text(entry.snapshot.tierName)
-                .font(.caption.weight(.semibold))
+                .font(.subheadline.weight(.semibold))
                 .foregroundStyle(textColor)
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)

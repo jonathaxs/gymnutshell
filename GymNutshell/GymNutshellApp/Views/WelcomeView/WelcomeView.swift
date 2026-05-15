@@ -81,9 +81,8 @@ struct WelcomeView: View {
 
     // MARK: - Seleções de metas opcionais
 
-    // Se o usuário escolheu incluir Good Fat e Fiber no rastreio.
+    // Se o usuário escolheu incluir Good Fat no rastreio.
     @State private var includeFats: Bool = false
-    @State private var includeFiber: Bool = false
     // Se o usuário escolheu incluir as metas de check-in Creatine e Vitamin D.
     @State private var includeCreatine: Bool = false
     @State private var includeVitaminD: Bool = false
@@ -210,7 +209,6 @@ struct WelcomeView: View {
 
         // Marca metas opcionais de rastreio como removidas se o usuário não incluiu.
         if !includeFats  { RemovedItemsStore.remove("tracking.goodFat") }
-        if !includeFiber { RemovedItemsStore.remove("tracking.fiber") }
 
         // Marca metas opcionais de suplementos como removidas se o usuário não incluiu.
         if !includeCreatine { RemovedItemsStore.remove("tracking.creatine") }
@@ -445,7 +443,6 @@ struct WelcomeView: View {
                         userGoal: userGoal,
                         accentColor: sexColor,
                         includeFats: $includeFats,
-                        includeFiber: $includeFiber,
                         includeCreatine: $includeCreatine,
                         includeVitaminD: $includeVitaminD,
                         scrolledToEnd: $summaryScrolledToEnd,

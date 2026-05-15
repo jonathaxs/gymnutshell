@@ -52,6 +52,13 @@ struct GymNutshellApp: App {
             defaults.removeObject(forKey: "profile.fitnessGoal")
         }
 
+        // Migração one-shot: Fibra deixou de ser opcional. Usuários que removeram
+        // no onboarding antigo precisam ter a chave restaurada pra meta aparecer.
+        let removedSet = RemovedItemsStore.load()
+        if removedSet.contains("tracking.fiber") {
+            RemovedItemsStore.restore("tracking.fiber")
+        }
+
         // Escreve o snapshot imediatamente pra o widget não mostrar placeholder no primeiro carregamento.
         WidgetSnapshotStore.save(WidgetSnapshot.buildCurrent())
 

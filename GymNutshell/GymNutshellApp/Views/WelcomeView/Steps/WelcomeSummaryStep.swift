@@ -2,7 +2,7 @@
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomeSummaryStep.swift
 //
 //  Propósito: Etapa final do onboarding — exibe as metas diárias calculadas organizadas por categoria
-//             e permite ao usuário adicionar opcionalmente Gordura, Fibra, Creatina e Vitamina D antes de concluir.
+//             e permite ao usuário adicionar opcionalmente Gordura, Creatina e Vitamina D antes de concluir.
 //             Os parágrafos informativos aparecem no fim, depois das metas opcionais.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-10.
@@ -20,7 +20,6 @@ struct WelcomeSummaryStep: View {
     let userGoal: UserGoal
     let accentColor: Color
     @Binding var includeFats: Bool
-    @Binding var includeFiber: Bool
     @Binding var includeCreatine: Bool
     @Binding var includeVitaminD: Bool
     @Binding var scrolledToEnd: Bool
@@ -70,6 +69,8 @@ struct WelcomeSummaryStep: View {
                     summaryCategory(GoalCategory.nutricao) {
                         summaryRow(icon: "🍗", label: String(localized: "today.metric.protein", bundle: .gymNutshellCore),
                                    value: "\(goals.protein)g")
+                        summaryRow(icon: "🌾", label: String(localized: "today.metric.fiber", bundle: .gymNutshellCore),
+                                   value: "\(goals.fiber)g")
                         summaryRow(icon: "🍞", label: String(localized: "today.metric.carbs", bundle: .gymNutshellCore),
                                    value: "\(goals.carbs)g")
                         OptionalTrackingGoalRow(
@@ -78,13 +79,6 @@ struct WelcomeSummaryStep: View {
                             value: "\(goals.goodFat)g",
                             accentColor: accentColor,
                             isIncluded: $includeFats
-                        )
-                        OptionalTrackingGoalRow(
-                            icon: "🌾",
-                            label: String(localized: "today.metric.fiber", bundle: .gymNutshellCore),
-                            value: "\(goals.fiber)g",
-                            accentColor: accentColor,
-                            isIncluded: $includeFiber
                         )
                     }
 

@@ -96,6 +96,6 @@ struct TodayProgressRingView: View {
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(String(localized: "today.ring.a11y.label", bundle: .gymNutshellCore))
         .accessibilityHint(String(localized: "today.ring.a11y.hint", bundle: .gymNutshellCore))
-        .accessibilityValue(String(format: String(localized: "today.ring.a11y.value", bundle: .gymNutshellCore), percentage))
+        .accessibilityValue(A11y.progressValue(percent: percentage))
     }
 }

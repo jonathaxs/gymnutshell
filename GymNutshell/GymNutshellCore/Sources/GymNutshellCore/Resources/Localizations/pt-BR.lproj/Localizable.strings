@@ -903,3 +903,45 @@
 "settings.orientation.portrait" = "Bloquear na vertical";
 "settings.orientation.both" = "Usar ambas";
 "settings.orientation.footer" = "Escolha como o app deve responder à rotação do dispositivo.";
+
+
+/* MARK: - Acessibilidade (VoiceOver) — helpers em A11yHelpers.swift */
+
+/* Faixas de progresso — substituem o sinal de cor para quem não enxerga */
+"a11y.band.red"    = "faixa vermelha, longe do objetivo";
+"a11y.band.orange" = "faixa laranja, em andamento";
+"a11y.band.green"  = "faixa verde, próximo do objetivo";
+"a11y.band.blue"   = "faixa azul, objetivo concluído";
+
+/* Frases genéricas de progresso */
+"a11y.percent.format"          = "%d por cento";
+"a11y.progress.value.format"   = "%d por cento, %@";
+
+/* Tracking goal row — value combina atual/meta + percentual + faixa */
+"a11y.goalrow.value.format"    = "%1$d de %2$d %3$@, %4$d por cento, %5$@";
+"a11y.goalrow.value.restday"   = "dia de descanso, meta cumprida";
+"a11y.goalrow.a11y.label"      = "Meta %@";
+"a11y.goalrow.slider.hint"     = "Deslize para cima ou para baixo para ajustar o valor.";
+
+/* Célula de dia (MonthlyCalendarView + widget Calendar) */
+"a11y.daycell.today.format"        = "hoje, %1$@, %2$d por cento, %3$@";
+"a11y.daycell.past.format"         = "%1$@, %2$d por cento, %3$@";
+"a11y.daycell.future.format"       = "%@, futuro";
+"a11y.daycell.empty.format"        = "%@, sem registros";
+"a11y.daycell.today.empty.format"  = "hoje, %@, ainda sem registros";
+"a11y.daycell.selected.suffix"     = ", selecionado";
+
+/* Botões de incremento e decremento */
+"a11y.hint.increment" = "Aumenta o valor.";
+"a11y.hint.decrement" = "Diminui o valor.";
+
+/* Toggle de dia de descanso — label reflete on/off, hint descreve a ação */
+"a11y.label.restday.on"        = "Dia de descanso ativado";
+"a11y.label.restday.off"       = "Dia de descanso desativado";
+"a11y.hint.restday.activate"   = "Ativa o dia de descanso. Conta a meta como cumprida.";
+"a11y.hint.restday.deactivate" = "Desativa o dia de descanso e zera o valor.";
+
+/* Sheets de informação — helpers de combine de linha */
+"a11y.ringinfo.color.row.format"  = "%1$@, faixa %2$@";
+"a11y.tierinfo.row.format"        = "%1$@, %2$@, nível %3$d";
+"a11y.bonusinfo.row.format"       = "%1$@, %2$@, %3$d pontos";

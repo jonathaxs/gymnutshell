@@ -48,15 +48,18 @@ struct StreakBonusInfoView: View {
 
             Section(String(localized: "statistics.section.bonuses", bundle: .gymNutshellCore)) {
                 ForEach(bonuses) { bonus in
+                    let title = String(localized: String.LocalizationValue(bonus.titleKey), bundle: .gymNutshellCore)
+                    let desc  = String(localized: String.LocalizationValue(bonus.descKey),  bundle: .gymNutshellCore)
                     HStack(spacing: 14) {
                         Text(bonus.emoji)
                             .font(.title2)
                             .frame(width: 36)
+                            .accessibilityHidden(true)
 
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(String(localized: String.LocalizationValue(bonus.titleKey), bundle: .gymNutshellCore))
+                            Text(title)
                                 .font(.subheadline.weight(.semibold))
-                            Text(String(localized: String.LocalizationValue(bonus.descKey), bundle: .gymNutshellCore))
+                            Text(desc)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -68,6 +71,10 @@ struct StreakBonusInfoView: View {
                             .foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 2)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(String(format: String(localized: "a11y.bonusinfo.row.format",
+                                                             bundle: .gymNutshellCore),
+                                               title, desc, bonus.points))
                 }
             }
         }

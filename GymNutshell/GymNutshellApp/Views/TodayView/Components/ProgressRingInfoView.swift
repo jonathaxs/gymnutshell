@@ -82,6 +82,7 @@ struct ProgressRingInfoView: View {
                         Circle()
                             .fill(item.color)
                             .frame(width: 24, height: 24)
+                            .accessibilityHidden(true)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(item.label)
                                 .font(.subheadline.weight(.semibold))
@@ -91,6 +92,10 @@ struct ProgressRingInfoView: View {
                         }
                     }
                     .padding(.vertical, 2)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(String(format: String(localized: "a11y.ringinfo.color.row.format",
+                                                             bundle: .gymNutshellCore),
+                                               item.label, item.range))
                 }
             }
         }

@@ -58,18 +58,19 @@ public enum A11y {
         return String(format: fmt, percent)
     }
 
-    /// Value pronto para um anel/barra: "65 por cento, faixa verde, próximo do objetivo".
+    /// Value enxuto para um anel/barra: "65 por cento concluído".
+    /// Faixa de cor é falada apenas no contexto do calendário, onde não há outro indicador.
     public static func progressValue(percent: Int) -> String {
-        let band = A11yProgressBand.from(progress: Double(percent) / 100.0).localizedDescription
         let fmt = String(localized: "a11y.progress.value.format", bundle: .gymNutshellCore)
-        return String(format: fmt, percent, band)
+        return String(format: fmt, percent)
     }
 
-    /// Value pronto para um row de meta de tracking: "30 de 100 g, 30 por cento, faixa vermelha…".
-    public static func goalRowValue(current: Int, goal: Int, unit: String, percent: Int) -> String {
-        let band = A11yProgressBand.from(progress: Double(percent) / 100.0).localizedDescription
+    /// Value para o header de um row de meta: "0 de 7 h concluído".
+    /// Não inclui percentual nem faixa pra não soar redundante quando o usuário
+    /// percorre header + slider em sequência.
+    public static func goalRowValue(current: Int, goal: Int, unit: String) -> String {
         let fmt = String(localized: "a11y.goalrow.value.format", bundle: .gymNutshellCore)
-        return String(format: fmt, current, goal, unit, percent, band)
+        return String(format: fmt, current, goal, unit)
     }
 
     /// Value para um row de meta em dia de descanso. Não tem percentual nem faixa
@@ -129,15 +130,34 @@ public enum A11y {
         String(localized: "a11y.hint.decrement", bundle: .gymNutshellCore)
     }
 
-    /// Hint do botão OFF/ON de rest day. `currentlyOn` reflete o estado atual.
+    /// Hint do botão OFF/ON de rest day. `currentlyOn` reflete o estado atual
+    /// — quando true (descansando), tocar sai do modo; quando false, ativa.
+    /// O label do botão é o próprio texto visível ("ON"/"OFF"), por isso esse
+    /// helper devolve só o hint.
     public static func restDayToggleHint(currentlyOn: Bool) -> String {
         let key = currentlyOn ? "a11y.hint.restday.deactivate" : "a11y.hint.restday.activate"
         return String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
     }
 
-    /// Label do botão de rest day — espelha o estado atual.
-    public static func restDayToggleLabel(currentlyOn: Bool) -> String {
-        let key = currentlyOn ? "a11y.label.restday.on" : "a11y.label.restday.off"
-        return String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
+    /// Hint genérico "Toque para mais informações" — usado em elementos
+    /// tappáveis (ring, tier) que abrem uma sheet explicativa.
+    public static func moreInfoHint() -> String {
+        String(localized: "a11y.hint.more.info", bundle: .gymNutshellCore)
+    }
+
+    /// Label para um Slider de meta: "Controle deslizante Água" / "Water slider".
+    public static func sliderLabel(for goalTitle: String) -> String {
+        let fmt = String(localized: "a11y.slider.label.format", bundle: .gymNutshellCore)
+        return String(format: fmt, goalTitle)
+    }
+
+    /// Label para um header colapsável de categoria: "Categoria Treino" / "Workout category".
+    public static func categoryLabel(_ categoryName: String) -> String {
+        let fmt = String(localized: "a11y.category.label.format", bundle: .gymNutshellCore)
+        return String(format: fmt, categoryName)
+    }
+
+    public static func categoryHint() -> String {
+        String(localized: "a11y.category.hint", bundle: .gymNutshellCore)
     }
 }

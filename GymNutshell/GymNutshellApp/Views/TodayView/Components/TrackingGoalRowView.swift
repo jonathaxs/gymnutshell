@@ -85,38 +85,41 @@ struct TrackingGoalRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
 
-            // Cabeçalho: emoji, nome, botão rest day (opcional) e texto atual/meta.
-            // O HStack inteiro é combinado em UM único elemento de VoiceOver
-            // (emoji oculto, value composto via A11y.goalRowValue) para que o
-            // usuário ouça "Meta Água: 30 de 100 ml, 30 por cento, faixa vermelha…"
-            // numa única locução, em vez de três elementos isolados.
+            // Cabeçalho. Estrutura intencional:
+            //   1. HStack interno (emoji + título + valor textual) é combinado num
+            //      único elemento de a11y — "Meta Água, 30 de 100 ml concluído".
+            //   2. Botão rest day fica FORA desse subtree, como elemento focável
+            //      independente, com seu próprio label (texto visível "ON"/"OFF")
+            //      e hint. Sem isso, o botão era absorvido e virava "rotor action".
             HStack(alignment: .center, spacing: 6) {
-                Text(emoji)
-                    .font(.headline)
-                    .accessibilityHidden(true)
-                Text(title)
-                    .font(.headline)
-                    .lineLimit(1)
-                    .layoutPriority(1)
-                Spacer(minLength: 6)
-                Text("\(value) / \(safeGoal) \(unit)")
-                    .font(.subheadline.monospacedDigit())
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
+                HStack(alignment: .center, spacing: 6) {
+                    Text(emoji)
+                        .font(.headline)
+                        .accessibilityHidden(true)
+                    Text(title)
+                        .font(.headline)
+                        .lineLimit(1)
+                        .layoutPriority(1)
+                    Spacer(minLength: 6)
+                    Text("\(value) / \(safeGoal) \(unit)")
+                        .font(.subheadline.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(String(format: String(localized: "a11y.goalrow.a11y.label",
+                                                         bundle: .gymNutshellCore), title))
+                .accessibilityValue(
+                    isRestDay?.wrappedValue == true
+                    ? A11y.goalRowRestDayValue()
+                    : A11y.goalRowValue(current: value, goal: safeGoal, unit: unit)
+                )
+
                 if let rest = isRestDay {
                     restDayToggle(isOn: rest)
                 }
             }
-            .accessibilityElement(children: .combine)
-            .accessibilityLabel(String(format: String(localized: "a11y.goalrow.a11y.label",
-                                                     bundle: .gymNutshellCore), title))
-            .accessibilityValue(
-                isRestDay?.wrappedValue == true
-                ? A11y.goalRowRestDayValue()
-                : A11y.goalRowValue(current: value, goal: safeGoal, unit: unit,
-                                    percent: Int((clampedProgress * 100).rounded(.down)))
-            )
 
             // Dia de descanso: substitui o slider por um texto centralizado.
             if isRestDay?.wrappedValue == true {
@@ -125,21 +128,19 @@ struct TrackingGoalRowView: View {
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 6)
-                    // Já comunicado pelo value composto do header — esconde
-                    // pra não ler "Dia de descanso" duas vezes.
+                    // Já comunicado pelo value do header — esconde para não
+                    // duplicar "dia de descanso" no VoiceOver.
                     .accessibilityHidden(true)
             } else if safeGoal > 0 {
+                // Slider tem seu próprio label/value. Sem hint custom: o sistema
+                // já anuncia "ajustável, deslize para cima ou para baixo".
                 Slider(
                     value: sliderBinding,
                     in: 0...Double(safeGoal)
                 )
                 .tint(progressTint)
-                .accessibilityLabel(String(format: String(localized: "a11y.goalrow.a11y.label",
-                                                         bundle: .gymNutshellCore), title))
-                .accessibilityValue(A11y.goalRowValue(current: value, goal: safeGoal, unit: unit,
-                                                     percent: Int((clampedProgress * 100).rounded(.down))))
-                .accessibilityHint(String(localized: "a11y.goalrow.slider.hint",
-                                          bundle: .gymNutshellCore))
+                .accessibilityLabel(A11y.sliderLabel(for: title))
+                .accessibilityValue(A11y.goalRowValue(current: value, goal: safeGoal, unit: unit))
             }
         }
         .padding(14)
@@ -185,7 +186,8 @@ struct TrackingGoalRowView: View {
         // sistema e estica o conteúdo, deixando o capsule "gordo e estreito".
         // .fixedSize força o botão a usar o tamanho intrínseco do label igual no iOS.
         .fixedSize()
-        .accessibilityLabel(A11y.restDayToggleLabel(currentlyOn: isOn.wrappedValue))
+        // Sem override de label: o texto visível ("ON"/"OFF") já vira o label
+        // do Button automaticamente. Só adiciono o hint dinâmico.
         .accessibilityHint(A11y.restDayToggleHint(currentlyOn: isOn.wrappedValue))
     }
 }

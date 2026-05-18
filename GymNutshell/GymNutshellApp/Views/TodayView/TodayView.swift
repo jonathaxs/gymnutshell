@@ -570,6 +570,8 @@ struct TodayView: View {
         .buttonStyle(.plain)
         .padding(.top, 4)
         .padding(.bottom, 2)
+        .accessibilityLabel(A11y.categoryLabel(customCategory.name))
+        .accessibilityHint(A11y.categoryHint())
     }
 
     private func isTodayCategoryCollapsedByKey(_ key: String) -> Bool {
@@ -672,6 +674,8 @@ struct TodayView: View {
         .buttonStyle(.plain)
         .padding(.top, 4)
         .padding(.bottom, 2)
+        .accessibilityLabel(A11y.categoryLabel(category.displayName))
+        .accessibilityHint(A11y.categoryHint())
     }
 
     // MARK: - Corpo da lista de metas

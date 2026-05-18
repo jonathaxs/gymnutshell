@@ -51,49 +51,54 @@ struct DailyTierView: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            // Label "Conquista" acima de tudo
+            // "Conquista" — texto fica FORA do a11y group abaixo, pra que VoiceOver
+            // o leia como elemento separado (espelha "Progresso" ao lado do anel).
             Text(String(localized: "today.tier.label.achievement", bundle: .gymNutshellCore))
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
 
-            // Emoji do nível — escala e anima quando o nível muda
-            Text(theme.emoji(for: achievement, sex: sex))
-                .font(.system(size: 72))
-                .scaleEffect(emojiScale)
-                .opacity(emojiOpacity)
-                .animation(
-                    reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.75),
-                    value: theme.emoji(for: achievement, sex: sex)
-                )
-                .accessibilityHidden(true)
+            // Bloco tappável (emoji + nome) — único elemento de a11y, vira "botão".
+            // Emoji é decorativo aqui (o nome já comunica o tier), então fica oculto.
+            VStack(spacing: 6) {
+                Text(theme.emoji(for: achievement, sex: sex))
+                    .font(.system(size: 72))
+                    .scaleEffect(emojiScale)
+                    .opacity(emojiOpacity)
+                    .animation(
+                        reduceMotion ? nil : .spring(response: 0.4, dampingFraction: 0.75),
+                        value: theme.emoji(for: achievement, sex: sex)
+                    )
+                    .accessibilityHidden(true)
 
-            // Nome do nível com gênero correto (ex.: "Gata Fitness", "Strong Dog")
-            Text(theme.name(for: achievement, sex: sex))
-                .font(.headline)
-                .lineLimit(1)
-                .minimumScaleFactor(0.9)
+                Text(theme.name(for: achievement, sex: sex))
+                    .font(.headline)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.9)
+            }
+            // Expande ao pressionar, igual ao anel de progresso
+            .scaleEffect(isPressed ? 1.20 : 1.0)
+            .animation(
+                reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.50),
+                value: isPressed
+            )
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 0)
+                    .updating($isPressed) { _, state, _ in
+                        state = true
+                    }
+            )
+            .simultaneousGesture(
+                TapGesture().onEnded { onTap?() }
+            )
+            // Acessibilidade — só o nome do tier no label; hint genérico "mais informações";
+            // sem value (não falar "Points: 0", o que é confuso quando o tier é Frango).
+            .accessibilityElement(children: .ignore)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel(String(format: String(localized: "today.tier.a11y.label",
+                                                     bundle: .gymNutshellCore),
+                                       theme.emoji(for: achievement, sex: sex),
+                                       theme.name(for: achievement, sex: sex)))
+            .accessibilityHint(A11y.moreInfoHint())
         }
-        // Expande ao pressionar, igual ao anel de progresso
-        .scaleEffect(isPressed ? 1.20 : 1.0)
-        .animation(
-            reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.50),
-            value: isPressed
-        )
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 0)
-                .updating($isPressed) { _, state, _ in
-                    state = true
-                }
-        )
-        // Tap abre a sheet de informação do tier (se o callback foi fornecido).
-        .simultaneousGesture(
-            TapGesture().onEnded { onTap?() }
-        )
-        // Acessibilidade
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(String(format: String(localized: "today.tier.a11y.label", bundle: .gymNutshellCore),
-                                   theme.emoji(for: achievement, sex: sex), theme.name(for: achievement, sex: sex)))
-        .accessibilityValue(String(format: String(localized: "today.tier.a11y.value", bundle: .gymNutshellCore),
-                                   achievement.points))
     }
 }

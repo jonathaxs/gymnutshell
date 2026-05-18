@@ -92,10 +92,14 @@ struct TodayProgressRingView: View {
         .simultaneousGesture(
             TapGesture().onEnded { onTap?() }
         )
-        // Acessibilidade
+        // Acessibilidade — anel é tappável (abre a sheet), então marca como botão.
+        // Value usa string simples "X percent completed" (sem faixa de cor) pra
+        // não ficar verboso quando o usuário percorre ring → tier em sequência.
         .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isButton)
         .accessibilityLabel(String(localized: "today.ring.a11y.label", bundle: .gymNutshellCore))
+        .accessibilityValue(String(format: String(localized: "today.ring.a11y.value",
+                                                  bundle: .gymNutshellCore), percentage))
         .accessibilityHint(String(localized: "today.ring.a11y.hint", bundle: .gymNutshellCore))
-        .accessibilityValue(A11y.progressValue(percent: percentage))
     }
 }

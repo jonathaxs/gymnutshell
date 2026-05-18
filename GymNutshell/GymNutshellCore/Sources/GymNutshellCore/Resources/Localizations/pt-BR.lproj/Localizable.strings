@@ -494,12 +494,14 @@
 /* TodayProgressRingView.swift — label */
 "today.ring.label.progresso" = "Progresso";
 "today.tier.points" = "Pontos: %d";
-"today.tier.a11y.label" = "%@ — %@";
+/* Tier button: label é só o nome (%2$@); emoji é falado pelo texto "Conquista"
+   ao lado. Evita duplicação "Galo, Galo". */
+"today.tier.a11y.label" = "%2$@";
 "today.tier.a11y.value" = "Pontos: %d";
 
 /* TodayProgressRingView.swift */
-"today.ring.a11y.label" = "Progresso diário";
-"today.ring.a11y.hint" = "Anel que mostra o seu progresso. Expande ao tocar.";
+"today.ring.a11y.label" = "Anel de progresso diário";
+"today.ring.a11y.hint" = "Toque para mais informações.";
 "today.ring.a11y.value" = "%d por cento concluído";
 
 
@@ -511,8 +513,8 @@
 "today.checkin.row.a11y.value.pending" = "Pendente";
 
 /* TodayView.swift — botão de data */
-"today.hero.date.a11y.label" = "Calendário de conquistas";
-"today.hero.date.a11y.hint" = "Abre o histórico de conquistas";
+"today.hero.date.a11y.label" = "Data de hoje, %@";
+"today.hero.date.a11y.hint" = "Toque para abrir o histórico de notificações.";
 "today.greeting.morning"   = "Bom dia!";
 "today.greeting.afternoon" = "Boa tarde!";
 "today.greeting.night"     = "Boa noite!";
@@ -913,15 +915,22 @@
 "a11y.band.green"  = "faixa verde, próximo do objetivo";
 "a11y.band.blue"   = "faixa azul, objetivo concluído";
 
-/* Frases genéricas de progresso */
+/* Frases genéricas de progresso — faixa removida do value após teste com usuário */
 "a11y.percent.format"          = "%d por cento";
-"a11y.progress.value.format"   = "%d por cento, %@";
+"a11y.progress.value.format"   = "%d por cento concluído";
 
-/* Tracking goal row — value combina atual/meta + percentual + faixa */
-"a11y.goalrow.value.format"    = "%1$d de %2$d %3$@, %4$d por cento, %5$@";
-"a11y.goalrow.value.restday"   = "dia de descanso, meta cumprida";
+/* Tracking goal row — value enxuto, sem percentual nem faixa */
+"a11y.goalrow.value.format"    = "%1$d de %2$d %3$@ concluído";
+"a11y.goalrow.value.restday"   = "no modo dia de descanso, meta cumprida";
 "a11y.goalrow.a11y.label"      = "Meta %@";
-"a11y.goalrow.slider.hint"     = "Deslize para cima ou para baixo para ajustar o valor.";
+"a11y.slider.label.format"     = "Controle deslizante %@";
+
+/* Hint genérico de "abrir detalhes" — anel e tier */
+"a11y.hint.more.info"          = "Toque para mais informações.";
+
+/* Header colapsável de categoria (TodayView) */
+"a11y.category.label.format"   = "Categoria %@";
+"a11y.category.hint"           = "Toque para recolher ou expandir.";
 
 /* Célula de dia (MonthlyCalendarView + widget Calendar) */
 "a11y.daycell.today.format"        = "hoje, %1$@, %2$d por cento, %3$@";
@@ -938,8 +947,8 @@
 /* Toggle de dia de descanso — label reflete on/off, hint descreve a ação */
 "a11y.label.restday.on"        = "Dia de descanso ativado";
 "a11y.label.restday.off"       = "Dia de descanso desativado";
-"a11y.hint.restday.activate"   = "Ativa o dia de descanso. Conta a meta como cumprida.";
-"a11y.hint.restday.deactivate" = "Desativa o dia de descanso e zera o valor.";
+"a11y.hint.restday.activate"   = "Toque para ativar o dia de descanso.";
+"a11y.hint.restday.deactivate" = "Toque para sair do modo dia de descanso.";
 
 /* Sheets de informação — helpers de combine de linha */
 "a11y.ringinfo.color.row.format"  = "%1$@, faixa %2$@";

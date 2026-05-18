@@ -454,7 +454,9 @@
 "today.tier.level.3" = "Tier 3";
 "today.tier.level.4" = "Tier 4";
 "today.tier.points" = "Points: %d";
-"today.tier.a11y.label" = "%@ — %@";
+/* Tier button: label is just the tier name (%2$@); emoji speaks via the separate
+   "Achievement" header text. Avoids "Rooster, Rooster" duplication. */
+"today.tier.a11y.label" = "%2$@";
 "today.tier.a11y.value" = "Points: %d";
 "today.tier.label.achievement" = "Achievement";
 
@@ -462,8 +464,8 @@
 "today.ring.label.progresso" = "Progress";
 
 /* TodayProgressRingView.swift */
-"today.ring.a11y.label" = "Daily progress";
-"today.ring.a11y.hint" = "A ring showing your progress. Expands when pressed.";
+"today.ring.a11y.label" = "Daily progress ring";
+"today.ring.a11y.hint" = "Tap for more information.";
 "today.ring.a11y.value" = "%d percent completed";
 
 
@@ -475,8 +477,8 @@
 "today.checkin.row.a11y.value.pending" = "Pending";
 
 /* TodayView.swift — date hero button */
-"today.hero.date.a11y.label" = "Achievements calendar";
-"today.hero.date.a11y.hint" = "Opens your achievements history";
+"today.hero.date.a11y.label" = "Today's date, %@";
+"today.hero.date.a11y.hint" = "Tap to open your notification history.";
 "today.greeting.morning"   = "Good morning!";
 "today.greeting.afternoon" = "Good afternoon!";
 "today.greeting.night"     = "Good evening!";
@@ -863,15 +865,22 @@
 "a11y.band.green"  = "green zone, close to goal";
 "a11y.band.blue"   = "blue zone, goal reached";
 
-/* Generic progress phrasing */
+/* Generic progress phrasing — band dropped from progress value after user testing */
 "a11y.percent.format"          = "%d percent";
-"a11y.progress.value.format"   = "%d percent, %@";
+"a11y.progress.value.format"   = "%d percent completed";
 
-/* Tracking goal row — value combines current/goal + percent + band */
-"a11y.goalrow.value.format"    = "%1$d of %2$d %3$@, %4$d percent, %5$@";
-"a11y.goalrow.value.restday"   = "rest day, goal complete";
+/* Tracking goal row — header value drops percent + band to stay concise */
+"a11y.goalrow.value.format"    = "%1$d of %2$d %3$@ completed";
+"a11y.goalrow.value.restday"   = "on rest day mode, goal completed";
 "a11y.goalrow.a11y.label"      = "%@ goal";
-"a11y.goalrow.slider.hint"     = "Swipe up or down to adjust the value.";
+"a11y.slider.label.format"     = "%@ slider";
+
+/* Generic "open details" hint reused across ring/tier */
+"a11y.hint.more.info"          = "Tap for more information.";
+
+/* Collapsible category header (TodayView) */
+"a11y.category.label.format"   = "%@ category";
+"a11y.category.hint"           = "Tap to collapse or expand.";
 
 /* Day cell (MonthlyCalendarView + widget Calendar) */
 "a11y.daycell.today.format"        = "today, %1$@, %2$d percent, %3$@";
@@ -888,8 +897,8 @@
 /* Rest day toggle — label reflects on/off, hint describes the action */
 "a11y.label.restday.on"        = "Rest day enabled";
 "a11y.label.restday.off"       = "Rest day disabled";
-"a11y.hint.restday.activate"   = "Activates rest day. Counts the goal as complete.";
-"a11y.hint.restday.deactivate" = "Deactivates rest day and resets the value to zero.";
+"a11y.hint.restday.activate"   = "Tap to activate rest day.";
+"a11y.hint.restday.deactivate" = "Tap to leave rest day mode.";
 
 /* Info sheets — row combine helpers */
 "a11y.ringinfo.color.row.format"  = "%1$@, range %2$@";

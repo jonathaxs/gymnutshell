@@ -94,7 +94,8 @@ struct TodayHeroView: View {
             .frame(maxWidth: 330)
             .frame(maxWidth: .infinity, alignment: .center)
             .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
-            .accessibilityLabel(String(localized: "today.hero.date.a11y.label", bundle: .gymNutshellCore))
+            .accessibilityLabel(String(format: String(localized: "today.hero.date.a11y.label",
+                                                     bundle: .gymNutshellCore), formattedDate))
             .accessibilityHint(String(localized: "today.hero.date.a11y.hint", bundle: .gymNutshellCore))
 
             // Nível de conquista e anel de progresso — lado a lado no iPhone,

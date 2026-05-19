@@ -1009,3 +1009,13 @@
 
 /* Collapsible section header (settings goals + notifications) */
 "a11y.section.collapsible.hint" = "Tap to collapse or expand.";
+
+
+/* MARK: - Accessibility (Phase 4 — Welcome / onboarding) */
+
+"a11y.welcome.progress.format"          = "Step %1$d of %2$d";
+"a11y.welcome.back.button"              = "Back to previous step";
+"a11y.welcome.optional.add.label.format"    = "Add %@";
+"a11y.welcome.optional.remove.label.format" = "Remove %@";
+"a11y.welcome.optional.add.hint"        = "Includes this goal in your daily tracking.";
+"a11y.welcome.optional.remove.hint"     = "Removes this goal from your daily tracking.";

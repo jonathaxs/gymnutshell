@@ -254,6 +254,8 @@ struct WelcomeView: View {
                 Text(stepPanelEmoji)
                     .font(.system(size: 64))
                     .animation(.easeInOut(duration: 0.3), value: currentStep)
+                    // Emoji decorativo — título logo abaixo já comunica a etapa.
+                    .accessibilityHidden(true)
                 Text(stepPanelTitle)
                     .font(.title.bold())
                     .multilineTextAlignment(.center)
@@ -401,6 +403,8 @@ struct WelcomeView: View {
                             .font(.body.weight(.semibold))
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(String(localized: "a11y.welcome.back.button",
+                                               bundle: .gymNutshellCore))
                 }
 
                 progressBar
@@ -496,6 +500,11 @@ struct WelcomeView: View {
                     .animation(.easeInOut(duration: 0.3), value: currentStep)
             }
         }
+        // Capsules são puramente visuais — colapsa tudo num único elemento
+        // de a11y que anuncia "Passo X de Y".
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(format: String(localized: "a11y.welcome.progress.format",
+                                                 bundle: .gymNutshellCore), current, total))
     }
 
     // MARK: - Cores dinâmicas

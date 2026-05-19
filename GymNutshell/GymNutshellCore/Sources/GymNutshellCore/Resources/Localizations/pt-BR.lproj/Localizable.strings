@@ -1058,3 +1058,13 @@
 
 /* Header colapsável de seção (metas e notificações) */
 "a11y.section.collapsible.hint" = "Toque para recolher ou expandir.";
+
+
+/* MARK: - Acessibilidade (Fase 4 — Welcome / onboarding) */
+
+"a11y.welcome.progress.format"          = "Passo %1$d de %2$d";
+"a11y.welcome.back.button"              = "Voltar ao passo anterior";
+"a11y.welcome.optional.add.label.format"    = "Adicionar %@";
+"a11y.welcome.optional.remove.label.format" = "Remover %@";
+"a11y.welcome.optional.add.hint"        = "Inclui esta meta no seu rastreamento diário.";
+"a11y.welcome.optional.remove.hint"     = "Remove esta meta do seu rastreamento diário.";

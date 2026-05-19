@@ -46,16 +46,39 @@ struct WelcomeThemeStep: View {
                         VStack(spacing: 10) {
                             ForEach(AppTheme.themes(in: category), id: \.self) { theme in
                                 let isSelected = selectedTheme == theme
+                                let themeName = theme.displayName(sex: sex)
                                 HStack(spacing: 14) {
-                                    // Prévia dos quatro emojis de nível lado a lado.
-                                    Text(theme.themeEmojis(sex: sex))
-                                        .font(.title3)
+                                    // Bloco esquerdo (prévia + nome + check) — elemento único
+                                    // a11y; botão info FORA pra ficar focável separado.
+                                    HStack(spacing: 14) {
+                                        Text(theme.themeEmojis(sex: sex))
+                                            .font(.title3)
+                                            .accessibilityHidden(true)
 
-                                    Text(theme.displayName(sex: sex))
-                                        .font(.subheadline.weight(.medium))
-                                        .foregroundColor(isSelected ? .white : Color.primary)
+                                        Text(themeName)
+                                            .font(.subheadline.weight(.medium))
+                                            .foregroundColor(isSelected ? .white : Color.primary)
 
-                                    Spacer()
+                                        Spacer()
+
+                                        if isSelected {
+                                            Image(systemName: "checkmark")
+                                                .foregroundColor(.white)
+                                                .font(.subheadline.weight(.bold))
+                                                .accessibilityHidden(true)
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        selectedTheme = theme
+                                    }
+                                    .accessibilityElement(children: .combine)
+                                    .accessibilityAddTraits(.isButton)
+                                    .accessibilityLabel(themeName)
+                                    .accessibilityValue(isSelected
+                                                        ? String(localized: "a11y.selected", bundle: .gymNutshellCore)
+                                                        : String(localized: "a11y.not.selected", bundle: .gymNutshellCore))
+                                    .accessibilityHint(String(localized: "a11y.theme.hint", bundle: .gymNutshellCore))
 
                                     Button {
                                         infoTheme = theme
@@ -64,21 +87,14 @@ struct WelcomeThemeStep: View {
                                     }
                                     .buttonStyle(.borderless)
                                     .tint(isSelected ? .white : accentColor)
-
-                                    // Checkmark no tema atualmente selecionado.
-                                    if isSelected {
-                                        Image(systemName: "checkmark")
-                                            .foregroundColor(.white)
-                                            .font(.subheadline.weight(.bold))
-                                    }
+                                    .accessibilityLabel(String(format: String(localized: "a11y.theme.info.label.format",
+                                                                             bundle: .gymNutshellCore), themeName))
+                                    .accessibilityHint(String(localized: "a11y.theme.info.hint",
+                                                              bundle: .gymNutshellCore))
                                 }
                                 .padding()
                                 .background(isSelected ? accentColor : Color(.secondarySystemGroupedBackground))
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .contentShape(Rectangle())
-                                .onTapGesture {
-                                    selectedTheme = theme
-                                }
                             }
                         }
                     }

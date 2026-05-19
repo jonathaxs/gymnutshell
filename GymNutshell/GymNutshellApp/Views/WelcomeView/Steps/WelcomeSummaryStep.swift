@@ -152,6 +152,7 @@ struct WelcomeSummaryStep: View {
     private func summaryRow(icon: String, label: String, value: String) -> some View {
         HStack {
             Text(icon)
+                .accessibilityHidden(true)
             Text(label)
                 .font(.subheadline)
             Spacer()
@@ -161,6 +162,9 @@ struct WelcomeSummaryStep: View {
         .padding()
         .background(Color(.secondarySystemGroupedBackground))
         .clipShape(RoundedRectangle(cornerRadius: 12))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(label)
+        .accessibilityValue(value)
     }
 }
 
@@ -178,22 +182,32 @@ private struct OptionalTrackingGoalRow: View {
 
     var body: some View {
         HStack {
-            Text(icon)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(label)
-                    .font(.subheadline)
-                Text(String(localized: "welcome.summary.optional.badge", bundle: .gymNutshellCore))
-                    .font(.caption2.weight(.medium))
-                    .foregroundStyle(.secondary)
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(Color.secondary.opacity(0.12))
-                    .clipShape(Capsule())
+            // Bloco informativo (emoji + nome + badge + valor) combina num único
+            // elemento de a11y; botão Add/Remove fica FORA do combine pra ser
+            // focável separadamente (mesmo padrão do TrackingGoalRow do Today).
+            HStack {
+                Text(icon)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(label)
+                        .font(.subheadline)
+                    Text(String(localized: "welcome.summary.optional.badge", bundle: .gymNutshellCore))
+                        .font(.caption2.weight(.medium))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.secondary.opacity(0.12))
+                        .clipShape(Capsule())
+                }
+                Spacer()
+                Text(value)
+                    .font(isIncluded ? .subheadline.bold() : .subheadline)
+                    .foregroundStyle(.primary)
             }
-            Spacer()
-            Text(value)
-                .font(isIncluded ? .subheadline.bold() : .subheadline)
-                .foregroundStyle(.primary)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(label)
+            .accessibilityValue(value)
+
             Button {
                 UISelectionFeedbackGenerator().selectionChanged()
                 withAnimation(.spring(response: 0.25, dampingFraction: 0.5)) {
@@ -212,6 +226,12 @@ private struct OptionalTrackingGoalRow: View {
                     .scaleEffect(buttonScale)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(String(format: String(localized: isIncluded
+                ? "a11y.welcome.optional.remove.label.format"
+                : "a11y.welcome.optional.add.label.format", bundle: .gymNutshellCore), label))
+            .accessibilityHint(String(localized: isIncluded
+                ? "a11y.welcome.optional.remove.hint"
+                : "a11y.welcome.optional.add.hint", bundle: .gymNutshellCore))
         }
         .padding()
         .background(Color(.secondarySystemGroupedBackground))

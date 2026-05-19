@@ -23,8 +23,11 @@ struct WelcomeStepHeader: View {
             HStack(alignment: .center, spacing: 10) {
                 Text(emoji)
                     .font(.system(size: 44))
+                    // Decorativo — o título logo ao lado já comunica a etapa.
+                    .accessibilityHidden(true)
                 Text(title)
                     .font(.title.bold())
+                    .accessibilityAddTraits(.isHeader)
             }
             if !subtitle.isEmpty {
                 Text(subtitle)
@@ -68,6 +71,10 @@ struct WelcomeField: View {
                 .padding()
                 .background(Color(.secondarySystemGroupedBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                // O Text("label") acima fica visível, mas é melhor o VoiceOver
+                // anunciar o nome do campo junto do conteúdo focado — sem isso
+                // só o placeholder é lido.
+                .accessibilityLabel(label)
         }
         // Sincroniza: foco do TextField → binding externo.
         .onChange(of: isFocused) { _, newValue in

@@ -85,13 +85,22 @@ struct GymNutshellWatchWidgetEntryView: View {
     }
 
     var body: some View {
-        switch family {
-        case .accessoryCircular:    circularView
-        case .accessoryRectangular: rectangularView
-        case .accessoryCorner:      cornerView
-        case .accessoryInline:      inlineView
-        default:                    circularView
+        Group {
+            switch family {
+            case .accessoryCircular:    circularView
+            case .accessoryRectangular: rectangularView
+            case .accessoryCorner:      cornerView
+            case .accessoryInline:      inlineView
+            default:                    circularView
+            }
         }
+        // Cada família vira 1 elemento de a11y único — sem isso o usuário ouve
+        // emoji, tier, "%" como elementos isolados em swipe na face do relógio.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(format: String(localized: "a11y.widget.summary.format",
+                                                 bundle: .gymNutshellCore),
+                                   entry.snapshot.tierName,
+                                   entry.snapshot.progressPercent))
     }
 
     // MARK: Circular — anel com emoji no centro

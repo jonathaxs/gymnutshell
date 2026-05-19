@@ -147,11 +147,22 @@ struct GymNutshellWidgetEntryView: View {
     }
 
     var body: some View {
-        switch family {
-        case .systemMedium: mediumView
-        case .accessoryRectangular: lockScreenView
-        default: smallView
+        Group {
+            switch family {
+            case .systemMedium: mediumView
+            case .accessoryRectangular: lockScreenView
+            default: smallView
+            }
         }
+        // Widget inteiro vira UM único elemento de VoiceOver — sem isso o usuário
+        // ouve emoji, tier name, "%" e pts como elementos separados. O label
+        // composto reusa a frase de progresso do iPhone.
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(format: String(localized: "a11y.widget.summary.points.format",
+                                                 bundle: .gymNutshellCore),
+                                   entry.snapshot.tierName,
+                                   entry.snapshot.progressPercent,
+                                   tierPoints))
     }
 
     // MARK: Lock screen (accessoryRectangular)

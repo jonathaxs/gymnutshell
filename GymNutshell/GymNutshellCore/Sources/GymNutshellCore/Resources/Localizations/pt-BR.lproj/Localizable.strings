@@ -1093,3 +1093,19 @@
 
 /* Linha de notificação do Watch */
 "a11y.watch.notification.row.format" = "%1$@, %2$@, %3$@";
+
+
+/* MARK: - Acessibilidade (Fase 6 — Widgets) */
+
+/* Resumo do widget (small/medium/lockscreen, watch circular/rectangular) */
+"a11y.widget.summary.format"       = "Progresso diário, %1$@, %2$d por cento concluído";
+"a11y.widget.summary.points.format" = "Progresso diário, %1$@, %2$d por cento concluído, %3$d pontos";
+
+/* Widgets grandes do iPhone */
+"a11y.widget.large.header.format"  = "%1$@, %2$@, %3$d por cento, %4$d pontos";
+"a11y.widget.calendar.label"       = "Calendário de conquistas";
+"a11y.widget.calendar.month.format" = "%@";
+"a11y.widget.goals.list.label"     = "Lista de progresso das metas";
+
+/* Watch widget — corner e inline já falam pelo texto natural */
+"a11y.widget.watch.corner.label.format" = "%1$@, %2$d por cento";

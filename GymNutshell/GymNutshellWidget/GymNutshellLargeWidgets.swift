@@ -141,6 +141,14 @@ private struct LargeHeader: View {
             }
             Spacer(minLength: 0)
         }
+        // Header inteiro vira 1 elemento: "Today, Big Cat, 65 percent, 60 points".
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(format: String(localized: "a11y.widget.large.header.format",
+                                                 bundle: .gymNutshellCore),
+                                   snapshot.updatedAt.formatted(date: .abbreviated, time: .omitted),
+                                   snapshot.tierName,
+                                   snapshot.progressPercent,
+                                   tierPoints))
     }
 }
 
@@ -229,8 +237,11 @@ private struct CalendarLargeView: View {
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(fg)
                         .frame(maxWidth: .infinity, alignment: .center)
+                        .accessibilityLabel(String(format: String(localized: "a11y.widget.calendar.month.format",
+                                                                 bundle: .gymNutshellCore), monthLabel()))
 
-                    // Cabeçalho de dias da semana.
+                    // Cabeçalho de dias da semana — decorativo, ocultado pra não falar
+                    // "D, S, T, Q, Q, S, S" em swipe.
                     HStack(spacing: 4) {
                         ForEach(Array(weekdaySymbols().enumerated()), id: \.offset) { _, sym in
                             Text(sym)
@@ -239,6 +250,7 @@ private struct CalendarLargeView: View {
                                 .frame(maxWidth: .infinity)
                         }
                     }
+                    .accessibilityHidden(true)
 
                     VStack(spacing: 4) {
                         ForEach(Array(weeks.enumerated()), id: \.offset) { _, row in
@@ -336,6 +348,15 @@ private struct DayCell: View {
         }
         .aspectRatio(1, contentMode: .fit)
         .frame(maxWidth: .infinity)
+        // Células fora do mês são decorativas — ocultadas pra reduzir ruído.
+        // Demais células viram elementos focáveis com data + estado.
+        .accessibilityHidden(!day.inCurrentMonth)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(A11y.dayCellValue(date: day.date,
+                                              percent: day.hasData ? day.percent : nil,
+                                              isToday: day.isToday,
+                                              isFuture: day.isFuture,
+                                              isSelected: false))
     }
 }
 
@@ -403,6 +424,7 @@ private struct GoalRow: View {
             Text(goal.emoji)
                 .font(.system(size: 16))
                 .frame(width: 22)
+                .accessibilityHidden(true)
             Text(goal.label)
                 .font(.caption.weight(.medium))
                 .foregroundStyle(textColor)
@@ -429,6 +451,10 @@ private struct GoalRow: View {
                 .foregroundStyle(textColor)
                 .frame(width: 38, alignment: .trailing)
         }
+        // Cada meta = 1 elemento focável: "Água, 60 por cento concluído".
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(goal.label)
+        .accessibilityValue(A11y.progressValue(percent: goal.percent))
     }
 }
 

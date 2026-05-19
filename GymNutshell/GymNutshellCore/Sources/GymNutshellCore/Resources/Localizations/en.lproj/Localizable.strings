@@ -1044,3 +1044,19 @@
 
 /* Watch notification row */
 "a11y.watch.notification.row.format" = "%1$@, %2$@, %3$@";
+
+
+/* MARK: - Accessibility (Phase 6 — Widgets) */
+
+/* Widget summary (small/medium/lockscreen, watch circular/rectangular) */
+"a11y.widget.summary.format"       = "Daily progress, %1$@, %2$d percent completed";
+"a11y.widget.summary.points.format" = "Daily progress, %1$@, %2$d percent completed, %3$d points";
+
+/* iPhone large widgets */
+"a11y.widget.large.header.format"  = "%1$@, %2$@, %3$d percent, %4$d points";
+"a11y.widget.calendar.label"       = "Achievements calendar";
+"a11y.widget.calendar.month.format" = "%@";
+"a11y.widget.goals.list.label"     = "Goals progress list";
+
+/* Watch widget — corner and inline don't need extra labels (text already speaks) */
+"a11y.widget.watch.corner.label.format" = "%1$@, %2$d percent";

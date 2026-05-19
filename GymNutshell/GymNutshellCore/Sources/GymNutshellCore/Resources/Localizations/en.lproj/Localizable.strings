@@ -892,8 +892,8 @@
 "a11y.daycell.selected.suffix"     = ", selected";
 
 /* Increment / decrement buttons (Watch, edit sheets) */
-"a11y.hint.increment" = "Increases the value.";
-"a11y.hint.decrement" = "Decreases the value.";
+"a11y.hint.increment" = "Tap to increase.";
+"a11y.hint.decrement" = "Tap to decrease.";
 
 /* Rest day toggle — label reflects on/off, hint describes the action */
 "a11y.label.restday.on"        = "Rest day enabled";
@@ -921,9 +921,9 @@
 "a11y.record.row.daily.format"  = "%1$@, %2$@, %3$d percent, %4$d points";
 "a11y.record.row.bonus.format"  = "%1$@, %2$@, %3$d bonus points";
 "a11y.record.row.hint"          = "Tap to view details.";
-"a11y.record.bonus.hint"        = "Tap for more information about streak bonuses.";
+"a11y.record.bonus.hint" = "Tap for more information.";
 "a11y.record.edit.label"        = "Edit record";
-"a11y.record.edit.hint"         = "Opens the edit sheet.";
+"a11y.record.edit.hint" = "Tap to edit.";
 
 /* RecordDetail / EditToday header card */
 "a11y.record.header.format"     = "%1$@, %2$@, %3$d percent, level %4$d";
@@ -931,12 +931,12 @@
 /* ProgressOverView — stats cards */
 "a11y.stats.days.label"            = "Days";
 "a11y.stats.days.value.format"     = "%d days";
-"a11y.stats.days.hint"             = "Tap to open today in the achievements calendar.";
+"a11y.stats.days.hint" = "Tap to open today's calendar.";
 "a11y.stats.points.label"          = "Points";
 "a11y.stats.points.value.format"   = "%d points";
 "a11y.stats.bonuses.label"         = "Bonuses";
 "a11y.stats.bonuses.value.format"  = "%d bonuses";
-"a11y.stats.bonuses.hint"          = "Tap for more information about streak bonuses.";
+"a11y.stats.bonuses.hint" = "Tap for more information.";
 
 /* ProgressOverView — list rows inside cards */
 "a11y.stats.tier.row.format"     = "%1$@, %2$d days";
@@ -945,18 +945,18 @@
 "a11y.stats.goals.row.format"    = "%1$@, %2$d active";
 
 /* ProgressOverView — whole-card tap hints */
-"a11y.stats.card.tiers.hint"      = "Tap for more information about tier levels.";
-"a11y.stats.card.activity.hint"   = "Tap to view your full achievements list.";
-"a11y.stats.card.goals.hint"      = "Tap to manage your goals.";
-"a11y.stats.card.usergoal.hint"   = "Tap to change your fitness goal.";
-"a11y.stats.card.physical.hint"   = "Tap to edit your physical data.";
+"a11y.stats.card.tiers.hint" = "Tap for more information.";
+"a11y.stats.card.activity.hint" = "Tap to open achievements.";
+"a11y.stats.card.goals.hint" = "Tap to manage goals.";
+"a11y.stats.card.usergoal.hint" = "Tap to change goal.";
+"a11y.stats.card.physical.hint" = "Tap to edit data.";
 
 /* ProfileRecentActivityView — day buttons */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";
 "a11y.recent.day.empty.format"     = "%@, no record";
 "a11y.recent.day.today.format"     = "today, %1$@, %2$@";
 "a11y.recent.day.today.empty.format" = "today, %@, no record yet";
-"a11y.recent.day.hint"             = "Tap to open this day in the achievements calendar.";
+"a11y.recent.day.hint" = "Tap to open this day.";
 
 
 /* MARK: - Accessibility (Phase 3 — Settings) */
@@ -968,36 +968,36 @@
 /* Theme picker (ThemeSettingsView) */
 "a11y.theme.hint"             = "Tap to select this theme.";
 "a11y.theme.info.label.format" = "More information about %@";
-"a11y.theme.info.hint"        = "Opens a sheet describing the four tiers of this theme.";
+"a11y.theme.info.hint" = "Tap for more information.";
 
 /* Color picker (ColorSettingsView) */
 "a11y.color.hint" = "Tap to select this color.";
 
 /* Fitness goal picker (UserGoalPickerView) */
-"a11y.usergoal.hint" = "Tap to choose this fitness goal.";
+"a11y.usergoal.hint" = "Tap to select this goal.";
 "a11y.usergoal.value.format" = "%@";   /* description */
 
 /* Tracking goals settings — image-only buttons */
 "a11y.button.add.goal.label"     = "New tracking goal";
-"a11y.button.add.goal.hint"      = "Opens the form to create a new tracking goal.";
+"a11y.button.add.goal.hint" = "Tap to create a new goal.";
 "a11y.button.remove.goal.label"  = "Remove goal";
 "a11y.button.restore.goal.label" = "Restore goal";
 
 /* Categories settings — pencil button */
 "a11y.button.edit.category.label" = "Edit category";
-"a11y.button.edit.category.hint"  = "Opens the editor for this category.";
+"a11y.button.edit.category.hint" = "Tap to edit this category.";
 
 /* Notification rows — pencil button */
 "a11y.button.edit.notification.label" = "Edit notification";
-"a11y.button.edit.notification.hint"  = "Opens the interval and sound editor.";
+"a11y.button.edit.notification.hint" = "Tap to edit notification settings.";
 
 /* SettingsView toolbar bell */
 "a11y.notification.history.bell" = "Notification history";
-"a11y.notification.history.bell.hint" = "Opens the recent notification history.";
+"a11y.notification.history.bell.hint" = "Tap to open notifications.";
 
 /* Notification history row */
 "a11y.history.row.format" = "%1$@, %2$@, %3$@";
-"a11y.history.row.hint"   = "Tap to open the related screen.";
+"a11y.history.row.hint" = "Tap to open.";
 
 /* App icon (About) */
 "a11y.app.icon" = "App icon";
@@ -1005,7 +1005,7 @@
 /* Tip jar product row */
 "a11y.tipjar.row.format" = "%1$@, %2$@";
 "a11y.tipjar.buy.label.format" = "Buy %1$@ for %2$@";
-"a11y.tipjar.buy.hint" = "Starts an in-app purchase.";
+"a11y.tipjar.buy.hint" = "Tap to purchase.";
 
 /* Collapsible section header (settings goals + notifications) */
 "a11y.section.collapsible.hint" = "Tap to collapse or expand.";
@@ -1017,8 +1017,8 @@
 "a11y.welcome.back.button"              = "Back to previous step";
 "a11y.welcome.optional.add.label.format"    = "Add %@";
 "a11y.welcome.optional.remove.label.format" = "Remove %@";
-"a11y.welcome.optional.add.hint"        = "Includes this goal in your daily tracking.";
-"a11y.welcome.optional.remove.hint"     = "Removes this goal from your daily tracking.";
+"a11y.welcome.optional.add.hint" = "Tap to add this goal.";
+"a11y.welcome.optional.remove.hint" = "Tap to remove this goal.";
 
 
 /* MARK: - Accessibility (Phase 5 — Watch app) */
@@ -1029,8 +1029,8 @@
 /* Watch goal card header */
 "a11y.watch.card.expanded"   = "expanded";
 "a11y.watch.card.collapsed"  = "collapsed";
-"a11y.watch.card.hint.expand" = "Tap to expand the controls.";
-"a11y.watch.card.hint.collapse" = "Tap to collapse the controls.";
+"a11y.watch.card.hint.expand" = "Tap to expand.";
+"a11y.watch.card.hint.collapse" = "Tap to collapse.";
 
 /* Watch ± buttons */
 "a11y.watch.increase.label.format" = "Increase %@";

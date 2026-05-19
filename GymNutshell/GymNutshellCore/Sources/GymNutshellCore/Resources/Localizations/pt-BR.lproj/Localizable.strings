@@ -941,8 +941,8 @@
 "a11y.daycell.selected.suffix"     = ", selecionado";
 
 /* Botões de incremento e decremento */
-"a11y.hint.increment" = "Aumenta o valor.";
-"a11y.hint.decrement" = "Diminui o valor.";
+"a11y.hint.increment" = "Toque para aumentar.";
+"a11y.hint.decrement" = "Toque para diminuir.";
 
 /* Toggle de dia de descanso — label reflete on/off, hint descreve a ação */
 "a11y.label.restday.on"        = "Dia de descanso ativado";
@@ -970,9 +970,9 @@
 "a11y.record.row.daily.format"  = "%1$@, %2$@, %3$d por cento, %4$d pontos";
 "a11y.record.row.bonus.format"  = "%1$@, %2$@, %3$d pontos de bônus";
 "a11y.record.row.hint"          = "Toque para ver detalhes.";
-"a11y.record.bonus.hint"        = "Toque para mais informações sobre bônus de sequência.";
+"a11y.record.bonus.hint" = "Toque para mais informações.";
 "a11y.record.edit.label"        = "Editar registro";
-"a11y.record.edit.hint"         = "Abre a tela de edição.";
+"a11y.record.edit.hint" = "Toque para editar.";
 
 /* RecordDetail / EditToday — card de cabeçalho */
 "a11y.record.header.format"     = "%1$@, %2$@, %3$d por cento, nível %4$d";
@@ -980,12 +980,12 @@
 /* ProgressOverView — cards de estatística */
 "a11y.stats.days.label"            = "Dias";
 "a11y.stats.days.value.format"     = "%d dias";
-"a11y.stats.days.hint"             = "Toque para abrir hoje no calendário de conquistas.";
+"a11y.stats.days.hint" = "Toque para abrir o calendário de hoje.";
 "a11y.stats.points.label"          = "Pontos";
 "a11y.stats.points.value.format"   = "%d pontos";
 "a11y.stats.bonuses.label"         = "Bônus";
 "a11y.stats.bonuses.value.format"  = "%d bônus";
-"a11y.stats.bonuses.hint"          = "Toque para mais informações sobre bônus de sequência.";
+"a11y.stats.bonuses.hint" = "Toque para mais informações.";
 
 /* ProgressOverView — linhas dentro dos cards */
 "a11y.stats.tier.row.format"     = "%1$@, %2$d dias";
@@ -994,18 +994,18 @@
 "a11y.stats.goals.row.format"    = "%1$@, %2$d ativas";
 
 /* ProgressOverView — hints dos cards inteiros */
-"a11y.stats.card.tiers.hint"      = "Toque para mais informações sobre os níveis.";
-"a11y.stats.card.activity.hint"   = "Toque para ver o histórico completo de conquistas.";
-"a11y.stats.card.goals.hint"      = "Toque para gerenciar suas metas.";
-"a11y.stats.card.usergoal.hint"   = "Toque para mudar seu objetivo fitness.";
-"a11y.stats.card.physical.hint"   = "Toque para editar seus dados físicos.";
+"a11y.stats.card.tiers.hint" = "Toque para mais informações.";
+"a11y.stats.card.activity.hint" = "Toque para abrir conquistas.";
+"a11y.stats.card.goals.hint" = "Toque para gerenciar metas.";
+"a11y.stats.card.usergoal.hint" = "Toque para mudar o objetivo.";
+"a11y.stats.card.physical.hint" = "Toque para editar os dados.";
 
 /* ProfileRecentActivityView — botões dos dias */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";
 "a11y.recent.day.empty.format"     = "%@, sem registro";
 "a11y.recent.day.today.format"     = "hoje, %1$@, %2$@";
 "a11y.recent.day.today.empty.format" = "hoje, %@, ainda sem registro";
-"a11y.recent.day.hint"             = "Toque para abrir este dia no calendário de conquistas.";
+"a11y.recent.day.hint" = "Toque para abrir este dia.";
 
 
 /* MARK: - Acessibilidade (Fase 3 — Settings) */
@@ -1017,36 +1017,36 @@
 /* Picker de tema (ThemeSettingsView) */
 "a11y.theme.hint"             = "Toque para escolher este tema.";
 "a11y.theme.info.label.format" = "Mais informações sobre %@";
-"a11y.theme.info.hint"        = "Abre uma tela descrevendo os quatro níveis deste tema.";
+"a11y.theme.info.hint" = "Toque para mais informações.";
 
 /* Picker de cor (ColorSettingsView) */
 "a11y.color.hint" = "Toque para escolher esta cor.";
 
 /* Picker de objetivo fitness (UserGoalPickerView) */
-"a11y.usergoal.hint" = "Toque para escolher este objetivo fitness.";
+"a11y.usergoal.hint" = "Toque para escolher este objetivo.";
 "a11y.usergoal.value.format" = "%@";
 
 /* Tracking goals — botões só-ícone */
 "a11y.button.add.goal.label"     = "Nova meta de rastreio";
-"a11y.button.add.goal.hint"      = "Abre o formulário para criar uma nova meta de rastreio.";
+"a11y.button.add.goal.hint" = "Toque para criar uma nova meta.";
 "a11y.button.remove.goal.label"  = "Remover meta";
 "a11y.button.restore.goal.label" = "Restaurar meta";
 
 /* Categorias — botão de lápis */
 "a11y.button.edit.category.label" = "Editar categoria";
-"a11y.button.edit.category.hint"  = "Abre o editor desta categoria.";
+"a11y.button.edit.category.hint" = "Toque para editar esta categoria.";
 
 /* Linhas de notificação — botão de lápis */
 "a11y.button.edit.notification.label" = "Editar notificação";
-"a11y.button.edit.notification.hint"  = "Abre o editor de intervalo e som.";
+"a11y.button.edit.notification.hint" = "Toque para editar as notificações.";
 
 /* Sino do toolbar (SettingsView) */
 "a11y.notification.history.bell" = "Histórico de notificações";
-"a11y.notification.history.bell.hint" = "Abre o histórico recente de notificações.";
+"a11y.notification.history.bell.hint" = "Toque para abrir as notificações.";
 
 /* Linha do histórico de notificações */
 "a11y.history.row.format" = "%1$@, %2$@, %3$@";
-"a11y.history.row.hint"   = "Toque para abrir a tela relacionada.";
+"a11y.history.row.hint" = "Toque para abrir.";
 
 /* Ícone do app (About) */
 "a11y.app.icon" = "Ícone do app";
@@ -1054,7 +1054,7 @@
 /* Linha de produto do tip jar */
 "a11y.tipjar.row.format" = "%1$@, %2$@";
 "a11y.tipjar.buy.label.format" = "Comprar %1$@ por %2$@";
-"a11y.tipjar.buy.hint" = "Inicia uma compra dentro do app.";
+"a11y.tipjar.buy.hint" = "Toque para comprar.";
 
 /* Header colapsável de seção (metas e notificações) */
 "a11y.section.collapsible.hint" = "Toque para recolher ou expandir.";
@@ -1066,8 +1066,8 @@
 "a11y.welcome.back.button"              = "Voltar ao passo anterior";
 "a11y.welcome.optional.add.label.format"    = "Adicionar %@";
 "a11y.welcome.optional.remove.label.format" = "Remover %@";
-"a11y.welcome.optional.add.hint"        = "Inclui esta meta no seu rastreamento diário.";
-"a11y.welcome.optional.remove.hint"     = "Remove esta meta do seu rastreamento diário.";
+"a11y.welcome.optional.add.hint" = "Toque para adicionar esta meta.";
+"a11y.welcome.optional.remove.hint" = "Toque para remover esta meta.";
 
 
 /* MARK: - Acessibilidade (Fase 5 — Watch app) */
@@ -1078,8 +1078,8 @@
 /* Card de meta do Watch — header */
 "a11y.watch.card.expanded"   = "expandido";
 "a11y.watch.card.collapsed"  = "recolhido";
-"a11y.watch.card.hint.expand" = "Toque para expandir os controles.";
-"a11y.watch.card.hint.collapse" = "Toque para recolher os controles.";
+"a11y.watch.card.hint.expand" = "Toque para expandir.";
+"a11y.watch.card.hint.collapse" = "Toque para recolher.";
 
 /* Botões ± do Watch */
 "a11y.watch.increase.label.format" = "Aumentar %@";

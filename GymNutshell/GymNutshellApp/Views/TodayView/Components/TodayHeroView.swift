@@ -100,15 +100,18 @@ struct TodayHeroView: View {
 
             // Nível de conquista e anel de progresso — lado a lado no iPhone,
             // empilhados verticalmente no iPad pra aproveitar a altura extra.
+            // Em ambos os layouts (vertical e horizontal) o texto "Progresso" agora
+            // vive DENTRO do TodayProgressRingView via parâmetro `headerText`. Isso
+            // garante (a) que ele escale junto no press e (b) que VoiceOver leia
+            // anel + label como um único elemento.
+            let progressHeader = String(localized: "today.ring.label.progresso",
+                                        bundle: .gymNutshellCore)
+
             if verticalLayout {
                 VStack(spacing: 24) {
-                    VStack(spacing: 12) {
-                        Text(String(localized: "today.ring.label.progresso", bundle: .gymNutshellCore))
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                        TodayProgressRingView(progress: dailyProgress,
-                                              onTap: { showRingSheet = true })
-                    }
+                    TodayProgressRingView(progress: dailyProgress,
+                                          onTap: { showRingSheet = true },
+                                          headerText: progressHeader)
                     DailyTierView(achievement: dailyAchievement, theme: selectedTheme,
                                   onTap: { showTierSheet = true })
                 }
@@ -117,14 +120,10 @@ struct TodayHeroView: View {
                 // Modo horizontal (iPhone / iPad janela pequena): progresso à esquerda,
                 // conquista à direita.
                 HStack(spacing: 0) {
-                    VStack(spacing: 20) {
-                        Text(String(localized: "today.ring.label.progresso", bundle: .gymNutshellCore))
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.secondary)
-                        TodayProgressRingView(progress: dailyProgress,
-                                              onTap: { showRingSheet = true })
-                    }
-                    .frame(maxWidth: .infinity)
+                    TodayProgressRingView(progress: dailyProgress,
+                                          onTap: { showRingSheet = true },
+                                          headerText: progressHeader)
+                        .frame(maxWidth: .infinity)
 
                     DailyTierView(achievement: dailyAchievement, theme: selectedTheme,
                                   onTap: { showTierSheet = true })

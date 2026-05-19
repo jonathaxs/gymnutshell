@@ -454,9 +454,10 @@
 "today.tier.level.3" = "Tier 3";
 "today.tier.level.4" = "Tier 4";
 "today.tier.points" = "Points: %d";
-/* Tier button: label is just the tier name (%2$@); emoji speaks via the separate
-   "Achievement" header text. Avoids "Rooster, Rooster" duplication. */
-"today.tier.a11y.label" = "%2$@";
+/* Tier button label combines the "Today's achievement" header phrase with the
+   tier name. Emoji is decorative and stays hidden, so no "Rooster, Rooster"
+   duplication. %1$@ = emoji (ignored), %2$@ = tier name. */
+"today.tier.a11y.label" = "Today's achievement, %2$@";
 "today.tier.a11y.value" = "Points: %d";
 "today.tier.label.achievement" = "Achievement";
 
@@ -464,7 +465,7 @@
 "today.ring.label.progresso" = "Progress";
 
 /* TodayProgressRingView.swift */
-"today.ring.a11y.label" = "Daily progress ring";
+"today.ring.a11y.label" = "Today's progress ring";
 "today.ring.a11y.hint" = "Tap for more information.";
 "today.ring.a11y.value" = "%d percent completed";
 

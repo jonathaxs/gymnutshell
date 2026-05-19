@@ -494,13 +494,13 @@
 /* TodayProgressRingView.swift — label */
 "today.ring.label.progresso" = "Progresso";
 "today.tier.points" = "Pontos: %d";
-/* Tier button: label é só o nome (%2$@); emoji é falado pelo texto "Conquista"
-   ao lado. Evita duplicação "Galo, Galo". */
-"today.tier.a11y.label" = "%2$@";
+/* Tier button label combina o cabeçalho "Conquista de hoje" com o nome do tier.
+   O emoji fica oculto (decorativo) — evita "Galo, Galo". */
+"today.tier.a11y.label" = "Conquista de hoje, %2$@";
 "today.tier.a11y.value" = "Pontos: %d";
 
 /* TodayProgressRingView.swift */
-"today.ring.a11y.label" = "Anel de progresso diário";
+"today.ring.a11y.label" = "Anel de progresso de hoje";
 "today.ring.a11y.hint" = "Toque para mais informações.";
 "today.ring.a11y.value" = "%d por cento concluído";
 

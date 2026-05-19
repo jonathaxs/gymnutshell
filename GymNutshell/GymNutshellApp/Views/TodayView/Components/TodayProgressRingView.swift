@@ -24,6 +24,11 @@ struct TodayProgressRingView: View {
     var size: CGFloat = 108
     var lineWidth: CGFloat = 12
 
+    /// Texto opcional renderizado acima do anel (ex.: "Progresso"). Quando presente,
+    /// é incluído no mesmo subtree que escala no press e vira parte do mesmo
+    /// elemento de VoiceOver — não fala em separado.
+    var headerText: String? = nil
+
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     @GestureState private var isPressed: Bool = false
@@ -55,28 +60,38 @@ struct TodayProgressRingView: View {
     // MARK: - Body
 
     var body: some View {
-        ZStack {
-            // Trilha de fundo
-            Circle()
-                .stroke(Color.secondary.opacity(0.2), lineWidth: lineWidth)
+        // VStack agrupa o header opcional ("Progresso") + anel. A escala / gesto /
+        // a11y ficam no VStack inteiro — header e anel sobem juntos no press e
+        // viram um único "Anel de progresso diário" no VoiceOver.
+        VStack(spacing: 20) {
+            if let headerText {
+                Text(headerText)
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.secondary)
+            }
 
-            // Arco de progresso — começa no topo (rotacionado -90°), ponta arredondada
-            Circle()
-                .trim(from: 0, to: clampedProgress)
-                .stroke(ringColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(reduceMotion ? nil : .easeInOut(duration: 0.4), value: clampedProgress)
+            ZStack {
+                // Trilha de fundo
+                Circle()
+                    .stroke(Color.secondary.opacity(0.2), lineWidth: lineWidth)
 
-            // Label de porcentagem
-            Text("\(percentage)%")
-                .font(.title3.weight(.semibold).monospacedDigit())
-                .foregroundStyle(ringColor)
-                .contentTransition(.numericText())
-                .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: percentage)
-                .accessibilityHidden(true)
+                // Arco de progresso — começa no topo (rotacionado -90°), ponta arredondada
+                Circle()
+                    .trim(from: 0, to: clampedProgress)
+                    .stroke(ringColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .animation(reduceMotion ? nil : .easeInOut(duration: 0.4), value: clampedProgress)
+
+                // Label de porcentagem
+                Text("\(percentage)%")
+                    .font(.title3.weight(.semibold).monospacedDigit())
+                    .foregroundStyle(ringColor)
+                    .contentTransition(.numericText())
+                    .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: percentage)
+            }
+            .frame(width: size, height: size)
         }
-        .frame(width: size, height: size)
-        // Expande ao pressionar
+        // Expande ao pressionar — header + anel juntos.
         .scaleEffect(isPressed ? 1.20 : 1.0)
         .animation(
             reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.50),

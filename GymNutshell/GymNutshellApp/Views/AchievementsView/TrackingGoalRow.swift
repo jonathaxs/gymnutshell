@@ -7,6 +7,7 @@
 // ⌘
 
 import SwiftUI
+import GymNutshellCore
 
 struct TrackingGoalRow: View {
 
@@ -34,6 +35,7 @@ struct TrackingGoalRow: View {
 
             HStack {
                 Text(icon)
+                    .accessibilityHidden(true)
                 Text(title)
                     .font(.headline)
 
@@ -44,14 +46,20 @@ struct TrackingGoalRow: View {
                     .foregroundStyle(.secondary)
             }
 
-            // Representação visual do progresso pra inspeção histórica
+            // Representação visual do progresso pra inspeção histórica.
+            // Oculto do a11y — o value composto abaixo já comunica X de Y completed.
             ProgressView(value: Double(value), total: Double(goal))
                 .tint(Color.accentColor)
                 .scaleEffect(x: 1, y: 2, anchor: .center)
                 .frame(height: 10)
                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                .accessibilityHidden(true)
         }
         .padding(.vertical, 6)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.goalrow.a11y.label",
+                                                 bundle: .gymNutshellCore), title))
+        .accessibilityValue(A11y.goalRowValue(current: value, goal: goal, unit: unit))
     }
 }
 

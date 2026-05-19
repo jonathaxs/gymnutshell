@@ -28,15 +28,38 @@ struct ThemeSettingsView: View {
                 Section(category.localizedName(sex: sex)) {
                     ForEach(AppTheme.themes(in: category), id: \.self) { theme in
                         let isSelected = selectedTheme == theme
+                        let themeName = theme.displayName(sex: sex)
                         HStack {
-                            // Prévia dos quatro emojis de nível pra esse tema.
-                            Text(theme.themeEmojis(sex: sex))
-                                .font(.title3)
+                            // Bloco esquerdo (prévia + nome + check) = elemento único de a11y;
+                            // botão de info fica FORA do combine pra ser focável separado.
+                            HStack {
+                                Text(theme.themeEmojis(sex: sex))
+                                    .font(.title3)
+                                    .accessibilityHidden(true)
 
-                            Text(theme.displayName(sex: sex))
-                                .foregroundColor(isSelected ? .white : Color.primary)
+                                Text(themeName)
+                                    .foregroundColor(isSelected ? .white : Color.primary)
 
-                            Spacer()
+                                Spacer()
+
+                                if isSelected {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.white)
+                                        .font(.subheadline.weight(.bold))
+                                        .accessibilityHidden(true)
+                                }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                selectedTheme = theme
+                            }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityAddTraits(.isButton)
+                            .accessibilityLabel(themeName)
+                            .accessibilityValue(isSelected
+                                                ? String(localized: "a11y.selected", bundle: .gymNutshellCore)
+                                                : String(localized: "a11y.not.selected", bundle: .gymNutshellCore))
+                            .accessibilityHint(String(localized: "a11y.theme.hint", bundle: .gymNutshellCore))
 
                             Button {
                                 infoTheme = theme
@@ -45,17 +68,9 @@ struct ThemeSettingsView: View {
                             }
                             .buttonStyle(.borderless)
                             .tint(isSelected ? .white : .accentColor)
-
-                            // Checkmark no tema atualmente ativo.
-                            if isSelected {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.white)
-                                    .font(.subheadline.weight(.bold))
-                            }
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            selectedTheme = theme
+                            .accessibilityLabel(String(format: String(localized: "a11y.theme.info.label.format",
+                                                                     bundle: .gymNutshellCore), themeName))
+                            .accessibilityHint(String(localized: "a11y.theme.info.hint", bundle: .gymNutshellCore))
                         }
                         .listRowBackground(isSelected ? accentColor : nil)
                     }

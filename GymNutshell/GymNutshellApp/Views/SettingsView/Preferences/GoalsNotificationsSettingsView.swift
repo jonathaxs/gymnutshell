@@ -86,6 +86,7 @@ struct GoalsNotificationsSettingsView: View {
                 Image(systemName: isCollapsed(id) ? "chevron.right" : "chevron.down")
                     .font(.caption.weight(.semibold))
                     .frame(width: 12)
+                    .accessibilityHidden(true)
                 Text(title)
                 Spacer()
             }
@@ -93,6 +94,8 @@ struct GoalsNotificationsSettingsView: View {
         .buttonStyle(.plain)
         .foregroundStyle(.secondary)
         .textCase(nil)
+        .accessibilityLabel(title)
+        .accessibilityHint(String(localized: "a11y.section.collapsible.hint", bundle: .gymNutshellCore))
     }
 
     // MARK: - Estado de colapso

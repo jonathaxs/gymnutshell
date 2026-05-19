@@ -175,9 +175,11 @@ struct NotificationHistorySheet: View {
 
     @ViewBuilder
     private func row(for entry: NotificationHistoryEntry) -> some View {
+        let timeString = entry.timestamp.formatted(date: .omitted, time: .shortened)
         HStack(alignment: .top, spacing: 12) {
             icon(for: entry)
                 .frame(width: 28, height: 28)
+                .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: 2) {
                 Text(entry.title)
                     .font(.subheadline.weight(.semibold))
@@ -197,6 +199,12 @@ struct NotificationHistorySheet: View {
             guard !editMode.isEditing else { return }
             handleTap(entry)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(String(format: String(localized: "a11y.history.row.format",
+                                                 bundle: .gymNutshellCore),
+                                   entry.title, entry.body, timeString))
+        .accessibilityHint(String(localized: "a11y.history.row.hint", bundle: .gymNutshellCore))
     }
 
     @ViewBuilder

@@ -153,6 +153,10 @@ struct ProgressOverView: View {
                     } label: {
                         Image(systemName: "bell")
                     }
+                    .accessibilityLabel(String(localized: "a11y.notification.history.bell",
+                                               bundle: .gymNutshellCore))
+                    .accessibilityHint(String(localized: "a11y.notification.history.bell.hint",
+                                              bundle: .gymNutshellCore))
                 }
             }
         }
@@ -260,6 +264,11 @@ struct ProgressOverView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture { navPath.append(StatsDestination.userGoal) }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel(String(localized: "statistics.fitness.goal", bundle: .gymNutshellCore))
+                .accessibilityValue(userGoalLabel)
+                .accessibilityHint(String(localized: "a11y.stats.card.usergoal.hint", bundle: .gymNutshellCore))
             }
 
             if height > 0 || weight > 0 || age > 0 || !sex.isEmpty {
@@ -371,6 +380,11 @@ struct ProgressOverView: View {
                 }
                 .contentShape(Rectangle())
                 .onTapGesture { navPath.append(StatsDestination.userGoal) }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel(String(localized: "statistics.fitness.goal", bundle: .gymNutshellCore))
+                .accessibilityValue(userGoalLabel)
+                .accessibilityHint(String(localized: "a11y.stats.card.usergoal.hint", bundle: .gymNutshellCore))
             }
 
             // Últimos 7 dias — ocupa a largura toda, abaixo das duas colunas.
@@ -455,6 +469,7 @@ struct ProgressOverView: View {
     private func tierRow(emoji: String, label: String, days: Int) -> some View {
         HStack {
             Text(emoji)
+                .accessibilityHidden(true)
             Text(label)
             Spacer()
             Text(String(format: String(localized: "statistics.tier.days", bundle: .gymNutshellCore), days))
@@ -462,6 +477,9 @@ struct ProgressOverView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.stats.tier.row.format",
+                                                 bundle: .gymNutshellCore), label, days))
     }
 
     private func bonusRow(label: String, count: Int) -> some View {
@@ -475,11 +493,17 @@ struct ProgressOverView: View {
         .padding(.vertical, 12)
         .contentShape(Rectangle())
         .onTapGesture { showBonusInfoSheet = true }
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(String(format: String(localized: "a11y.stats.bonus.row.format",
+                                                 bundle: .gymNutshellCore), label, count))
+        .accessibilityHint(String(localized: "a11y.record.bonus.hint", bundle: .gymNutshellCore))
     }
 
     private func activityRow(emoji: String, label: String, days: Int) -> some View {
         HStack {
             Text(emoji)
+                .accessibilityHidden(true)
             Text(label)
             Spacer()
             Text(String(format: String(localized: "statistics.tier.days", bundle: .gymNutshellCore), days))
@@ -487,11 +511,15 @@ struct ProgressOverView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.stats.activity.row.format",
+                                                 bundle: .gymNutshellCore), label, days))
     }
 
     private func goalsRow(label: String, count: Int) -> some View {
         HStack {
             Text("✅")
+                .accessibilityHidden(true)
             Text(label)
             Spacer()
             Text(String(format: String(localized: "statistics.goals.active", bundle: .gymNutshellCore), count))
@@ -499,6 +527,9 @@ struct ProgressOverView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.stats.goals.row.format",
+                                                 bundle: .gymNutshellCore), label, count))
     }
 }
 

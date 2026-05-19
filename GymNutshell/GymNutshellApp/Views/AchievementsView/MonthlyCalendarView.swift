@@ -22,6 +22,12 @@ struct MonthlyCalendarView: View {
     /// Mapeamento de dia -> emoji (chaveado por startOfDay)
     let emojiByDay: [Date: String]
 
+    /// Mapeamento de dia -> nome localizado a falar no VoiceOver (nome do tier
+    /// quando há DailyRecord, ou título do bônus quando há StreakBonus naquela
+    /// data). Quando ausente, a célula é narrada como "sem registro".
+    /// AchievementsView popula isso; outros call sites podem deixar vazio.
+    var tierNameByDay: [Date: String] = [:]
+
     private let calendar = Calendar.current
 
     // Cor de destaque — segue a escolha do usuário em Settings > Cores.
@@ -47,7 +53,8 @@ struct MonthlyCalendarView: View {
         let days = daysInMonth(for: monthDate)
 
         VStack(spacing: 8) {
-            // Cabeçalho dos dias da semana (D S T Q Q S S)
+            // Cabeçalho dos dias da semana (D S T Q Q S S) — decorativo;
+            // ocultado do VoiceOver pra não falar "D, S, T..." em swipe.
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 12) {
                 ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { _, symbol in
                     Text(symbol)
@@ -56,6 +63,7 @@ struct MonthlyCalendarView: View {
                         .frame(maxWidth: .infinity)
                 }
             }
+            .accessibilityHidden(true)
 
             // Grid do mês
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 12) {
@@ -72,8 +80,12 @@ struct MonthlyCalendarView: View {
     private func dayCell(for date: Date) -> some View {
         let isSelected = calendar.isDate(date, inSameDayAs: selectedDate)
         let isInDisplayedMonth = calendar.isDate(date, equalTo: monthDate, toGranularity: .month)
+        let isToday = calendar.isDateInToday(date)
+        let isFuture = date > Date() && !isToday
         let dayNumber = calendar.component(.day, from: date)
-        let emoji = emojiByDay[calendar.startOfDay(for: date)]
+        let dayKey = calendar.startOfDay(for: date)
+        let emoji = emojiByDay[dayKey]
+        let tierName = tierNameByDay[dayKey]
 
         VStack(spacing: 4) {
             Text("\(dayNumber)")
@@ -97,6 +109,16 @@ struct MonthlyCalendarView: View {
             guard isInDisplayedMonth else { return }
             selectedDate = date
         }
+        // Acessibilidade — célula vira UM elemento focável; dias fora do mês
+        // visível ficam ocultos pra reduzir ruído na varredura por swipe.
+        .accessibilityElement(children: .ignore)
+        .accessibilityHidden(!isInDisplayedMonth)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(A11y.calendarDayValue(date: date,
+                                                  tierName: tierName,
+                                                  isToday: isToday,
+                                                  isFuture: isFuture,
+                                                  isSelected: isSelected))
     }
 
     // MARK: - Helpers

@@ -22,17 +22,36 @@ struct ProfileStatsRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            cardBase(value: "\(totalDays)", label: String(localized: "profile.stats.days", bundle: .gymNutshellCore))
+            cardBase(value: "\(totalDays)",
+                     label: String(localized: "profile.stats.days", bundle: .gymNutshellCore))
                 .contentShape(Rectangle())
                 .onTapGesture { onDaysTap?() }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel(String(localized: "a11y.stats.days.label", bundle: .gymNutshellCore))
+                .accessibilityValue(String(format: String(localized: "a11y.stats.days.value.format",
+                                                         bundle: .gymNutshellCore), totalDays))
+                .accessibilityHint(String(localized: "a11y.stats.days.hint", bundle: .gymNutshellCore))
 
             // Pontos mantém o efeito de escala; Dias e Bônus não.
-            cardBase(value: "\(totalPoints)", label: String(localized: "profile.stats.points", bundle: .gymNutshellCore))
+            cardBase(value: "\(totalPoints)",
+                     label: String(localized: "profile.stats.points", bundle: .gymNutshellCore))
                 .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(String(localized: "a11y.stats.points.label", bundle: .gymNutshellCore))
+                .accessibilityValue(String(format: String(localized: "a11y.stats.points.value.format",
+                                                         bundle: .gymNutshellCore), totalPoints))
 
-            cardBase(value: "\(bonusCount)", label: String(localized: "profile.stats.bonuses", bundle: .gymNutshellCore))
+            cardBase(value: "\(bonusCount)",
+                     label: String(localized: "profile.stats.bonuses", bundle: .gymNutshellCore))
                 .contentShape(Rectangle())
                 .onTapGesture { onBonusTap?() }
+                .accessibilityElement(children: .combine)
+                .accessibilityAddTraits(.isButton)
+                .accessibilityLabel(String(localized: "a11y.stats.bonuses.label", bundle: .gymNutshellCore))
+                .accessibilityValue(String(format: String(localized: "a11y.stats.bonuses.value.format",
+                                                         bundle: .gymNutshellCore), bonusCount))
+                .accessibilityHint(String(localized: "a11y.stats.bonuses.hint", bundle: .gymNutshellCore))
         }
     }
 

@@ -97,6 +97,7 @@ struct AboutView: View {
             .interpolation(.high)
             .frame(width: size, height: size)
             .clipShape(RoundedRectangle(cornerRadius: size * 0.22, style: .continuous))
+            .accessibilityLabel(String(localized: "a11y.app.icon", bundle: .gymNutshellCore))
     }
 
     // MARK: - Helpers de versão

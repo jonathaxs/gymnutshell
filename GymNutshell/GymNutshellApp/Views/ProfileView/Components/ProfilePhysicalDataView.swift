@@ -100,5 +100,8 @@ struct ProfilePhysicalDataView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(label)
+        .accessibilityValue(value)
     }
 }

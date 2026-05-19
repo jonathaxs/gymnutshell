@@ -50,6 +50,7 @@ struct UserGoalPickerView: View {
                 if isSelected {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundStyle(.white)
+                        .accessibilityHidden(true)
                 }
             }
             .padding()
@@ -57,6 +58,14 @@ struct UserGoalPickerView: View {
             .clipShape(RoundedRectangle(cornerRadius: 14))
         }
         .buttonStyle(.plain)
+        // Combina nome + descrição num único label; estado de seleção entra no value.
+        .accessibilityElement(children: .combine)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(goal.label + ", " + goalDescription(goal))
+        .accessibilityValue(isSelected
+                            ? String(localized: "a11y.selected", bundle: .gymNutshellCore)
+                            : String(localized: "a11y.not.selected", bundle: .gymNutshellCore))
+        .accessibilityHint(String(localized: "a11y.usergoal.hint", bundle: .gymNutshellCore))
     }
 
     private func goalColor(_ goal: UserGoal) -> Color {

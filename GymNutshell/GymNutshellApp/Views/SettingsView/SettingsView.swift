@@ -130,6 +130,8 @@ struct SettingsView: View {
                             Image(systemName: "arrow.up.forward.app")
                                 .font(.footnote.weight(.semibold))
                                 .foregroundStyle(.tertiary)
+                                // Ícone de "abre fora" é decorativo — o Button já diz "Language".
+                                .accessibilityHidden(true)
                         }
                     }
                     .foregroundStyle(.primary)
@@ -173,6 +175,10 @@ struct SettingsView: View {
                     } label: {
                         Image(systemName: "bell")
                     }
+                    .accessibilityLabel(String(localized: "a11y.notification.history.bell",
+                                               bundle: .gymNutshellCore))
+                    .accessibilityHint(String(localized: "a11y.notification.history.bell.hint",
+                                              bundle: .gymNutshellCore))
                 }
             }
             .sheet(isPresented: $showNotificationHistory) {

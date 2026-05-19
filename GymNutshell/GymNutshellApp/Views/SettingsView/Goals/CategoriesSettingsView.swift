@@ -70,6 +70,10 @@ struct CategoriesSettingsView: View {
                 }
                 .buttonStyle(.borderless)
                 .padding(.trailing, 12)
+                .accessibilityLabel(String(localized: "a11y.button.edit.category.label",
+                                           bundle: .gymNutshellCore))
+                .accessibilityHint(String(localized: "a11y.button.edit.category.hint",
+                                          bundle: .gymNutshellCore))
             }
         }
     }

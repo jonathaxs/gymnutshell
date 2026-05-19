@@ -258,13 +258,23 @@ struct EditTodayView: View {
                 VStack(spacing: 12) {
 
                     // Card de resumo compacto mostrando a data do registro e o nível recalculado.
+                    let tierName = selectedTheme.name(for: dailyAchievement, sex: sex)
+                    let levelNumber: Int = {
+                        switch dailyAchievement {
+                        case .level1: return 1
+                        case .level2: return 2
+                        case .level3: return 3
+                        case .level4: return 4
+                        }
+                    }()
                     HStack(spacing: 12) {
                         Text(selectedTheme.emoji(for: dailyAchievement))
                             .font(.system(size: 40))
+                            .accessibilityHidden(true)
                         VStack(alignment: .leading, spacing: 2) {
                             Text(record.date.formatted(date: .long, time: .omitted))
                                 .font(.headline)
-                            Text("\(selectedTheme.name(for: dailyAchievement, sex: sex)) · \(dailyPercentage)%")
+                            Text("\(tierName) · \(dailyPercentage)%")
                                 .font(.subheadline)
                                 .foregroundStyle(.secondary)
                         }
@@ -272,6 +282,13 @@ struct EditTodayView: View {
                     }
                     .padding()
                     .background(dailyAchievement.color, in: RoundedRectangle(cornerRadius: 16))
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(String(format: String(localized: "a11y.record.header.format",
+                                                             bundle: .gymNutshellCore),
+                                               record.date.formatted(date: .long, time: .omitted),
+                                               tierName,
+                                               dailyPercentage,
+                                               levelNumber))
 
                     // Metas ativas agrupadas por categoria na ordem do usuário.
                     ForEach(orderedCategories, id: \.self) { category in

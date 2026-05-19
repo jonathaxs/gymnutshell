@@ -133,6 +133,10 @@ struct NotificationRow: View {
                     .font(.system(size: 18, weight: .regular))
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel(String(localized: "a11y.button.edit.notification.label",
+                                       bundle: .gymNutshellCore))
+            .accessibilityHint(String(localized: "a11y.button.edit.notification.hint",
+                                      bundle: .gymNutshellCore))
             Toggle("", isOn: $isEnabled)
                 .labelsHidden()
         }
@@ -199,6 +203,10 @@ struct CustomNotificationRow: View {
                     .font(.system(size: 18, weight: .regular))
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel(String(localized: "a11y.button.edit.notification.label",
+                                       bundle: .gymNutshellCore))
+            .accessibilityHint(String(localized: "a11y.button.edit.notification.hint",
+                                      bundle: .gymNutshellCore))
             Toggle("", isOn: $isEnabled)
                 .labelsHidden()
         }

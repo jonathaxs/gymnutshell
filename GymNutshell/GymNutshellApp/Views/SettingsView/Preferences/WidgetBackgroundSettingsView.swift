@@ -63,6 +63,9 @@ struct WidgetBackgroundSettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 8)
                     .listRowBackground(Color.clear)
+                    // Previews puramente visuais — ocultos do VoiceOver pra evitar
+                    // ruído ("imagem, imagem" enquanto o usuário ajusta as opções).
+                    .accessibilityHidden(true)
                 }
             }
         }

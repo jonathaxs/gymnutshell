@@ -52,26 +52,34 @@ struct ThemeInfoView: View {
         List {
             Section(String(localized: "tier.info.section.levels", bundle: .gymNutshellCore)) {
                 ForEach(tiers, id: \.self) { tier in
+                    let name = theme.name(for: tier, sex: sex)
+                    let range = rangeLabel(for: tier)
+                    let level = tierLevel(for: tier)
                     HStack(spacing: 14) {
                         Text(theme.emoji(for: tier, sex: sex))
                             .font(.title2)
                             .frame(width: 36)
+                            .accessibilityHidden(true)
 
                         VStack(alignment: .leading, spacing: 2) {
-                            Text(theme.name(for: tier, sex: sex))
+                            Text(name)
                                 .font(.subheadline.weight(.semibold))
-                            Text(rangeLabel(for: tier))
+                            Text(range)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
 
                         Spacer()
 
-                        Text(String(localized: "ring.info.level.label", bundle: .gymNutshellCore) + "\(tierLevel(for: tier))")
+                        Text(String(localized: "ring.info.level.label", bundle: .gymNutshellCore) + "\(level)")
                             .font(.caption.weight(.semibold))
                             .foregroundStyle(accentColor)
                     }
                     .padding(.vertical, 2)
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(String(format: String(localized: "a11y.tierinfo.row.format",
+                                                             bundle: .gymNutshellCore),
+                                               name, range, level))
                 }
             }
         }

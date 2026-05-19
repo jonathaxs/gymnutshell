@@ -251,6 +251,10 @@ struct TrackingGoalsSettingsView: View {
                     } label: {
                         Image(systemName: "plus")
                     }
+                    .accessibilityLabel(String(localized: "a11y.button.add.goal.label",
+                                               bundle: .gymNutshellCore))
+                    .accessibilityHint(String(localized: "a11y.button.add.goal.hint",
+                                              bundle: .gymNutshellCore))
 
                     Button(editMode.isEditing
                            ? String(localized: "settings.tracking.goals.done", bundle: .gymNutshellCore)
@@ -316,6 +320,7 @@ struct TrackingGoalsSettingsView: View {
                 Image(systemName: isSettingsCategoryCollapsed(category) ? "chevron.right" : "chevron.down")
                     .font(.caption.weight(.semibold))
                     .frame(width: 12)
+                    .accessibilityHidden(true)
                 Text(category.displayName)
                 Spacer()
             }
@@ -323,6 +328,8 @@ struct TrackingGoalsSettingsView: View {
         .buttonStyle(.plain)
         .foregroundStyle(.secondary)
         .textCase(nil)
+        .accessibilityLabel(A11y.categoryLabel(category.displayName))
+        .accessibilityHint(A11y.categoryHint())
     }
 
     // MARK: - Linha de meta fixa
@@ -335,6 +342,7 @@ struct TrackingGoalsSettingsView: View {
         if isRemoved {
             HStack {
                 Text(meta.icon).opacity(0.4)
+                    .accessibilityHidden(true)
                 Text(Self.title(for: key))
                     .foregroundStyle(.secondary)
                     .opacity(0.6)
@@ -348,6 +356,8 @@ struct TrackingGoalsSettingsView: View {
                         .font(.title3)
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(String(localized: "a11y.button.restore.goal.label",
+                                           bundle: .gymNutshellCore))
             }
         } else {
             HStack {
@@ -388,6 +398,8 @@ struct TrackingGoalsSettingsView: View {
                             .foregroundStyle(.red)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(String(localized: "a11y.button.remove.goal.label",
+                                               bundle: .gymNutshellCore))
                 }
             }
         }

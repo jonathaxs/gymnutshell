@@ -18,6 +18,8 @@ struct ProfileRecentActivityView: View {
     let selectedTheme: AppTheme
     let onDayTap: (Date) -> Void
 
+    @AppStorage(UserProfile.sexKey) private var sex: String = "male"
+
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
@@ -38,12 +40,34 @@ struct ProfileRecentActivityView: View {
                     }
                     .buttonStyle(.plain)
                     .frame(maxWidth: .infinity)
+                    .accessibilityLabel(a11yLabel(for: entry))
+                    .accessibilityHint(String(localized: "a11y.recent.day.hint",
+                                              bundle: .gymNutshellCore))
                 }
             }
         }
         .padding()
         .background(Color(.secondarySystemGroupedBackground))
         .cornerRadius(16)
+    }
+
+    // Constrói o label de VoiceOver de cada dia: data por extenso + nome do tier
+    // (ou "sem registro") + prefixo "hoje" quando aplicável.
+    private func a11yLabel(for entry: (date: Date, record: DailyRecord?)) -> String {
+        let calendar = Calendar.current
+        let isToday = calendar.isDateInToday(entry.date)
+        let dateString = A11y.spokenDate(for: entry.date)
+        if let record = entry.record, record.percent > 0 {
+            let tier = DailyAchievement.from(emoji: record.achievementEmoji)
+            let tierName = selectedTheme.name(for: tier, sex: sex)
+            let key = isToday ? "a11y.recent.day.today.format" : "a11y.recent.day.with.tier.format"
+            let fmt = String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
+            return String(format: fmt, dateString, tierName)
+        } else {
+            let key = isToday ? "a11y.recent.day.today.empty.format" : "a11y.recent.day.empty.format"
+            let fmt = String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
+            return String(format: fmt, dateString)
+        }
     }
 
     private func dayCell(entry: (date: Date, record: DailyRecord?)) -> some View {

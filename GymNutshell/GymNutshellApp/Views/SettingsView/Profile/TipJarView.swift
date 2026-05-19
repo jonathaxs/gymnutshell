@@ -100,6 +100,10 @@ struct TipJarView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(String(format: String(localized: "a11y.tipjar.row.format",
+                                                     bundle: .gymNutshellCore),
+                                       product.displayName, product.description))
             Spacer()
             Button {
                 purchase(product)
@@ -115,6 +119,10 @@ struct TipJarView: View {
             .tint(accentColor)
             .buttonStyle(.borderedProminent)
             .disabled(purchasingProductID != nil)
+            .accessibilityLabel(String(format: String(localized: "a11y.tipjar.buy.label.format",
+                                                     bundle: .gymNutshellCore),
+                                       product.displayName, product.displayPrice))
+            .accessibilityHint(String(localized: "a11y.tipjar.buy.hint", bundle: .gymNutshellCore))
         }
     }
 

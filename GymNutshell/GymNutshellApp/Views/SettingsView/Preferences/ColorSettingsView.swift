@@ -27,6 +27,7 @@ struct ColorSettingsView: View {
             Section(String(localized: "settings.color.subtitle", bundle: .gymNutshellCore)) {
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(AppAccentColor.allCases, id: \.self) { accent in
+                        let isSelected = selectedColor == accent
                         Button {
                             selectedColorRaw = accent.rawValue
                         } label: {
@@ -36,7 +37,7 @@ struct ColorSettingsView: View {
                                         .fill(accent.color)
                                         .frame(width: 52, height: 52)
 
-                                    if selectedColor == accent {
+                                    if isSelected {
                                         Image(systemName: "checkmark")
                                             .font(.body.weight(.bold))
                                             .foregroundStyle(.white)
@@ -45,7 +46,7 @@ struct ColorSettingsView: View {
                                 .overlay(
                                     Circle()
                                         .stroke(
-                                            selectedColor == accent ? accent.color : Color.clear,
+                                            isSelected ? accent.color : Color.clear,
                                             lineWidth: 2.5
                                         )
                                         .padding(-4)
@@ -57,6 +58,11 @@ struct ColorSettingsView: View {
                             }
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(accent.displayName)
+                        .accessibilityValue(isSelected
+                                            ? String(localized: "a11y.selected", bundle: .gymNutshellCore)
+                                            : String(localized: "a11y.not.selected", bundle: .gymNutshellCore))
+                        .accessibilityHint(String(localized: "a11y.color.hint", bundle: .gymNutshellCore))
                     }
                 }
                 .padding(.vertical, 8)

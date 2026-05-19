@@ -165,6 +165,27 @@ struct AchievementsView: View {
         return result
     }
 
+    /// Mesmo conjunto de dias que `emojiByDay`, mas com o nome a ser falado no
+    /// VoiceOver (nome do tier do tema atual; substituído pelo título do bônus
+    /// quando há StreakBonus na mesma data — bônus mensal vence sobre semanal).
+    private var tierNameByDay: [Date: String] {
+        let calendar = Calendar.current
+        var result: [Date: String] = Dictionary(
+            uniqueKeysWithValues: records.map {
+                let tier = DailyAchievement.from(emoji: $0.achievementEmoji)
+                return (calendar.startOfDay(for: $0.date), selectedTheme.name(for: tier, sex: sex))
+            }
+        )
+
+        let weeklyBonuses = bonuses.filter { $0.bonusType.hasPrefix("weekly") }
+        let monthlyBonuses = bonuses.filter { $0.bonusType.hasPrefix("monthly") }
+        for bonus in weeklyBonuses + monthlyBonuses {
+            let key = calendar.startOfDay(for: bonus.anchorDate)
+            result[key] = bonusTitle(for: bonus.bonusType)
+        }
+        return result
+    }
+
     // MARK: - Ações
 
     // Apaga o registro diário selecionado do banco de dados.
@@ -285,6 +306,7 @@ struct AchievementsView: View {
                     visibleMonthDate: visibleMonthDate,
                     selectedDate: $selectedDate,
                     emojiByDay: emojiByDay,
+                    tierNameByDay: tierNameByDay,
                     onChangeMonth: { changeMonth(by: $0) }
                 )
             }
@@ -384,6 +406,10 @@ struct AchievementsView: View {
                     } label: {
                         Image(systemName: "bell")
                     }
+                    .accessibilityLabel(String(localized: "a11y.notification.history.bell",
+                                               bundle: .gymNutshellCore))
+                    .accessibilityHint(String(localized: "a11y.notification.history.bell.hint",
+                                              bundle: .gymNutshellCore))
                 }
             }
             .onAppear {
@@ -473,27 +499,46 @@ struct AchievementsView: View {
                         switch item {
                         case .daily(let record):
                             // Linha de histórico individual — mostra o emoji do nível, nome, data e pontos.
+                            // Texto e área tocável ficam num HStack interno com `.combine` (vira um
+                            // único elemento de VoiceOver); o botão de editar fica FORA para ser
+                            // focável separadamente.
+                            let tierName = selectedTheme.name(for: dailyAchievement(for: record), sex: sex)
                             HStack(spacing: 16) {
-                                Text(selectedTheme.emoji(for: dailyAchievement(for: record)))
-                                    .font(.largeTitle)
+                                HStack(spacing: 16) {
+                                    Text(selectedTheme.emoji(for: dailyAchievement(for: record)))
+                                        .font(.largeTitle)
+                                        .accessibilityHidden(true)
 
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(selectedTheme.name(for: dailyAchievement(for: record), sex: sex))
-                                        .font(.headline)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(tierName)
+                                            .font(.headline)
 
-                                    Text(String(format: String(localized: "achievements.daily.row.description", bundle: .gymNutshellCore), record.percent))
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
+                                        Text(String(format: String(localized: "achievements.daily.row.description", bundle: .gymNutshellCore), record.percent))
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
 
-                                    Text(record.date, style: .date)
-                                        .foregroundStyle(.secondary)
-                                        .font(.caption)
+                                        Text(record.date, style: .date)
+                                            .foregroundStyle(.secondary)
+                                            .font(.caption)
+                                    }
+
+                                    Spacer()
+
+                                    Text("\(record.points) \(String(localized: "achievements.points.total", bundle: .gymNutshellCore))")
+                                        .font(.subheadline.bold())
                                 }
-
-                                Spacer()
-
-                                Text("\(record.points) \(String(localized: "achievements.points.total", bundle: .gymNutshellCore))")
-                                    .font(.subheadline.bold())
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    activeSheet = .view(record)
+                                }
+                                .accessibilityElement(children: .combine)
+                                .accessibilityAddTraits(.isButton)
+                                .accessibilityLabel(String(format: String(localized: "a11y.record.row.daily.format",
+                                                                          bundle: .gymNutshellCore),
+                                                           tierName,
+                                                           A11y.spokenDate(for: record.date),
+                                                           record.percent, record.points))
+                                .accessibilityHint(String(localized: "a11y.record.row.hint", bundle: .gymNutshellCore))
 
                                 // Botão de edição — visível só pra registros das últimas 72 horas.
                                 if canEdit(record) {
@@ -505,26 +550,29 @@ struct AchievementsView: View {
                                     }
                                     .buttonStyle(.borderless)
                                     .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
+                                    .accessibilityLabel(String(localized: "a11y.record.edit.label",
+                                                               bundle: .gymNutshellCore))
+                                    .accessibilityHint(String(localized: "a11y.record.edit.hint",
+                                                              bundle: .gymNutshellCore))
                                 }
                             }
                             .padding(.vertical, 8)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                activeSheet = .view(record)
-                            }
 
                         case .bonus(let bonus):
                             // Linha de bônus de streak — mostra emoji do bônus, nome do tipo, data e pontos.
                             // O prefixo "+" diferencia pontos de bônus dos pontos diários normais.
+                            let bTitle = bonusTitle(for: bonus.bonusType)
+                            let bDesc  = bonusDescription(for: bonus.bonusType)
                             HStack(spacing: 16) {
                                 Text(bonusEmoji(for: bonus.bonusType))
                                     .font(.largeTitle)
+                                    .accessibilityHidden(true)
 
                                 VStack(alignment: .leading, spacing: 2) {
-                                    Text(bonusTitle(for: bonus.bonusType))
+                                    Text(bTitle)
                                         .font(.headline)
 
-                                    Text(bonusDescription(for: bonus.bonusType))
+                                    Text(bDesc)
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
 
@@ -544,6 +592,13 @@ struct AchievementsView: View {
                             .onTapGesture {
                                 showBonusInfoSheet = true
                             }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityAddTraits(.isButton)
+                            .accessibilityLabel(String(format: String(localized: "a11y.record.row.bonus.format",
+                                                                      bundle: .gymNutshellCore),
+                                                       bTitle, bDesc, bonus.bonusPoints))
+                            .accessibilityHint(String(localized: "a11y.record.bonus.hint",
+                                                      bundle: .gymNutshellCore))
                         }
                     }
                     .onDelete { offsets in

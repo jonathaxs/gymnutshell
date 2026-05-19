@@ -160,4 +160,38 @@ public enum A11y {
     public static func categoryHint() -> String {
         String(localized: "a11y.category.hint", bundle: .gymNutshellCore)
     }
+
+    // MARK: - Calendário (AchievementsView)
+
+    /// Value para uma célula do calendário de conquistas. Quando há registro do dia,
+    /// `tierName` carrega o nome do tier (ex.: "Big Cat") ou o título do bônus
+    /// (ex.: "Fitness Week"). Quando nil, fala "sem registro".
+    public static func calendarDayValue(date: Date,
+                                        tierName: String?,
+                                        isToday: Bool,
+                                        isFuture: Bool,
+                                        isSelected: Bool) -> String {
+        let dateString = Self.spokenDate(for: date)
+
+        let core: String
+        if isFuture && !isToday {
+            let fmt = String(localized: "a11y.daycell.future.format", bundle: .gymNutshellCore)
+            core = String(format: fmt, dateString)
+        } else if let tierName, !tierName.isEmpty {
+            let key: String = isToday
+                ? "a11y.calendar.day.today.tier.format"
+                : "a11y.calendar.day.tier.format"
+            let fmt = String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
+            core = String(format: fmt, dateString, tierName)
+        } else {
+            let key: String = isToday ? "a11y.daycell.today.empty.format" : "a11y.daycell.empty.format"
+            let fmt = String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
+            core = String(format: fmt, dateString)
+        }
+
+        if isSelected {
+            return core + String(localized: "a11y.daycell.selected.suffix", bundle: .gymNutshellCore)
+        }
+        return core
+    }
 }

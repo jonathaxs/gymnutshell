@@ -39,13 +39,15 @@ struct RecordDetailView: View {
 
                 // Card de resumo pra este dia específico
                 let achievement = DailyAchievement.from(emoji: record.achievementEmoji)
+                let tierName = selectedTheme.name(for: achievement, sex: sex)
                 HStack(spacing: 12) {
                     Text(selectedTheme.emoji(for: achievement))
                         .font(.system(size: 40))
+                        .accessibilityHidden(true)
                     VStack(alignment: .leading, spacing: 2) {
                         Text(record.date.formatted(date: .long, time: .omitted))
                             .font(.headline)
-                        Text("\(selectedTheme.name(for: achievement, sex: sex)) · \(record.percent)%")
+                        Text("\(tierName) · \(record.percent)%")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         Text(String(localized: "ring.info.level.label", bundle: .gymNutshellCore) + "\(tierLevel(for: achievement))")
@@ -56,6 +58,13 @@ struct RecordDetailView: View {
                 }
                 .padding()
                 .background(achievement.color, in: RoundedRectangle(cornerRadius: 16))
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(String(format: String(localized: "a11y.record.header.format",
+                                                         bundle: .gymNutshellCore),
+                                           record.date.formatted(date: .long, time: .omitted),
+                                           tierName,
+                                           record.percent,
+                                           tierLevel(for: achievement)))
 
                 Divider()
                     .opacity(0.6)

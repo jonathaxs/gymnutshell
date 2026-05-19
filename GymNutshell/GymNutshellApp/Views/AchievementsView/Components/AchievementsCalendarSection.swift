@@ -17,6 +17,9 @@ struct AchievementsCalendarSection: View {
     let visibleMonthDate: Date
     @Binding var selectedDate: Date
     let emojiByDay: [Date: String]
+    /// Nome localizado a falar no VoiceOver para cada data (tier do registro ou
+    /// título do bônus). Default vazio para call sites que não montem esse mapa.
+    var tierNameByDay: [Date: String] = [:]
     let onChangeMonth: (Int) -> Void
 
     var body: some View {
@@ -36,6 +39,7 @@ struct AchievementsCalendarSection: View {
                         .background(.ultraThinMaterial, in: Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(String(localized: "a11y.month.previous", bundle: .gymNutshellCore))
 
                 Text(visibleMonthTitle)
                     .font(.callout.weight(.semibold))
@@ -50,12 +54,14 @@ struct AchievementsCalendarSection: View {
                         .background(.ultraThinMaterial, in: Circle())
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(String(localized: "a11y.month.next", bundle: .gymNutshellCore))
             }
 
             MonthlyCalendarView(
                 monthDate: visibleMonthDate,
                 selectedDate: $selectedDate,
-                emojiByDay: emojiByDay
+                emojiByDay: emojiByDay,
+                tierNameByDay: tierNameByDay
             )
             .frame(maxWidth: 400)
             .frame(maxWidth: .infinity, alignment: .center)

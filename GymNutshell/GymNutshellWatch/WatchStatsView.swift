@@ -116,13 +116,18 @@ struct WatchStatsView: View {
         .padding(.vertical, 8)
         .background(Color.secondary.opacity(0.15))
         .clipShape(RoundedRectangle(cornerRadius: 10))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(label)
+        .accessibilityValue(value)
     }
 
     private func tierRow(tier: DailyAchievement, days: Int) -> some View {
-        HStack {
+        let name = selectedTheme.name(for: tier, sex: sex)
+        return HStack {
             Text(selectedTheme.emoji(for: tier, sex: sex))
                 .font(.system(size: 13))
-            Text(selectedTheme.name(for: tier, sex: sex))
+                .accessibilityHidden(true)
+            Text(name)
                 .font(.system(size: 12))
                 .lineLimit(1)
             Spacer()
@@ -130,11 +135,15 @@ struct WatchStatsView: View {
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.stats.tier.row.format",
+                                                 bundle: .gymNutshellCore), name, days))
     }
 
     private func activityRow(emoji: String, label: String, days: Int) -> some View {
         HStack {
             Text(emoji).font(.system(size: 13))
+                .accessibilityHidden(true)
             Text(label)
                 .font(.system(size: 12))
                 .lineLimit(1)
@@ -143,10 +152,14 @@ struct WatchStatsView: View {
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.stats.activity.row.format",
+                                                 bundle: .gymNutshellCore), label, days))
     }
 
     private func recentDaysStrip(_ days: [WatchStatsSummary.DayEntry]) -> some View {
-        HStack(spacing: 3) {
+        let activeDays = days.filter { !$0.emoji.isEmpty }.count
+        return HStack(spacing: 3) {
             ForEach(Array(days.enumerated()), id: \.offset) { _, day in
                 ZStack {
                     Circle()
@@ -167,6 +180,13 @@ struct WatchStatsView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
+        // Tela do Watch é pequena demais pra navegar célula por célula —
+        // colapsa a faixa num resumo único "Recente: X dias com conquistas em 7".
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(String(format: String(localized: "a11y.watch.recent.summary.format",
+                                                 bundle: .gymNutshellCore),
+                                   String(localized: "watch.stats.recent", bundle: .gymNutshellCore),
+                                   activeDays))
     }
 
     // MARK: - Helpers

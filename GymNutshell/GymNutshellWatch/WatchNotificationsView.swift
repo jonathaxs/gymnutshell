@@ -72,9 +72,11 @@ struct WatchNotificationsView: View {
 
     @ViewBuilder
     private func row(for entry: NotificationHistoryEntry) -> some View {
+        let timeString = entry.timestamp.formatted(date: .omitted, time: .shortened)
         VStack(alignment: .leading, spacing: 3) {
             HStack(spacing: 5) {
                 icon(for: entry)
+                    .accessibilityHidden(true)
                 Text(entry.title)
                     .font(.system(size: 13, weight: .semibold))
                     .lineLimit(1)
@@ -88,6 +90,10 @@ struct WatchNotificationsView: View {
                 .foregroundStyle(.tertiary)
         }
         .padding(.vertical, 2)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(String(format: String(localized: "a11y.watch.notification.row.format",
+                                                 bundle: .gymNutshellCore),
+                                   entry.title, entry.body, timeString))
     }
 
     @ViewBuilder

@@ -1019,3 +1019,28 @@
 "a11y.welcome.optional.remove.label.format" = "Remove %@";
 "a11y.welcome.optional.add.hint"        = "Includes this goal in your daily tracking.";
 "a11y.welcome.optional.remove.hint"     = "Removes this goal from your daily tracking.";
+
+
+/* MARK: - Accessibility (Phase 5 — Watch app) */
+
+/* Watch hero ring (ContentView) — same wording as the iPhone ring */
+"a11y.watch.hero.label"  = "Daily progress";
+
+/* Watch goal card header */
+"a11y.watch.card.expanded"   = "expanded";
+"a11y.watch.card.collapsed"  = "collapsed";
+"a11y.watch.card.hint.expand" = "Tap to expand the controls.";
+"a11y.watch.card.hint.collapse" = "Tap to collapse the controls.";
+
+/* Watch ± buttons */
+"a11y.watch.increase.label.format" = "Increase %@";
+"a11y.watch.decrease.label.format" = "Decrease %@";
+
+/* Watch stats card */
+"a11y.watch.statcard.format" = "%1$@, %2$@";
+
+/* Watch recent strip — collapsed into a single summary */
+"a11y.watch.recent.summary.format" = "%1$@: %2$d days with achievements out of 7.";
+
+/* Watch notification row */
+"a11y.watch.notification.row.format" = "%1$@, %2$@, %3$@";

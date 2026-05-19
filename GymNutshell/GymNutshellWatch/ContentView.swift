@@ -73,61 +73,81 @@ struct ContentView: View {
         switch key {
         case "tracking.workout":
             return GoalEntry(
-                id: key, emoji: "🏋️", current: workoutIntake, goal: workoutGoalValue,
+                id: key, emoji: "🏋️",
+                displayName: String(localized: "today.goals.workout", bundle: .gymNutshellCore),
+                current: workoutIntake, goal: workoutGoalValue,
                 unit: "min", increment: DefaultGoals.workoutIncrement,
                 update: { workoutIntake = $0 }
             )
         case "tracking.cardio":
             return GoalEntry(
-                id: key, emoji: "🏃", current: cardioIntake, goal: cardioGoalValue,
+                id: key, emoji: "🏃",
+                displayName: String(localized: "today.goals.cardio", bundle: .gymNutshellCore),
+                current: cardioIntake, goal: cardioGoalValue,
                 unit: "min", increment: DefaultGoals.cardioIncrement,
                 update: { cardioIntake = $0 }
             )
         case "tracking.sleep":
             return GoalEntry(
-                id: key, emoji: "💤", current: sleepHours, goal: sleepGoalValue,
+                id: key, emoji: "💤",
+                displayName: String(localized: "today.metric.sleep", bundle: .gymNutshellCore),
+                current: sleepHours, goal: sleepGoalValue,
                 unit: "h", increment: 1,
                 update: { sleepHours = $0 }
             )
         case "tracking.water":
             return GoalEntry(
-                id: key, emoji: "💧", current: waterIntake, goal: waterGoalValue,
+                id: key, emoji: "💧",
+                displayName: String(localized: "today.metric.water", bundle: .gymNutshellCore),
+                current: waterIntake, goal: waterGoalValue,
                 unit: "ml", increment: 250,
                 update: { waterIntake = $0 }
             )
         case "tracking.protein":
             return GoalEntry(
-                id: key, emoji: "🍗", current: proteinIntake, goal: proteinGoalValue,
+                id: key, emoji: "🍗",
+                displayName: String(localized: "today.metric.protein", bundle: .gymNutshellCore),
+                current: proteinIntake, goal: proteinGoalValue,
                 unit: "g", increment: 5,
                 update: { proteinIntake = $0 }
             )
         case "tracking.carbs":
             return GoalEntry(
-                id: key, emoji: "🍞", current: carbIntake, goal: carbsGoalValue,
+                id: key, emoji: "🍞",
+                displayName: String(localized: "today.metric.carbs", bundle: .gymNutshellCore),
+                current: carbIntake, goal: carbsGoalValue,
                 unit: "g", increment: 10,
                 update: { carbIntake = $0 }
             )
         case "tracking.goodFat":
             return GoalEntry(
-                id: key, emoji: "🧈", current: goodFatIntake, goal: goodFatGoalValue,
+                id: key, emoji: "🧈",
+                displayName: String(localized: "today.metric.fats", bundle: .gymNutshellCore),
+                current: goodFatIntake, goal: goodFatGoalValue,
                 unit: "g", increment: 5,
                 update: { goodFatIntake = $0 }
             )
         case "tracking.fiber":
             return GoalEntry(
-                id: key, emoji: "🌾", current: fiberIntake, goal: fiberGoalValue,
+                id: key, emoji: "🌾",
+                displayName: String(localized: "today.metric.fiber", bundle: .gymNutshellCore),
+                current: fiberIntake, goal: fiberGoalValue,
                 unit: "g", increment: 5,
                 update: { fiberIntake = $0 }
             )
         case "tracking.creatine":
             return GoalEntry(
-                id: key, emoji: "🧪", current: creatineIntake, goal: creatineGoalValue,
+                id: key, emoji: "🧪",
+                displayName: String(localized: "today.goals.creatine", bundle: .gymNutshellCore),
+                current: creatineIntake, goal: creatineGoalValue,
                 unit: "g", increment: DefaultGoals.creatineIncrement,
                 update: { creatineIntake = $0 }
             )
         case "tracking.vitaminD":
             return GoalEntry(
-                id: key, emoji: "☀️", current: vitaminDIntake, goal: vitaminDGoalValue,
+                id: key, emoji: "☀️",
+                displayName: String(localized: "today.goals.vitaminD", bundle: .gymNutshellCore),
+                current: vitaminDIntake, goal: vitaminDGoalValue,
                 unit: GoalCategory.vitaminDUnit(for: vitaminDCategory),
                 increment: GoalCategory.vitaminDIncrement(for: vitaminDCategory),
                 update: { vitaminDIntake = $0 }
@@ -256,6 +276,14 @@ struct ContentView: View {
                 .font(.caption2.monospacedDigit())
                 .foregroundStyle(ringColor)
         }
+        // Combina anel + tier + percentual em uma única locução, mesma estrutura
+        // do iPhone TodayProgressRingView: "Daily progress, Big Cat, 65 percent completed".
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(
+            String(localized: "a11y.watch.hero.label", bundle: .gymNutshellCore)
+            + ", " + theme.name(for: tier, sex: sex)
+        )
+        .accessibilityValue(A11y.progressValue(percent: Int(averageProgress * 100)))
     }
 
     // MARK: - Goal card
@@ -297,6 +325,7 @@ struct ContentView: View {
             HStack(spacing: 8) {
                 Text(entry.emoji)
                     .font(.title3)
+                    .accessibilityHidden(true)
                 if restActive == true {
                     Text(String(localized: "today.restday.label", bundle: .gymNutshellCore))
                         .font(.caption.weight(.semibold))
@@ -309,6 +338,7 @@ struct ContentView: View {
                 Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
@@ -322,6 +352,23 @@ struct ContentView: View {
                 expandedId = isExpanded ? nil : entry.id
             }
         }
+        // Header inteiro = 1 botão: "Treino, 0 de 50 minutos, recolhido".
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isButton)
+        .accessibilityLabel(entry.displayName)
+        .accessibilityValue({
+            let state = isExpanded
+                ? String(localized: "a11y.watch.card.expanded", bundle: .gymNutshellCore)
+                : String(localized: "a11y.watch.card.collapsed", bundle: .gymNutshellCore)
+            if restActive == true {
+                return A11y.goalRowRestDayValue() + ", " + state
+            }
+            return A11y.goalRowValue(current: entry.current, goal: entry.goal, unit: entry.unit)
+                + ", " + state
+        }())
+        .accessibilityHint(String(localized: isExpanded
+            ? "a11y.watch.card.hint.collapse"
+            : "a11y.watch.card.hint.expand", bundle: .gymNutshellCore))
     }
 
     @ViewBuilder
@@ -355,6 +402,9 @@ struct ContentView: View {
                 .buttonBorderShape(.capsule)
                 .tint(accent.color)
                 .disabled(entry.current <= 0)
+                .accessibilityLabel(String(format: String(localized: "a11y.watch.decrease.label.format",
+                                                         bundle: .gymNutshellCore), entry.displayName))
+                .accessibilityHint(A11y.decrementHint())
 
                 Button {
                     let next = min(entry.current + entry.increment, entry.goal)
@@ -370,6 +420,9 @@ struct ContentView: View {
                 .buttonBorderShape(.capsule)
                 .tint(accent.color)
                 .disabled(entry.current >= entry.goal)
+                .accessibilityLabel(String(format: String(localized: "a11y.watch.increase.label.format",
+                                                         bundle: .gymNutshellCore), entry.displayName))
+                .accessibilityHint(A11y.incrementHint())
             }
         }
         .padding(.horizontal, 4)
@@ -390,6 +443,9 @@ struct ContentView: View {
                 )
         }
         .buttonStyle(.plain)
+        // Sem override de label — texto "ON"/"OFF" do botão já vira label
+        // automático. Hint explica o efeito.
+        .accessibilityHint(A11y.restDayToggleHint(currentlyOn: isOn))
     }
 
     // MARK: - Rest day helpers
@@ -438,6 +494,9 @@ struct ContentView: View {
 private struct GoalEntry: Identifiable {
     let id: String
     let emoji: String
+    /// Nome localizado da meta (ex: "Treino", "Água") — usado nos labels de a11y
+    /// dos botões ± para o VoiceOver não falar só "Aumentar".
+    let displayName: String
     let current: Int
     let goal: Int
     let unit: String

@@ -1068,3 +1068,28 @@
 "a11y.welcome.optional.remove.label.format" = "Remover %@";
 "a11y.welcome.optional.add.hint"        = "Inclui esta meta no seu rastreamento diário.";
 "a11y.welcome.optional.remove.hint"     = "Remove esta meta do seu rastreamento diário.";
+
+
+/* MARK: - Acessibilidade (Fase 5 — Watch app) */
+
+/* Anel hero do Watch (ContentView) */
+"a11y.watch.hero.label"  = "Progresso diário";
+
+/* Card de meta do Watch — header */
+"a11y.watch.card.expanded"   = "expandido";
+"a11y.watch.card.collapsed"  = "recolhido";
+"a11y.watch.card.hint.expand" = "Toque para expandir os controles.";
+"a11y.watch.card.hint.collapse" = "Toque para recolher os controles.";
+
+/* Botões ± do Watch */
+"a11y.watch.increase.label.format" = "Aumentar %@";
+"a11y.watch.decrease.label.format" = "Diminuir %@";
+
+/* Stat card do Watch */
+"a11y.watch.statcard.format" = "%1$@, %2$@";
+
+/* Faixa "últimos 7 dias" do Watch — resumida num único elemento */
+"a11y.watch.recent.summary.format" = "%1$@: %2$d dias com conquistas em 7.";
+
+/* Linha de notificação do Watch */
+"a11y.watch.notification.row.format" = "%1$@, %2$@, %3$@";

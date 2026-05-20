@@ -100,7 +100,6 @@
 "achievements.empty.description" = "At the end of the day, you will unlock your achievement here.";
 
 /* StreakBonus — AchievementsView.swift */
-"achievements.total.points.label" = "Total points";
 "achievements.daily.row.description" = "Completed %d%% of daily goals.";
 "streak.bonus.weekly.level3.title" = "Fitness Week";
 "streak.bonus.weekly.level4.title" = "Muscular Week";
@@ -129,7 +128,6 @@
 
 
 /* ProgressOverView.swift */
-"statistics.tab" = "Progress";
 "statistics.title" = "Progress";
 "statistics.section.tiers" = "Tier Breakdown";
 "statistics.section.bonuses" = "Streak Bonuses";
@@ -169,10 +167,7 @@
 /* AboutView.swift */
 "settings.about.title" = "About the App";
 "settings.about.version" = "Version";
-"settings.about.developer" = "Developer";
 "settings.about.developer.header" = "Talk to the developer";
-"settings.about.developer.label" = "Creator";
-"settings.about.developer.value" = "@jonathaxs";
 "settings.about.website" = "Developer Website";
 "settings.about.feedback" = "Send Feedback";
 "settings.about.description" = "Gym Nutshell is your daily goals in a nutshell.\n\nSet goals, track them, and watch consistency turn into results.";
@@ -190,21 +185,10 @@
 
 
 /* AddCheckinGoalView.swift */
-"settings.add.checkin.goal.title.add" = "New check-in goal";
-"settings.add.checkin.goal.title.edit" = "Edit check-in goal";
-"settings.add.checkin.goal.section.icon" = "Icon";
-"settings.add.checkin.goal.emoji.placeholder" = "example: 🧘";
-"settings.add.checkin.goal.section.name" = "Name";
-"settings.add.checkin.goal.name.placeholder" = "example: Meditation";
-"settings.add.checkin.goal.section.desc" = "Description";
-"settings.add.checkin.goal.desc.placeholder" = "example: Some rest";
-"settings.add.checkin.goal.warning.catalog" = "This name is reserved for a built-in Gym Nutshell check-in goal. Use a different name.";
 
 
 /* AddTrackingGoalView.swift */
 "settings.addgoal.title.new" = "New goal";
-"settings.addgoal.title.add" = "New tracking goal";
-"settings.addgoal.title.edit" = "Edit tracking goal";
 "settings.addgoal.section.icon" = "Emoji";
 "settings.addgoal.emoji.placeholder" = "example: 🧘";
 "settings.addgoal.section.name" = "Name";
@@ -223,14 +207,12 @@
 "settings.addgoal.warning.category.duplicate" = "A category with that name already exists.";
 "settings.addgoal.warning.step" = "Step can't be larger than the target.";
 "settings.addgoal.section.category" = "Category";
-"settings.addgoal.category.none" = "No category";
 "settings.addgoal.category.new.button" = "New category";
 "settings.addgoal.category.new.section" = "Custom category";
 "settings.addgoal.category.new.name.placeholder" = "example: Stretching";
 "settings.addgoal.category.new.restDay" = "Enable Day off toggle";
 "settings.goals.custom.badge" = "Custom";
 "settings.goals.categories.title" = "Categories";
-"settings.goals.category.custom.section" = "Custom categories";
 
 
 /* BackupSettingsView.swift */
@@ -262,16 +244,8 @@
 
 
 /* CheckinGoalsSettingsView.swift */
-"settings.checkin.goals.title" = "Check-in goals";
-"settings.checkin.goals.section.builtin" = "Main check-in goals";
-"settings.checkin.goals.section.custom" = "Custom check-in goals";
-"settings.checkin.goals.custom.empty" = "No custom check-in goals yet. Tap + to add one.";
-"settings.checkin.goals.builtin.badge" = "Mandatory";
 "settings.goals.mandatory.badge" = "Standard";
 "settings.goals.optional.badge" = "Recommended";
-"settings.checkin.goals.creatine" = "Creatine";
-"settings.checkin.goals.creatine.value" = "5g / day";
-"settings.checkin.goals.vitaminD" = "Vitamin D";
 
 
 /* FitnessGoalChangeView.swift */
@@ -283,7 +257,6 @@
 
 
 /* ProfileSettingsView.swift */
-"settings.profile.title" = "Profile";
 "settings.profile.section.personal" = "Personal";
 "settings.profile.section.physical" = "Physical data";
 "settings.profile.name" = "Name";
@@ -305,7 +278,6 @@
 "favoriteExercise.traps"      = "Traps";
 "favoriteExercise.forearms"   = "Forearms";
 "favoriteExercise.calves"     = "Calves";
-"settings.profile.username" = "Username";
 "settings.profile.weight" = "Weight (kg)";
 "settings.profile.weight.lbs" = "Weight (lbs)";
 "settings.profile.weight.uk" = "Weight";
@@ -315,11 +287,8 @@
 "settings.profile.height.imperial" = "Height";
 "settings.profile.height.feet.unit" = "ft";
 "settings.profile.height.inches.unit" = "in";
-"settings.profile.age" = "Age";
-"settings.profile.age.placeholder" = "example: 25";
 "settings.profile.birthday" = "Date of birth";
 "settings.profile.sex" = "Sex";
-"settings.profile.save" = "Save";
 "profile.sex.male" = "Male";
 "profile.sex.female" = "Female";
 "profile.sex.other" = "Do not inform";
@@ -330,10 +299,8 @@
 "settings.detail.placeholder" = "Select a page";
 "settings.section.edit" = "Profile";
 "settings.theme.title" = "Themes";
-"settings.section.appearance" = "Appearance";
 "settings.section.preferences" = "Preferences";
 "settings.section.system" = "System";
-"settings.section.backup" = "Backup";
 "settings.section.about" = "About";
 
 
@@ -341,7 +308,6 @@
 "app.error.dataStore.title" = "Something went wrong";
 "app.error.dataStore.message" = "Gym Nutshell could not load your data.\nForce-close the app and reopen it to try again.";
 "settings.about.link" = "Gym Nutshell";
-"settings.profile.edit" = "Profile";
 "settings.section.physicaldata" = "Your data";
 "settings.fitness.goal.edit" = "Fitness Goal";
 "settings.goals.edit" = "Daily Goals";
@@ -356,15 +322,11 @@
 "appleWatch.sheet.step2" = "Scroll to the \"Available Apps\" section";
 "appleWatch.sheet.step3" = "Tap Install next to Gym Nutshell";
 "appleWatch.sheet.note" = "If the app is already installed, it appears in the \"Installed on Apple Watch\" section above.";
-"appleWatch.sheet.close" = "Close";
 "settings.preference.language" = "Language";
 "settings.preference.measurementSystem" = "Measurements";
 "settings.preference.measurementSystem.metric" = "Metric (kg, cm)";
-"settings.preference.measurementSystem.metric.short" = "Metric";
 "settings.preference.measurementSystem.us" = "US (lbs, ft, fl oz)";
-"settings.preference.measurementSystem.us.short" = "US";
 "settings.preference.measurementSystem.uk" = "UK (st + lbs, ft)";
-"settings.preference.measurementSystem.uk.short" = "UK";
 "settings.measurementSystem.footer" = "How weight and height are shown and entered throughout the app.";
 "settings.edit.widgets" = "Widgets";
 "widgetBackground.title" = "Widgets";
@@ -383,7 +345,6 @@
 "settings.goaldetail.stepper" = "Adjust value";
 "settings.goaldetail.footer" = "Changing this does not affect past records.";
 "settings.goaldetail.save" = "Save";
-"settings.goaldetail.increment.header" = "Step";
 "settings.goaldetail.increment.stepper" = "Adjust step";
 "settings.goaldetail.increment.footer" = "The step is how far the slider advances toward the target value.";
 "settings.vitaminD.category.section" = "Category";
@@ -393,9 +354,7 @@
 
 /* TrackingGoalsSettingsView.swift */
 "settings.goals.title" = "Goals";
-"settings.goals.section.main" = "Gym Nutshell Goals";
 "settings.tracking.goals.section.custom" = "Custom goals";
-"settings.tracking.goals.custom.empty" = "No custom goals yet. Tap + to add one.";
 "settings.tracking.goals.done" = "Done";
 "settings.tracking.goals.editMode" = "Edit";
 "settings.goals.category.order.section" = "Category order";
@@ -417,8 +376,6 @@
 
 
 /* MARK: - Views/TodayView */
-
-
 
 
 /* GoalCategory.swift */
@@ -445,7 +402,6 @@
 "today.metric.fiber" = "Fibers";
 
 /* TodayHeroView.swift — next level phrase */
-"today.next.level" = "+%d%% to reach %@ - %@";
 "today.max.level" = "Maximum level reached today!";
 
 /* DailyTierView.swift */
@@ -453,12 +409,10 @@
 "today.tier.level.2" = "Tier 2";
 "today.tier.level.3" = "Tier 3";
 "today.tier.level.4" = "Tier 4";
-"today.tier.points" = "Points: %d";
 /* Tier button label combines the "Today's achievement" header phrase with the
    tier name. Emoji is decorative and stays hidden, so no "Rooster, Rooster"
    duplication. %1$@ = emoji (ignored), %2$@ = tier name. */
 "today.tier.a11y.label" = "Today's achievement, %2$@";
-"today.tier.a11y.value" = "Points: %d";
 "today.tier.label.achievement" = "Achievement";
 
 /* TodayProgressRingView.swift — label */
@@ -471,11 +425,6 @@
 
 
 /* CheckinGoalRowView.swift */
-"today.checkin.row.a11y.label" = "%@ %@";
-"today.checkin.row.a11y.hint" = "Tap to toggle";
-"today.checkin.row.a11y.edit.label" = "Edit description";
-"today.checkin.row.a11y.value.done" = "Done";
-"today.checkin.row.a11y.value.pending" = "Pending";
 
 /* TodayView.swift — date hero button */
 "today.hero.date.a11y.label" = "Today's date, %@";
@@ -485,22 +434,14 @@
 "today.greeting.night"     = "Good evening!";
 
 
-
-
 /* MARK: - Views/WelcomeView */
 
 
 /* WelcomeCheckinGoalsStep.swift */
-"welcome.step.checkin.goals.title" = "Check-in Goals";
-"welcome.step.checkin.goals.subtitle" = "Check-in goals are goals you mark as done or not.\n\nYou can add custom check-in goals later.";
-"welcome.step.checkin.goals.section.fixed" = "Standard axis goals";
-"welcome.step.checkin.goals.section.optional" = "Recommended optional goals";
-"welcome.checkin.creatine.desc" = "Muscle supplement";
 
 
 /* WelcomeFitnessGoalStep.swift */
 "welcome.step.goal.title" = "Your goal";
-"welcome.step.goal.subtitle" = "";
 "welcome.step.goal.info.choose" = "Choose what best describes your current goal.";
 "welcome.step.goal.info.editable" = "You can change it in app settings.";
 
@@ -512,15 +453,10 @@
 
 
 /* WelcomeNameStep.swift */
-"welcome.step.name.title" = "Welcome to Gym Nutshell";
-"welcome.step.name.subtitle" = "Let's start with your name.";
-"welcome.field.name" = "Name";
-"welcome.field.name.placeholder" = "Your name";
 
 
 /* WelcomePhysicalDataStep.swift */
 "welcome.step.physical.title" = "Your physical data";
-"welcome.step.physical.subtitle" = "";
 "welcome.step.physical.info.calculate" = "This will be used to auto-calculate your daily goal values.";
 "welcome.step.physical.info.editable" = "Values can be adjusted in app settings.";
 "welcome.keyboard.next" = "Next";
@@ -543,8 +479,6 @@
 "welcome.field.height.feet.placeholder" = "5";
 "welcome.field.height.inches" = "Inches";
 "welcome.field.height.inches.placeholder" = "8";
-"welcome.field.age" = "Age";
-"welcome.field.age.placeholder" = "example: 25";
 "welcome.field.birthday" = "Date of birth";
 "welcome.field.sex" = "Sex";
 "welcome.field.sex.male" = "Male";
@@ -555,14 +489,10 @@
 /* WelcomeSummaryStep.swift */
 "welcome.step.summary.title" = "Your goals";
 "welcome.step.summary.subtitle" = "Slide down to the bottom.";
-"welcome.step.summary.section.main" = "Standard Gym Nutshell Goals";
-"welcome.summary.optional.section" = "Recommended Gym Nutshell Goals";
-"welcome.summary.subtitle.slider" = "Each goal has a slider to fill in throughout the day.";
 "welcome.summary.subtitle.customize" = "In app settings you can adjust these goal values and add custom goals.";
 "welcome.summary.optional.badge" = "Recommended";
 "welcome.summary.subtitle.calculated.prefix" = "These values were calculated based on your physical data and your goal ";
 "welcome.summary.subtitle.calculated.suffix" = " goal.";
-"welcome.summary.subtitle.editable" = "Values can be adjusted in App Settings.";
 "welcome.option.add" = "Add";
 "welcome.option.remove" = "Remove";
 
@@ -579,14 +509,9 @@
 "welcome.button.continue" = "Continue";
 "welcome.button.start" = "Let's go!";
 "welcome.button.back" = "Back";
-"welcome.branding.tagline" = "Track your daily goals.";
 
 
 /* MARK: - ContentView.swift */
-"main.tab.cat" = "Today";
-"main.tab.achievements" = "Achievements";
-"main.tab.profile" = "You";
-"main.tab.settings" = "Settings";
 
 
 /* HealthKit activity display names (auto check-in descriptions) */
@@ -611,8 +536,6 @@
 "healthkit.activity.other" = "Exercise";
 
 /* EditCheckinDescView.swift */
-"edit.checkin.desc.section" = "Description";
-"edit.checkin.desc.reset" = "Reset to default";
 
 /* AppTheme — Categories */
 "app.theme.category.sport" = "Sport";
@@ -849,7 +772,6 @@
 "notifications.custom.description"          = "Reminders to meet today's goal.";
 "notifications.custom.body"                 = "Time to log %@ — keep moving toward today's goal.";
 "notifications.custom.footer"               = "Periodic reminders stop once you hit today's goal for this custom tracker.";
-"notifications.history.back" = "Back";
 "notifications.history.delete" = "Delete";
 
 "settings.preference.orientation" = "Orientation";
@@ -896,8 +818,6 @@
 "a11y.hint.decrement" = "Tap to decrease.";
 
 /* Rest day toggle — label reflects on/off, hint describes the action */
-"a11y.label.restday.on"        = "Rest day enabled";
-"a11y.label.restday.off"       = "Rest day disabled";
 "a11y.hint.restday.activate"   = "Tap to activate rest day.";
 "a11y.hint.restday.deactivate" = "Tap to leave rest day mode.";
 
@@ -952,11 +872,7 @@
 "a11y.stats.goals.row.format"    = "%1$@, %2$d active";
 
 /* ProgressOverView — whole-card tap hints */
-"a11y.stats.card.tiers.hint" = "Tap for more information.";
-"a11y.stats.card.activity.hint" = "Tap to open achievements.";
-"a11y.stats.card.goals.hint" = "Tap to manage goals.";
 "a11y.stats.card.usergoal.hint" = "Tap to change goal.";
-"a11y.stats.card.physical.hint" = "Tap to edit data.";
 
 /* ProfileRecentActivityView — day buttons */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";
@@ -982,7 +898,6 @@
 
 /* Fitness goal picker (UserGoalPickerView) */
 "a11y.usergoal.hint" = "Tap to select this goal.";
-"a11y.usergoal.value.format" = "%@";   /* description */
 
 /* Tracking goals settings — image-only buttons */
 "a11y.button.add.goal.label"     = "New tracking goal";
@@ -1044,7 +959,6 @@
 "a11y.watch.decrease.label.format" = "Decrease %@";
 
 /* Watch stats card */
-"a11y.watch.statcard.format" = "%1$@, %2$@";
 
 /* Watch recent strip — collapsed into a single summary */
 "a11y.watch.recent.summary.format" = "%1$@: %2$d days with achievements out of 7.";
@@ -1061,9 +975,6 @@
 
 /* iPhone large widgets */
 "a11y.widget.large.header.format"  = "%1$@, %2$@, %3$d percent, %4$d points";
-"a11y.widget.calendar.label"       = "Achievements calendar";
 "a11y.widget.calendar.month.format" = "%@";
-"a11y.widget.goals.list.label"     = "Goals progress list";
 
 /* Watch widget — corner and inline don't need extra labels (text already speaks) */
-"a11y.widget.watch.corner.label.format" = "%1$@, %2$d percent";

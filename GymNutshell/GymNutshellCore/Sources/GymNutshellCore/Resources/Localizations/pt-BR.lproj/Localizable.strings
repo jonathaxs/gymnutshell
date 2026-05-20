@@ -136,7 +136,6 @@
 "achievements.empty.description" = "No fim do dia irá desbloquear sua conquista aqui.";
 
 /* StreakBonus — AchievementsView.swift */
-"achievements.total.points.label" = "Total de pontos";
 "achievements.daily.row.description" = "Completou %d%% das metas diárias.";
 "streak.bonus.weekly.level3.title" = "Semana Fitness";
 "streak.bonus.weekly.level4.title" = "Semana Musculosa";
@@ -165,7 +164,6 @@
 
 
 /* ProgressOverView.swift */
-"statistics.tab" = "Progresso";
 "statistics.title" = "Progresso";
 "statistics.section.tiers" = "Conquistas por Níveis";
 "statistics.section.bonuses" = "Bônus de Sequência";
@@ -205,10 +203,7 @@
 /* AboutView.swift */
 "settings.about.title" = "Sobre o App";
 "settings.about.version" = "Versão";
-"settings.about.developer" = "Desenvolvedor";
 "settings.about.developer.header" = "Fale com o desenvolvedor";
-"settings.about.developer.label" = "Criador";
-"settings.about.developer.value" = "@jonathaxs";
 "settings.about.website" = "Site do desenvolvedor";
 "settings.about.feedback" = "Enviar feedback";
 "settings.about.description" = "Gym Nutshell, suas metas diárias em resumo.\n\nMarque, acompanhe e veja a constância virar resultado.";
@@ -226,21 +221,10 @@
 
 
 /* AddCheckinGoalView.swift */
-"settings.add.checkin.goal.title.add" = "Nova meta de check-in";
-"settings.add.checkin.goal.title.edit" = "Editar meta de check-in";
-"settings.add.checkin.goal.section.icon" = "Ícone da meta de check-in";
-"settings.add.checkin.goal.emoji.placeholder" = "ex: 🧘";
-"settings.add.checkin.goal.section.name" = "Nome da meta de check-in";
-"settings.add.checkin.goal.name.placeholder" = "ex: Meditação";
-"settings.add.checkin.goal.section.desc" = "Descrição da meta de check-in";
-"settings.add.checkin.goal.desc.placeholder" = "ex: Um descanso";
-"settings.add.checkin.goal.warning.catalog" = "Este nome é reservado para uma meta de check-in Gym Nutshell integrada. Use um nome diferente.";
 
 
 /* AddTrackingGoalView.swift */
 "settings.addgoal.title.new" = "Nova meta";
-"settings.addgoal.title.add" = "Nova meta de rastreio";
-"settings.addgoal.title.edit" = "Editar meta de rastreio";
 "settings.addgoal.section.icon" = "Emoji";
 "settings.addgoal.emoji.placeholder" = "ex: 🧘";
 "settings.addgoal.section.name" = "Nome";
@@ -259,14 +243,12 @@
 "settings.addgoal.warning.category.duplicate" = "Já existe uma categoria com esse nome.";
 "settings.addgoal.warning.step" = "O passo não pode ser maior que o alvo.";
 "settings.addgoal.section.category" = "Categoria";
-"settings.addgoal.category.none" = "Sem categoria";
 "settings.addgoal.category.new.button" = "Nova categoria";
 "settings.addgoal.category.new.section" = "Categoria personalizada";
 "settings.addgoal.category.new.name.placeholder" = "ex: Alongamento";
 "settings.addgoal.category.new.restDay" = "Colocar botão de descanso";
 "settings.goals.custom.badge" = "Personalizada";
 "settings.goals.categories.title" = "Categorias";
-"settings.goals.category.custom.section" = "Categorias personalizadas";
 
 
 /* BackupSettingsView.swift */
@@ -298,16 +280,8 @@
 
 
 /* CheckinGoalsSettingsView.swift */
-"settings.checkin.goals.title" = "Metas de check-in";
-"settings.checkin.goals.section.builtin" = "Metas principais de check-in";
-"settings.checkin.goals.section.custom" = "Metas de check-in personalizadas";
-"settings.checkin.goals.custom.empty" = "Nenhuma meta de check-in personalizada ainda. Toque em + para adicionar.";
-"settings.checkin.goals.builtin.badge" = "Obrigatória";
 "settings.goals.mandatory.badge" = "Padrão";
 "settings.goals.optional.badge" = "Recomendado";
-"settings.checkin.goals.creatine" = "Creatina";
-"settings.checkin.goals.creatine.value" = "5g / dia";
-"settings.checkin.goals.vitaminD" = "Vitamina D";
 
 
 /* FitnessGoalChangeView.swift */
@@ -319,7 +293,6 @@
 
 
 /* ProfileSettingsView.swift */
-"settings.profile.title" = "Perfil";
 "settings.profile.section.personal" = "Pessoal";
 "settings.profile.section.physical" = "Dados Físicos";
 "settings.profile.name" = "Nome";
@@ -341,7 +314,6 @@
 "favoriteExercise.traps"      = "Trapézio";
 "favoriteExercise.forearms"   = "Antebraços";
 "favoriteExercise.calves"     = "Panturrilhas";
-"settings.profile.username" = "Username";
 "settings.profile.weight" = "Peso (kg)";
 "settings.profile.weight.lbs" = "Peso (lbs)";
 "settings.profile.weight.uk" = "Peso";
@@ -351,11 +323,8 @@
 "settings.profile.height.imperial" = "Altura";
 "settings.profile.height.feet.unit" = "pés";
 "settings.profile.height.inches.unit" = "pol";
-"settings.profile.age" = "Idade";
-"settings.profile.age.placeholder" = "ex: 25";
 "settings.profile.birthday" = "Nascimento";
 "settings.profile.sex" = "Sexo";
-"settings.profile.save" = "Salvar";
 "profile.sex.male" = "Masculino";
 "profile.sex.female" = "Feminino";
 "profile.sex.other" = "Não informar";
@@ -366,10 +335,8 @@
 "settings.detail.placeholder" = "Selecione uma página";
 "settings.section.edit" = "Perfil";
 "settings.theme.title" = "Temas";
-"settings.section.appearance" = "Aparência";
 "settings.section.preferences" = "Preferências";
 "settings.section.system" = "Sistema";
-"settings.section.backup" = "Backup";
 "settings.section.about" = "Sobre";
 
 
@@ -377,7 +344,6 @@
 "app.error.dataStore.title" = "Algo deu errado";
 "app.error.dataStore.message" = "O Gym Nutshell não conseguiu carregar seus dados.\nForce o fechamento do app e abra novamente.";
 "settings.about.link" = "Gym Nutshell";
-"settings.profile.edit" = "Perfil";
 "settings.section.physicaldata" = "Seus dados";
 "settings.fitness.goal.edit" = "Objetivo";
 "settings.goals.edit" = "Metas";
@@ -392,15 +358,11 @@
 "appleWatch.sheet.step2" = "Role até a seção \"Apps Disponíveis\"";
 "appleWatch.sheet.step3" = "Toque em Instalar ao lado do Gym Nutshell";
 "appleWatch.sheet.note" = "Se o app já estiver instalado, ele aparece na seção \"Instalados no Apple Watch\" acima.";
-"appleWatch.sheet.close" = "Fechar";
 "settings.preference.language" = "Idioma";
 "settings.preference.measurementSystem" = "Medidas";
 "settings.preference.measurementSystem.metric" = "Métrico (kg, cm)";
-"settings.preference.measurementSystem.metric.short" = "Métrico";
 "settings.preference.measurementSystem.us" = "EUA (lbs, pés, fl oz)";
-"settings.preference.measurementSystem.us.short" = "EUA";
 "settings.preference.measurementSystem.uk" = "UK (st + lbs, pés)";
-"settings.preference.measurementSystem.uk.short" = "UK";
 "settings.measurementSystem.footer" = "Como peso e altura são exibidos e inseridos no app.";
 "settings.edit.widgets" = "Widgets";
 "widgetBackground.title" = "Widgets";
@@ -419,7 +381,6 @@
 "settings.goaldetail.stepper" = "Ajustar valor";
 "settings.goaldetail.footer" = "Alterar isso não afeta registros passados.";
 "settings.goaldetail.save" = "Salvar";
-"settings.goaldetail.increment.header" = "Passo";
 "settings.goaldetail.increment.stepper" = "Ajustar passo";
 "settings.goaldetail.increment.footer" = "O passo é o quanto o slider avança no valor da meta.";
 "settings.vitaminD.category.section" = "Categoria";
@@ -429,9 +390,7 @@
 
 /* TrackingGoalsSettingsView.swift */
 "settings.goals.title" = "Metas";
-"settings.goals.section.main" = "Metas Gym Nutshell";
 "settings.tracking.goals.section.custom" = "Metas personalizadas";
-"settings.tracking.goals.custom.empty" = "Nenhuma meta personalizada. Toque em + para adicionar.";
 "settings.tracking.goals.done" = "Concluir";
 "settings.tracking.goals.editMode" = "Editar";
 "settings.goals.category.order.section" = "Ordem das categorias";
@@ -453,8 +412,6 @@
 
 
 /* MARK: - Views/TodayView */
-
-
 
 
 /* GoalCategory.swift */
@@ -481,7 +438,6 @@
 "today.metric.fiber" = "Fibras";
 
 /* TodayHeroView.swift — frase de próximo nível */
-"today.next.level" = "+%d%% para %@ - %@";
 "today.max.level" = "Nível máximo atingido hoje!";
 
 /* DailyTierView.swift */
@@ -493,11 +449,9 @@
 
 /* TodayProgressRingView.swift — label */
 "today.ring.label.progresso" = "Progresso";
-"today.tier.points" = "Pontos: %d";
 /* Tier button label combina o cabeçalho "Conquista de hoje" com o nome do tier.
    O emoji fica oculto (decorativo) — evita "Galo, Galo". */
 "today.tier.a11y.label" = "Conquista de hoje, %2$@";
-"today.tier.a11y.value" = "Pontos: %d";
 
 /* TodayProgressRingView.swift */
 "today.ring.a11y.label" = "Anel de progresso de hoje";
@@ -506,11 +460,6 @@
 
 
 /* CheckinGoalRowView.swift */
-"today.checkin.row.a11y.label" = "%@ %@";
-"today.checkin.row.a11y.hint" = "Toque para alternar";
-"today.checkin.row.a11y.edit.label" = "Editar descrição";
-"today.checkin.row.a11y.value.done" = "Concluído";
-"today.checkin.row.a11y.value.pending" = "Pendente";
 
 /* TodayView.swift — botão de data */
 "today.hero.date.a11y.label" = "Data de hoje, %@";
@@ -520,22 +469,14 @@
 "today.greeting.night"     = "Boa noite!";
 
 
-
-
 /* MARK: - Views/WelcomeView */
 
 
 /* WelcomeCheckinGoalsStep.swift */
-"welcome.step.checkin.goals.title" = "Metas de check-in";
-"welcome.step.checkin.goals.subtitle" = "Metas de check-in são metas de marcar se concluiu ou não.\n\nVocê pode adicionar outras metas de check-in personalizadas depois.";
-"welcome.step.checkin.goals.section.fixed" = "Metas padrões do eixo";
-"welcome.step.checkin.goals.section.optional" = "Metas opcionais recomendadas";
-"welcome.checkin.creatine.desc" = "Suplemento muscular";
 
 
 /* WelcomeFitnessGoalStep.swift */
 "welcome.step.goal.title" = "Seu objetivo";
-"welcome.step.goal.subtitle" = "";
 "welcome.step.goal.info.choose" = "Escolha o que melhor descreve seu objetivo atual.";
 /* (mantido — o texto já usa apenas "objetivo") */
 "welcome.step.goal.info.editable" = "O objetivo pode ser alterado em ajustes do app.";
@@ -548,15 +489,10 @@
 
 
 /* WelcomeNameStep.swift */
-"welcome.step.name.title" = "Bem-vindo ao Gym Nutshell";
-"welcome.step.name.subtitle" = "Vamos começar com o seu nome.";
-"welcome.field.name" = "Nome";
-"welcome.field.name.placeholder" = "Seu nome";
 
 
 /* WelcomePhysicalDataStep.swift */
 "welcome.step.physical.title" = "Seus dados físicos";
-"welcome.step.physical.subtitle" = "";
 "welcome.step.physical.info.calculate" = "Isso será usado para calcular automaticamente os valores das suas metas diárias.";
 "welcome.step.physical.info.editable" = "Os valores podem ser alterados em ajustes do app.";
 "welcome.keyboard.next" = "Próximo";
@@ -579,8 +515,6 @@
 "welcome.field.height.feet.placeholder" = "5";
 "welcome.field.height.inches" = "Polegadas";
 "welcome.field.height.inches.placeholder" = "8";
-"welcome.field.age" = "Idade";
-"welcome.field.age.placeholder" = "ex: 25";
 "welcome.field.birthday" = "Data de nascimento";
 "welcome.field.sex" = "Sexo";
 "welcome.field.sex.male" = "Masculino";
@@ -591,14 +525,10 @@
 /* WelcomeSummaryStep.swift */
 "welcome.step.summary.title" = "Suas metas";
 "welcome.step.summary.subtitle" = "Deslize até o final.";
-"welcome.step.summary.section.main" = "Metas padrões";
-"welcome.summary.optional.section" = "Metas recomendadas";
-"welcome.summary.subtitle.slider" = "Cada meta tem um slider para ser incrementado durante o dia.";
 "welcome.summary.subtitle.customize" = "Em ajustes do app você pode alterar os valores dessas metas e adicionar novas metas personalizadas.";
 "welcome.summary.optional.badge" = "Recomendada";
 "welcome.summary.subtitle.calculated.prefix" = "Esses valores foram calculados de acordo com os seus dados físicos e o seu objetivo ";
 "welcome.summary.subtitle.calculated.suffix" = ".";
-"welcome.summary.subtitle.editable" = "Os valores podem ser alterados em Ajustes do App.";
 "welcome.option.add" = "Adicionar";
 "welcome.option.remove" = "Remover";
 
@@ -615,14 +545,9 @@
 "welcome.button.continue" = "Continuar";
 "welcome.button.start" = "Vamos lá!";
 "welcome.button.back" = "Voltar";
-"welcome.branding.tagline" = "Rastreie suas metas diárias.";
 
 
 /* MARK: - ContentView.swift */
-"main.tab.cat" = "Hoje";
-"main.tab.achievements" = "Conquistas";
-"main.tab.profile" = "Você";
-"main.tab.settings" = "Ajustes";
 
 
 /* HealthKit activity display names (auto check-in descriptions) */
@@ -647,8 +572,6 @@
 "healthkit.activity.other" = "Exercício";
 
 /* EditCheckinDescView.swift */
-"edit.checkin.desc.section" = "Descrição";
-"edit.checkin.desc.reset" = "Restaurar padrão";
 
 /* AppTheme — Categorias */
 "app.theme.category.sport" = "Esporte";
@@ -898,7 +821,6 @@
 "notifications.custom.description"          = "Lembretes pra bater a meta do dia.";
 "notifications.custom.body"                 = "Hora de registrar %@ — continue rumo à meta do dia.";
 "notifications.custom.footer"               = "Lembretes periódicos param quando você atinge a meta do dia dessa meta personalizada.";
-"notifications.history.back" = "Voltar";
 "notifications.history.delete" = "Apagar";
 
 "settings.preference.orientation" = "Orientação";
@@ -945,8 +867,6 @@
 "a11y.hint.decrement" = "Toque para diminuir.";
 
 /* Toggle de dia de descanso — label reflete on/off, hint descreve a ação */
-"a11y.label.restday.on"        = "Dia de descanso ativado";
-"a11y.label.restday.off"       = "Dia de descanso desativado";
 "a11y.hint.restday.activate"   = "Toque para ativar o dia de descanso.";
 "a11y.hint.restday.deactivate" = "Toque para sair do modo dia de descanso.";
 
@@ -1001,11 +921,7 @@
 "a11y.stats.goals.row.format"    = "%1$@, %2$d ativas";
 
 /* ProgressOverView — hints dos cards inteiros */
-"a11y.stats.card.tiers.hint" = "Toque para mais informações.";
-"a11y.stats.card.activity.hint" = "Toque para abrir conquistas.";
-"a11y.stats.card.goals.hint" = "Toque para gerenciar metas.";
 "a11y.stats.card.usergoal.hint" = "Toque para mudar o objetivo.";
-"a11y.stats.card.physical.hint" = "Toque para editar os dados.";
 
 /* ProfileRecentActivityView — botões dos dias */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";
@@ -1031,7 +947,6 @@
 
 /* Picker de objetivo fitness (UserGoalPickerView) */
 "a11y.usergoal.hint" = "Toque para escolher este objetivo.";
-"a11y.usergoal.value.format" = "%@";
 
 /* Tracking goals — botões só-ícone */
 "a11y.button.add.goal.label"     = "Nova meta de rastreio";
@@ -1093,7 +1008,6 @@
 "a11y.watch.decrease.label.format" = "Diminuir %@";
 
 /* Stat card do Watch */
-"a11y.watch.statcard.format" = "%1$@, %2$@";
 
 /* Faixa "últimos 7 dias" do Watch — resumida num único elemento */
 "a11y.watch.recent.summary.format" = "%1$@: %2$d dias com conquistas em 7.";
@@ -1110,9 +1024,6 @@
 
 /* Widgets grandes do iPhone */
 "a11y.widget.large.header.format"  = "%1$@, %2$@, %3$d por cento, %4$d pontos";
-"a11y.widget.calendar.label"       = "Calendário de conquistas";
 "a11y.widget.calendar.month.format" = "%@";
-"a11y.widget.goals.list.label"     = "Lista de progresso das metas";
 
 /* Watch widget — corner e inline já falam pelo texto natural */
-"a11y.widget.watch.corner.label.format" = "%1$@, %2$d por cento";

@@ -159,7 +159,7 @@ struct AchievementsView: View {
 
         for bonus in weeklyBonuses + monthlyBonuses {
             let key = calendar.startOfDay(for: bonus.anchorDate)
-            result[key] = bonusEmoji(for: bonus.bonusType)
+            result[key] = bonus.displayEmoji
         }
 
         return result
@@ -181,7 +181,7 @@ struct AchievementsView: View {
         let monthlyBonuses = bonuses.filter { $0.bonusType.hasPrefix("monthly") }
         for bonus in weeklyBonuses + monthlyBonuses {
             let key = calendar.startOfDay(for: bonus.anchorDate)
-            result[key] = bonusTitle(for: bonus.bonusType)
+            result[key] = bonus.displayTitle
         }
         return result
     }
@@ -229,61 +229,6 @@ struct AchievementsView: View {
         if let next = calendar.date(byAdding: .month, value: offset, to: visibleMonthDate) {
             visibleMonthDate = startOfMonth(for: next)
         }
-    }
-
-    // Mapeia o bonusType salvo ao emoji atual, evitando mostrar emojis antigos persistidos.
-    private func bonusEmoji(for bonusType: String) -> String {
-        switch bonusType {
-        case "weekly.level3":   return "🎖️"
-        case "weekly.level4":   return "💀"
-        case "monthly.level3":  return "🏆"
-        case "monthly.level4":  return "☠️"
-        default:                return "🏅"
-        }
-    }
-
-    // Converte a string bonusType salva pra um nome de exibição localizado na linha da lista.
-    private func bonusTitle(for bonusType: String) -> String {
-        switch bonusType {
-        case "weekly.level3":   return String(localized: "streak.bonus.weekly.level3.title", bundle: .gymNutshellCore)
-        case "weekly.level4":   return String(localized: "streak.bonus.weekly.level4.title", bundle: .gymNutshellCore)
-        case "monthly.level3":  return String(localized: "streak.bonus.monthly.level3.title", bundle: .gymNutshellCore)
-        case "monthly.level4":  return String(localized: "streak.bonus.monthly.level4.title", bundle: .gymNutshellCore)
-        default:                return String(localized: "streak.bonus.generic.title", bundle: .gymNutshellCore)
-        }
-    }
-
-    // Converte a string bonusType salva pra uma descrição localizada explicando por que o bônus foi ganho.
-    private func bonusDescription(for bonusType: String) -> String {
-        switch bonusType {
-        case "weekly.level3":   return String(localized: "streak.bonus.weekly.level3.description", bundle: .gymNutshellCore)
-        case "weekly.level4":   return String(localized: "streak.bonus.weekly.level4.description", bundle: .gymNutshellCore)
-        case "monthly.level3":  return String(localized: "streak.bonus.monthly.level3.description", bundle: .gymNutshellCore)
-        case "monthly.level4":  return String(localized: "streak.bonus.monthly.level4.description", bundle: .gymNutshellCore)
-        default:                return ""
-        }
-    }
-
-    // MARK: - Estado vazio
-
-    // Card de estado vazio com ícone na cor de destaque do usuário e texto sem truncação.
-    @ViewBuilder
-    private var emptyStateView: some View {
-        VStack(spacing: 16) {
-            Image(systemName: "trophy.fill")
-                .font(.system(size: 40))
-                .foregroundStyle(accentColor)
-            Text(String(localized: "achievements.empty.title", bundle: .gymNutshellCore))
-                .font(.headline)
-                .multilineTextAlignment(.center)
-            Text(String(localized: "achievements.empty.description", bundle: .gymNutshellCore))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 40)
-        .padding(.horizontal)
     }
 
     // MARK: - Seção de calendário (extraída pra reuso no layout wide/narrow)
@@ -340,7 +285,7 @@ struct AchievementsView: View {
                                     List {
                                         if visibleItems.isEmpty {
                                             Section {
-                                                emptyStateView
+                                                AchievementsEmptyState(accentColor: accentColor)
                                                     .listRowBackground(Color.clear)
                                             }
                                         } else {
@@ -365,7 +310,7 @@ struct AchievementsView: View {
 
                                     if visibleItems.isEmpty {
                                         Section {
-                                            emptyStateView
+                                            AchievementsEmptyState(accentColor: accentColor)
                                                 .listRowBackground(Color.clear)
                                         }
                                     } else {
@@ -384,7 +329,7 @@ struct AchievementsView: View {
 
                             if visibleItems.isEmpty {
                                 Section {
-                                    emptyStateView
+                                    AchievementsEmptyState(accentColor: accentColor)
                                         .listRowBackground(Color.clear)
                                 }
                             } else {
@@ -497,109 +442,25 @@ struct AchievementsView: View {
     @ViewBuilder
     private var historySection: some View {
         ForEach(visibleItems) { item in
-                        switch item {
-                        case .daily(let record):
-                            // Linha de histórico individual — mostra o emoji do nível, nome, data e pontos.
-                            // Texto e área tocável ficam num HStack interno com `.combine` (vira um
-                            // único elemento de VoiceOver); o botão de editar fica FORA para ser
-                            // focável separadamente.
-                            let tierName = selectedTheme.name(for: dailyAchievement(for: record), sex: sex)
-                            HStack(spacing: 16) {
-                                HStack(spacing: 16) {
-                                    Text(selectedTheme.emoji(for: dailyAchievement(for: record)))
-                                        .font(.largeTitle)
-                                        .accessibilityHidden(true)
-
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(tierName)
-                                            .font(.headline)
-
-                                        Text(String(format: String(localized: "achievements.daily.row.description", bundle: .gymNutshellCore), record.percent))
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-
-                                        Text(record.date, style: .date)
-                                            .foregroundStyle(.secondary)
-                                            .font(.caption)
-                                    }
-
-                                    Spacer()
-
-                                    Text("\(record.points) \(String(localized: "achievements.points.total", bundle: .gymNutshellCore))")
-                                        .font(.subheadline.bold())
-                                }
-                                .contentShape(Rectangle())
-                                .tapButton { activeSheet = .view(record) }
-                                .accessibilityElement(children: .combine)
-                                .accessibilityLabel(String(format: String(localized: "a11y.record.row.daily.format",
-                                                                          bundle: .gymNutshellCore),
-                                                           tierName,
-                                                           A11y.spokenDate(for: record.date),
-                                                           record.percent, record.points))
-                                .accessibilityHint(String(localized: "a11y.record.row.hint", bundle: .gymNutshellCore))
-
-                                // Botão de edição — visível só pra registros das últimas 72 horas.
-                                if canEdit(record) {
-                                    Button {
-                                        activeSheet = .edit(record)
-                                    } label: {
-                                        Image(systemName: "square.and.pencil")
-                                            .font(.system(size: 18, weight: .regular))
-                                    }
-                                    .buttonStyle(.borderless)
-                                    .pressScale(1.20, response: 0.25, dampingFraction: 0.50)
-                                    .accessibilityLabel(String(localized: "a11y.record.edit.label",
-                                                               bundle: .gymNutshellCore))
-                                    .accessibilityHint(String(localized: "a11y.record.edit.hint",
-                                                              bundle: .gymNutshellCore))
-                                }
-                            }
-                            .padding(.vertical, 8)
-
-                        case .bonus(let bonus):
-                            // Linha de bônus de streak — mostra emoji do bônus, nome do tipo, data e pontos.
-                            // O prefixo "+" diferencia pontos de bônus dos pontos diários normais.
-                            let bTitle = bonusTitle(for: bonus.bonusType)
-                            let bDesc  = bonusDescription(for: bonus.bonusType)
-                            HStack(spacing: 16) {
-                                Text(bonusEmoji(for: bonus.bonusType))
-                                    .font(.largeTitle)
-                                    .accessibilityHidden(true)
-
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(bTitle)
-                                        .font(.headline)
-
-                                    Text(bDesc)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-
-                                    Text(bonus.anchorDate, style: .date)
-                                        .foregroundStyle(.secondary)
-                                        .font(.caption)
-                                }
-
-                                Spacer()
-
-                                Text("+\(bonus.bonusPoints) \(String(localized: "achievements.points.total", bundle: .gymNutshellCore))")
-                                    .font(.subheadline.bold())
-                                    .foregroundStyle(Color.accentColor)
-                            }
-                            .padding(.vertical, 8)
-                            .contentShape(Rectangle())
-                            .tapButton { showBonusInfoSheet = true }
-                            .accessibilityElement(children: .combine)
-                            .accessibilityLabel(String(format: String(localized: "a11y.record.row.bonus.format",
-                                                                      bundle: .gymNutshellCore),
-                                                       bTitle, bDesc, bonus.bonusPoints))
-                            .accessibilityHint(String(localized: "a11y.record.bonus.hint",
-                                                      bundle: .gymNutshellCore))
-                        }
-                    }
-                    .onDelete { offsets in
-                        // Só registros diários podem ser deletados; linhas de bônus são silenciosamente ignoradas.
-                        deleteItem(offsets: offsets)
-                    }
+            switch item {
+            case .daily(let record):
+                let achievement = dailyAchievement(for: record)
+                HistoryDailyRow(
+                    record: record,
+                    tierName: selectedTheme.name(for: achievement, sex: sex),
+                    tierEmoji: selectedTheme.emoji(for: achievement),
+                    canEdit: canEdit(record),
+                    onTap: { activeSheet = .view(record) },
+                    onEdit: { activeSheet = .edit(record) }
+                )
+            case .bonus(let bonus):
+                HistoryBonusRow(bonus: bonus, onTap: { showBonusInfoSheet = true })
+            }
+        }
+        .onDelete { offsets in
+            // Só registros diários podem ser deletados; linhas de bônus são silenciosamente ignoradas.
+            deleteItem(offsets: offsets)
+        }
     }
 }
 

@@ -194,13 +194,12 @@ struct NotificationHistorySheet: View {
         }
         .padding(.vertical, 4)
         .contentShape(Rectangle())
-        .onTapGesture {
+        .tapButton {
             // No modo edit, o tap na linha não dispara deep-link — só o `-` do iOS age.
             guard !editMode.isEditing else { return }
             handleTap(entry)
         }
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(.isButton)
         .accessibilityLabel(String(format: String(localized: "a11y.history.row.format",
                                                  bundle: .gymNutshellCore),
                                    entry.title, entry.body, timeString))

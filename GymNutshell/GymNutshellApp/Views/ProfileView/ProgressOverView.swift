@@ -263,9 +263,8 @@ struct ProgressOverView: View {
                     }
                 }
                 .contentShape(Rectangle())
-                .onTapGesture { navPath.append(StatsDestination.userGoal) }
+                .tapButton { navPath.append(StatsDestination.userGoal) }
                 .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.isButton)
                 .accessibilityLabel(String(localized: "statistics.fitness.goal", bundle: .gymNutshellCore))
                 .accessibilityValue(userGoalLabel)
                 .accessibilityHint(String(localized: "a11y.stats.card.usergoal.hint", bundle: .gymNutshellCore))
@@ -379,9 +378,8 @@ struct ProgressOverView: View {
                         .padding(.vertical, 12)
                 }
                 .contentShape(Rectangle())
-                .onTapGesture { navPath.append(StatsDestination.userGoal) }
+                .tapButton { navPath.append(StatsDestination.userGoal) }
                 .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.isButton)
                 .accessibilityLabel(String(localized: "statistics.fitness.goal", bundle: .gymNutshellCore))
                 .accessibilityValue(userGoalLabel)
                 .accessibilityHint(String(localized: "a11y.stats.card.usergoal.hint", bundle: .gymNutshellCore))
@@ -492,9 +490,8 @@ struct ProgressOverView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .contentShape(Rectangle())
-        .onTapGesture { showBonusInfoSheet = true }
+        .tapButton { showBonusInfoSheet = true }
         .accessibilityElement(children: .combine)
-        .accessibilityAddTraits(.isButton)
         .accessibilityLabel(String(format: String(localized: "a11y.stats.bonus.row.format",
                                                  bundle: .gymNutshellCore), label, count))
         .accessibilityHint(String(localized: "a11y.record.bonus.hint", bundle: .gymNutshellCore))

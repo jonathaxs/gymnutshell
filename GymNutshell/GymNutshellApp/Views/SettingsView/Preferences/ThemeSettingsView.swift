@@ -50,11 +50,8 @@ struct ThemeSettingsView: View {
                                 }
                             }
                             .contentShape(Rectangle())
-                            .onTapGesture {
-                                selectedTheme = theme
-                            }
+                            .tapButton { selectedTheme = theme }
                             .accessibilityElement(children: .combine)
-                            .accessibilityAddTraits(.isButton)
                             .accessibilityLabel(themeName)
                             .accessibilityValue(isSelected
                                                 ? String(localized: "a11y.selected", bundle: .gymNutshellCore)

@@ -529,11 +529,8 @@ struct AchievementsView: View {
                                         .font(.subheadline.bold())
                                 }
                                 .contentShape(Rectangle())
-                                .onTapGesture {
-                                    activeSheet = .view(record)
-                                }
+                                .tapButton { activeSheet = .view(record) }
                                 .accessibilityElement(children: .combine)
-                                .accessibilityAddTraits(.isButton)
                                 .accessibilityLabel(String(format: String(localized: "a11y.record.row.daily.format",
                                                                           bundle: .gymNutshellCore),
                                                            tierName,
@@ -590,11 +587,8 @@ struct AchievementsView: View {
                             }
                             .padding(.vertical, 8)
                             .contentShape(Rectangle())
-                            .onTapGesture {
-                                showBonusInfoSheet = true
-                            }
+                            .tapButton { showBonusInfoSheet = true }
                             .accessibilityElement(children: .combine)
-                            .accessibilityAddTraits(.isButton)
                             .accessibilityLabel(String(format: String(localized: "a11y.record.row.bonus.format",
                                                                       bundle: .gymNutshellCore),
                                                        bTitle, bDesc, bonus.bonusPoints))

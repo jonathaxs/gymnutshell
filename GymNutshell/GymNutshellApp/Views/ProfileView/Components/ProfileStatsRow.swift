@@ -25,9 +25,8 @@ struct ProfileStatsRow: View {
             cardBase(value: "\(totalDays)",
                      label: String(localized: "profile.stats.days", bundle: .gymNutshellCore))
                 .contentShape(Rectangle())
-                .onTapGesture { onDaysTap?() }
+                .tapButton { onDaysTap?() }
                 .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.isButton)
                 .accessibilityLabel(String(localized: "a11y.stats.days.label", bundle: .gymNutshellCore))
                 .accessibilityValue(String(format: String(localized: "a11y.stats.days.value.format",
                                                          bundle: .gymNutshellCore), totalDays))
@@ -45,9 +44,8 @@ struct ProfileStatsRow: View {
             cardBase(value: "\(bonusCount)",
                      label: String(localized: "profile.stats.bonuses", bundle: .gymNutshellCore))
                 .contentShape(Rectangle())
-                .onTapGesture { onBonusTap?() }
+                .tapButton { onBonusTap?() }
                 .accessibilityElement(children: .combine)
-                .accessibilityAddTraits(.isButton)
                 .accessibilityLabel(String(localized: "a11y.stats.bonuses.label", bundle: .gymNutshellCore))
                 .accessibilityValue(String(format: String(localized: "a11y.stats.bonuses.value.format",
                                                          bundle: .gymNutshellCore), bonusCount))

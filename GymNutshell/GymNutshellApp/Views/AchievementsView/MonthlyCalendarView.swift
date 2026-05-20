@@ -105,7 +105,7 @@ struct MonthlyCalendarView: View {
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .opacity(isInDisplayedMonth || isSelected ? 1 : 0.65)
         .contentShape(Rectangle())
-        .onTapGesture {
+        .tapButton {
             guard isInDisplayedMonth else { return }
             selectedDate = date
         }
@@ -113,7 +113,6 @@ struct MonthlyCalendarView: View {
         // visível ficam ocultos pra reduzir ruído na varredura por swipe.
         .accessibilityElement(children: .ignore)
         .accessibilityHidden(!isInDisplayedMonth)
-        .accessibilityAddTraits(.isButton)
         .accessibilityLabel(A11y.calendarDayValue(date: date,
                                                   tierName: tierName,
                                                   isToday: isToday,

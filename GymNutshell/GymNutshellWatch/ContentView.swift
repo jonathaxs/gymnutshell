@@ -347,14 +347,13 @@ struct ContentView: View {
         .fixedSize(horizontal: false, vertical: true)
         .clipShape(Capsule())
         .contentShape(Capsule())
-        .onTapGesture {
+        .tapButton {
             withAnimation(.easeInOut(duration: 0.22)) {
                 expandedId = isExpanded ? nil : entry.id
             }
         }
         // Header inteiro = 1 botão: "Treino, 0 de 50 minutos, recolhido".
         .accessibilityElement(children: .ignore)
-        .accessibilityAddTraits(.isButton)
         .accessibilityLabel(entry.displayName)
         .accessibilityValue({
             let state = isExpanded

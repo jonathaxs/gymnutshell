@@ -220,10 +220,7 @@ struct AchievementsView: View {
 
     // Título do mês legível usado acima do calendário customizado.
     private var visibleMonthTitle: String {
-        let formatter = DateFormatter()
-        formatter.locale = .current
-        formatter.dateFormat = "LLLL yyyy"
-        return formatter.string(from: visibleMonthDate)
+        AppDateFormatters.monthYear.string(from: visibleMonthDate)
     }
 
     // Move o mês visível pelo offset fornecido (ex.: -1 = mês anterior).

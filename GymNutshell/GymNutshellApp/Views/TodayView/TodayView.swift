@@ -233,21 +233,11 @@ struct TodayView: View {
     // MARK: - Formatação de data
 
     private var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale.current
-        formatter.setLocalizedDateFormatFromTemplate("EEEEMMMMd")
-        let s = formatter.string(from: Date())
-        return s.isEmpty ? s : s.prefix(1).uppercased() + s.dropFirst()
+        AppDateFormatters.longDate(for: Date())
     }
 
-    private static let dayFormatter: DateFormatter = {
-        let f = DateFormatter()
-        f.dateFormat = "yyyy-MM-dd"
-        return f
-    }()
-
     private func dateString(from date: Date) -> String {
-        Self.dayFormatter.string(from: date)
+        AppDateFormatters.dayKey.string(from: date)
     }
 
     // MARK: - Helpers de binding
@@ -414,7 +404,7 @@ struct TodayView: View {
 
         let calendar = Calendar.current
 
-        guard let lastDate = Self.dayFormatter.date(from: lastFinishedDate) else {
+        guard let lastDate = AppDateFormatters.dayKey.date(from: lastFinishedDate) else {
             lastFinishedDate = todayString
             finishDay()
             return

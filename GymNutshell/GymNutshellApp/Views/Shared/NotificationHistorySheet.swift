@@ -229,10 +229,7 @@ struct NotificationHistorySheet: View {
         } else if calendar.isDateInYesterday(date) {
             return String(localized: "notifications.history.yesterday", bundle: .gymNutshellCore)
         } else {
-            let formatter = DateFormatter()
-            formatter.locale = .current
-            formatter.dateStyle = .medium
-            return formatter.string(from: date)
+            return AppDateFormatters.mediumDate.string(from: date)
         }
     }
 

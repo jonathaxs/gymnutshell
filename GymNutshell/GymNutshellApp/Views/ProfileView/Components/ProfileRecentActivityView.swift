@@ -102,8 +102,6 @@ struct ProfileRecentActivityView: View {
 
     // Símbolo do dia da semana em uma letra só, respeitando o locale (ex: "S", "T").
     private func weekdayInitial(for date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEEE"
-        return formatter.string(from: date)
+        AppDateFormatters.weekdayInitial.string(from: date)
     }
 }

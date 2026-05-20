@@ -273,9 +273,7 @@ private struct CalendarLargeView: View {
     }
 
     private func monthLabel() -> String {
-        let f = DateFormatter()
-        f.dateFormat = "MMMM yyyy"
-        return f.string(from: Date()).capitalized
+        AppDateFormatters.monthYear.string(from: Date())
     }
 
     /// Abreviações curtas dos dias da semana respeitando o `firstWeekday` do calendário do sistema.

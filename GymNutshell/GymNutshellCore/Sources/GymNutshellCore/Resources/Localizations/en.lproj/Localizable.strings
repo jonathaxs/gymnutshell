@@ -910,8 +910,15 @@
 /* MARK: - Accessibility (Phase 2 — Achievements + ProgressOver) */
 
 /* Calendar cell with a tier or bonus name spoken */
-"a11y.calendar.day.tier.format"        = "%1$@, %2$@";
-"a11y.calendar.day.today.tier.format"  = "today, %1$@, %2$@";
+"a11y.calendar.day.tier.format"        = "%1$@, achieved: %2$@";
+"a11y.calendar.day.today.tier.format"  = "today, %1$@, achieved: %2$@";
+
+/* Achievements view-mode segmented picker (List / Calendar) */
+"a11y.achievements.filter.day"  = "Calendar view";
+"a11y.achievements.filter.all"  = "List view";
+
+/* Calendar section header */
+"a11y.achievements.calendar.title"  = "History calendar view";
 
 /* Month navigation chevrons */
 "a11y.month.previous" = "Previous month";

@@ -295,8 +295,12 @@ struct AchievementsView: View {
     private var calendarSection: some View {
         Section {
             Picker(String(localized: "achievements.filter.title", bundle: .gymNutshellCore), selection: $filterMode) {
-                Text(String(localized: "achievements.filter.day", bundle: .gymNutshellCore)).tag(FilterMode.day)
-                Text(String(localized: "achievements.filter.all", bundle: .gymNutshellCore)).tag(FilterMode.all)
+                Text(String(localized: "achievements.filter.day", bundle: .gymNutshellCore))
+                    .accessibilityLabel(String(localized: "a11y.achievements.filter.day", bundle: .gymNutshellCore))
+                    .tag(FilterMode.day)
+                Text(String(localized: "achievements.filter.all", bundle: .gymNutshellCore))
+                    .accessibilityLabel(String(localized: "a11y.achievements.filter.all", bundle: .gymNutshellCore))
+                    .tag(FilterMode.all)
             }
             .pickerStyle(.segmented)
 

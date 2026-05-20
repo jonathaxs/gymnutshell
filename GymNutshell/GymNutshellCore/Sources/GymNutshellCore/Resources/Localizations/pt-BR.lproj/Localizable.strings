@@ -959,8 +959,15 @@
 /* MARK: - Acessibilidade (Fase 2 — Achievements + ProgressOver) */
 
 /* Célula de calendário com nome do tier ou do bônus falado */
-"a11y.calendar.day.tier.format"        = "%1$@, %2$@";
-"a11y.calendar.day.today.tier.format"  = "hoje, %1$@, %2$@";
+"a11y.calendar.day.tier.format"        = "%1$@, conquistado: %2$@";
+"a11y.calendar.day.today.tier.format"  = "hoje, %1$@, conquistado: %2$@";
+
+/* Picker segmentado de visualização (Lista / Calendário) */
+"a11y.achievements.filter.day"  = "Visualização em calendário";
+"a11y.achievements.filter.all"  = "Visualização em lista";
+
+/* Cabeçalho da seção do calendário */
+"a11y.achievements.calendar.title"  = "Calendário de histórico";
 
 /* Navegação de mês (chevrons) */
 "a11y.month.previous" = "Mês anterior";

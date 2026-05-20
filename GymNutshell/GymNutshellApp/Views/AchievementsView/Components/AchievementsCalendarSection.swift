@@ -27,6 +27,7 @@ struct AchievementsCalendarSection: View {
             HStack {
                 Text(String(localized: "achievements.calendar.title", bundle: .gymNutshellCore))
                     .font(.headline)
+                    .accessibilityLabel(String(localized: "a11y.achievements.calendar.title", bundle: .gymNutshellCore))
 
                 Spacer()
 

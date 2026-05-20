@@ -357,32 +357,9 @@ struct BackupSettingsView: View {
 
     /// Restaura um BackupPayload no UserDefaults e no SwiftData.
     /// Usado tanto pela importação local quanto pela restauração do iCloud.
+    /// Erros de delete do SwiftData são silenciosamente ignorados — comportamento
+    /// preservado da implementação original.
     private func restorePayload(_ payload: BackupPayload) {
-        // 1) Deleta todos os DailyRecord existentes do SwiftData.
-        try? modelContext.delete(model: DailyRecord.self)
-
-        // 2) Restaura UserDefaults, metas e metas personalizadas.
-        BackupManager.restoreUserDefaults(from: payload)
-
-        // 3) Insere os registros restaurados no SwiftData.
-        for snap in payload.dailyRecords {
-            let record = DailyRecord(
-                date:     snap.date,
-                water:    snap.water,
-                protein:  snap.protein,
-                carbs:    snap.carbs,
-                goodFat:  snap.goodFat,
-                fiber:    snap.fiber,
-                sleep:    snap.sleep,
-                percent:  snap.percent,
-                achievementTitle: snap.achievementTitle,
-                achievementEmoji: snap.achievementEmoji,
-                points:   snap.points
-            )
-            record.didWorkout = snap.didWorkout
-            record.didCardio = snap.didCardio ?? false
-            record.customValues = (try? JSONEncoder().encode(snap.customValues)) ?? Data()
-            modelContext.insert(record)
-        }
+        try? BackupManager.applyPayload(payload, into: modelContext)
     }
 }

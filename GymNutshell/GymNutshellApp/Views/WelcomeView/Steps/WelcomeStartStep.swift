@@ -180,20 +180,7 @@ struct WelcomeStartStep: View {
                 return
             }
             let payload = try BackupManager.decode(data)
-            try modelContext.delete(model: DailyRecord.self)
-            BackupManager.restoreUserDefaults(from: payload)
-            for snap in payload.dailyRecords {
-                let record = DailyRecord(
-                    date: snap.date, water: snap.water, protein: snap.protein,
-                    carbs: snap.carbs, goodFat: snap.goodFat, fiber: snap.fiber,
-                    sleep: snap.sleep, percent: snap.percent,
-                    achievementTitle: snap.achievementTitle, achievementEmoji: snap.achievementEmoji, points: snap.points
-                )
-                record.didWorkout = snap.didWorkout
-                record.didCardio = snap.didCardio ?? false
-                record.customValues = (try? JSONEncoder().encode(snap.customValues)) ?? Data()
-                modelContext.insert(record)
-            }
+            try BackupManager.applyPayload(payload, into: modelContext)
             UserDefaults.standard.set(true, forKey: UserProfile.didCompleteOnboardingKey)
             iCloudRestoring = false
             onRestore()
@@ -214,20 +201,7 @@ struct WelcomeStartStep: View {
         do {
             let data = try Data(contentsOf: url)
             let payload = try BackupManager.decode(data)
-            try modelContext.delete(model: DailyRecord.self)
-            BackupManager.restoreUserDefaults(from: payload)
-            for snap in payload.dailyRecords {
-                let record = DailyRecord(
-                    date: snap.date, water: snap.water, protein: snap.protein,
-                    carbs: snap.carbs, goodFat: snap.goodFat, fiber: snap.fiber,
-                    sleep: snap.sleep, percent: snap.percent,
-                    achievementTitle: snap.achievementTitle, achievementEmoji: snap.achievementEmoji, points: snap.points
-                )
-                record.didWorkout = snap.didWorkout
-                record.didCardio = snap.didCardio ?? false
-                record.customValues = (try? JSONEncoder().encode(snap.customValues)) ?? Data()
-                modelContext.insert(record)
-            }
+            try BackupManager.applyPayload(payload, into: modelContext)
             UserDefaults.standard.set(true, forKey: UserProfile.didCompleteOnboardingKey)
             onRestore()
         } catch {

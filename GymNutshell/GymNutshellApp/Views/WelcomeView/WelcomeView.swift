@@ -33,16 +33,9 @@ struct WelcomeView: View {
     @State private var panelRestoreError: String? = nil
 
     // MARK: - Controle de etapas
+    // O enum WelcomeStep + textos de painel ficam em WelcomeStep.swift.
 
-    private enum Step: Int, CaseIterable {
-        case start
-        case goal
-        case physicalData
-        case summary
-        case theme
-    }
-
-    @State private var currentStep: Step
+    @State private var currentStep: WelcomeStep
 
     // MARK: - Init
 
@@ -152,7 +145,7 @@ struct WelcomeView: View {
     }
 
     private func goBack() {
-        guard let prev = Step(rawValue: currentStep.rawValue - 1) else { return }
+        guard let prev = WelcomeStep(rawValue: currentStep.rawValue - 1) else { return }
         isGoingForward = false
         withAnimation(.easeInOut(duration: 0.3)) {
             currentStep = prev
@@ -251,16 +244,16 @@ struct WelcomeView: View {
             // Emoji + título — anima junto com a transição de etapa.
             VStack(spacing: 16) {
                 Spacer()
-                Text(stepPanelEmoji)
+                Text(currentStep.panelEmoji)
                     .font(.system(size: 64))
                     .animation(.easeInOut(duration: 0.3), value: currentStep)
                     // Emoji decorativo — título logo abaixo já comunica a etapa.
                     .accessibilityHidden(true)
-                Text(stepPanelTitle)
+                Text(currentStep.panelTitle)
                     .font(.title.bold())
                     .multilineTextAlignment(.center)
                     .animation(.easeInOut(duration: 0.3), value: currentStep)
-                if let subtitle = stepPanelSubtitle {
+                if let subtitle = currentStep.panelSubtitle {
                     Text(subtitle)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -324,40 +317,7 @@ struct WelcomeView: View {
         }
     }
 
-    // Emoji representativo de cada etapa.
-    private var stepPanelEmoji: String {
-        switch currentStep {
-        case .start:        return "👋"
-        case .goal:         return "🎯"
-        case .physicalData: return "👤"
-        case .summary:      return "✅"
-        case .theme:        return "🎭"
-        }
-    }
-
-    // Título de cada etapa para o painel contextual.
-    private var stepPanelTitle: String {
-        switch currentStep {
-        case .start:        return String(localized: "welcome.step.start.title", bundle: .gymNutshellCore)
-        case .goal:         return String(localized: "welcome.step.goal.title", bundle: .gymNutshellCore)
-        case .physicalData: return String(localized: "welcome.step.physical.title", bundle: .gymNutshellCore)
-        case .summary:      return String(localized: "welcome.step.summary.title", bundle: .gymNutshellCore)
-        case .theme:        return String(localized: "welcome.step.theme.title", bundle: .gymNutshellCore)
-        }
-    }
-
-    // Subtítulo opcional — replicado no painel contextual em modo wide
-    // para manter paridade com o cabeçalho exibido em portrait.
-    private var stepPanelSubtitle: String? {
-        switch currentStep {
-        case .summary: return String(localized: "welcome.step.summary.subtitle", bundle: .gymNutshellCore)
-        case .theme:   return String(localized: "welcome.step.theme.subtitle", bundle: .gymNutshellCore)
-        default:     return nil
-        }
-    }
-
     // Restaura backup a partir de um arquivo selecionado no painel wide.
-    // Duplica a lógica do WelcomeStartStep (modo narrow) pra evitar acoplamento de estado.
     private func panelPerformRestore(from url: URL) {
         guard url.startAccessingSecurityScopedResource() else {
             panelRestoreError = "Could not access the selected file."
@@ -367,20 +327,7 @@ struct WelcomeView: View {
         do {
             let data = try Data(contentsOf: url)
             let payload = try BackupManager.decode(data)
-            try modelContext.delete(model: DailyRecord.self)
-            BackupManager.restoreUserDefaults(from: payload)
-            for snap in payload.dailyRecords {
-                let record = DailyRecord(
-                    date: snap.date, water: snap.water, protein: snap.protein,
-                    carbs: snap.carbs, goodFat: snap.goodFat, fiber: snap.fiber,
-                    sleep: snap.sleep, percent: snap.percent,
-                    achievementTitle: snap.achievementTitle, achievementEmoji: snap.achievementEmoji, points: snap.points
-                )
-                record.didWorkout = snap.didWorkout
-                record.didCardio = snap.didCardio ?? false
-                record.customValues = (try? JSONEncoder().encode(snap.customValues)) ?? Data()
-                modelContext.insert(record)
-            }
+            try BackupManager.applyPayload(payload, into: modelContext)
             UserDefaults.standard.set(true, forKey: UserProfile.didCompleteOnboardingKey)
             onComplete()
         } catch {
@@ -489,7 +436,7 @@ struct WelcomeView: View {
     // MARK: - Barra de progresso
 
     private var progressBar: some View {
-        let total = Step.allCases.count
+        let total = WelcomeStep.allCases.count
         let current = currentStep.rawValue + 1
 
         return HStack(spacing: 6) {

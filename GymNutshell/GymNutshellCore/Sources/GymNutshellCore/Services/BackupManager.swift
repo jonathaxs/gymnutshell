@@ -157,6 +157,30 @@ public enum BackupManager {
         }
     }
 
+    // MARK: - Aplicar backup completo
+
+    /// Restaura um `BackupPayload` por inteiro: apaga os `DailyRecord` existentes,
+    /// reaplica UserDefaults/metas/preferências e reinsere os snapshots no SwiftData.
+    /// Os 4 fluxos de restauração (Welcome iCloud, Welcome arquivo, painel de
+    /// onboarding wide e Settings → Backup) compartilham este método.
+    public static func applyPayload(_ payload: BackupPayload, into context: ModelContext) throws {
+        try context.delete(model: DailyRecord.self)
+        restoreUserDefaults(from: payload)
+        for snap in payload.dailyRecords {
+            let record = DailyRecord(
+                date: snap.date, water: snap.water, protein: snap.protein,
+                carbs: snap.carbs, goodFat: snap.goodFat, fiber: snap.fiber,
+                sleep: snap.sleep, percent: snap.percent,
+                achievementTitle: snap.achievementTitle, achievementEmoji: snap.achievementEmoji,
+                points: snap.points
+            )
+            record.didWorkout = snap.didWorkout
+            record.didCardio = snap.didCardio ?? false
+            record.customValues = (try? JSONEncoder().encode(snap.customValues)) ?? Data()
+            context.insert(record)
+        }
+    }
+
     // MARK: - Nome de arquivo sugerido
 
     public static func suggestedFilename() -> String {

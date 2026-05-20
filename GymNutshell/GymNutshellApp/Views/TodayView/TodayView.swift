@@ -147,16 +147,16 @@ struct TodayView: View {
         Set(todayCollapsedRaw.split(separator: ",").map(String.init).filter { !$0.isEmpty })
     }
 
-    private func isTodayCategoryCollapsed(_ category: GoalCategory) -> Bool {
-        todayCollapsedCategories.contains(category.rawValue)
+    private func isTodayCategoryCollapsed(_ key: String) -> Bool {
+        todayCollapsedCategories.contains(key)
     }
 
-    private func toggleTodayCategory(_ category: GoalCategory) {
+    private func toggleTodayCategory(_ key: String) {
         var current = todayCollapsedCategories
-        if current.contains(category.rawValue) {
-            current.remove(category.rawValue)
+        if current.contains(key) {
+            current.remove(key)
         } else {
-            current.insert(category.rawValue)
+            current.insert(key)
         }
         todayCollapsedRaw = current.joined(separator: ",")
     }
@@ -496,7 +496,7 @@ struct TodayView: View {
         let goals = customGoalsFor(customCategoryId: customCategory.id)
         if !goals.isEmpty {
             todayCustomCategoryHeader(customCategory)
-            if !isTodayCategoryCollapsedByKey(customCategory.id) {
+            if !isTodayCategoryCollapsed(customCategory.id) {
                 VStack(spacing: 10) {
                     ForEach(goals) { goal in
                         TrackingGoalRowView(
@@ -518,64 +518,14 @@ struct TodayView: View {
     // Header de categoria customizada — mesmo visual das fixas, mas com chave própria.
     @ViewBuilder
     private func todayCustomCategoryHeader(_ customCategory: CustomGoalCategory) -> some View {
-        let collapsed = isTodayCategoryCollapsedByKey(customCategory.id)
-        Button {
-            UISelectionFeedbackGenerator().selectionChanged()
-            withAnimation(.easeInOut(duration: 0.2)) {
-                toggleTodayCategoryByKey(customCategory.id)
-            }
-        } label: {
-            HStack(spacing: 6) {
-                Image(systemName: collapsed ? "chevron.right" : "chevron.down")
-                    .font(.caption2.weight(.bold))
-                    .frame(width: 12)
-                Text(customCategory.name.uppercased())
-                    .font(.caption.weight(.bold))
-                    .tracking(0.5)
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .foregroundStyle(Color.primary)
-            .padding(.vertical, 6)
-            .padding(.horizontal, 10)
-            .background {
-                if collapsed {
-                    UnevenRoundedRectangle(
-                        topLeadingRadius: 0,
-                        bottomLeadingRadius: 14,
-                        bottomTrailingRadius: 14,
-                        topTrailingRadius: 0
-                    )
-                    .fill(Color.secondary.opacity(0.20))
-                } else {
-                    UnevenRoundedRectangle(
-                        topLeadingRadius: 14,
-                        bottomLeadingRadius: 0,
-                        bottomTrailingRadius: 0,
-                        topTrailingRadius: 14
-                    )
-                    .fill(todayAccentColor.opacity(0.22))
-                }
-            }
-        }
-        .buttonStyle(.plain)
-        .padding(.top, 4)
-        .padding(.bottom, 2)
-        .accessibilityLabel(A11y.categoryLabel(customCategory.name))
-        .accessibilityHint(A11y.categoryHint())
-    }
-
-    private func isTodayCategoryCollapsedByKey(_ key: String) -> Bool {
-        todayCollapsedCategories.contains(key)
-    }
-
-    private func toggleTodayCategoryByKey(_ key: String) {
-        var current = todayCollapsedCategories
-        if current.contains(key) {
-            current.remove(key)
-        } else {
-            current.insert(key)
-        }
-        todayCollapsedRaw = current.joined(separator: ",")
+        TodayCategoryHeader(
+            title: customCategory.name,
+            collapsed: isTodayCategoryCollapsed(customCategory.id),
+            accentColor: todayAccentColor,
+            a11yLabel: A11y.categoryLabel(customCategory.name),
+            a11yHint: A11y.categoryHint(),
+            onToggle: { toggleTodayCategory(customCategory.id) }
+        )
     }
 
     // Seção colapsável de uma categoria — mostra o header e, quando expandido, as metas.
@@ -589,7 +539,7 @@ struct TodayView: View {
         if !fixedKeys.isEmpty || !customGoalsInCategory.isEmpty {
             todayCategoryHeader(category)
 
-            if !isTodayCategoryCollapsed(category) {
+            if !isTodayCategoryCollapsed(category.rawValue) {
                 VStack(spacing: 10) {
                     ForEach(fixedKeys, id: \.self) { key in
                         goalRow(for: key)
@@ -622,50 +572,14 @@ struct TodayView: View {
     // Expandida: cantos inferiores arredondados, superiores zerados (indica que há conteúdo acima/aberto).
     @ViewBuilder
     private func todayCategoryHeader(_ category: GoalCategory) -> some View {
-        let collapsed = isTodayCategoryCollapsed(category)
-        Button {
-            UISelectionFeedbackGenerator().selectionChanged()
-            withAnimation(.easeInOut(duration: 0.2)) {
-                toggleTodayCategory(category)
-            }
-        } label: {
-            HStack(spacing: 6) {
-                Image(systemName: collapsed ? "chevron.right" : "chevron.down")
-                    .font(.caption2.weight(.bold))
-                    .frame(width: 12)
-                Text(category.displayName.uppercased())
-                    .font(.caption.weight(.bold))
-                    .tracking(0.5)
-            }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .foregroundStyle(Color.primary)
-            .padding(.vertical, 6)
-            .padding(.horizontal, 10)
-            .background {
-                if collapsed {
-                    UnevenRoundedRectangle(
-                        topLeadingRadius: 0,
-                        bottomLeadingRadius: 14,
-                        bottomTrailingRadius: 14,
-                        topTrailingRadius: 0
-                    )
-                    .fill(Color.secondary.opacity(0.20))
-                } else {
-                    UnevenRoundedRectangle(
-                        topLeadingRadius: 14,
-                        bottomLeadingRadius: 0,
-                        bottomTrailingRadius: 0,
-                        topTrailingRadius: 14
-                    )
-                    .fill(todayAccentColor.opacity(0.22))
-                }
-            }
-        }
-        .buttonStyle(.plain)
-        .padding(.top, 4)
-        .padding(.bottom, 2)
-        .accessibilityLabel(A11y.categoryLabel(category.displayName))
-        .accessibilityHint(A11y.categoryHint())
+        TodayCategoryHeader(
+            title: category.displayName,
+            collapsed: isTodayCategoryCollapsed(category.rawValue),
+            accentColor: todayAccentColor,
+            a11yLabel: A11y.categoryLabel(category.displayName),
+            a11yHint: A11y.categoryHint(),
+            onToggle: { toggleTodayCategory(category.rawValue) }
+        )
     }
 
     // MARK: - Corpo da lista de metas

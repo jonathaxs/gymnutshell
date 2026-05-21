@@ -591,87 +591,13 @@ struct TodayView: View {
         .animation(.easeInOut(duration: 0.28), value: todayCollapsedRaw)
     }
 
-    // Grid de metas — usado apenas no iPad (wideLayout com altura sobrando).
-    // Distribuição **coluna-major**: itens caem de cima pra baixo na coluna 1, depois
-    // a 2, etc. Em vez de LazyVGrid (que alinha por linha e cria gaps quando categorias
-    // têm alturas diferentes), uso um HStack de VStacks — cada coluna sobe livremente
-    // sem ser puxada pela mais alta da linha.
-    @ViewBuilder
-    private var goalsGridBody: some View {
-        GeometryReader { proxy in
-            let cellMinWidth: CGFloat = 320
-            let columnSpacing: CGFloat = 16
-            let available = proxy.size.width
-            // Cap nos itens disponíveis — sem isso, em janelas absurdamente largas
-            // (4K macOS / Vision Pro) o número de colunas calculado é maior que o
-            // de células, e a regra "remainder vai pras últimas colunas" empurra
-            // todo o conteúdo pro lado direito da tela.
-            let cellCount = gridCells.count
-            let computed = max(1, Int((available + columnSpacing) / (cellMinWidth + columnSpacing)))
-            let columnsCount = max(1, min(computed, cellCount))
-            // Mesmo padrão do hero: ScrollView com Spacers em cima e embaixo
-            // empurra o conteúdo pro centro vertical quando sobra altura, e
-            // continua scrollável quando o conteúdo é maior que a janela.
-            ScrollView {
-                VStack(spacing: 0) {
-                    Spacer(minLength: 0)
-                    gridColumns(count: columnsCount, spacing: columnSpacing)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Spacer(minLength: 0)
-                }
-                .frame(minHeight: proxy.size.height)
-                .padding(.vertical, 12)
-                // Espaço pra barra de scroll do macOS não colar nas células à direita.
-                .padding(.trailing, 33)
-            }
-        }
-        .animation(.easeInOut(duration: 0.28), value: todayCollapsedRaw)
-    }
-
-    // Cada coluna recebe um pedaço contínuo da lista (não intercalado), pra que
-    // a ordem visual leia "topo→baixo, depois próxima coluna".
-    // Distribuição: base = N/cols (chão), remainder = N % cols. As colunas finais
-    // recebem o item extra — assim, ao adicionar uma nova categoria, ela cai na
-    // coluna da direita (que tinha espaço útil) em vez de empurrar a coluna
-    // esquerda pra ficar mais alta.
-    @ViewBuilder
-    private func gridColumns(count: Int, spacing: CGFloat) -> some View {
-        let cells = gridCells
-        let total = cells.count
-        let base = total / count
-        let remainder = total % count
-        let perColumnCounts: [Int] = (0..<count).map { col in
-            // Coluna i recebe um item extra apenas se estiver entre as últimas `remainder`.
-            base + (col >= count - remainder ? 1 : 0)
-        }
-        HStack(alignment: .top, spacing: spacing) {
-            ForEach(0..<count, id: \.self) { col in
-                let start = perColumnCounts.prefix(col).reduce(0, +)
-                let end = start + perColumnCounts[col]
-                if start < end {
-                    VStack(spacing: 10) {
-                        ForEach(start..<end, id: \.self) { idx in
-                            cells[idx].view
-                        }
-                    }
-                    // Cap por coluna pra evitar células gigantes em janelas 4K.
-                    .frame(maxWidth: 460, alignment: .top)
-                    .frame(maxWidth: .infinity, alignment: .top)
-                } else {
-                    // Coluna sem itens — mantém a largura via Spacer pra alinhamento estável.
-                    Color.clear.frame(maxWidth: .infinity, maxHeight: 0)
-                }
-            }
-        }
-    }
-
-    /// Lista achatada de células renderizáveis pro grid.
+    /// Lista achatada de células renderizáveis pro grid coluna-major.
     /// Categorias vazias são filtradas; metas personalizadas sem categoria viram a célula final.
-    private var gridCells: [GridCell] {
-        var cells: [GridCell] = unifiedCategoryItems
+    private var gridCells: [TodayGridCell] {
+        var cells: [TodayGridCell] = unifiedCategoryItems
             .filter { categoryHasContent($0) }
             .map { item in
-                GridCell(id: gridCellId(for: item)) {
+                TodayGridCell(id: gridCellId(for: item)) {
                     AnyView(
                         VStack(spacing: 10) {
                             switch item {
@@ -683,7 +609,7 @@ struct TodayView: View {
                 }
             }
         if !uncategorizedCustomGoals.isEmpty {
-            cells.append(GridCell(id: "__uncategorized__") {
+            cells.append(TodayGridCell(id: "__uncategorized__") {
                 AnyView(
                     VStack(spacing: 10) {
                         ForEach(uncategorizedCustomGoals) { goal in
@@ -708,16 +634,6 @@ struct TodayView: View {
         switch item {
         case .builtin(let category): return "builtin:\(category.rawValue)"
         case .custom(let category):  return "custom:\(category.id)"
-        }
-    }
-
-    /// Wrapper Identifiable simples pra alimentar ForEach com células heterogêneas.
-    private struct GridCell: Identifiable {
-        let id: String
-        let view: AnyView
-        init(id: String, @ViewBuilder view: () -> AnyView) {
-            self.id = id
-            self.view = view()
         }
     }
 
@@ -787,7 +703,7 @@ struct TodayView: View {
                     // iPad com altura sobrando: metas em grid coluna-major, ocupa
                     // toda a largura disponível à direita do hero. O grid já tem
                     // GeometryReader+ScrollView internos, sem wrap extra aqui.
-                    goalsGridBody
+                    TodayGoalsGrid(cells: gridCells, animationKey: todayCollapsedRaw)
                         .frame(maxWidth: .infinity)
                 } else {
                     // iPhone landscape / janela estreita: coluna única centralizada.

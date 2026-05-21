@@ -49,12 +49,7 @@ struct TodayProgressRingView: View {
     // Cor reflete o nível de progresso; vira roxo ao pressionar.
     private var ringColor: Color {
         if isPressed { return .purple }
-        switch clampedProgress {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
-        default:      return .blue
-        }
+        return ProgressColors.ring(for: clampedProgress)
     }
 
     // MARK: - Body

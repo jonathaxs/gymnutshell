@@ -19,12 +19,7 @@ struct WatchHeroView: View {
     // <30% vermelho (just starting), <60% laranja (on your way),
     // <100% verde (almost there), 100% azul (goal complete).
     private var ringColor: Color {
-        switch averageProgress {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
-        default:      return .blue
-        }
+        ProgressColors.ring(for: averageProgress)
     }
 
     var body: some View {

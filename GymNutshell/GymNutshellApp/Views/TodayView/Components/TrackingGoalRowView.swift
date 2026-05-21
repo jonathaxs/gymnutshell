@@ -43,12 +43,7 @@ struct TrackingGoalRowView: View {
     // MARK: - Cores baseadas no progresso
 
     private var progressTint: Color {
-        switch clampedProgress {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
-        default:      return .blue
-        }
+        ProgressColors.ring(for: clampedProgress)
     }
 
     // MARK: - Binding do slider

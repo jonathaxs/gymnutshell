@@ -82,14 +82,9 @@ struct GymNutshellWidget: Widget {
     }
 }
 
-/// Resolve a cor de progresso usada nos anéis dos widgets — espelha a regra do Watch / TodayView.
+/// Resolve a cor de progresso usada nos anéis dos widgets — delega pra regra única em Core.
 internal func widgetRingColor(progress: Double) -> Color {
-    switch progress {
-    case ..<0.30: return .red
-    case ..<0.60: return .orange
-    case ..<1.0:  return .green
-    default:      return .blue
-    }
+    ProgressColors.ring(for: progress)
 }
 
 // MARK: - Views
@@ -115,12 +110,7 @@ struct GymNutshellWidgetEntryView: View {
     /// Cor do anel acompanha o progresso, mesma regra do Watch e da TodayView:
     /// <30% vermelho, <60% laranja, <100% verde, 100% azul.
     private var ringColor: Color {
-        switch entry.snapshot.progressNormalized {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
-        default:      return .blue
-        }
+        ProgressColors.ring(for: entry.snapshot.progressNormalized)
     }
 
     /// True quando o widget está usando fundo customizado (accent ou custom).

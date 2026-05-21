@@ -76,12 +76,7 @@ struct GymNutshellWatchWidgetEntryView: View {
     /// Cor do anel acompanha o tier do dia, mesma regra do TodayView no iPhone
     /// e do hero do Watch app: <30% vermelho, <60% laranja, <100% verde, 100% azul.
     private var ringColor: Color {
-        switch entry.snapshot.progressNormalized {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
-        default:      return .blue
-        }
+        ProgressColors.ring(for: entry.snapshot.progressNormalized)
     }
 
     var body: some View {

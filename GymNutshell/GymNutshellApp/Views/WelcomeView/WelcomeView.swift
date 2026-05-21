@@ -348,12 +348,9 @@ struct WelcomeView: View {
     // MARK: - Cores dinâmicas
 
     // Cor de destaque baseada no sexo selecionado.
+    // Delega pra AppAccentColor.defaultForSex pra manter uma única fonte da verdade.
     private var sexColor: Color {
-        switch sex {
-        case "female": return .purple
-        case "male":   return .blue
-        default:       return .yellow
-        }
+        AppAccentColor.defaultForSex(sex).color
     }
 
     // Cor do botão Continuar: segue o objetivo na etapa de goal, e o sexo nas demais.

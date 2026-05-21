@@ -1,9 +1,10 @@
 // ⌘
 //  GymNutshellWidget/GymNutshellLargeWidgets.swift
 //
-//  Propósito: Widgets systemLarge — variantes "Calendário" (grade de 5 semanas
-//             com cor por dia) e "Metas" (lista das metas ativas com barras).
-//             Compartilham o WidgetSnapshot escrito pelo app principal.
+//  Propósito: Widget systemLarge "Calendário" — grade de até 6 semanas com cor
+//             por dia (mesma escala do anel) e header de tier/progresso.
+//             Infra compartilhada (Provider, helpers, ring, header) está em
+//             LargeWidgetShared.swift. Widget "Metas" está em LargeGoalsWidget.swift.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-05-15.
 // ⌘
@@ -12,147 +13,7 @@ import WidgetKit
 import SwiftUI
 import GymNutshellCore
 
-// MARK: - Provider compartilhado
-
-private struct LargeWidgetProvider: TimelineProvider {
-    func placeholder(in context: Context) -> GymNutshellWidgetEntry {
-        GymNutshellWidgetEntry(date: Date(), snapshot: .placeholder)
-    }
-    func getSnapshot(in context: Context, completion: @escaping (GymNutshellWidgetEntry) -> Void) {
-        let snapshot = WidgetSnapshotStore.load() ?? .placeholder
-        completion(GymNutshellWidgetEntry(date: Date(), snapshot: snapshot))
-    }
-    func getTimeline(in context: Context, completion: @escaping (Timeline<GymNutshellWidgetEntry>) -> Void) {
-        let snapshot = WidgetSnapshotStore.load() ?? .placeholder
-        let now = Date()
-        var entries: [GymNutshellWidgetEntry] = []
-        for i in 0..<16 {
-            let date = now.addingTimeInterval(TimeInterval(i * 15 * 60))
-            entries.append(GymNutshellWidgetEntry(date: date, snapshot: snapshot))
-        }
-        let nextRefresh = now.addingTimeInterval(15 * 60)
-        completion(Timeline(entries: entries, policy: .after(nextRefresh)))
-    }
-}
-
-// MARK: - Helpers de visual compartilhados pelos dois widgets
-
-private func textColor(for snapshot: WidgetSnapshot) -> Color {
-    switch WidgetBackgroundStore.loadMode() {
-    case .accent:
-        let accent = AppAccentColor(rawValue: snapshot.accentColorRaw)?.color ?? .blue
-        return WidgetBackground.contrastingForegroundColor(for: accent)
-    case .custom:
-        if let bg = WidgetBackgroundStore.loadCustomColor() {
-            return bg.contrastingForegroundColor
-        }
-        return .primary
-    case .system:
-        return .primary
-    }
-}
-
-@ViewBuilder
-private func largeBackground(for snapshot: WidgetSnapshot) -> some View {
-    switch WidgetBackgroundStore.loadMode() {
-    case .accent:
-        let accent = AppAccentColor(rawValue: snapshot.accentColorRaw)?.color ?? .blue
-        WidgetBackground.gradient(from: accent)
-    case .custom:
-        if let bg = WidgetBackgroundStore.loadCustomColor() {
-            bg.gradient
-        } else {
-            Rectangle().fill(.fill.tertiary)
-        }
-    case .system:
-        Rectangle().fill(.fill.tertiary)
-    }
-}
-
-/// True quando o widget está usando fundo customizado (accent ou custom).
-private var hasCustomBackground: Bool {
-    WidgetBackgroundStore.loadMode() != .system
-}
-
-// MARK: - Ring grande reutilizável
-
-private struct LargeRing: View {
-    let progress: Double
-    let emoji: String
-    let borderColor: Color?
-
-    var body: some View {
-        ZStack {
-            if let borderColor {
-                Circle().stroke(borderColor, lineWidth: 14)
-            }
-            Circle().stroke(Color.secondary.opacity(0.2), lineWidth: 12)
-            Circle()
-                .trim(from: 0, to: CGFloat(min(progress, 1.0)))
-                .stroke(widgetRingColor(progress: progress),
-                        style: StrokeStyle(lineWidth: 12, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-                .animation(.easeOut(duration: 0.3), value: progress)
-            Text(emoji).font(.system(size: 36))
-        }
-    }
-}
-
-// MARK: - Header compartilhado (tier + %)
-
-private struct LargeHeader: View {
-    let snapshot: WidgetSnapshot
-    let textColor: Color
-
-    private var tierPoints: Int {
-        switch snapshot.tier {
-        case 2: return 40
-        case 3: return 60
-        case 4: return 90
-        default: return 0
-        }
-    }
-
-    var body: some View {
-        HStack(spacing: 14) {
-            LargeRing(
-                progress: snapshot.progressNormalized,
-                emoji: snapshot.tierEmoji,
-                borderColor: hasCustomBackground ? textColor : nil
-            )
-            .frame(width: 86, height: 86)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text(snapshot.updatedAt, style: .date)
-                    .font(.caption2)
-                    .foregroundStyle(textColor)
-                Text(snapshot.tierName)
-                    .font(.headline)
-                    .foregroundStyle(textColor)
-                    .lineLimit(1)
-                HStack(alignment: .firstTextBaseline, spacing: 6) {
-                    Text("\(snapshot.progressPercent)%")
-                        .font(.system(size: 32, weight: .bold))
-                        .foregroundStyle(textColor)
-                    Text("— \(tierPoints) pts")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(textColor)
-                }
-            }
-            Spacer(minLength: 0)
-        }
-        // Header inteiro vira 1 elemento: "Today, Big Cat, 65 percent, 60 points".
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(String(format: String(localized: "a11y.widget.large.header.format",
-                                                 bundle: .gymNutshellCore),
-                                   snapshot.updatedAt.formatted(date: .abbreviated, time: .omitted),
-                                   snapshot.tierName,
-                                   snapshot.progressPercent,
-                                   tierPoints))
-    }
-}
-
-// MARK: - Calendar widget
+// MARK: - Widget
 
 struct GymNutshellCalendarWidget: Widget {
     let kind: String = "GymNutshellCalendarWidget"
@@ -161,7 +22,7 @@ struct GymNutshellCalendarWidget: Widget {
         StaticConfiguration(kind: kind, provider: LargeWidgetProvider()) { entry in
             CalendarLargeView(snapshot: entry.snapshot)
                 .containerBackground(for: .widget) {
-                    largeBackground(for: entry.snapshot)
+                    largeWidgetBackground(for: entry.snapshot)
                 }
         }
         .configurationDisplayName("Calendário")
@@ -173,7 +34,7 @@ struct GymNutshellCalendarWidget: Widget {
 private struct CalendarLargeView: View {
     let snapshot: WidgetSnapshot
 
-    private var fg: Color { textColor(for: snapshot) }
+    private var fg: Color { largeWidgetTextColor(for: snapshot) }
 
     /// Grade do mês atual alinhada ao `firstWeekday` do calendário do sistema.
     /// Inclui células "fora do mês" (do mês anterior/posterior) pra preencher
@@ -358,114 +219,10 @@ private struct DayCell: View {
     }
 }
 
-// MARK: - Goals widget
-
-struct GymNutshellGoalsWidget: Widget {
-    let kind: String = "GymNutshellGoalsWidget"
-
-    var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: LargeWidgetProvider()) { entry in
-            GoalsLargeView(snapshot: entry.snapshot)
-                .widgetURL(URL(string: "gymnutshell://today"))
-                .containerBackground(for: .widget) {
-                    largeBackground(for: entry.snapshot)
-                }
-        }
-        .configurationDisplayName("Metas")
-        .description("Progresso individual das suas metas ativas.")
-        .supportedFamilies([.systemLarge])
-    }
-}
-
-private struct GoalsLargeView: View {
-    let snapshot: WidgetSnapshot
-
-    private var fg: Color { textColor(for: snapshot) }
-
-    /// Mostra até 6 metas — cabe sem corte vertical com o header acima.
-    private var visibleGoals: [GoalProgress] {
-        Array(snapshot.goals.prefix(6))
-    }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            LargeHeader(snapshot: snapshot, textColor: fg)
-
-            VStack(spacing: 10) {
-                ForEach(visibleGoals) { goal in
-                    GoalRow(goal: goal, textColor: fg)
-                }
-            }
-
-            Spacer(minLength: 0)
-        }
-        .padding()
-    }
-}
-
-private struct GoalRow: View {
-    let goal: GoalProgress
-    let textColor: Color
-
-    private var barColor: Color {
-        widgetRingColor(progress: Double(goal.percent) / 100.0)
-    }
-
-    /// Mesma regra do anel: em fundos customizados (accent/custom) a barra ganha
-    /// borda na cor do texto pra contrastar com gradients da mesma família.
-    private var needsBorder: Bool {
-        WidgetBackgroundStore.loadMode() != .system
-    }
-
-    var body: some View {
-        HStack(spacing: 8) {
-            Text(goal.emoji)
-                .font(.system(size: 16))
-                .frame(width: 22)
-                .accessibilityHidden(true)
-            Text(goal.label)
-                .font(.caption.weight(.medium))
-                .foregroundStyle(textColor)
-                .lineLimit(1)
-                .frame(width: 70, alignment: .leading)
-
-            GeometryReader { geo in
-                ZStack(alignment: .leading) {
-                    Capsule().fill(Color.secondary.opacity(0.25))
-                    Capsule()
-                        .fill(barColor)
-                        .frame(width: geo.size.width * CGFloat(min(1.0, Double(goal.percent) / 100.0)))
-                }
-                .overlay {
-                    if needsBorder {
-                        Capsule().stroke(textColor, lineWidth: 1)
-                    }
-                }
-            }
-            .frame(height: 10)
-
-            Text("\(goal.percent)%")
-                .font(.caption2.weight(.semibold))
-                .foregroundStyle(textColor)
-                .frame(width: 38, alignment: .trailing)
-        }
-        // Cada meta = 1 elemento focável: "Água, 60 por cento concluído".
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel(goal.label)
-        .accessibilityValue(A11y.progressValue(percent: goal.percent))
-    }
-}
-
-// MARK: - Previews
+// MARK: - Preview
 
 #Preview(as: .systemLarge) {
     GymNutshellCalendarWidget()
-} timeline: {
-    GymNutshellWidgetEntry(date: .now, snapshot: .placeholder)
-}
-
-#Preview(as: .systemLarge) {
-    GymNutshellGoalsWidget()
 } timeline: {
     GymNutshellWidgetEntry(date: .now, snapshot: .placeholder)
 }

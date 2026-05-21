@@ -1,11 +1,11 @@
 // ⌘
 //  GymNutshellWatch/ContentView.swift
 //
-//  Propósito: Tela principal do Watch app — hero superior com anel de progresso médio
-//             e nome do nível. Embaixo, cards de metas com fundo preenchendo conforme
-//             o progresso. Tap num card expande os botões − / + abaixo dele.
-//             A lista de metas respeita a ordem e a configuração de remoção definidas
-//             no iPhone (via GoalOrderStore / RemovedItemsStore).
+//  Propósito: Tela principal do Watch app — hero superior (WatchHeroView) com anel
+//             de progresso médio e nome do nível. Embaixo, cards de metas
+//             (WatchGoalCard) com fundo preenchendo conforme o progresso.
+//             A lista respeita a ordem e o filtro de remoção definidos no iPhone
+//             (via GoalOrderStore / RemovedItemsStore).
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-26.
 // ⌘
@@ -212,11 +212,26 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 12) {
-                hero
-                    .padding(.bottom, 4)
+                WatchHeroView(
+                    averageProgress: averageProgress,
+                    theme: theme,
+                    tier: tier,
+                    sex: sex
+                )
+                .padding(.bottom, 4)
 
                 ForEach(goalEntries) { entry in
-                    goalCard(entry)
+                    WatchGoalCard(
+                        entry: entry,
+                        isExpanded: expandedId == entry.id,
+                        accentColor: accent.color,
+                        restActive: restDayActive(for: entry.id),
+                        onToggleExpand: {
+                            expandedId = (expandedId == entry.id) ? nil : entry.id
+                        },
+                        onToggleRestDay: { toggleRestDay(for: entry.id) },
+                        storageKeyForId: storageKey(for:)
+                    )
                 }
             }
             .padding(.horizontal, 4)
@@ -236,215 +251,6 @@ struct ContentView: View {
             WidgetSnapshotStore.save(WidgetSnapshot.buildCurrent())
             WidgetCenter.shared.reloadAllTimelines()
         }
-    }
-
-    // MARK: - Hero
-
-    // Cor do anel acompanha o tier do dia, igual TodayProgressRingView do iPhone:
-    // <30% vermelho (just starting), <60% laranja (on your way),
-    // <100% verde (almost there), 100% azul (goal complete).
-    private var ringColor: Color {
-        switch averageProgress {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
-        default:      return .blue
-        }
-    }
-
-    private var hero: some View {
-        VStack(spacing: 6) {
-            ZStack {
-                Circle()
-                    .stroke(Color.secondary.opacity(0.25), lineWidth: 8)
-                Circle()
-                    .trim(from: 0, to: averageProgress)
-                    .stroke(ringColor, style: StrokeStyle(lineWidth: 8, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .animation(.easeInOut, value: averageProgress)
-
-                Text(theme.emoji(for: tier, sex: sex))
-                    .font(.system(size: 36))
-            }
-            .frame(width: 100, height: 100)
-
-            Text(theme.name(for: tier, sex: sex))
-                .font(.headline.weight(.semibold))
-                .foregroundStyle(.primary)
-
-            Text("\(Int(averageProgress * 100))%")
-                .font(.caption2.monospacedDigit())
-                .foregroundStyle(ringColor)
-        }
-        // Combina anel + tier + percentual em uma única locução, mesma estrutura
-        // do iPhone TodayProgressRingView: "Daily progress, Big Cat, 65 percent completed".
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(
-            String(localized: "a11y.watch.hero.label", bundle: .gymNutshellCore)
-            + ", " + theme.name(for: tier, sex: sex)
-        )
-        .accessibilityValue(A11y.progressValue(percent: Int(averageProgress * 100)))
-    }
-
-    // MARK: - Goal card
-
-    @ViewBuilder
-    private func goalCard(_ entry: GoalEntry) -> some View {
-        let isExpanded = expandedId == entry.id
-
-        VStack(spacing: 6) {
-            cardHeader(entry, isExpanded: isExpanded)
-
-            if isExpanded {
-                cardControls(entry)
-                    .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-        }
-    }
-
-    private func cardHeader(_ entry: GoalEntry, isExpanded: Bool) -> some View {
-        let progress = ProgressHelpers.normalizedProgress(current: entry.current, goal: entry.goal)
-        let tier = DailyAchievement.from(progress: progress)
-        let fillColor = tier.color.opacity(0.55)
-        let restActive = restDayActive(for: entry.id)
-
-        return ZStack(alignment: .leading) {
-            // Fundo cinza ocupando a largura total.
-            Color.secondary.opacity(0.18)
-
-            // Preenchimento proporcional — Rectangle clipado pelo Capsule externo
-            // garante que mesmo com largura pequena o fill respeite a curva da pílula.
-            GeometryReader { geo in
-                Rectangle()
-                    .fill(fillColor)
-                    .frame(width: geo.size.width * progress)
-                    .animation(.easeInOut(duration: 0.25), value: progress)
-                    .animation(.easeInOut(duration: 0.25), value: fillColor)
-            }
-
-            HStack(spacing: 8) {
-                Text(entry.emoji)
-                    .font(.title3)
-                    .accessibilityHidden(true)
-                if restActive == true {
-                    Text(String(localized: "today.restday.label", bundle: .gymNutshellCore))
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                } else {
-                    Text("\(entry.current) / \(entry.goal) \(entry.unit)")
-                        .font(.caption.monospacedDigit().weight(.semibold))
-                }
-                Spacer()
-                Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .accessibilityHidden(true)
-            }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
-        }
-        .frame(maxWidth: .infinity)
-        .fixedSize(horizontal: false, vertical: true)
-        .clipShape(Capsule())
-        .contentShape(Capsule())
-        .tapButton {
-            withAnimation(.easeInOut(duration: 0.22)) {
-                expandedId = isExpanded ? nil : entry.id
-            }
-        }
-        // Header inteiro = 1 botão: "Treino, 0 de 50 minutos, recolhido".
-        .accessibilityElement(children: .ignore)
-        .accessibilityLabel(entry.displayName)
-        .accessibilityValue({
-            let state = isExpanded
-                ? String(localized: "a11y.watch.card.expanded", bundle: .gymNutshellCore)
-                : String(localized: "a11y.watch.card.collapsed", bundle: .gymNutshellCore)
-            if restActive == true {
-                return A11y.goalRowRestDayValue() + ", " + state
-            }
-            return A11y.goalRowValue(current: entry.current, goal: entry.goal, unit: entry.unit)
-                + ", " + state
-        }())
-        .accessibilityHint(String(localized: isExpanded
-            ? "a11y.watch.card.hint.collapse"
-            : "a11y.watch.card.hint.expand", bundle: .gymNutshellCore))
-    }
-
-    @ViewBuilder
-    private func cardControls(_ entry: GoalEntry) -> some View {
-        let restActive = restDayActive(for: entry.id)
-
-        HStack(spacing: 8) {
-            // Botão ON/OFF — só pra metas que suportam dia de descanso.
-            if restActive != nil {
-                onOffButton(for: entry.id, isOn: restActive == true)
-            }
-
-            if restActive == true {
-                // Dia de descanso ativo: − e + somem, mostra "Day off" no espaço deles.
-                Text(String(localized: "today.restday.label", bundle: .gymNutshellCore))
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, minHeight: 36)
-            } else {
-                Button {
-                    let next = max(entry.current - entry.increment, 0)
-                    entry.update(next)
-                    WKInterfaceDevice.current().play(.click)
-                    WatchConnectivityManager.shared.sendIntakeUpdate(key: storageKey(for: entry.id), value: next)
-                } label: {
-                    Image(systemName: "minus")
-                        .font(.body.weight(.bold))
-                        .frame(maxWidth: .infinity, minHeight: 36)
-                }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-                .tint(accent.color)
-                .disabled(entry.current <= 0)
-                .accessibilityLabel(String(format: String(localized: "a11y.watch.decrease.label.format",
-                                                         bundle: .gymNutshellCore), entry.displayName))
-                .accessibilityHint(A11y.decrementHint())
-
-                Button {
-                    let next = min(entry.current + entry.increment, entry.goal)
-                    entry.update(next)
-                    WKInterfaceDevice.current().play(next >= entry.goal ? .success : .click)
-                    WatchConnectivityManager.shared.sendIntakeUpdate(key: storageKey(for: entry.id), value: next)
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.body.weight(.bold))
-                        .frame(maxWidth: .infinity, minHeight: 36)
-                }
-                .buttonStyle(.borderedProminent)
-                .buttonBorderShape(.capsule)
-                .tint(accent.color)
-                .disabled(entry.current >= entry.goal)
-                .accessibilityLabel(String(format: String(localized: "a11y.watch.increase.label.format",
-                                                         bundle: .gymNutshellCore), entry.displayName))
-                .accessibilityHint(A11y.incrementHint())
-            }
-        }
-        .padding(.horizontal, 4)
-        .padding(.vertical, 4)
-    }
-
-    private func onOffButton(for goalId: String, isOn: Bool) -> some View {
-        Button {
-            toggleRestDay(for: goalId)
-            WKInterfaceDevice.current().play(.click)
-        } label: {
-            Text(isOn ? "OFF" : "ON")
-                .font(.caption.weight(.bold))
-                .frame(maxWidth: .infinity, minHeight: 36)
-                .foregroundStyle(isOn ? Color.secondary : accent.color)
-                .background(
-                    Capsule().fill(isOn ? accent.color.opacity(0.25) : Color.secondary.opacity(0.20))
-                )
-        }
-        .buttonStyle(.plain)
-        // Sem override de label — texto "ON"/"OFF" do botão já vira label
-        // automático. Hint explica o efeito.
-        .accessibilityHint(A11y.restDayToggleHint(currentlyOn: isOn))
     }
 
     // MARK: - Rest day helpers
@@ -485,22 +291,6 @@ struct ContentView: View {
         default:                  return goalId
         }
     }
-}
-
-// MARK: - GoalEntry
-
-/// Modelo leve só pra listar as metas no Watch — não persiste, é construído a cada render.
-private struct GoalEntry: Identifiable {
-    let id: String
-    let emoji: String
-    /// Nome localizado da meta (ex: "Treino", "Água") — usado nos labels de a11y
-    /// dos botões ± para o VoiceOver não falar só "Aumentar".
-    let displayName: String
-    let current: Int
-    let goal: Int
-    let unit: String
-    let increment: Int
-    let update: (Int) -> Void
 }
 
 #Preview {

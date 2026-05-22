@@ -243,6 +243,7 @@ struct EditTodayView: View {
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.secondary)
                 .padding(.top, 4)
+                .accessibilityAddTraits(.isHeader)
 
             ForEach(keysInCategory, id: \.self) { key in
                 goalRow(for: key)

@@ -44,20 +44,23 @@ struct MeasurementSettingsView: View {
             }
         }()
 
+        let isSelected = measurementSystem == system
         Button {
             measurementSystem = system
         } label: {
             HStack {
                 Text(label)
                 Spacer()
-                if measurementSystem == system {
+                if isSelected {
                     Image(systemName: "checkmark")
                         .foregroundStyle(Color.accentColor)
                         .fontWeight(.semibold)
+                        .accessibilityHidden(true)
                 }
             }
             // Mantém o texto na cor primária mesmo que a linha esteja dentro de um Button.
             .foregroundStyle(.primary)
         }
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }

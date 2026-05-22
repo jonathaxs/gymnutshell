@@ -29,10 +29,12 @@ struct ProfilePhysicalDataView: View {
                 .padding(.horizontal, 16)
                 .padding(.top, 14)
                 .padding(.bottom, 8)
+                .accessibilityAddTraits(.isHeader)
 
             Rectangle()
                 .fill(accentColor.opacity(0.25))
                 .frame(height: 1)
+                .accessibilityHidden(true)
 
             if height > 0 {
                 physicalRow(
@@ -40,6 +42,7 @@ struct ProfilePhysicalDataView: View {
                     value: heightDisplay
                 )
                 Rectangle().fill(accentColor.opacity(0.25)).frame(height: 1).padding(.leading, 16)
+                    .accessibilityHidden(true)
             }
             if weight > 0 {
                 physicalRow(
@@ -47,10 +50,12 @@ struct ProfilePhysicalDataView: View {
                     value: weightDisplay
                 )
                 Rectangle().fill(accentColor.opacity(0.25)).frame(height: 1).padding(.leading, 16)
+                    .accessibilityHidden(true)
             }
             if age > 0 {
                 physicalRow(label: String(localized: "profile.physical.age", bundle: .gymNutshellCore), value: "\(age)")
                 Rectangle().fill(accentColor.opacity(0.25)).frame(height: 1).padding(.leading, 16)
+                    .accessibilityHidden(true)
             }
             if !sex.isEmpty {
                 physicalRow(label: String(localized: "profile.physical.sex", bundle: .gymNutshellCore), value: sexLabel)

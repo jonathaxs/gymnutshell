@@ -31,19 +31,22 @@ struct OrientationSettingsView: View {
 
     @ViewBuilder
     private func row(_ orientation: AppOrientation, label: String) -> some View {
+        let isSelected = manager.current == orientation
         Button {
             manager.set(orientation)
         } label: {
             HStack {
                 Text(label)
                 Spacer()
-                if manager.current == orientation {
+                if isSelected {
                     Image(systemName: "checkmark")
                         .foregroundStyle(Color.accentColor)
                         .fontWeight(.semibold)
+                        .accessibilityHidden(true)
                 }
             }
             .foregroundStyle(.primary)
         }
+        .accessibilityAddTraits(isSelected ? [.isButton, .isSelected] : .isButton)
     }
 }

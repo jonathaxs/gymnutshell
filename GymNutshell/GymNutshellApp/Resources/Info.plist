@@ -7,10 +7,6 @@
 		<string>en</string>
 		<string>pt-BR</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>processing</string>
-	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

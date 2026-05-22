@@ -29,6 +29,7 @@ struct ProfileRecentActivityView: View {
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
                 .padding(.horizontal, 4)
+                .accessibilityAddTraits(.isHeader)
 
             // Células dos sete dias — tocar navega pra aquele dia na AchievementsView.
             HStack(spacing: 6) {

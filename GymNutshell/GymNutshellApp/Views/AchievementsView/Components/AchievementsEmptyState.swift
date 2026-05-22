@@ -16,6 +16,7 @@ struct AchievementsEmptyState: View {
             Image(systemName: "trophy.fill")
                 .font(.system(size: 40))
                 .foregroundStyle(accentColor)
+                .accessibilityHidden(true)
             Text(String(localized: "achievements.empty.title", bundle: .gymNutshellCore))
                 .font(.headline)
                 .multilineTextAlignment(.center)
@@ -27,5 +28,8 @@ struct AchievementsEmptyState: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 40)
         .padding(.horizontal)
+        // Empty state vira UM elemento de VoiceOver com title + description juntos
+        // (o trophy já foi escondido por ser decorativo).
+        .accessibilityElement(children: .combine)
     }
 }

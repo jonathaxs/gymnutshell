@@ -873,6 +873,10 @@
 
 /* ProgressOverView — whole-card tap hints */
 "a11y.stats.card.usergoal.hint" = "Tap to change goal.";
+"a11y.stats.card.tiers.hint"    = "Tap to see how tiers work.";
+"a11y.stats.card.activity.hint" = "Tap to open the activity log.";
+"a11y.stats.card.goals.hint"    = "Tap to manage tracked goals.";
+"a11y.stats.card.physical.hint" = "Tap to edit physical data.";
 
 /* ProfileRecentActivityView — day buttons */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";

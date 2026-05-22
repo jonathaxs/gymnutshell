@@ -214,16 +214,25 @@ struct ProgressOverView: View {
             tiersCard
                 .contentShape(Rectangle())
                 .onTapGesture { showTierSheet = true }
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(String(localized: "a11y.stats.card.tiers.hint",
+                                          bundle: .gymNutshellCore))
 
             bonusesCard
 
             activityCard
                 .contentShape(Rectangle())
                 .onTapGesture { openAchievementsList() }
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(String(localized: "a11y.stats.card.activity.hint",
+                                          bundle: .gymNutshellCore))
 
             goalsCard
                 .contentShape(Rectangle())
                 .onTapGesture { navPath.append(StatsDestination.goals) }
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(String(localized: "a11y.stats.card.goals.hint",
+                                          bundle: .gymNutshellCore))
 
             if !userGoalRaw.isEmpty {
                 userGoalCard(centered: false)
@@ -240,6 +249,9 @@ struct ProgressOverView: View {
                 )
                 .contentShape(Rectangle())
                 .onTapGesture { navPath.append(StatsDestination.physicalData) }
+                .accessibilityAddTraits(.isButton)
+                .accessibilityHint(String(localized: "a11y.stats.card.physical.hint",
+                                          bundle: .gymNutshellCore))
             }
 
             ProfileRecentActivityView(
@@ -269,14 +281,23 @@ struct ProgressOverView: View {
                     tiersCard
                         .contentShape(Rectangle())
                         .onTapGesture { showTierSheet = true }
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityHint(String(localized: "a11y.stats.card.tiers.hint",
+                                                  bundle: .gymNutshellCore))
 
                     activityCard
                         .contentShape(Rectangle())
                         .onTapGesture { openAchievementsList() }
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityHint(String(localized: "a11y.stats.card.activity.hint",
+                                                  bundle: .gymNutshellCore))
 
                     goalsCard
                         .contentShape(Rectangle())
                         .onTapGesture { navPath.append(StatsDestination.goals) }
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityHint(String(localized: "a11y.stats.card.goals.hint",
+                                                  bundle: .gymNutshellCore))
                 }
                 .frame(maxWidth: .infinity)
 
@@ -295,6 +316,9 @@ struct ProgressOverView: View {
                         )
                         .contentShape(Rectangle())
                         .onTapGesture { navPath.append(StatsDestination.physicalData) }
+                        .accessibilityAddTraits(.isButton)
+                        .accessibilityHint(String(localized: "a11y.stats.card.physical.hint",
+                                                  bundle: .gymNutshellCore))
                     }
                 }
                 .frame(maxWidth: .infinity)

@@ -26,9 +26,11 @@ struct StatisticsCard<Rows: View>: View {
                 .padding(.horizontal, 16)
                 .padding(.top, 14)
                 .padding(.bottom, 8)
+                .accessibilityAddTraits(.isHeader)
             Rectangle()
                 .fill(accentColor.opacity(0.25))
                 .frame(height: 1)
+                .accessibilityHidden(true)
             rows()
         }
         .background(Color(.secondarySystemGroupedBackground))
@@ -45,5 +47,6 @@ struct AccentDivider: View {
             .fill(accentColor.opacity(0.25))
             .frame(height: 1)
             .padding(.leading, 16)
+            .accessibilityHidden(true)
     }
 }

@@ -922,6 +922,10 @@
 
 /* ProgressOverView — hints dos cards inteiros */
 "a11y.stats.card.usergoal.hint" = "Toque para mudar o objetivo.";
+"a11y.stats.card.tiers.hint"    = "Toque para ver como funcionam os níveis.";
+"a11y.stats.card.activity.hint" = "Toque para abrir o histórico de atividades.";
+"a11y.stats.card.goals.hint"    = "Toque para gerenciar metas rastreadas.";
+"a11y.stats.card.physical.hint" = "Toque para editar dados físicos.";
 
 /* ProfileRecentActivityView — botões dos dias */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";

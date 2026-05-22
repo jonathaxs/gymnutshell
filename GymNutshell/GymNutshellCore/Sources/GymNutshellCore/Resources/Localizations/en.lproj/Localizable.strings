@@ -951,6 +951,9 @@
 
 /* Watch hero ring (ContentView) — same wording as the iPhone ring */
 "a11y.watch.hero.label"  = "Daily progress";
+"a11y.watch.page.stats"         = "Stats page";
+"a11y.watch.page.today"         = "Today page";
+"a11y.watch.page.notifications" = "Notifications page";
 
 /* Watch goal card header */
 "a11y.watch.card.expanded"   = "expanded";

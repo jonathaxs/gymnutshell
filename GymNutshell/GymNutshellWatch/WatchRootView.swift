@@ -9,6 +9,7 @@
 // ⌘
 
 import SwiftUI
+import GymNutshellCore
 
 struct WatchRootView: View {
 
@@ -18,12 +19,18 @@ struct WatchRootView: View {
         TabView(selection: $selectedPage) {
             WatchStatsView()
                 .tag(0)
+                .accessibilityLabel(String(localized: "a11y.watch.page.stats",
+                                           bundle: .gymNutshellCore))
 
             ContentView()
                 .tag(1)
+                .accessibilityLabel(String(localized: "a11y.watch.page.today",
+                                           bundle: .gymNutshellCore))
 
             WatchNotificationsView()
                 .tag(2)
+                .accessibilityLabel(String(localized: "a11y.watch.page.notifications",
+                                           bundle: .gymNutshellCore))
         }
         .tabViewStyle(.page)
     }

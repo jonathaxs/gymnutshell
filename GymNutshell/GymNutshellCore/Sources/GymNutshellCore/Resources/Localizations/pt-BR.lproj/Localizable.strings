@@ -1000,6 +1000,9 @@
 
 /* Anel hero do Watch (ContentView) */
 "a11y.watch.hero.label"  = "Progresso diário";
+"a11y.watch.page.stats"         = "Página de estatísticas";
+"a11y.watch.page.today"         = "Página de hoje";
+"a11y.watch.page.notifications" = "Página de notificações";
 
 /* Card de meta do Watch — header */
 "a11y.watch.card.expanded"   = "expandido";

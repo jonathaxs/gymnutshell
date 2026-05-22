@@ -62,12 +62,14 @@ struct WatchNotificationsView: View {
             Image(systemName: "bell.slash")
                 .font(.system(size: 26))
                 .foregroundStyle(.secondary)
+                .accessibilityHidden(true)
             Text(String(localized: "notifications.history.empty.title", bundle: .gymNutshellCore))
                 .font(.headline)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 8)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .accessibilityElement(children: .combine)
     }
 
     @ViewBuilder

@@ -13,6 +13,5 @@ struct GymNutshellWidgetBundle: WidgetBundle {
         GymNutshellWidget()
         GymNutshellCalendarWidget()
         GymNutshellGoalsWidget()
-        GymNutshellWidgetLiveActivity()
     }
 }

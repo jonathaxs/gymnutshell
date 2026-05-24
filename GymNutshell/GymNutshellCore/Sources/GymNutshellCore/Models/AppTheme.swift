@@ -25,8 +25,8 @@ public enum AppTheme: String, CaseIterable, Sendable {
     case monkey
     case bird
     // Hero (warrior)
-    case doctor
     case ninja
+    case doctor
     // Elements
     case plant
     case fire

@@ -42,16 +42,19 @@ struct SettingsView: View {
                         PhysicalDataSettingsView()
                     } label: {
                         Label(String(localized: "settings.section.physicaldata", bundle: .gymNutshellCore), systemImage: "person.circle")
+                            .foregroundStyle(.primary)
                     }
                     NavigationLink {
                         UserGoalChangeView()
                     } label: {
                         Label(String(localized: "settings.fitness.goal.edit", bundle: .gymNutshellCore), systemImage: "flame")
+                            .foregroundStyle(.primary)
                     }
                     NavigationLink {
                         TrackingGoalsSettingsView()
                     } label: {
                         Label(String(localized: "settings.goals.edit", bundle: .gymNutshellCore), systemImage: "target")
+                            .foregroundStyle(.primary)
                     }
                 }
 
@@ -62,18 +65,21 @@ struct SettingsView: View {
                         ThemeSettingsView()
                     } label: {
                         Label(String(localized: "settings.theme.title", bundle: .gymNutshellCore), systemImage: "theatermasks")
+                            .foregroundStyle(.primary)
                     }
                     // Cores — cor de destaque independente do sexo.
                     NavigationLink {
                         ColorSettingsView()
                     } label: {
                         Label(String(localized: "settings.color.title", bundle: .gymNutshellCore), systemImage: "paintpalette")
+                            .foregroundStyle(.primary)
                     }
                     // Widgets — fundo personalizado pros widgets da tela inicial.
                     NavigationLink {
                         WidgetBackgroundSettingsView()
                     } label: {
                         Label(String(localized: "settings.edit.widgets", bundle: .gymNutshellCore), systemImage: "square.on.square")
+                            .foregroundStyle(.primary)
                     }
 
                     // Sistema de medidas — abre uma página de seleção dedicada.
@@ -81,6 +87,7 @@ struct SettingsView: View {
                         MeasurementSettingsView()
                     } label: {
                         Label(String(localized: "settings.preference.measurementSystem", bundle: .gymNutshellCore), systemImage: "ruler")
+                            .foregroundStyle(.primary)
                     }
 
                     // Orientação — trava o app em retrato/paisagem/ambas.
@@ -90,6 +97,7 @@ struct SettingsView: View {
                             OrientationSettingsView()
                         } label: {
                             Label(String(localized: "settings.preference.orientation", bundle: .gymNutshellCore), systemImage: "rotate.left")
+                                .foregroundStyle(.primary)
                         }
                     }
                 }
@@ -101,6 +109,7 @@ struct SettingsView: View {
                         NotificationsSettingsView()
                     } label: {
                         Label(String(localized: "settings.preference.notifications", bundle: .gymNutshellCore), systemImage: "bell.badge")
+                            .foregroundStyle(.primary)
                     }
 
                     // Apple Health — abre uma página dedicada pra sincronização de sono e auto check-in.
@@ -108,6 +117,7 @@ struct SettingsView: View {
                         HealthSettingsView()
                     } label: {
                         Label(String(localized: "settings.preference.appleHealth", bundle: .gymNutshellCore), systemImage: "heart.fill")
+                            .foregroundStyle(.primary)
                     }
 
                     // Backup — exportação/importação via iCloud e local.
@@ -115,6 +125,7 @@ struct SettingsView: View {
                         BackupSettingsView()
                     } label: {
                         Label(String(localized: "settings.backup.nav.title", bundle: .gymNutshellCore), systemImage: "externaldrive")
+                            .foregroundStyle(.primary)
                     }
 
                     // Idioma — abre Ajustes do iOS na página do Gym Nutshell (onde aparece
@@ -126,6 +137,7 @@ struct SettingsView: View {
                     } label: {
                         HStack {
                             Label(String(localized: "settings.preference.language", bundle: .gymNutshellCore), systemImage: "globe")
+                                .foregroundStyle(.primary)
                             Spacer()
                             Image(systemName: "arrow.up.forward.app")
                                 .font(.footnote.weight(.semibold))
@@ -143,26 +155,31 @@ struct SettingsView: View {
                         AboutView()
                     } label: {
                         Label(String(localized: "settings.about.link", bundle: .gymNutshellCore), systemImage: "info.circle")
+                            .foregroundStyle(.primary)
                     }
                     NavigationLink {
                         AppleWatchInstructionsView()
                     } label: {
                         Label(String(localized: "settings.preference.appleWatch", bundle: .gymNutshellCore), systemImage: "applewatch")
+                            .foregroundStyle(.primary)
                     }
                     NavigationLink {
                         ProgressRingInfoView()
                     } label: {
                         Label(String(localized: "settings.about.progressRing", bundle: .gymNutshellCore), systemImage: "circle.dotted")
+                            .foregroundStyle(.primary)
                     }
                     NavigationLink {
                         TierInfoView(theme: selectedTheme, sex: sex)
                     } label: {
                         Label(String(localized: "settings.about.achievement", bundle: .gymNutshellCore), systemImage: "trophy.fill")
+                            .foregroundStyle(.primary)
                     }
                     NavigationLink {
                         StreakBonusInfoView()
                     } label: {
                         Label(String(localized: "settings.about.streakBonus", bundle: .gymNutshellCore), systemImage: "calendar.badge.checkmark")
+                            .foregroundStyle(.primary)
                     }
                 }
 

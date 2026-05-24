@@ -170,7 +170,7 @@
 "settings.about.developer.header" = "Talk to the developer";
 "settings.about.website" = "Developer Website";
 "settings.about.feedback" = "Send Feedback";
-"settings.about.description" = "Gym Nutshell is your daily goals in a nutshell.\n\nSet goals, track them, and watch consistency turn into results.";
+"settings.about.description" = "Gym Nutshell is your gym daily goals in a nutshell.\n\nSet goals, track them, and watch consistency turn into results.";
 
 /* AboutView — Tip Jar entry */
 "settings.about.support.header" = "Support the developer";
@@ -499,7 +499,7 @@
 
 /* WelcomeStartStep.swift */
 "welcome.step.start.title" = "Hello!";
-"welcome.step.start.intro" = "Gym Nutshell is your daily companion in your gym routine.\n\nTrack your hydration, nutrition, sleep, workouts, and other goals throughout the day.\n\nFollow your progress on the achievements and statistics screen.";
+"welcome.step.start.intro" = "Gym Nutshell is your daily companion in your gym routine.\n\nTrack your hydration, nutrition, sleep, workouts, and other goals throughout the day.\n\nFollow your steps on the achievements and progress screen.";
 "welcome.step.start.subtitle" = "Let's go!\nStart now or restore from a backup.";
 "welcome.start.new" = "Start now";
 "welcome.start.restore" = "Restore backup";

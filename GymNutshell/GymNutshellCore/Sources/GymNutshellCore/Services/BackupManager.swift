@@ -41,6 +41,7 @@ public enum BackupManager {
         let vitaminDMode         = defaults.string(forKey: GoalCategory.vitaminDCategoryKey)
 
         let goals = BackupPayload.GoalsSnapshot(
+            calories: GoalsProvider.calories,
             sleep:   GoalsProvider.sleep,
             water:   GoalsProvider.water,
             protein: GoalsProvider.protein,
@@ -52,6 +53,7 @@ public enum BackupManager {
         let goalsOrder          = GoalOrderStore.load()
         let customGoals         = CustomTrackingGoalsStore.load()
         let removedItems        = Array(RemovedItemsStore.load())
+        let preferences         = buildPreferences(defaults: defaults, customGoals: customGoals)
 
         let snapshots = records.map { r -> BackupPayload.RecordSnapshot in
             let customValues = (try? JSONDecoder().decode([String: Int].self, from: r.customValues)) ?? [:]
@@ -74,7 +76,7 @@ public enum BackupManager {
         }
 
         let payload = BackupPayload(
-            version:              3,
+            version:              4,
             exportedAt:           Date(),
             profile:              profile,
             goals:                goals,
@@ -86,13 +88,90 @@ public enum BackupManager {
             customCategories:     customCategories,
             categoryOrder:        categoryOrderIds,
             builtinCategoryOrder: builtinCategoryOrder,
-            vitaminDCategoryMode: vitaminDMode
+            vitaminDCategoryMode: vitaminDMode,
+            preferences:          preferences
         )
 
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         encoder.outputFormatting     = [.prettyPrinted, .sortedKeys]
         return try encoder.encode(payload)
+    }
+
+    // MARK: - Preferências (chaves soltas no UserDefaults)
+
+    /// Chaves que vivem fora do Core (definidas no app), referenciadas por string estável.
+    private enum PrefKeys {
+        static let orientationLock = "app.orientation.lock"
+        static let autoWorkoutCheckin = "healthkit.autoWorkoutCheckin"
+    }
+
+    private static func buildPreferences(
+        defaults: UserDefaults,
+        customGoals: [CustomTrackingGoal]
+    ) -> BackupPayload.PreferencesSnapshot {
+        // Notificações: tipos fixos (NotificationKind) + personalizados (custom.<uuid>).
+        var notifIds = NotificationKind.allCases.map(\.rawValue)
+        notifIds += customGoals.map { "custom.\($0.id.uuidString)" }
+
+        var enabled:  [String: Bool]   = [:]
+        var interval: [String: Int]    = [:]
+        var sound:    [String: String] = [:]
+        for id in notifIds {
+            if defaults.object(forKey: "notifications.enabled.\(id)") != nil {
+                enabled[id] = defaults.bool(forKey: "notifications.enabled.\(id)")
+            }
+            if defaults.object(forKey: "notifications.intervalMinutes.\(id)") != nil {
+                interval[id] = defaults.integer(forKey: "notifications.intervalMinutes.\(id)")
+            }
+            if let s = defaults.string(forKey: "notifications.sound.\(id)") {
+                sound[id] = s
+            }
+        }
+
+        // Incrementos customizados das metas built-in (só os que o usuário de fato editou).
+        var increments: [String: Int] = [:]
+        for key in GoalOrderStore.defaultOrder {
+            let incKey = "\(key).increment"
+            if defaults.object(forKey: incKey) != nil {
+                increments[incKey] = defaults.integer(forKey: incKey)
+            }
+        }
+
+        let autoCheckin = defaults.object(forKey: PrefKeys.autoWorkoutCheckin) != nil
+            ? defaults.bool(forKey: PrefKeys.autoWorkoutCheckin)
+            : nil
+
+        return BackupPayload.PreferencesSnapshot(
+            widgetBackground:     defaults.string(forKey: WidgetBackgroundStore.storageKey),
+            widgetBackgroundMode: defaults.string(forKey: WidgetBackgroundStore.modeKey),
+            orientationLock:      defaults.string(forKey: PrefKeys.orientationLock),
+            autoWorkoutCheckin:   autoCheckin,
+            notificationEnabled:  enabled.isEmpty   ? nil : enabled,
+            notificationInterval: interval.isEmpty  ? nil : interval,
+            notificationSound:    sound.isEmpty     ? nil : sound,
+            goalIncrements:       increments.isEmpty ? nil : increments
+        )
+    }
+
+    private static func restorePreferences(_ prefs: BackupPayload.PreferencesSnapshot, into defaults: UserDefaults) {
+        if let v = prefs.widgetBackground     { defaults.set(v, forKey: WidgetBackgroundStore.storageKey) }
+        if let v = prefs.widgetBackgroundMode { defaults.set(v, forKey: WidgetBackgroundStore.modeKey) }
+        if let v = prefs.orientationLock      { defaults.set(v, forKey: PrefKeys.orientationLock) }
+        if let v = prefs.autoWorkoutCheckin   { defaults.set(v, forKey: PrefKeys.autoWorkoutCheckin) }
+
+        if let map = prefs.notificationEnabled {
+            for (id, val) in map { defaults.set(val, forKey: "notifications.enabled.\(id)") }
+        }
+        if let map = prefs.notificationInterval {
+            for (id, val) in map { defaults.set(val, forKey: "notifications.intervalMinutes.\(id)") }
+        }
+        if let map = prefs.notificationSound {
+            for (id, val) in map { defaults.set(val, forKey: "notifications.sound.\(id)") }
+        }
+        if let map = prefs.goalIncrements {
+            for (key, val) in map { defaults.set(val, forKey: key) }
+        }
     }
 
     // MARK: - Decodificar
@@ -120,6 +199,7 @@ public enum BackupManager {
         }
 
         let g = payload.goals
+        defaults.set(g.calories, forKey: "tracking.calories")
         defaults.set(g.sleep,   forKey: "tracking.sleep")
         defaults.set(g.water,   forKey: "tracking.water")
         defaults.set(g.protein, forKey: "tracking.protein")
@@ -154,6 +234,10 @@ public enum BackupManager {
 
         if let vitaminDMode = payload.vitaminDCategoryMode {
             defaults.set(vitaminDMode, forKey: GoalCategory.vitaminDCategoryKey)
+        }
+
+        if let prefs = payload.preferences {
+            restorePreferences(prefs, into: defaults)
         }
     }
 

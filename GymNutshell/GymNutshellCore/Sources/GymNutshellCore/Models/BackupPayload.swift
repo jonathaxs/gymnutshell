@@ -28,6 +28,7 @@ public struct BackupPayload: Codable, Sendable {
     public let categoryOrder: [String]?
     public let builtinCategoryOrder: [String]?
     public let vitaminDCategoryMode: String?
+    public let preferences: PreferencesSnapshot?
 
     public init(
         version: Int,
@@ -42,7 +43,8 @@ public struct BackupPayload: Codable, Sendable {
         customCategories: [CustomGoalCategory]?,
         categoryOrder: [String]?,
         builtinCategoryOrder: [String]?,
-        vitaminDCategoryMode: String?
+        vitaminDCategoryMode: String?,
+        preferences: PreferencesSnapshot?
     ) {
         self.version = version
         self.exportedAt = exportedAt
@@ -57,6 +59,7 @@ public struct BackupPayload: Codable, Sendable {
         self.categoryOrder = categoryOrder
         self.builtinCategoryOrder = builtinCategoryOrder
         self.vitaminDCategoryMode = vitaminDCategoryMode
+        self.preferences = preferences
     }
 
     public struct ProfileSnapshot: Codable, Sendable {
@@ -97,6 +100,43 @@ public struct BackupPayload: Codable, Sendable {
         }
     }
 
+    /// Preferências diversas persistidas em UserDefaults (widget, orientação, notificações,
+    /// incrementos das metas). Tudo opcional pra manter compatibilidade com backups v1..v3.
+    /// Notificações e incrementos usam dicionários genéricos pra não precisar editar este
+    /// arquivo a cada meta/tipo novo.
+    public struct PreferencesSnapshot: Codable, Sendable {
+        public let widgetBackground: String?       // widget.background.v1
+        public let widgetBackgroundMode: String?   // widget.background.mode
+        public let orientationLock: String?        // app.orientation.lock
+        public let autoWorkoutCheckin: Bool?       // healthkit.autoWorkoutCheckin
+        /// id da notificação ("<kind>" ou "custom.<uuid>") → valor.
+        public let notificationEnabled: [String: Bool]?
+        public let notificationInterval: [String: Int]?
+        public let notificationSound: [String: String]?
+        /// Chave completa do incremento ("tracking.X.increment") → passo.
+        public let goalIncrements: [String: Int]?
+
+        public init(
+            widgetBackground: String?,
+            widgetBackgroundMode: String?,
+            orientationLock: String?,
+            autoWorkoutCheckin: Bool?,
+            notificationEnabled: [String: Bool]?,
+            notificationInterval: [String: Int]?,
+            notificationSound: [String: String]?,
+            goalIncrements: [String: Int]?
+        ) {
+            self.widgetBackground = widgetBackground
+            self.widgetBackgroundMode = widgetBackgroundMode
+            self.orientationLock = orientationLock
+            self.autoWorkoutCheckin = autoWorkoutCheckin
+            self.notificationEnabled = notificationEnabled
+            self.notificationInterval = notificationInterval
+            self.notificationSound = notificationSound
+            self.goalIncrements = goalIncrements
+        }
+    }
+
     /// Preferências visuais do usuário, persistidas em UserDefaults via @AppStorage.
     public struct AppearanceSnapshot: Codable, Sendable {
         public let theme: String
@@ -109,6 +149,7 @@ public struct BackupPayload: Codable, Sendable {
     }
 
     public struct GoalsSnapshot: Codable, Sendable {
+        public let calories: Int
         public let sleep: Int
         public let water: Int
         public let protein: Int
@@ -116,7 +157,8 @@ public struct BackupPayload: Codable, Sendable {
         public let goodFat: Int
         public let fiber: Int
 
-        public init(sleep: Int, water: Int, protein: Int, carbs: Int, goodFat: Int, fiber: Int) {
+        public init(calories: Int, sleep: Int, water: Int, protein: Int, carbs: Int, goodFat: Int, fiber: Int) {
+            self.calories = calories
             self.sleep = sleep
             self.water = water
             self.protein = protein
@@ -126,8 +168,21 @@ public struct BackupPayload: Codable, Sendable {
         }
 
         enum CodingKeys: String, CodingKey {
-            case sleep, water, protein, carbs, fiber
+            case calories, sleep, water, protein, carbs, fiber
             case goodFat = "fats"
+        }
+
+        /// Decodificação tolerante: backups v3 e anteriores não têm `calories`,
+        /// nesse caso caímos no default do app pra não quebrar a restauração.
+        public init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            self.calories = try c.decodeIfPresent(Int.self, forKey: .calories) ?? DefaultGoals.calories
+            self.sleep    = try c.decode(Int.self, forKey: .sleep)
+            self.water    = try c.decode(Int.self, forKey: .water)
+            self.protein  = try c.decode(Int.self, forKey: .protein)
+            self.carbs    = try c.decode(Int.self, forKey: .carbs)
+            self.goodFat  = try c.decode(Int.self, forKey: .goodFat)
+            self.fiber    = try c.decode(Int.self, forKey: .fiber)
         }
     }
 

@@ -20,9 +20,9 @@ extension DailyAchievement {
     /// Converte um valor de progresso normalizado (0...1) no tier `DailyAchievement` correspondente.
     public static func from(progress: Double) -> DailyAchievement {
         switch progress {
-        case ..<0.5:
+        case ..<0.33:
             return .level1
-        case ..<0.7:
+        case ..<0.66:
             return .level2
         case ..<0.9:
             return .level3

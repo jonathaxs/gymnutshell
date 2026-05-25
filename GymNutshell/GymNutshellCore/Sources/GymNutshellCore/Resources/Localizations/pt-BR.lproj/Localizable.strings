@@ -206,7 +206,7 @@
 "settings.about.developer.header" = "Fale com o desenvolvedor";
 "settings.about.website" = "Site do desenvolvedor";
 "settings.about.feedback" = "Enviar feedback";
-"settings.about.description" = "Gym Nutshell é suas metas diárias da academia em resumo.\n\nMarque, acompanhe e veja a constância virar resultado.";
+"settings.about.description" = "Gym Nutshell são suas metas diárias da academia em resumo.\n\nMarque, acompanhe e veja a constância virar resultado.";
 
 /* AboutView — entrada do Tip Jar */
 "settings.about.support.header" = "Apoie o desenvolvedor";
@@ -699,7 +699,8 @@
 "ring.info.section.colors"    = "Cores do anel";
 "ring.info.color.red"         = "Começando";
 "ring.info.color.orange"      = "No caminho";
-"ring.info.color.green"       = "Quase lá";
+"ring.info.color.green"       = "Muito bem";
+"ring.info.color.cyan"        = "Quase lá";
 "ring.info.color.blue"        = "Meta concluída";
 "ring.info.level.label"       = "Nível ";
 "info.next.prefix"            = "Restam ";
@@ -834,7 +835,8 @@
 /* Faixas de progresso — substituem o sinal de cor para quem não enxerga */
 "a11y.band.red"    = "faixa vermelha, longe do objetivo";
 "a11y.band.orange" = "faixa laranja, em andamento";
-"a11y.band.green"  = "faixa verde, próximo do objetivo";
+"a11y.band.green"  = "faixa verde, indo muito bem";
+"a11y.band.cyan"   = "faixa ciano, quase lá";
 "a11y.band.blue"   = "faixa azul, objetivo concluído";
 
 /* Frases genéricas de progresso — faixa removida do value após teste com usuário */

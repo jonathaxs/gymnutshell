@@ -62,12 +62,12 @@ struct TodayHeroView: View {
     // nil quando o usuário já está no nível máximo (90%+).
     private var nextLevelComponents: (percent: Int, name: String, level: Int)? {
         if dailyPercentage >= 90 { return nil }
-        if dailyPercentage >= 70 {
+        if dailyPercentage >= 66 {
             return (90 - dailyPercentage, selectedTheme.name(for: .level4, sex: sex), 4)
-        } else if dailyPercentage >= 50 {
-            return (70 - dailyPercentage, selectedTheme.name(for: .level3, sex: sex), 3)
+        } else if dailyPercentage >= 33 {
+            return (66 - dailyPercentage, selectedTheme.name(for: .level3, sex: sex), 3)
         } else {
-            return (50 - dailyPercentage, selectedTheme.name(for: .level2, sex: sex), 2)
+            return (33 - dailyPercentage, selectedTheme.name(for: .level2, sex: sex), 2)
         }
     }
 

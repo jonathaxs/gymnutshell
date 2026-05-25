@@ -14,31 +14,33 @@ import Foundation
 
 // MARK: - Faixa de progresso (cor → texto)
 
-/// Mapeia o progresso normalizado em uma das quatro faixas de cor usadas no app
-/// (vermelho/laranja/verde/azul) e devolve a frase localizada equivalente.
+/// Mapeia o progresso normalizado em uma das cinco faixas de cor usadas no app
+/// (vermelho/laranja/verde/ciano/azul) e devolve a frase localizada equivalente.
 /// Para usuários de VoiceOver, esta string substitui o sinal visual da cor.
 public enum A11yProgressBand: Sendable {
-    case red, orange, green, blue
+    case red, orange, green, cyan, blue
 
     /// Classifica o progresso usando exatamente a mesma regra do anel visual
-    /// (TodayProgressRingView, widgets, Watch): <30%, <60%, <100%, =100%.
+    /// (TodayProgressRingView, widgets, Watch): <33%, <66%, <90%, <100%, =100%.
     public static func from(progress: Double) -> A11yProgressBand {
         switch progress {
-        case ..<0.30: return .red
-        case ..<0.60: return .orange
-        case ..<1.0:  return .green
+        case ..<0.33: return .red
+        case ..<0.66: return .orange
+        case ..<0.90: return .green
+        case ..<1.0:  return .cyan
         default:      return .blue
         }
     }
 
     /// Frase localizada que descreve a faixa — inclui sinal de estado.
-    /// Ex.: "faixa verde, próximo do objetivo".
+    /// Ex.: "faixa verde, indo muito bem".
     public var localizedDescription: String {
         let key: String
         switch self {
         case .red:    key = "a11y.band.red"
         case .orange: key = "a11y.band.orange"
         case .green:  key = "a11y.band.green"
+        case .cyan:   key = "a11y.band.cyan"
         case .blue:   key = "a11y.band.blue"
         }
         return String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)

@@ -650,7 +650,8 @@
 "ring.info.section.colors"    = "Ring colors";
 "ring.info.color.red"         = "Just starting";
 "ring.info.color.orange"      = "On your way";
-"ring.info.color.green"       = "Almost there";
+"ring.info.color.green"       = "Doing great";
+"ring.info.color.cyan"        = "Almost there";
 "ring.info.color.blue"        = "Goal complete";
 "ring.info.level.label"       = "Level ";
 "info.next.prefix"            = "Remaining ";
@@ -785,7 +786,8 @@
 /* Progress band — color-coded zones spoken instead of just relying on the visual hue */
 "a11y.band.red"    = "red zone, far from goal";
 "a11y.band.orange" = "orange zone, in progress";
-"a11y.band.green"  = "green zone, close to goal";
+"a11y.band.green"  = "green zone, doing great";
+"a11y.band.cyan"   = "cyan zone, almost there";
 "a11y.band.blue"   = "blue zone, goal reached";
 
 /* Generic progress phrasing — band dropped from progress value after user testing */

@@ -28,18 +28,20 @@ struct ProgressRingInfoView: View {
     // nil quando o anel já está em 100% (nível máximo).
     private var ringNextLevel: (percent: Int, name: String, color: Color, level: Int)? {
         guard let p = currentPercent, p < 100 else { return nil }
-        if p < 30 { return (30 - p,  String(localized: "ring.info.color.orange", bundle: .gymNutshellCore), .orange, 2) }
-        if p < 60 { return (60 - p,  String(localized: "ring.info.color.green", bundle: .gymNutshellCore),  .green,  3) }
-        return            (100 - p, String(localized: "ring.info.color.blue", bundle: .gymNutshellCore),   .blue,   4)
+        if p < 33 { return (33 - p,  String(localized: "ring.info.color.orange", bundle: .gymNutshellCore), .orange, 2) }
+        if p < 66 { return (66 - p,  String(localized: "ring.info.color.green", bundle: .gymNutshellCore),  .green,  3) }
+        if p < 90 { return (90 - p,  String(localized: "ring.info.color.cyan", bundle: .gymNutshellCore),   .cyan,   4) }
+        return            (100 - p, String(localized: "ring.info.color.blue", bundle: .gymNutshellCore),   .blue,   5)
     }
 
     // Cores do anel em ordem crescente de progresso.
     private var ringColors: [(label: String, color: Color, range: String)] {
         let suffix = String(localized: "tier.info.range.suffix", bundle: .gymNutshellCore)
         return [
-            (String(localized: "ring.info.color.red", bundle: .gymNutshellCore),    .red,    "0 – 29%" + suffix),
-            (String(localized: "ring.info.color.orange", bundle: .gymNutshellCore), .orange, "30 – 59%" + suffix),
-            (String(localized: "ring.info.color.green", bundle: .gymNutshellCore),  .green,  "60 – 99%" + suffix),
+            (String(localized: "ring.info.color.red", bundle: .gymNutshellCore),    .red,    "0 – 32%" + suffix),
+            (String(localized: "ring.info.color.orange", bundle: .gymNutshellCore), .orange, "33 – 65%" + suffix),
+            (String(localized: "ring.info.color.green", bundle: .gymNutshellCore),  .green,  "66 – 89%" + suffix),
+            (String(localized: "ring.info.color.cyan", bundle: .gymNutshellCore),   .cyan,   "90 – 99%" + suffix),
             (String(localized: "ring.info.color.blue", bundle: .gymNutshellCore),   .blue,   "100%" + suffix)
         ]
     }

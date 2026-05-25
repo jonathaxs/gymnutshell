@@ -211,21 +211,22 @@ struct BackupSettingsView: View {
                 }
                 .disabled(iCloudSaving || iCloudRestoring)
 
-                // Botão restaurar do iCloud, exibido só se um backup existir.
-                if iCloudLastBackup != nil {
-                    Button {
-                        isPresentingICloudRestoreAlert = true
-                    } label: {
-                        HStack {
-                            Label(String(localized: "settings.backup.icloud.restore", bundle: .gymNutshellCore), systemImage: "icloud.and.arrow.down")
-                            if iCloudRestoring {
-                                Spacer()
-                                ProgressView()
-                            }
+                // Botão restaurar do iCloud, sempre visível quando o iCloud está disponível.
+                // Em device novo o arquivo pode existir só como placeholder (ainda não baixado),
+                // por isso não dependemos de `iCloudLastBackup` pra exibir, performICloudRestore
+                // dispara o download sob demanda e reporta erro caso não haja backup.
+                Button {
+                    isPresentingICloudRestoreAlert = true
+                } label: {
+                    HStack {
+                        Label(String(localized: "settings.backup.icloud.restore", bundle: .gymNutshellCore), systemImage: "icloud.and.arrow.down")
+                        if iCloudRestoring {
+                            Spacer()
+                            ProgressView()
                         }
                     }
-                    .disabled(iCloudSaving || iCloudRestoring)
                 }
+                .disabled(iCloudSaving || iCloudRestoring)
             } else {
                 // iCloud indisponível, exibe mensagem informativa.
                 Label(String(localized: "settings.backup.icloud.unavailable", bundle: .gymNutshellCore), systemImage: "icloud.slash")

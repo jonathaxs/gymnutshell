@@ -239,6 +239,7 @@
 "settings.backup.icloud.lastBackup" = "Last backup:";
 "settings.backup.icloud.footer.unavailable" = "Sign in to iCloud in Settings to enable cloud backup.";
 "settings.backup.icloud.error.unavailable" = "iCloud Drive is not available. Check that you are signed in to iCloud and iCloud Drive is enabled.";
+"settings.backup.icloud.error.downloadTimeout" = "Could not download the backup from iCloud. Check your connection and try again.";
 "settings.backup.icloud.auto.toggle" = "Daily automatic backup";
 "settings.backup.icloud.auto.footer" = "\nThe backup will be saved automatically when a new achievement is updated.\nAchievements are updated when you open the app after midnight.";
 

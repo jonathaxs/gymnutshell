@@ -50,6 +50,13 @@ public enum ICloudBackupManager {
 
     // MARK: - Carregar
 
+    /// URL do placeholder gerado pelo iOS quando o arquivo está no iCloud mas ainda
+    /// não foi baixado pro device: mesma pasta, nome com ponto na frente e sufixo `.icloud`.
+    private static func placeholderURL(for fileURL: URL) -> URL {
+        fileURL.deletingLastPathComponent()
+            .appendingPathComponent("." + fileURL.lastPathComponent + ".icloud")
+    }
+
     public static func load() async throws -> Data? {
         guard let folderURL = await resolveContainerURL() else {
             throw ICloudError.unavailable
@@ -58,9 +65,26 @@ public enum ICloudBackupManager {
 
         return try await Task.detached {
             let fileURL = folderURL.appendingPathComponent(name)
-            guard FileManager.default.fileExists(atPath: fileURL.path) else {
-                return nil as Data?
+            let fm = FileManager.default
+
+            if !fm.fileExists(atPath: fileURL.path) {
+                // Pode existir como placeholder (.icloud), tentar disparar download.
+                let placeholder = placeholderURL(for: fileURL)
+                guard fm.fileExists(atPath: placeholder.path) else {
+                    return nil as Data?
+                }
+                try fm.startDownloadingUbiquitousItem(at: fileURL)
+
+                // Poll curto até o arquivo materializar (até ~10s).
+                let deadline = Date().addingTimeInterval(10)
+                while !fm.fileExists(atPath: fileURL.path) {
+                    if Date() >= deadline {
+                        throw ICloudError.downloadTimeout
+                    }
+                    try await Task.sleep(nanoseconds: 250_000_000)
+                }
             }
+
             return try Data(contentsOf: fileURL)
         }.value
     }
@@ -72,12 +96,26 @@ public enum ICloudBackupManager {
         let name = filename
 
         return await Task.detached {
+            let fm = FileManager.default
             let fileURL = folderURL.appendingPathComponent(name)
-            guard FileManager.default.fileExists(atPath: fileURL.path),
-                  let attrs = try? FileManager.default.attributesOfItem(atPath: fileURL.path),
-                  let date = attrs[.modificationDate] as? Date
-            else { return nil as Date? }
-            return date
+
+            // Caminho normal: arquivo já baixado, modificationDate disponível.
+            if fm.fileExists(atPath: fileURL.path),
+               let attrs = try? fm.attributesOfItem(atPath: fileURL.path),
+               let date = attrs[.modificationDate] as? Date {
+                return date
+            }
+
+            // Fallback: arquivo só existe como placeholder iCloud, ainda assim
+            // queremos exibir uma data pro footer ("último backup em ...").
+            let placeholder = placeholderURL(for: fileURL)
+            if fm.fileExists(atPath: placeholder.path),
+               let attrs = try? fm.attributesOfItem(atPath: placeholder.path),
+               let date = attrs[.modificationDate] as? Date {
+                return date
+            }
+
+            return nil as Date?
         }.value
     }
 
@@ -85,11 +123,14 @@ public enum ICloudBackupManager {
 
     public enum ICloudError: LocalizedError {
         case unavailable
+        case downloadTimeout
 
         public var errorDescription: String? {
             switch self {
             case .unavailable:
                 return String(localized: "settings.backup.icloud.error.unavailable", bundle: .gymNutshellCore)
+            case .downloadTimeout:
+                return String(localized: "settings.backup.icloud.error.downloadTimeout", bundle: .gymNutshellCore)
             }
         }
     }

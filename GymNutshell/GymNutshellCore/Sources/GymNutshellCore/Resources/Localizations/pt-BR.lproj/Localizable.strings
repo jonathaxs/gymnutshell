@@ -275,6 +275,7 @@
 "settings.backup.icloud.lastBackup" = "Último backup:";
 "settings.backup.icloud.footer.unavailable" = "Entre no iCloud em Ajustes para ativar o backup na nuvem.";
 "settings.backup.icloud.error.unavailable" = "O iCloud Drive não está disponível. Verifique se você está conectado ao iCloud e se o iCloud Drive está ativado.";
+"settings.backup.icloud.error.downloadTimeout" = "Não foi possível baixar o backup do iCloud. Verifique sua conexão e tente novamente.";
 "settings.backup.icloud.auto.toggle" = "Backup automático diário";
 "settings.backup.icloud.auto.footer" = "\nO backup será salvo automaticamente quando uma nova conquista é atualizada.\nConquistas são atualizadas quando você abre o App após meia-noite.";
 

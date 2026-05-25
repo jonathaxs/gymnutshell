@@ -67,7 +67,7 @@ public enum A11y {
         return String(format: fmt, percent)
     }
 
-    /// Value para o header de um row de meta: "0 de 7 h concluído".
+    /// Value para o header de um row de meta: "0 de 7h concluído".
     /// Não inclui percentual nem faixa pra não soar redundante quando o usuário
     /// percorre header + slider em sequência.
     public static func goalRowValue(current: Int, goal: Int, unit: String) -> String {

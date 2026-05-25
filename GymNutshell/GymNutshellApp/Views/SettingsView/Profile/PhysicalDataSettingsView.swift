@@ -399,7 +399,14 @@ struct PhysicalDataSettingsView: View {
         if let weightKg = savedWeightKg {
             let goalRaw = defaults.string(forKey: UserProfile.userGoalKey) ?? UserGoal.maintenance.rawValue
             let userGoal = UserGoal(rawValue: goalRaw) ?? .maintenance
-            let newGoals = GoalsCalculator.calculate(weightKg: weightKg, goal: userGoal)
+            // Altura/idade/sexo vêm do UserProfile (altura já foi persistida acima neste mesmo save).
+            let newGoals = GoalsCalculator.calculate(
+                weightKg: weightKg,
+                heightCm: defaults.integer(forKey: UserProfile.heightKey),
+                age: defaults.integer(forKey: UserProfile.ageKey),
+                sex: defaults.string(forKey: UserProfile.sexKey) ?? "male",
+                goal: userGoal
+            )
             GoalsProvider.save(newGoals)
         }
     }

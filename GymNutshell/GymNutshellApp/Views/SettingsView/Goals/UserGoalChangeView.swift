@@ -35,6 +35,11 @@ struct UserGoalChangeView: View {
         return stored > 0 ? stored : 70
     }
 
+    // Altura/idade/sexo do perfil, usados no cálculo de calorias (Mifflin-St Jeor).
+    private var heightCm: Int { UserDefaults.standard.integer(forKey: UserProfile.heightKey) }
+    private var age: Int { UserDefaults.standard.integer(forKey: UserProfile.ageKey) }
+    private var sex: String { UserDefaults.standard.string(forKey: UserProfile.sexKey) ?? "male" }
+
     private var savedGoalRaw: String {
         UserDefaults.standard.string(forKey: UserProfile.userGoalKey) ?? UserGoal.maintenance.rawValue
     }
@@ -69,6 +74,7 @@ struct UserGoalChangeView: View {
                         ? "\(Int(UnitConverter.mlToFlOz(Double(goals.water)).rounded())) fl oz"
                         : "\(goals.water) ml"
                     LabeledContent(String(localized: "settings.goal.water", bundle: .gymNutshellCore),   value: waterDisplay)
+                    LabeledContent(String(localized: "settings.goal.calories", bundle: .gymNutshellCore), value: "\(goals.calories) kcal")
                     LabeledContent(String(localized: "settings.goal.protein", bundle: .gymNutshellCore), value: "\(goals.protein) g")
                     LabeledContent(String(localized: "settings.goal.carbs", bundle: .gymNutshellCore),   value: "\(goals.carbs) g")
                     LabeledContent(String(localized: "settings.goal.fats", bundle: .gymNutshellCore),    value: "\(goals.goodFat) g")
@@ -95,7 +101,7 @@ struct UserGoalChangeView: View {
         .onChange(of: selectedGoal) { _, newGoal in
             // Recalcula e mostra a prévia só quando a seleção mudou de verdade.
             previewGoals = hasChanged
-                ? GoalsCalculator.calculate(weightKg: weightKg, goal: newGoal)
+                ? GoalsCalculator.calculate(weightKg: weightKg, heightCm: heightCm, age: age, sex: sex, goal: newGoal)
                 : nil
         }
     }

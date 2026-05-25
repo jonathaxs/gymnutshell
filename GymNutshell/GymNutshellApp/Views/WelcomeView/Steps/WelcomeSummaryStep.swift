@@ -67,6 +67,8 @@ struct WelcomeSummaryStep: View {
 
                     // MARK: Nutrição
                     summaryCategory(GoalCategory.nutricao) {
+                        summaryRow(icon: "🔥", label: String(localized: "today.metric.calories", bundle: .gymNutshellCore),
+                                   value: "\(goals.calories) kcal")
                         summaryRow(icon: "🍗", label: String(localized: "today.metric.protein", bundle: .gymNutshellCore),
                                    value: "\(goals.protein)g")
                         summaryRow(icon: "🌾", label: String(localized: "today.metric.fiber", bundle: .gymNutshellCore),

@@ -37,7 +37,7 @@ public enum GoalCategory: String, Codable, CaseIterable, Sendable {
         switch key {
         case "tracking.sleep", "tracking.water":
             return .essencial
-        case "tracking.protein", "tracking.carbs", "tracking.goodFat", "tracking.fiber":
+        case "tracking.calories", "tracking.protein", "tracking.carbs", "tracking.goodFat", "tracking.fiber":
             return .nutricao
         case "tracking.workout", "tracking.cardio":
             return .treino

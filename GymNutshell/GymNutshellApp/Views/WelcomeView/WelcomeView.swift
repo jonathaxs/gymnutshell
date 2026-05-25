@@ -130,7 +130,23 @@ struct WelcomeView: View {
                     let lb = Int(weightStoneLbsText) ?? 0
                     weightKg = UnitConverter.stoneLbsToKg(stones: st, lbs: lb)
                 }
-                calculatedGoals = GoalsCalculator.calculate(weightKg: weightKg, goal: userGoal)
+                // Altura em cm, mesma lógica de conversão usada em finishOnboarding.
+                let heightCm: Int
+                switch measurementSystem {
+                case .metric:
+                    heightCm = Int(heightText) ?? 170
+                case .us, .uk:
+                    let feet   = Int(heightFeetText) ?? 5
+                    let inches = Int(heightInchesText) ?? 8
+                    heightCm = UnitConverter.feetAndInchesToCm(feet: feet, inches: inches)
+                }
+                calculatedGoals = GoalsCalculator.calculate(
+                    weightKg: weightKg,
+                    heightCm: heightCm,
+                    age: UserProfile.age(from: birthday),
+                    sex: sex,
+                    goal: userGoal
+                )
                 currentStep = .summary
             case .summary:
                 currentStep = .theme

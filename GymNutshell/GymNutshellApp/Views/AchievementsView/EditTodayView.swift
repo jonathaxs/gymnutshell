@@ -32,6 +32,7 @@ struct EditTodayView: View {
     @State private var sleep: Int
 
     // Metas de treino e suplementos, lidas do customValues do record (ou didWorkout/didCardio para compat).
+    @State private var caloriesIntake: Int
     @State private var workoutIntake: Int
     @State private var cardioIntake: Int
     @State private var creatineIntake: Int
@@ -75,6 +76,7 @@ struct EditTodayView: View {
     private let goodFatGoal: Int  = GoalsProvider.goodFat
     private let fiberGoal: Int    = GoalsProvider.fiber
     private let sleepGoal: Int    = GoalsProvider.sleep
+    private let caloriesGoal: Int = GoalsProvider.calories
     private let workoutGoal: Int  = GoalsProvider.workout
     private let cardioGoal: Int   = GoalsProvider.cardio
     private let creatineGoal: Int = GoalsProvider.creatine
@@ -93,6 +95,7 @@ struct EditTodayView: View {
         // Lê workout/cardio/creatine/vitaminD do customValues; usa didWorkout/didCardio como fallback
         // pra registros antigos que ainda não tinham esses valores no dicionário.
         let storedIntakes = (try? JSONDecoder().decode([String: Int].self, from: record.customValues)) ?? [:]
+        _caloriesIntake = State(initialValue: storedIntakes["tracking.calories"] ?? 0)
         _workoutIntake  = State(initialValue: storedIntakes["tracking.workout"]  ?? (record.didWorkout ? 1 : 0))
         _cardioIntake   = State(initialValue: storedIntakes["tracking.cardio"]   ?? (record.didCardio  ? 15 : 0))
         _creatineIntake = State(initialValue: storedIntakes["tracking.creatine"] ?? 0)
@@ -119,6 +122,7 @@ struct EditTodayView: View {
         case "tracking.cardio":   return cardioRestDay  ? 1.0 : ProgressHelpers.normalizedProgress(current: cardioIntake,   goal: cardioGoal)
         case "tracking.sleep":    return ProgressHelpers.normalizedProgress(current: sleep,    goal: sleepGoal)
         case "tracking.water":    return ProgressHelpers.normalizedProgress(current: water,    goal: waterGoal)
+        case "tracking.calories": return ProgressHelpers.normalizedProgress(current: caloriesIntake, goal: caloriesGoal)
         case "tracking.protein":  return ProgressHelpers.normalizedProgress(current: protein,  goal: proteinGoal)
         case "tracking.carbs":    return ProgressHelpers.normalizedProgress(current: carbs,    goal: carbGoal)
         case "tracking.goodFat":  return ProgressHelpers.normalizedProgress(current: goodFat,  goal: goodFatGoal)
@@ -194,6 +198,10 @@ struct EditTodayView: View {
         case "tracking.water":
             TrackingGoalRowView(emoji: "💧", title: String(localized: "today.metric.water", bundle: .gymNutshellCore),
                                 unit: "ml", increment: 250, goal: waterGoal, value: $water)
+        case "tracking.calories":
+            TrackingGoalRowView(emoji: "🔥", title: String(localized: "today.metric.calories", bundle: .gymNutshellCore),
+                                unit: "kcal", increment: DefaultGoals.caloriesIncrement,
+                                goal: caloriesGoal, value: $caloriesIntake)
         case "tracking.protein":
             TrackingGoalRowView(emoji: "🍗", title: String(localized: "today.metric.protein", bundle: .gymNutshellCore),
                                 unit: "g", increment: 20, goal: proteinGoal, value: $protein)
@@ -335,7 +343,7 @@ struct EditTodayView: View {
                 userCategories = CustomGoalCategoriesStore.load()
                 // Carrega intakes customizados, excluindo as chaves built-in (tratadas como @State acima).
                 if let dict = try? JSONDecoder().decode([String: Int].self, from: record.customValues) {
-                    let builtinKeys: Set<String> = ["tracking.workout", "tracking.cardio", "tracking.creatine", "tracking.vitaminD"]
+                    let builtinKeys: Set<String> = ["tracking.calories", "tracking.workout", "tracking.cardio", "tracking.creatine", "tracking.vitaminD"]
                     customTrackingIntakes = dict.filter { !builtinKeys.contains($0.key) }
                 }
             }
@@ -354,6 +362,7 @@ struct EditTodayView: View {
 
         // Reconstrói o customValues com todos os intakes, built-in novos + customizados.
         var allIntakes = customTrackingIntakes
+        allIntakes["tracking.calories"] = caloriesIntake
         allIntakes["tracking.workout"]  = workoutIntake
         allIntakes["tracking.cardio"]   = cardioIntake
         allIntakes["tracking.creatine"] = creatineIntake

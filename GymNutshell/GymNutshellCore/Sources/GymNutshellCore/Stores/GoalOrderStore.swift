@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellCore/Stores/GoalOrderStore.swift
 //
-//  Propósito: Persiste a ordem de exibição das dez metas fixas do Gym Nutshell.
+//  Propósito: Persiste a ordem de exibição das onze metas fixas do Gym Nutshell.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-12.
 // ⌘
@@ -15,6 +15,7 @@ public enum GoalOrderStore {
         "tracking.cardio",
         "tracking.sleep",
         "tracking.water",
+        "tracking.calories",
         "tracking.protein",
         "tracking.fiber",
         "tracking.carbs",

@@ -65,6 +65,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         "tracking.cardio",
         "tracking.sleep",
         "tracking.water",
+        "tracking.calories",
         "tracking.protein",
         "tracking.carbs",
         "tracking.goodFat",

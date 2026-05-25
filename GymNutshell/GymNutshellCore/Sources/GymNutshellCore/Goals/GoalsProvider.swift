@@ -30,6 +30,11 @@ public enum GoalsProvider {
         stored(key: "tracking.water", fallback: DefaultGoals.water)
     }
 
+    // MARK: - Energia
+    public static var calories: Int {
+        stored(key: "tracking.calories", fallback: DefaultGoals.calories)
+    }
+
     // MARK: - Macros
     public static var protein: Int {
         stored(key: "tracking.protein", fallback: DefaultGoals.protein)
@@ -60,6 +65,7 @@ public enum GoalsProvider {
     // MARK: - Salvar
     public static func save(_ result: GoalsCalculator.Result) {
         let defaults = UserDefaults.standard
+        defaults.set(result.calories, forKey: "tracking.calories")
         defaults.set(result.water,    forKey: "tracking.water")
         defaults.set(result.protein,  forKey: "tracking.protein")
         defaults.set(result.carbs,    forKey: "tracking.carbs")

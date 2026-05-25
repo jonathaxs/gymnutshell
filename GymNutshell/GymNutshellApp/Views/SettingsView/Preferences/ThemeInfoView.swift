@@ -31,9 +31,9 @@ struct ThemeInfoView: View {
     private func rangeLabel(for tier: DailyAchievement) -> String {
         let range: String
         switch tier {
-        case .level1: range = "0 – 49%"
-        case .level2: range = "50 – 69%"
-        case .level3: range = "70 – 89%"
+        case .level1: range = "0 – 32%"
+        case .level2: range = "33 – 65%"
+        case .level3: range = "66 – 89%"
         case .level4: range = "90 – 100%"
         }
         return range + String(localized: "tier.info.range.suffix", bundle: .gymNutshellCore)

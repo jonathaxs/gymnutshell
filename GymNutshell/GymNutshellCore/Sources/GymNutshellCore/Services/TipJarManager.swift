@@ -2,7 +2,7 @@
 //  GymNutshellCore/Services/TipJarManager.swift
 //
 //  Propósito: Carrega e processa as compras consumíveis do Tip Jar via StoreKit 2.
-//             Sem persistência — não é necessário restaurar; cada gorjeta é única.
+//             Sem persistência, não é necessário restaurar; cada gorjeta é única.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-30.
 // ⌘
@@ -30,7 +30,7 @@ public final class TipJarManager: ObservableObject {
 
     private init() {}
 
-    /// Carrega os produtos. Idempotente — só busca uma vez por sessão.
+    /// Carrega os produtos. Idempotente, só busca uma vez por sessão.
     public func loadProducts() async {
         guard products.isEmpty else { return }
         isLoading = true

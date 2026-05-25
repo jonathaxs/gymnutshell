@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-/// Cor de destaque configurável pelo usuário — usada em ícones de Settings,
+/// Cor de destaque configurável pelo usuário, usada em ícones de Settings,
 /// backgrounds de categoria na TodayView e seleções de tema no onboarding pós-conclusão.
 public enum AppAccentColor: String, CaseIterable, Sendable {
     case red

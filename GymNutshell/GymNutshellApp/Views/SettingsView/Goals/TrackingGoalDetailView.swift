@@ -37,17 +37,17 @@ struct TrackingGoalDetailView: View {
 
     private var isVitaminD: Bool { key == "tracking.vitaminD" }
 
-    // Categoria pendente — dirige toda a UI da tela (emoji, unidade, steppers).
+    // Categoria pendente, dirige toda a UI da tela (emoji, unidade, steppers).
     // Só é persistida em `save()`. Inicializada no `load()` a partir do AppStorage.
     @State private var pendingVitaminDCategory: GoalCategory = .vitamina
 
-    // Emoji efetivo — VitaminD troca entre ☀️ e 💊 ao vivo conforme o picker.
+    // Emoji efetivo, VitaminD troca entre ☀️ e 💊 ao vivo conforme o picker.
     private var effectiveIcon: String {
         guard isVitaminD else { return icon }
         return pendingVitaminDCategory == .suplemento ? "💊" : "☀️"
     }
 
-    // Unidade efetiva — usa modo VitaminD quando aplicável.
+    // Unidade efetiva, usa modo VitaminD quando aplicável.
     private var effectiveUnit: String {
         guard isVitaminD else { return unit }
         return GoalCategory.vitaminDUnit(for: pendingVitaminDCategory)
@@ -100,7 +100,7 @@ struct TrackingGoalDetailView: View {
                 }
 
                 // Passo do stepper de incremento: 1 por padrão, mas em UI (Suplemento)
-                // queremos saltar de 50 em 50 — número de UI é grande (500, 1000, 2000…),
+                // queremos saltar de 50 em 50, número de UI é grande (500, 1000, 2000…),
                 // 1 em 1 é tedioso demais.
                 Stepper(value: $currentIncrement, in: incrementStepperLowerBound...99999, step: incrementStepperStep) {
                     HStack {
@@ -117,7 +117,7 @@ struct TrackingGoalDetailView: View {
                 + Text(String(localized: "settings.goaldetail.increment.footer", bundle: .gymNutshellCore))
             }
 
-            // Seção exclusiva da VitaminD — permite trocar entre Vitamina e Suplemento.
+            // Seção exclusiva da VitaminD, permite trocar entre Vitamina e Suplemento.
             // A troca é só visual; persistência acontece no Salvar.
             if isVitaminD {
                 Section {

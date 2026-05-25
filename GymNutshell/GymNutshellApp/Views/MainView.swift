@@ -27,17 +27,17 @@ extension MainView {
 // Organiza as abas principais do app: Today, Achievements, Profile e Settings.
 struct MainView: View {
 
-    // Seleção de aba persistida — permite navegação entre abas via @AppStorage.
+    // Seleção de aba persistida, permite navegação entre abas via @AppStorage.
     @AppStorage(UserProfile.selectedTabKey) private var selectedTab: Int = 0
 
-    // Cor de destaque — usada no tint da TabView pra colorir a aba selecionada.
+    // Cor de destaque, usada no tint da TabView pra colorir a aba selecionada.
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
     // Contexto SwiftData usado pra rodar migrações one-shot no primeiro lançamento.
     @Environment(\.modelContext) private var modelContext
 
-    // Fase do app — dispara o backup automático quando o app volta pro foreground.
+    // Fase do app, dispara o backup automático quando o app volta pro foreground.
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -99,7 +99,7 @@ struct MainView: View {
             case .today:
                 selectedTab = Tab.today
             case .achievementsToday:
-                // Pré-seta o filtro de dia em hoje antes de abrir a aba — a AchievementsView
+                // Pré-seta o filtro de dia em hoje antes de abrir a aba, a AchievementsView
                 // lê esses valores no onAppear e também escuta o sub-evento abaixo.
                 // Se a notificação carrega a data da conquista, usa ela (senão cai pra hoje).
                 let achievementTs = note.userInfo?["achievementDate"] as? Double
@@ -113,7 +113,7 @@ struct MainView: View {
                     userInfo: ["achievementDate": achievementTs]
                 )
             case .backup:
-                // Grava flag persistente — SettingsView pode ainda não estar montada
+                // Grava flag persistente, SettingsView pode ainda não estar montada
                 // (TabView monta lazy). Ela lê a flag no .onAppear e empurra BackupSettingsView.
                 UserDefaults.standard.set("backup", forKey: "pendingSettingsRoute")
                 selectedTab = Tab.settings

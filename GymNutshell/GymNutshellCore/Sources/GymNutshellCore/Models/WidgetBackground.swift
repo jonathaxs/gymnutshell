@@ -49,7 +49,7 @@ public struct WidgetBackground: Codable, Sendable, Equatable {
     }
     #endif
 
-    /// Cor de texto que contrasta com a cor base — branco em fundos escuros,
+    /// Cor de texto que contrasta com a cor base, branco em fundos escuros,
     /// preto em fundos claros. Usa luminância perceptual (Rec. 601).
     /// Threshold 0.6 favorece branco; só vira preto quando o fundo é bem claro.
     public var contrastingForegroundColor: Color {
@@ -75,7 +75,7 @@ public struct WidgetBackground: Codable, Sendable, Equatable {
 
     /// Top-leading: cor base misturada com branco (mais clara).
     /// Bottom-trailing: cor base multiplicada (mais escura).
-    /// Mistura RGB direta evita depender de UIColor — mantém o modelo multiplataforma.
+    /// Mistura RGB direta evita depender de UIColor, mantém o modelo multiplataforma.
     public var gradient: LinearGradient {
         let lightFactor = 0.18
         let darkFactor = 0.30

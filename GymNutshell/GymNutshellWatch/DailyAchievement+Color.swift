@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWatch/DailyAchievement+Color.swift
 //
-//  Propósito: Camada SwiftUI do DailyAchievement no Watch — mapeia o tier
+//  Propósito: Camada SwiftUI do DailyAchievement no Watch, mapeia o tier
 //             pra uma cor representativa (mesma escala do iPhone).
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-26.

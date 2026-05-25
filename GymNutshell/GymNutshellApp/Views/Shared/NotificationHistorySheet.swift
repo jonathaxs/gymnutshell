@@ -62,7 +62,7 @@ struct NotificationHistorySheet: View {
                                                     systemImage: "trash"
                                                 )
                                             }
-                                            // Força vermelho padrão iOS — o `.tint` do
+                                            // Força vermelho padrão iOS, o `.tint` do
                                             // NavigationSplitView estava sobrescrevendo o
                                             // vermelho do role `.destructive`.
                                             .tint(.red)
@@ -86,7 +86,7 @@ struct NotificationHistorySheet: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(String(localized: "common.close", bundle: .gymNutshellCore)) { dismiss() }
                 }
-                // Edit button manual — EditButton() do sistema não dispara o
+                // Edit button manual, EditButton() do sistema não dispara o
                 // binding de editMode de forma confiável dentro de sheet+NavigationStack.
                 // Botão custom replicando o padrão da TrackingGoalsSettingsView.
                 if !store.entries.isEmpty {
@@ -195,7 +195,7 @@ struct NotificationHistorySheet: View {
         .padding(.vertical, 4)
         .contentShape(Rectangle())
         .tapButton {
-            // No modo edit, o tap na linha não dispara deep-link — só o `-` do iOS age.
+            // No modo edit, o tap na linha não dispara deep-link, só o `-` do iOS age.
             guard !editMode.isEditing else { return }
             handleTap(entry)
         }

@@ -24,7 +24,7 @@ struct TodayView: View {
     @AppStorage("workoutIntake")  private var workoutIntake:  Int = 0
     @AppStorage("cardioIntake")   private var cardioIntake:   Int = 0
 
-    // Dia de descanso — quando true, a meta conta como cumprida sem slider.
+    // Dia de descanso, quando true, a meta conta como cumprida sem slider.
     @AppStorage("workoutRestDay") private var workoutRestDay: Bool = false
     @AppStorage("cardioRestDay")  private var cardioRestDay:  Bool = false
 
@@ -61,22 +61,22 @@ struct TodayView: View {
     @State private var orderedGoalKeys: [String] = []
     @State private var removedItems: Set<String> = []
 
-    // Sistema de medida — controla a unidade de exibição da água (ml vs fl oz).
+    // Sistema de medida, controla a unidade de exibição da água (ml vs fl oz).
     @AppStorage(UserProfile.measurementSystemKey) private var measurementSystem: MeasurementSystem = .metric
 
-    // Tema de mascote selecionado — controla quais emojis e nomes de tier são exibidos.
+    // Tema de mascote selecionado, controla quais emojis e nomes de tier são exibidos.
     @AppStorage(AppTheme.storageKey) private var selectedTheme: AppTheme = .gym
 
     // Auto detecção de treinos do Apple Health.
     @AppStorage("healthkit.autoWorkoutCheckin") private var autoWorkoutCheckin: Bool = false
 
-    // Modo da meta VitaminD — controla se ela fica na categoria Vitamina (min) ou Suplemento (UI).
+    // Modo da meta VitaminD, controla se ela fica na categoria Vitamina (min) ou Suplemento (UI).
     @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
 
     // Estado de colapso das categorias de metas na TodayView.
     @AppStorage("today.goal.collapsed") private var todayCollapsedRaw: String = ""
 
-    // Ordem das categorias — sincronizada com TrackingGoalsSettingsView.
+    // Ordem das categorias, sincronizada com TrackingGoalsSettingsView.
     @State private var orderedCategories: [GoalCategory] = GoalCategoryOrderStore.defaultOrder
 
 
@@ -136,7 +136,7 @@ struct TodayView: View {
         GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
     }
 
-    /// Passo efetivo da Vitamina D — respeita valor customizado salvo em
+    /// Passo efetivo da Vitamina D, respeita valor customizado salvo em
     /// "tracking.vitaminD.increment", cai pro default do modo se nunca foi editado.
     private var vitaminDIncrement: Int {
         let stored = UserDefaults.standard.integer(forKey: "tracking.vitaminD.increment")
@@ -253,7 +253,7 @@ struct TodayView: View {
     }
 
     // Binding de "dia de descanso" só para metas cuja categoria aceita ON/OFF.
-    // Retorna nil pras outras — TrackingGoalRowView então esconde o botão.
+    // Retorna nil pras outras, TrackingGoalRowView então esconde o botão.
     private func restDayBinding(for trackingGoal: CustomTrackingGoal) -> Binding<Bool>? {
         guard supportsRestDay(for: trackingGoal) else { return nil }
         return Binding(
@@ -317,7 +317,7 @@ struct TodayView: View {
     // MARK: - Auto detecção de treinos do Apple Health
 
     // Quando o HealthKit detecta um treino, seta os valores das metas de treino/cardio.
-    // Só seta quando o valor ainda está zerado — nunca sobrescreve o que o usuário já registrou.
+    // Só seta quando o valor ainda está zerado, nunca sobrescreve o que o usuário já registrou.
     private func checkWorkoutsFromHealth() {
         guard autoWorkoutCheckin else { return }
         HealthKitManager.shared.checkTodayWorkouts { workoutMinutes, cardioMinutes, workoutName, cardioName in
@@ -453,7 +453,7 @@ struct TodayView: View {
 
     private func heroBlock(vertical: Bool) -> some View {
         // O modo vertical (progresso em cima, conquista embaixo) só faz sentido quando
-        // sobra altura — controlado pelo chamador via tamanho real da janela, não pelo
+        // sobra altura, controlado pelo chamador via tamanho real da janela, não pelo
         // idiom do dispositivo. Assim, iPad em modo "janela pequena" (iOS 26 multi-window)
         // cai pro layout horizontal igual iPhone sem precisar de detecção especial.
         TodayHeroView(
@@ -515,7 +515,7 @@ struct TodayView: View {
         }
     }
 
-    // Header de categoria customizada — mesmo visual das fixas, mas com chave própria.
+    // Header de categoria customizada, mesmo visual das fixas, mas com chave própria.
     @ViewBuilder
     private func todayCustomCategoryHeader(_ customCategory: CustomGoalCategory) -> some View {
         TodayCategoryHeader(
@@ -528,7 +528,7 @@ struct TodayView: View {
         )
     }
 
-    // Seção colapsável de uma categoria — mostra o header e, quando expandido, as metas.
+    // Seção colapsável de uma categoria, mostra o header e, quando expandido, as metas.
     @ViewBuilder
     private func todayCategorySection(_ category: GoalCategory) -> some View {
         let fixedKeys = activeGoalKeys.filter {
@@ -561,13 +561,13 @@ struct TodayView: View {
         }
     }
 
-    // Cor de destaque lida do AppStorage — segue a escolha do usuário em Settings > Cores.
+    // Cor de destaque lida do AppStorage, segue a escolha do usuário em Settings > Cores.
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var todayAccentColor: Color {
         (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color
     }
 
-    // Header de categoria com botão de colapso — texto centralizado, preto/branco.
+    // Header de categoria com botão de colapso, texto centralizado, preto/branco.
     // Recolhida: cantos superiores arredondados, inferiores zerados (indicativo visual de abertura pra baixo).
     // Expandida: cantos inferiores arredondados, superiores zerados (indica que há conteúdo acima/aberto).
     @ViewBuilder
@@ -721,7 +721,7 @@ struct TodayView: View {
                 }
             }
             // Em modo grid (iPad/macOS/Vision Pro com altura sobrando) cap o conjunto
-            // hero + grid e centraliza no eixo horizontal — evita o conteúdo ficar
+            // hero + grid e centraliza no eixo horizontal, evita o conteúdo ficar
             // ancorado num canto quando a janela é estendida pra 4K.
             // No iPhone landscape (vertical=false) mantém leading pra hero colar
             // na borda esquerda como o usuário pediu.
@@ -741,9 +741,9 @@ struct TodayView: View {
         GeometryReader { proxy in
             let isWide = proxy.size.width >= UI.wideThreshold
             // Hero vertical (progresso/conquista empilhados) exige largura E altura
-            // generosas — caso contrário (iPhone landscape, iPad em janela pequena do iOS 26)
+            // generosas, caso contrário (iPhone landscape, iPad em janela pequena do iOS 26)
             // usamos o hero horizontal pra não tampar as metas.
-            // Threshold de altura menor que o de largura — iPad em landscape ainda
+            // Threshold de altura menor que o de largura, iPad em landscape ainda
             // tem altura de sobra pro empilhamento.
             let isTall = proxy.size.height >= 500
             Group {
@@ -756,7 +756,7 @@ struct TodayView: View {
         }
         .background(Color(.systemGroupedBackground))
         .onAppear {
-            // Carrega stores ANTES de checkIfNewDay — caso contrário o dailyAchievement
+            // Carrega stores ANTES de checkIfNewDay, caso contrário o dailyAchievement
             // do dia anterior é recalculado com state vazio (progressValues = []) e o
             // DailyRecord salvo fica com tier "level1" mesmo quando o usuário tinha conquistas.
             orderedGoalKeys = GoalOrderStore.load()
@@ -784,7 +784,7 @@ struct TodayView: View {
                 checkIfNewDay()
                 checkWorkoutsFromHealth()
             } else if newPhase == .background {
-                // Reagenda a notificação de conquista de meia-noite com o estado atual —
+                // Reagenda a notificação de conquista de meia-noite com o estado atual ,
                 // como o intake é manual via app, a última ida pra background reflete
                 // o que o usuário terá no fim do dia.
                 let tier = dailyAchievement

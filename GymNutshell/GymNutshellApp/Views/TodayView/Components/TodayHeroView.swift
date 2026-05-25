@@ -10,7 +10,7 @@
 import SwiftUI
 import GymNutshellCore
 
-/// Bloco hero da TodayView — data, nível de conquista, anel de progresso e frase do próximo nível.
+/// Bloco hero da TodayView, data, nível de conquista, anel de progresso e frase do próximo nível.
 struct TodayHeroView: View {
 
     let formattedDate: String
@@ -21,10 +21,10 @@ struct TodayHeroView: View {
     /// Usado apenas no iPad, onde sobra altura suficiente pra esse formato.
     var verticalLayout: Bool = false
 
-    // Sexo do usuário — usado pra nomes de tier com gênero correto.
+    // Sexo do usuário, usado pra nomes de tier com gênero correto.
     @AppStorage(UserProfile.sexKey) private var sex: String = "male"
 
-    // Cor de destaque — segue a escolha do usuário em Settings > Cores.
+    // Cor de destaque, segue a escolha do usuário em Settings > Cores.
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
@@ -58,7 +58,7 @@ struct TodayHeroView: View {
         }
     }
 
-    // Componentes do próximo nível — (percent, tierName, levelNumber).
+    // Componentes do próximo nível, (percent, tierName, levelNumber).
     // nil quando o usuário já está no nível máximo (90%+).
     private var nextLevelComponents: (percent: Int, name: String, level: Int)? {
         if dailyPercentage >= 90 { return nil }
@@ -74,7 +74,7 @@ struct TodayHeroView: View {
     var body: some View {
         VStack(spacing: 12) {
 
-            // Botão da data — abre o histórico de notificações.
+            // Botão da data, abre o histórico de notificações.
             Button {
                 showNotificationHistory = true
             } label: {
@@ -98,7 +98,7 @@ struct TodayHeroView: View {
                                                      bundle: .gymNutshellCore), formattedDate))
             .accessibilityHint(String(localized: "today.hero.date.a11y.hint", bundle: .gymNutshellCore))
 
-            // Nível de conquista e anel de progresso — lado a lado no iPhone,
+            // Nível de conquista e anel de progresso, lado a lado no iPhone,
             // empilhados verticalmente no iPad pra aproveitar a altura extra.
             // Em ambos os layouts (vertical e horizontal) o texto "Progresso" agora
             // vive DENTRO do TodayProgressRingView via parâmetro `headerText`. Isso

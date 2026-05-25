@@ -103,7 +103,7 @@ struct AchievementsView: View {
             }
         }
 
-        // Data usada pra ordenação — daily usa a data do registro, bonus usa anchorDate.
+        // Data usada pra ordenação, daily usa a data do registro, bonus usa anchorDate.
         var date: Date {
             switch self {
             case .daily(let r): return r.date
@@ -167,7 +167,7 @@ struct AchievementsView: View {
 
     /// Mesmo conjunto de dias que `emojiByDay`, mas com o nome a ser falado no
     /// VoiceOver (nome do tier do tema atual; substituído pelo título do bônus
-    /// quando há StreakBonus na mesma data — bônus mensal vence sobre semanal).
+    /// quando há StreakBonus na mesma data, bônus mensal vence sobre semanal).
     private var tierNameByDay: [Date: String] {
         let calendar = Calendar.current
         var result: [Date: String] = Dictionary(
@@ -189,7 +189,7 @@ struct AchievementsView: View {
     // MARK: - Ações
 
     // Apaga o registro diário selecionado do banco de dados.
-    // Bônus de streak não são deletáveis pelo usuário — são calculados a partir de períodos concluídos.
+    // Bônus de streak não são deletáveis pelo usuário, são calculados a partir de períodos concluídos.
     private func deleteItem(offsets: IndexSet) {
         for index in offsets {
             if case .daily(let record) = visibleItems[index] {
@@ -339,7 +339,7 @@ struct AchievementsView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                // Fundo cinza por toda a viewport — sem isso, no modo wide, as
+                // Fundo cinza por toda a viewport, sem isso, no modo wide, as
                 // margens fora do cap de 860pt ficam brancas em light mode.
                 .background(Color(.systemGroupedBackground))
                 .toolbar(isWide ? .hidden : .visible, for: .navigationBar)
@@ -370,7 +370,7 @@ struct AchievementsView: View {
                 storedSelectedDateTimestamp = newValue.timeIntervalSince1970
                 visibleMonthDate = startOfMonth(for: newValue)
             }
-            // Deep-link das notificações de Conquista / Bônus — força filtro "dia" na data
+            // Deep-link das notificações de Conquista / Bônus, força filtro "dia" na data
             // que veio no userInfo (data real da conquista); cai pra hoje se ausente.
             .onReceive(NotificationCenter.default.publisher(for: .gaAchievementsShowToday)) { note in
                 let target: Date
@@ -410,7 +410,7 @@ struct AchievementsView: View {
         }
     }
 
-    // Cabeçalho customizado usado no wideLayout — bell + título alinhados ao
+    // Cabeçalho customizado usado no wideLayout, bell + título alinhados ao
     // mesmo maxWidth (860pt) do conteúdo, mesma técnica usada em StatisticsView.
     @ViewBuilder
     private var wideTitleBar: some View {
@@ -420,7 +420,7 @@ struct AchievementsView: View {
             } label: {
                 Image(systemName: "bell")
                     .font(.title3)
-                    // Sino segue accent color — sem isso o `.buttonStyle(.plain)`
+                    // Sino segue accent color, sem isso o `.buttonStyle(.plain)`
                     // força cor primária e o sino fica preto/branco.
                     .foregroundStyle(accentColor)
             }
@@ -431,7 +431,7 @@ struct AchievementsView: View {
         }
         .padding(.horizontal)
         .padding(.top, 12)
-        // iPad/Mac/Vision precisam de respiro extra abaixo do título —
+        // iPad/Mac/Vision precisam de respiro extra abaixo do título ,
         // o calendário cola no texto sem isso. iPhone landscape já fica bom
         // com o espaçamento natural do List inset, então não recebe o padding.
         .padding(.bottom, UIDevice.current.userInterfaceIdiom == .phone ? 0 : 20)

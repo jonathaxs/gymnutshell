@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/SettingsView/Goals/TrackingGoalsSettingsView.swift
 //
-//  Propósito: Hub central pra gerenciar todas as metas diárias agrupadas por categoria —
+//  Propósito: Hub central pra gerenciar todas as metas diárias agrupadas por categoria ,
 //             métricas fixas, objetivo fitness e metas de rastreio personalizadas criadas pelo usuário.
 //             Cada categoria é colapsável (chevron estilo Finder). A VitaminD pode alternar entre
 //             os modos Vitamina (min) e Suplemento (UI) diretamente no TrackingGoalDetailView.
@@ -27,14 +27,14 @@ struct TrackingGoalsSettingsView: View {
     @State private var editMode: EditMode = .inactive
     @State private var isPresentingAddGoal: Bool = false
 
-    // Cor de destaque — usada nos badges de obrigatoriedade das metas.
+    // Cor de destaque, usada nos badges de obrigatoriedade das metas.
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
-    // Sistema de medidas — controla exibição da unidade de água (ml vs fl oz).
+    // Sistema de medidas, controla exibição da unidade de água (ml vs fl oz).
     @AppStorage(UserProfile.measurementSystemKey) private var measurementSystem: MeasurementSystem = .metric
 
-    // Modo VitaminD — controla se ela aparece como Vitamina (min) ou Suplemento (UI).
+    // Modo VitaminD, controla se ela aparece como Vitamina (min) ou Suplemento (UI).
     @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
 
     // Estado de colapso das categorias na Settings.
@@ -183,7 +183,7 @@ struct TrackingGoalsSettingsView: View {
                 if !fixedKeys.isEmpty || !customGoals.isEmpty {
                     Section {
                         if !isSettingsCategoryCollapsed(category) {
-                            // Metas fixas da categoria — suporta reordenação via drag no modo editar.
+                            // Metas fixas da categoria, suporta reordenação via drag no modo editar.
                             ForEach(fixedKeys, id: \.self) { key in
                                 if let m = meta(for: key) {
                                     fixedGoalRow(key: key, meta: m)
@@ -193,7 +193,7 @@ struct TrackingGoalsSettingsView: View {
                                 moveGoalsWithinCategory(subset: fixedKeys, from: from, to: to)
                             }
 
-                            // Metas personalizadas da categoria — reordenáveis dentro da categoria.
+                            // Metas personalizadas da categoria, reordenáveis dentro da categoria.
                             ForEach(customGoals) { trackingGoal in
                                 customGoalRow(trackingGoal)
                             }
@@ -210,7 +210,7 @@ struct TrackingGoalsSettingsView: View {
                 }
             }
 
-            // Categorias criadas pelo usuário — cada uma vira uma seção abaixo das fixas.
+            // Categorias criadas pelo usuário, cada uma vira uma seção abaixo das fixas.
             ForEach(customCategories) { customCategory in
                 let goalsInCategory = customGoalsFor(customCategoryId: customCategory.id)
                 if !goalsInCategory.isEmpty {
@@ -442,7 +442,7 @@ struct TrackingGoalsSettingsView: View {
         }
         orderedGoalKeys = newOrder
         GoalOrderStore.save(newOrder)
-        // Sinaliza o app pra reconstruir o WidgetSnapshot — caso contrário, os widgets
+        // Sinaliza o app pra reconstruir o WidgetSnapshot, caso contrário, os widgets
         // (especialmente o de Metas) ficam com a ordem antiga até o próximo intake change.
         NotificationCenter.default.post(name: .gymNutshellIntakeDidChange, object: nil)
     }

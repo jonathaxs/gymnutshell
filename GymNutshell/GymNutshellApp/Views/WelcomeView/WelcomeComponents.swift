@@ -23,7 +23,7 @@ struct WelcomeStepHeader: View {
             HStack(alignment: .center, spacing: 10) {
                 Text(emoji)
                     .font(.system(size: 44))
-                    // Decorativo — o título logo ao lado já comunica a etapa.
+                    // Decorativo, o título logo ao lado já comunica a etapa.
                     .accessibilityHidden(true)
                 Text(title)
                     .font(.title.bold())
@@ -52,7 +52,7 @@ struct WelcomeField: View {
     @Binding var text: String
     var keyboard: UIKeyboardType = .default
     var autocapitalization: TextInputAutocapitalization = .words
-    /// Binding externo para controle de foco — mantido em sincronia com o @FocusState interno.
+    /// Binding externo para controle de foco, mantido em sincronia com o @FocusState interno.
     var externalFocus: Binding<Bool>? = nil
 
     @FocusState private var isFocused: Bool
@@ -72,7 +72,7 @@ struct WelcomeField: View {
                 .background(Color(.secondarySystemGroupedBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 // O Text("label") acima fica visível, mas é melhor o VoiceOver
-                // anunciar o nome do campo junto do conteúdo focado — sem isso
+                // anunciar o nome do campo junto do conteúdo focado, sem isso
                 // só o placeholder é lido.
                 .accessibilityLabel(label)
         }

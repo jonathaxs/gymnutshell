@@ -65,7 +65,7 @@ struct TrackingGoalRowView: View {
     }
 
     /// Snap pro alvo válido mais próximo.
-    /// Inclui múltiplos do incremento até `safeGoal` E o próprio `safeGoal` — sem isso,
+    /// Inclui múltiplos do incremento até `safeGoal` E o próprio `safeGoal`, sem isso,
     /// metas que não são múltiplas do incremento (ex: 50 com passo 15) ficam inalcançáveis,
     /// porque o último múltiplo ≤ goal seria 45 e o slider clampa em goal.
     private func snap(toNearest raw: Double) -> Int {
@@ -82,7 +82,7 @@ struct TrackingGoalRowView: View {
 
             // Cabeçalho. Estrutura intencional:
             //   1. HStack interno (emoji + título + valor textual) é combinado num
-            //      único elemento de a11y — "Meta Água, 30 de 100 ml concluído".
+            //      único elemento de a11y, "Meta Água, 30 de 100 ml concluído".
             //   2. Botão rest day fica FORA desse subtree, como elemento focável
             //      independente, com seu próprio label (texto visível "ON"/"OFF")
             //      e hint. Sem isso, o botão era absorvido e virava "rotor action".
@@ -123,7 +123,7 @@ struct TrackingGoalRowView: View {
                     .foregroundStyle(.secondary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 6)
-                    // Já comunicado pelo value do header — esconde para não
+                    // Já comunicado pelo value do header, esconde para não
                     // duplicar "dia de descanso" no VoiceOver.
                     .accessibilityHidden(true)
             } else if safeGoal > 0 {

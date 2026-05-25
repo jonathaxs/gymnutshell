@@ -15,7 +15,7 @@ import GymNutshellCore
 // MARK: - NotificationsSettingsView
 
 /// Tela principal de preferências de notificação.
-/// Segue o padrão visual de `HealthSettingsView` — List + Section + navigationTitle inline.
+/// Segue o padrão visual de `HealthSettingsView`, List + Section + navigationTitle inline.
 struct NotificationsSettingsView: View {
 
     @Environment(\.openURL) private var openURL
@@ -40,7 +40,7 @@ struct NotificationsSettingsView: View {
                 }
             }
 
-            // MARK: Metas — subpágina dedicada com seções recolhíveis por categoria.
+            // MARK: Metas, subpágina dedicada com seções recolhíveis por categoria.
             Section {
                 NavigationLink {
                     GoalsNotificationsSettingsView()
@@ -100,7 +100,7 @@ struct NotificationsSettingsView: View {
 // MARK: - NotificationRow
 
 /// Linha genérica para um `NotificationKind` fixo.
-/// Usa @AppStorage direto no UserDefaults — isso elimina qualquer sincronização manual
+/// Usa @AppStorage direto no UserDefaults, isso elimina qualquer sincronização manual
 /// (e o feedback loop que ela causava).
 /// Internal (não-private) pra ser reutilizada em GoalsNotificationsSettingsView.
 struct NotificationRow: View {

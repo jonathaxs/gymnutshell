@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWidget/GymNutshellLargeWidgets.swift
 //
-//  Propósito: Widget systemLarge "Calendário" — grade de até 6 semanas com cor
+//  Propósito: Widget systemLarge "Calendário", grade de até 6 semanas com cor
 //             por dia (mesma escala do anel) e header de tier/progresso.
 //             Infra compartilhada (Provider, helpers, ring, header) está em
 //             LargeWidgetShared.swift. Widget "Metas" está em LargeGoalsWidget.swift.
@@ -38,7 +38,7 @@ private struct CalendarLargeView: View {
 
     /// Grade do mês atual alinhada ao `firstWeekday` do calendário do sistema.
     /// Inclui células "fora do mês" (do mês anterior/posterior) pra preencher
-    /// a primeira e última linha — renderizadas em transparente pra dar a forma
+    /// a primeira e última linha, renderizadas em transparente pra dar a forma
     /// clássica de calendário sem confundir com dias do mês corrente.
     private var weeks: [[DayCellModel]] {
         let cal = Calendar.current
@@ -101,7 +101,7 @@ private struct CalendarLargeView: View {
                         .accessibilityLabel(String(format: String(localized: "a11y.widget.calendar.month.format",
                                                                  bundle: .gymNutshellCore), monthLabel()))
 
-                    // Cabeçalho de dias da semana — decorativo, ocultado pra não falar
+                    // Cabeçalho de dias da semana, decorativo, ocultado pra não falar
                     // "D, S, T, Q, Q, S, S" em swipe.
                     HStack(spacing: 4) {
                         ForEach(Array(weekdaySymbols().enumerated()), id: \.offset) { _, sym in
@@ -153,7 +153,7 @@ private struct DayCellModel {
     let isFuture: Bool
     let isToday: Bool
     let hasData: Bool
-    /// False pra células de preenchimento (mês anterior/posterior) — renderizadas vazias.
+    /// False pra células de preenchimento (mês anterior/posterior), renderizadas vazias.
     let inCurrentMonth: Bool
 }
 
@@ -207,7 +207,7 @@ private struct DayCell: View {
         }
         .aspectRatio(1, contentMode: .fit)
         .frame(maxWidth: .infinity)
-        // Células fora do mês são decorativas — ocultadas pra reduzir ruído.
+        // Células fora do mês são decorativas, ocultadas pra reduzir ruído.
         // Demais células viram elementos focáveis com data + estado.
         .accessibilityHidden(!day.inCurrentMonth)
         .accessibilityElement(children: .ignore)

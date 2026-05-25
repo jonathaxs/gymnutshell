@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWatch/WatchStatsView.swift
 //
-//  Propósito: Tela de estatísticas do Watch — renderiza o WatchStatsSummary
+//  Propósito: Tela de estatísticas do Watch, renderiza o WatchStatsSummary
 //             calculado pelo iPhone e sincronizado via WatchConnectivity.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-29.
@@ -47,7 +47,7 @@ struct WatchStatsView: View {
     @ViewBuilder
     private func statsContent(_ s: WatchStatsSummary) -> some View {
         List {
-            // Pontos e dias — duas colunas no topo
+            // Pontos e dias, duas colunas no topo
             Section {
                 HStack(spacing: 6) {
                     statCard(
@@ -180,7 +180,7 @@ struct WatchStatsView: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 4)
-        // Tela do Watch é pequena demais pra navegar célula por célula —
+        // Tela do Watch é pequena demais pra navegar célula por célula ,
         // colapsa a faixa num resumo único "Recente: X dias com conquistas em 7".
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(String(format: String(localized: "a11y.watch.recent.summary.format",

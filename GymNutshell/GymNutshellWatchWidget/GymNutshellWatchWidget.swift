@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWatchWidget/GymNutshellWatchWidget.swift
 //
-//  Propósito: Widget e complications pro Apple Watch — anel de progresso do dia,
+//  Propósito: Widget e complications pro Apple Watch, anel de progresso do dia,
 //             nome da conquista atual e emoji do tier. Lê o WidgetSnapshot escrito
 //             pelo Watch app (ou sincronizado do iPhone) via App Group.
 //
@@ -89,7 +89,7 @@ struct GymNutshellWatchWidgetEntryView: View {
             default:                    circularView
             }
         }
-        // Cada família vira 1 elemento de a11y único — sem isso o usuário ouve
+        // Cada família vira 1 elemento de a11y único, sem isso o usuário ouve
         // emoji, tier, "%" como elementos isolados em swipe na face do relógio.
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(String(format: String(localized: "a11y.widget.summary.format",
@@ -98,7 +98,7 @@ struct GymNutshellWatchWidgetEntryView: View {
                                    entry.snapshot.progressPercent))
     }
 
-    // MARK: Circular — anel com emoji no centro
+    // MARK: Circular, anel com emoji no centro
 
     private var circularView: some View {
         ZStack {
@@ -111,7 +111,7 @@ struct GymNutshellWatchWidgetEntryView: View {
         .widgetAccentable()
     }
 
-    // MARK: Rectangular — anel ocupando a altura toda à esquerda; nome em cima e % embaixo à direita
+    // MARK: Rectangular, anel ocupando a altura toda à esquerda; nome em cima e % embaixo à direita
 
     private var rectangularView: some View {
         HStack(spacing: 8) {
@@ -139,7 +139,7 @@ struct GymNutshellWatchWidgetEntryView: View {
         }
     }
 
-    // MARK: Corner — usado na quina de mostradores analógicos
+    // MARK: Corner, usado na quina de mostradores analógicos
 
     private var cornerView: some View {
         Text(entry.snapshot.tierEmoji)
@@ -153,7 +153,7 @@ struct GymNutshellWatchWidgetEntryView: View {
             }
     }
 
-    // MARK: Inline — linha única de texto
+    // MARK: Inline, linha única de texto
 
     private var inlineView: some View {
         Text("\(entry.snapshot.tierEmoji) \(entry.snapshot.progressPercent)%")

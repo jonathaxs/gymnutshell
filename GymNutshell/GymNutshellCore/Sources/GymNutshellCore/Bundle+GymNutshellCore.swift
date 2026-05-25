@@ -17,7 +17,7 @@ public extension Bundle {
     /// No watchOS, retorna o sub-bundle `.lproj` específico do idioma escolhido no iPhone
     /// (sincronizado via WatchConnectivity em `app.preferredLanguage`). Isso é necessário
     /// porque o watchOS não tem per-app language, então não há como mudar o locale do
-    /// processo em runtime — a única forma confiável é apontar `String(localized:bundle:)`
+    /// processo em runtime, a única forma confiável é apontar `String(localized:bundle:)`
     /// pro bundle de localização correto diretamente.
     static var gymNutshellCore: Bundle {
         #if os(watchOS)

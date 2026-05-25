@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Components/WelcomeContextPanel.swift
 //
-//  Propósito: Painel contextual à esquerda no layout wide do onboarding —
+//  Propósito: Painel contextual à esquerda no layout wide do onboarding ,
 //             emoji + título + subtítulo da etapa atual, botões de ação no rodapé.
 //             Owns o estado de restauração de backup via fileImporter.
 // ⌘
@@ -27,13 +27,13 @@ struct WelcomeContextPanel: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Emoji + título — anima junto com a transição de etapa.
+            // Emoji + título, anima junto com a transição de etapa.
             VStack(spacing: 16) {
                 Spacer()
                 Text(currentStep.panelEmoji)
                     .font(.system(size: 64))
                     .animation(.easeInOut(duration: 0.3), value: currentStep)
-                    // Emoji decorativo — título logo abaixo já comunica a etapa.
+                    // Emoji decorativo, título logo abaixo já comunica a etapa.
                     .accessibilityHidden(true)
                 Text(currentStep.panelTitle)
                     .font(.title.bold())
@@ -51,7 +51,7 @@ struct WelcomeContextPanel: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal)
 
-            // Botões de ação — variam conforme a etapa.
+            // Botões de ação, variam conforme a etapa.
             VStack(spacing: 12) {
                 if currentStep == .start {
                     Button(action: onAdvance) {
@@ -150,7 +150,7 @@ struct WelcomeContinueButton: View {
     }
 }
 
-// MARK: - Progress bar (capsules) — usada no topo do stepContent
+// MARK: - Progress bar (capsules), usada no topo do stepContent
 
 struct WelcomeProgressBar: View {
     let currentStep: WelcomeStep
@@ -168,7 +168,7 @@ struct WelcomeProgressBar: View {
                     .animation(.easeInOut(duration: 0.3), value: currentStep)
             }
         }
-        // Capsules são puramente visuais — colapsa tudo num único elemento
+        // Capsules são puramente visuais, colapsa tudo num único elemento
         // de a11y que anuncia "Passo X de Y".
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(String(format: String(localized: "a11y.welcome.progress.format",

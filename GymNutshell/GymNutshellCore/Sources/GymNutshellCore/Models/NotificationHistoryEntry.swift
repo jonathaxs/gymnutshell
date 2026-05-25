@@ -9,15 +9,15 @@
 import Foundation
 
 /// Entrada imutável do histórico de notificações de evento (conquista, bônus, saúde, backup).
-/// Lembretes de meta baseados em intervalo não entram aqui — são lembretes repetitivos.
+/// Lembretes de meta baseados em intervalo não entram aqui, são lembretes repetitivos.
 public struct NotificationHistoryEntry: Codable, Identifiable, Equatable, Sendable {
     public let id: UUID
-    public let kindRaw: String        // NotificationKind.rawValue — salva como String pra sobreviver a renames
+    public let kindRaw: String        // NotificationKind.rawValue, salva como String pra sobreviver a renames
     public let title: String
     public let body: String
     public let timestamp: Date
     public let routeRaw: String       // NotificationRoute.rawValue
-    /// Data da conquista (quando aplicável) — permite o deep-link do histórico abrir o dia certo.
+    /// Data da conquista (quando aplicável), permite o deep-link do histórico abrir o dia certo.
     public let achievementDate: Date?
 
     public init(

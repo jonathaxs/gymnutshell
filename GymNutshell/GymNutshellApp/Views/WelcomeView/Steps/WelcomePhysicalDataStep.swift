@@ -1,12 +1,12 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomePhysicalDataStep.swift
 //
-//  Propósito: Etapa do onboarding — coleta os dados físicos do usuário
+//  Propósito: Etapa do onboarding, coleta os dados físicos do usuário
 //             (peso, altura, idade e sexo) usados pra calcular as metas diárias.
 //             Os campos se adaptam ao sistema de medidas detectado a partir do locale do device:
-//               Métrico — kg (1 campo) + cm (1 campo)
-//               US      — lbs (1 campo) + ft/in (2 campos)
-//               UK      — stones + lbs (2 campos) + ft/in (2 campos)
+//               Métrico, kg (1 campo) + cm (1 campo)
+//               US     , lbs (1 campo) + ft/in (2 campos)
+//               UK     , stones + lbs (2 campos) + ft/in (2 campos)
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-10.
 // ⌘
@@ -21,11 +21,11 @@ struct WelcomePhysicalDataStep: View {
     let measurementSystem: MeasurementSystem
 
     @Binding var weightText: String         // kg (metric) ou lbs (US)
-    @Binding var weightStonesText: String   // stones — só UK
-    @Binding var weightStoneLbsText: String // lbs restante (0–13) — só UK
-    @Binding var heightText: String         // cm — só metric
-    @Binding var heightFeetText: String     // feet — US e UK
-    @Binding var heightInchesText: String   // inches — US e UK
+    @Binding var weightStonesText: String   // stones, só UK
+    @Binding var weightStoneLbsText: String // lbs restante (0–13), só UK
+    @Binding var heightText: String         // cm, só metric
+    @Binding var heightFeetText: String     // feet, US e UK
+    @Binding var heightInchesText: String   // inches, US e UK
     @Binding var birthday: Date
     @Binding var sex: String
     var isWide: Bool = false
@@ -34,12 +34,12 @@ struct WelcomePhysicalDataStep: View {
     var isFormValid: Bool = false
     var buttonColor: Color = .accentColor
 
-    // Enumeração de campos focáveis — ordem de tab.
+    // Enumeração de campos focáveis, ordem de tab.
     private enum Field: Hashable {
         case weight, weightStones, weightStoneLbs, heightCm, heightFeet, heightInches
     }
 
-    // Range válido pro DatePicker — de 120 anos atrás até a data de hoje.
+    // Range válido pro DatePicker, de 120 anos atrás até a data de hoje.
     private var birthdayRange: ClosedRange<Date> {
         let now = Date()
         let minDate = Calendar.current.date(byAdding: .year, value: -120, to: now) ?? now
@@ -67,7 +67,7 @@ struct WelcomePhysicalDataStep: View {
         )
     }
 
-    // Próximo campo na sequência — depende do sistema de medidas.
+    // Próximo campo na sequência, depende do sistema de medidas.
     private var nextField: Field? {
         switch (measurementSystem, focusedField) {
         case (.metric, .weight):        return .heightCm
@@ -118,7 +118,7 @@ struct WelcomePhysicalDataStep: View {
 
                             // O chip do .compact DatePicker tem padding interno próprio.
                             // Sem o Spacer e com leading-alignment, o chip cola na borda
-                            // esquerda do container — alinhando com o texto dos TextFields acima.
+                            // esquerda do container, alinhando com o texto dos TextFields acima.
                             DatePicker(
                                 String(localized: "welcome.field.birthday", bundle: .gymNutshellCore),
                                 selection: $birthday,
@@ -144,7 +144,7 @@ struct WelcomePhysicalDataStep: View {
                                 .foregroundStyle(.secondary)
                         }
 
-                        // Botões inline — só no modo narrow (no wide ficam no painel contextual).
+                        // Botões inline, só no modo narrow (no wide ficam no painel contextual).
                         if !isWide, let onContinue, let onBack {
                             VStack(spacing: 8) {
                                 Button(action: onContinue) {

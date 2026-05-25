@@ -25,7 +25,7 @@ struct WelcomeView: View {
     /// Chamado quando o usuário termina o onboarding pra o GymNutshellApp trocar pra MainView.
     let onComplete: () -> Void
 
-    // Contexto de dados — necessário pra restauração de backup via painel esquerdo no modo wide.
+    // Contexto de dados, necessário pra restauração de backup via painel esquerdo no modo wide.
     @Environment(\.modelContext) private var modelContext
 
     // MARK: - Controle de etapas
@@ -59,11 +59,11 @@ struct WelcomeView: View {
 
     @State private var name: String = ""
     @State private var weightText: String = ""        // kg (metric) ou lbs (US)
-    @State private var weightStonesText: String = "" // stones — usado no UK
-    @State private var weightStoneLbsText: String = "" // lbs restante (0–13) — usado no UK
-    @State private var heightText: String = ""       // cm — usado no metric
-    @State private var heightFeetText: String = ""   // feet — usado no US ou UK
-    @State private var heightInchesText: String = "" // inches — usado no US ou UK
+    @State private var weightStonesText: String = "" // stones, usado no UK
+    @State private var weightStoneLbsText: String = "" // lbs restante (0–13), usado no UK
+    @State private var heightText: String = ""       // cm, usado no metric
+    @State private var heightFeetText: String = ""   // feet, usado no US ou UK
+    @State private var heightInchesText: String = "" // inches, usado no US ou UK
     @State private var birthday: Date = Calendar(identifier: .gregorian).date(from: DateComponents(year: 2001, month: 1, day: 1)) ?? Date()
     @State private var sex: String = "male"
     @State private var userGoal: UserGoal = .maintenance
@@ -153,7 +153,7 @@ struct WelcomeView: View {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // Converte os valores exibidos pro usuário pra metric antes de salvar.
-        // O armazenamento é sempre em kg e cm — a conversão acontece só na camada de UI.
+        // O armazenamento é sempre em kg e cm, a conversão acontece só na camada de UI.
         let weightKg: Double
         let heightCm: Int
 
@@ -250,7 +250,7 @@ struct WelcomeView: View {
 
             // Botão de voltar e barra de progresso no topo.
             HStack(spacing: 12) {
-                // Botão de voltar — escondido na primeira etapa e no modo wide (botões ficam no painel).
+                // Botão de voltar, escondido na primeira etapa e no modo wide (botões ficam no painel).
                 if currentStep != .start && !isWide {
                     Button(action: goBack) {
                         Image(systemName: "chevron.left")
@@ -317,7 +317,7 @@ struct WelcomeView: View {
             ))
             .animation(.easeInOut(duration: 0.3), value: currentStep)
 
-            // Botões de rodapé — só no modo narrow e fora do physicalData (que tem botões inline).
+            // Botões de rodapé, só no modo narrow e fora do physicalData (que tem botões inline).
             if currentStep != .start && currentStep != .physicalData && !isWide {
                 VStack(spacing: 8) {
                     WelcomeContinueButton(

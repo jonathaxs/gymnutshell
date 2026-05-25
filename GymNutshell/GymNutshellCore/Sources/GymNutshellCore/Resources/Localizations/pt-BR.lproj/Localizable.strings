@@ -11,92 +11,92 @@
 /* MARK: - Models */
 
 
-/* DailyAchievement.swift — Cat theme (default) */
+/* DailyAchievement.swift, Cat theme (default) */
 "daily.achievement.level1" = "Gatinho";
 "daily.achievement.level2" = "Gato Fitness";
 "daily.achievement.level3" = "Gatão";
 "daily.achievement.level4" = "Gato Líder";
 
-/* AppTheme.swift — Cat theme tier names — feminino (sexo female/other) */
+/* AppTheme.swift, Cat theme tier names, feminino (sexo female/other) */
 "daily.achievement.level1.fem" = "Gatinha";
 "daily.achievement.level2.fem" = "Gata Fitness";
 "daily.achievement.level3.fem" = "Gatona";
 "daily.achievement.level4.fem" = "Gata Líder";
 
-/* AppTheme.swift — Dog theme tier names */
+/* AppTheme.swift, Dog theme tier names */
 "daily.achievement.dog.level1" = "Cachorrinho";
 "daily.achievement.dog.level2" = "Cachorro Fitness";
 "daily.achievement.dog.level3" = "Cachorrão";
 "daily.achievement.dog.level4" = "Cachorro Caramelo";
 
-/* AppTheme.swift — Dog theme tier names — feminino */
+/* AppTheme.swift, Dog theme tier names, feminino */
 "daily.achievement.dog.level1.fem" = "Cachorrinha";
 "daily.achievement.dog.level2.fem" = "Cachorra Fitness";
 "daily.achievement.dog.level3.fem" = "Cachorrona";
 "daily.achievement.dog.level4.fem" = "Cachorra Caramelo";
 
-/* AppTheme.swift — Bear theme tier names */
+/* AppTheme.swift, Bear theme tier names */
 "daily.achievement.bear.level1" = "Ursinho";
 "daily.achievement.bear.level2" = "Urso Brabo";
 "daily.achievement.bear.level3" = "Urso Congelante";
 "daily.achievement.bear.level4" = "Bisão";
 
-/* AppTheme.swift — Bear theme tier names — feminino */
+/* AppTheme.swift, Bear theme tier names, feminino */
 "daily.achievement.bear.level1.fem" = "Ursinha";
 "daily.achievement.bear.level2.fem" = "Ursa Braba";
 "daily.achievement.bear.level3.fem" = "Ursa Congelante";
 "daily.achievement.bear.level4.fem" = "Bisã";
 
-/* AppTheme.swift — Dino theme tier names */
+/* AppTheme.swift, Dino theme tier names */
 "daily.achievement.dino.level1" = "Tartaruguinha";
 "daily.achievement.dino.level2" = "Crocodilo";
 "daily.achievement.dino.level3" = "T-Rex";
 "daily.achievement.dino.level4" = "Dinossaurão";
 "daily.achievement.dino.level4.fem" = "Dinossaurona";
 
-/* AppTheme.swift — Bird theme tier names */
+/* AppTheme.swift, Bird theme tier names */
 "daily.achievement.bird.level1" = "Pintinho";
 "daily.achievement.bird.level2" = "Pardal";
 "daily.achievement.bird.level3" = "Águia";
 "daily.achievement.bird.level4" = "Coruja Sábia";
 
-/* AppTheme.swift — Ocean theme tier names */
+/* AppTheme.swift, Ocean theme tier names */
 "daily.achievement.ocean.level1" = "Peixinho";
 "daily.achievement.ocean.level2" = "Golfinho";
 "daily.achievement.ocean.level3" = "Água-viva";
 "daily.achievement.ocean.level4" = "Baleia Azul";
 
-/* AppTheme.swift — Dragon theme tier names */
+/* AppTheme.swift, Dragon theme tier names */
 "daily.achievement.dragon.level1" = "Ovinho";
 "daily.achievement.dragon.level2" = "Lagarto";
 "daily.achievement.dragon.level3" = "Dragão";
 "daily.achievement.dragon.level4" = "Dragão Ancião";
 
-/* AppTheme.swift — Dragon theme tier names — feminino */
+/* AppTheme.swift, Dragon theme tier names, feminino */
 "daily.achievement.dragon.level1.fem" = "Ovinha";
 "daily.achievement.dragon.level2.fem" = "Lagartixa";
 "daily.achievement.dragon.level3.fem" = "Dragoa";
 "daily.achievement.dragon.level4.fem" = "Dragoa Anciã";
 
-/* AppTheme.swift — Horse theme tier names */
+/* AppTheme.swift, Horse theme tier names */
 "daily.achievement.horse.level1" = "Cavalinho";
 "daily.achievement.horse.level2" = "Unicórnio";
 "daily.achievement.horse.level3" = "Cavalo Fitness";
 "daily.achievement.horse.level4" = "Cavaludo";
 
-/* AppTheme.swift — Horse theme tier names — feminino */
+/* AppTheme.swift, Horse theme tier names, feminino */
 "daily.achievement.horse.level1.fem" = "Éguinha pocotó";
 "daily.achievement.horse.level2.fem" = "Unicórnia";
 "daily.achievement.horse.level3.fem" = "Cavala Fitness";
 "daily.achievement.horse.level4.fem" = "Cavaluda";
 
-/* AppTheme.swift — Primata theme tier names (enum case ainda é `.monkey` por compatibilidade) */
+/* AppTheme.swift, Primata theme tier names (enum case ainda é `.monkey` por compatibilidade) */
 "daily.achievement.monkey.level1" = "Primatinha";
 "daily.achievement.monkey.level2" = "Primata Ativo";
 "daily.achievement.monkey.level3" = "Primata Forte";
 "daily.achievement.monkey.level4" = "Primata Mestre";
 
-/* AppTheme.swift — Theme display names (fem = feminino para PT-BR) */
+/* AppTheme.swift, Theme display names (fem = feminino para PT-BR) */
 "app.theme.cat" = "Gato";
 "app.theme.cat.fem" = "Gata";
 "app.theme.dog" = "Cachorro";
@@ -135,7 +135,7 @@
 "achievements.empty.title" = "Nenhuma conquista ainda.";
 "achievements.empty.description" = "No fim do dia irá desbloquear sua conquista aqui.";
 
-/* StreakBonus — AchievementsView.swift */
+/* StreakBonus, AchievementsView.swift */
 "achievements.daily.row.description" = "Completou %d%% das metas diárias.";
 "streak.bonus.weekly.level3.title" = "Semana Fitness";
 "streak.bonus.weekly.level4.title" = "Semana Musculosa";
@@ -185,7 +185,7 @@
 "watch.stats.syncing" = "Abra o Gym Nutshell no iPhone para ver as estatísticas.";
 "watch.stats.recent" = "Recentes";
 
-/* ProgressOverView.swift — stats rows and physical data */
+/* ProgressOverView.swift, stats rows and physical data */
 "profile.stats.days" = "Dias";
 "profile.stats.points" = "Pontos";
 "profile.stats.bonuses" = "Bônus";
@@ -208,7 +208,7 @@
 "settings.about.feedback" = "Enviar feedback";
 "settings.about.description" = "Gym Nutshell são suas metas diárias da academia em resumo.\n\nMarque, acompanhe e veja a constância virar resultado.";
 
-/* AboutView — entrada do Tip Jar */
+/* AboutView, entrada do Tip Jar */
 "settings.about.support.header" = "Apoie o desenvolvedor";
 "settings.about.support.button" = "Deixar uma gorjeta";
 
@@ -254,7 +254,7 @@
 /* BackupSettingsView.swift */
 "settings.backup.nav.title" = "Backup";
 "settings.backup.section.data" = "Local";
-"settings.backup.section.footer" = "A exportação e importação local funciona através de um arquivo `.json`.";
+"settings.backup.section.footer" = "A exportação e importação local funciona através de um arquivo .json.";
 "settings.backup.export" = "Exportar backup";
 "settings.backup.import" = "Importar backup";
 "settings.backup.import.alert.title" = "Substituir dados?";
@@ -340,7 +340,7 @@
 "settings.section.about" = "Sobre";
 
 
-/* GymNutshellApp.swift — DataStoreErrorView */
+/* GymNutshellApp.swift, DataStoreErrorView */
 "app.error.dataStore.title" = "Algo deu errado";
 "app.error.dataStore.message" = "O Gym Nutshell não conseguiu carregar seus dados.\nForce o fechamento do app e abra novamente.";
 "settings.about.link" = "Gym Nutshell";
@@ -437,7 +437,7 @@
 "today.metric.fats" = "Gordura Boa";
 "today.metric.fiber" = "Fibras";
 
-/* TodayHeroView.swift — frase de próximo nível */
+/* TodayHeroView.swift, frase de próximo nível */
 "today.max.level" = "Nível máximo atingido hoje!";
 
 /* DailyTierView.swift */
@@ -447,10 +447,10 @@
 "today.tier.level.4" = "Nível 4";
 "today.tier.label.achievement" = "Conquista";
 
-/* TodayProgressRingView.swift — label */
+/* TodayProgressRingView.swift, label */
 "today.ring.label.progresso" = "Progresso";
 /* Tier button label combina o cabeçalho "Conquista de hoje" com o nome do tier.
-   O emoji fica oculto (decorativo) — evita "Galo, Galo". */
+   O emoji fica oculto (decorativo), evita "Galo, Galo". */
 "today.tier.a11y.label" = "Conquista de hoje, %2$@";
 
 /* TodayProgressRingView.swift */
@@ -461,7 +461,7 @@
 
 /* CheckinGoalRowView.swift */
 
-/* TodayView.swift — botão de data */
+/* TodayView.swift, botão de data */
 "today.hero.date.a11y.label" = "Data de hoje, %@";
 "today.hero.date.a11y.hint" = "Toque para abrir o histórico de notificações.";
 "today.greeting.morning"   = "Bom dia!";
@@ -478,7 +478,7 @@
 /* WelcomeFitnessGoalStep.swift */
 "welcome.step.goal.title" = "Seu objetivo";
 "welcome.step.goal.info.choose" = "Escolha o que melhor descreve seu objetivo atual.";
-/* (mantido — o texto já usa apenas "objetivo") */
+/* (mantido, o texto já usa apenas "objetivo") */
 "welcome.step.goal.info.editable" = "O objetivo pode ser alterado em ajustes do app.";
 
 
@@ -573,7 +573,7 @@
 
 /* EditCheckinDescView.swift */
 
-/* AppTheme — Categorias */
+/* AppTheme, Categorias */
 "app.theme.category.sport" = "Esporte";
 "app.theme.category.animals" = "Animais";
 "app.theme.category.elements" = "Elementos & Natureza";
@@ -582,7 +582,7 @@
 "app.theme.category.warrior.fem" = "Heroína";
 "app.theme.category.space" = "Espaço";
 
-/* AppTheme — Gym (Academia) */
+/* AppTheme, Gym (Academia) */
 "app.theme.gym" = "Academia";
 "app.theme.running" = "Corrida";
 "daily.achievement.running.level1" = "Caminhante";
@@ -600,7 +600,7 @@
 "daily.achievement.gym.level4" = "Musculoso";
 "daily.achievement.gym.level4.fem" = "Musculosa";
 
-/* AppTheme — Fire */
+/* AppTheme, Fire */
 "app.theme.fire" = "Fogo";
 "daily.achievement.fire.level1" = "Velinha";
 "daily.achievement.fire.level2" = "Chama Viva";
@@ -609,28 +609,28 @@
 "daily.achievement.fire.level4" = "Solar";
 "daily.achievement.fire.level4.fem" = "Estrela Diva";
 
-/* AppTheme — Plant */
+/* AppTheme, Plant */
 "app.theme.plant" = "Floresta";
 "daily.achievement.plant.level1" = "Brotinho";
 "daily.achievement.plant.level2" = "Erva";
 "daily.achievement.plant.level3" = "Árvore Grande";
 "daily.achievement.plant.level4" = "Árvore de Natal";
 
-/* AppTheme — Champion */
+/* AppTheme, Champion */
 "app.theme.champion" = "Medalha";
 "daily.achievement.champion.level1" = "Bronze";
 "daily.achievement.champion.level2" = "Prata";
 "daily.achievement.champion.level3" = "Ouro";
 "daily.achievement.champion.level4" = "Diamante";
 
-/* AppTheme — Number */
+/* AppTheme, Number */
 "app.theme.number" = "Números";
 "daily.achievement.number.level1" = "Um";
 "daily.achievement.number.level2" = "Dois";
 "daily.achievement.number.level3" = "Três";
 "daily.achievement.number.level4" = "Quatro";
 
-/* AppTheme — Doctor (Médico/Médica) */
+/* AppTheme, Doctor (Médico/Médica) */
 "app.theme.doctor" = "Médico";
 "app.theme.doctor.fem" = "Médica";
 "daily.achievement.doctor.level1" = "Aprendiz";
@@ -640,7 +640,7 @@
 "daily.achievement.doctor.level4" = "Doutor";
 "daily.achievement.doctor.level4.fem" = "Doutora";
 
-/* AppTheme — Ninja (Lutador/Lutadora) */
+/* AppTheme, Ninja (Lutador/Lutadora) */
 "app.theme.ninja" = "Lutador";
 "app.theme.ninja.fem" = "Lutadora";
 "daily.achievement.ninja.level1" = "Aprendiz";
@@ -649,14 +649,14 @@
 "daily.achievement.ninja.level4" = "Super";
 "daily.achievement.ninja.level4.fem" = "Super";
 
-/* AppTheme — Astronaut (Exploração) */
+/* AppTheme, Astronaut (Exploração) */
 "app.theme.astronaut" = "Exploração";
 "daily.achievement.astronaut.level1" = "Satélite";
 "daily.achievement.astronaut.level2" = "Astronauta";
 "daily.achievement.astronaut.level3" = "Foguetão";
 "daily.achievement.astronaut.level4" = "Disco Voador";
 
-/* AppTheme — Celestial */
+/* AppTheme, Celestial */
 "app.theme.celestial" = "Corpos Celestes";
 "daily.achievement.celestial.level1" = "Cometa";
 "daily.achievement.celestial.level2" = "Lua";
@@ -664,7 +664,7 @@
 "daily.achievement.celestial.level4" = "Saturno";
 
 
-/* AppAccentColor.swift — Nomes de cores */
+/* AppAccentColor.swift, Nomes de cores */
 "color.red"    = "Vermelho";
 "color.blue"   = "Azul";
 "color.purple" = "Roxo";
@@ -680,7 +680,7 @@
 "settings.color.subtitle" = "Cor de destaque usada em todo o app";
 
 
-/* TierInfoView.swift / ProgressRingInfoView.swift / StreakBonusInfoView.swift — links em Settings > Sobre */
+/* TierInfoView.swift / ProgressRingInfoView.swift / StreakBonusInfoView.swift, links em Settings > Sobre */
 "settings.about.achievement"  = "Conquista do dia";
 "settings.about.progressRing" = "Anel de Progresso";
 "settings.about.streakBonus"  = "Bônus de Sequência";
@@ -736,7 +736,7 @@
 "settings.notifications.interval.stepper"  = "A cada";
 "settings.notifications.interval.value"    = "%d min";
 
-/* NotificationIntervalEditView — seletor de som */
+/* NotificationIntervalEditView, seletor de som */
 "settings.notifications.sound.header"      = "Som";
 "settings.notifications.sound.label"       = "Som da notificação";
 "settings.notifications.sound.footer"      = "A opção Padrão toca o som escolhido em Ajustes → Notificações → Gym Nutshell → Sons (Tri-tone, Note, Chord, etc.). Silencioso desativa o som apenas neste app.";
@@ -744,7 +744,7 @@
 "notifications.sound.default"              = "Padrão";
 "notifications.sound.silent"               = "Silencioso";
 
-/* NotificationKind — título / descrição na lista + corpo da notificação + footer */
+/* NotificationKind, título / descrição na lista + corpo da notificação + footer */
 "notifications.kind.progress.title"         = "Progresso";
 "notifications.kind.progress.description"   = "Quanto falta pra sua próxima conquista do dia.";
 "notifications.kind.progress.body"          = "Continue assim! Cada meta conta pra sua próxima conquista.";
@@ -820,7 +820,7 @@
 
 /* Metas personalizadas */
 "notifications.custom.description"          = "Lembretes pra bater a meta do dia.";
-"notifications.custom.body"                 = "Hora de registrar %@ — continue rumo à meta do dia.";
+"notifications.custom.body"                 = "Hora de registrar %@, continue rumo à meta do dia.";
 "notifications.custom.footer"               = "Lembretes periódicos param quando você atinge a meta do dia dessa meta personalizada.";
 "notifications.history.delete" = "Apagar";
 
@@ -830,26 +830,26 @@
 "settings.orientation.footer" = "Escolha como o app deve responder à rotação do dispositivo.";
 
 
-/* MARK: - Acessibilidade (VoiceOver) — helpers em A11yHelpers.swift */
+/* MARK: - Acessibilidade (VoiceOver), helpers em A11yHelpers.swift */
 
-/* Faixas de progresso — substituem o sinal de cor para quem não enxerga */
+/* Faixas de progresso, substituem o sinal de cor para quem não enxerga */
 "a11y.band.red"    = "faixa vermelha, longe do objetivo";
 "a11y.band.orange" = "faixa laranja, em andamento";
 "a11y.band.green"  = "faixa verde, indo muito bem";
 "a11y.band.cyan"   = "faixa ciano, quase lá";
 "a11y.band.blue"   = "faixa azul, objetivo concluído";
 
-/* Frases genéricas de progresso — faixa removida do value após teste com usuário */
+/* Frases genéricas de progresso, faixa removida do value após teste com usuário */
 "a11y.percent.format"          = "%d por cento";
 "a11y.progress.value.format"   = "%d por cento concluído";
 
-/* Tracking goal row — value enxuto, sem percentual nem faixa */
+/* Tracking goal row, value enxuto, sem percentual nem faixa */
 "a11y.goalrow.value.format"    = "%1$d de %2$d %3$@ concluído";
 "a11y.goalrow.value.restday"   = "no modo dia de descanso, meta cumprida";
 "a11y.goalrow.a11y.label"      = "Meta %@";
 "a11y.slider.label.format"     = "Controle deslizante %@";
 
-/* Hint genérico de "abrir detalhes" — anel e tier */
+/* Hint genérico de "abrir detalhes", anel e tier */
 "a11y.hint.more.info"          = "Toque para mais informações.";
 
 /* Header colapsável de categoria (TodayView) */
@@ -868,17 +868,17 @@
 "a11y.hint.increment" = "Toque para aumentar.";
 "a11y.hint.decrement" = "Toque para diminuir.";
 
-/* Toggle de dia de descanso — label reflete on/off, hint descreve a ação */
+/* Toggle de dia de descanso, label reflete on/off, hint descreve a ação */
 "a11y.hint.restday.activate"   = "Toque para ativar o dia de descanso.";
 "a11y.hint.restday.deactivate" = "Toque para sair do modo dia de descanso.";
 
-/* Sheets de informação — helpers de combine de linha */
+/* Sheets de informação, helpers de combine de linha */
 "a11y.ringinfo.color.row.format"  = "%1$@, faixa %2$@";
 "a11y.tierinfo.row.format"        = "%1$@, %2$@, nível %3$d";
 "a11y.bonusinfo.row.format"       = "%1$@, %2$@, %3$d pontos";
 
 
-/* MARK: - Acessibilidade (Fase 2 — Achievements + ProgressOver) */
+/* MARK: - Acessibilidade (Fase 2, Achievements + ProgressOver) */
 
 /* Célula de calendário com nome do tier ou do bônus falado */
 "a11y.calendar.day.tier.format"        = "%1$@, conquistado: %2$@";
@@ -895,7 +895,7 @@
 "a11y.month.previous" = "Mês anterior";
 "a11y.month.next"     = "Próximo mês";
 
-/* AchievementsView — linhas do histórico */
+/* AchievementsView, linhas do histórico */
 "a11y.record.row.daily.format"  = "%1$@, %2$@, %3$d por cento, %4$d pontos";
 "a11y.record.row.bonus.format"  = "%1$@, %2$@, %3$d pontos de bônus";
 "a11y.record.row.hint"          = "Toque para ver detalhes.";
@@ -903,10 +903,10 @@
 "a11y.record.edit.label"        = "Editar registro";
 "a11y.record.edit.hint" = "Toque para editar.";
 
-/* RecordDetail / EditToday — card de cabeçalho */
+/* RecordDetail / EditToday, card de cabeçalho */
 "a11y.record.header.format"     = "%1$@, %2$@, %3$d por cento, nível %4$d";
 
-/* ProgressOverView — cards de estatística */
+/* ProgressOverView, cards de estatística */
 "a11y.stats.days.label"            = "Dias";
 "a11y.stats.days.value.format"     = "%d dias";
 "a11y.stats.days.hint" = "Toque para abrir o calendário de hoje.";
@@ -916,20 +916,20 @@
 "a11y.stats.bonuses.value.format"  = "%d bônus";
 "a11y.stats.bonuses.hint" = "Toque para mais informações.";
 
-/* ProgressOverView — linhas dentro dos cards */
+/* ProgressOverView, linhas dentro dos cards */
 "a11y.stats.tier.row.format"     = "%1$@, %2$d dias";
 "a11y.stats.bonus.row.format"    = "%1$@, %2$d vezes";
 "a11y.stats.activity.row.format" = "%1$@, %2$d dias";
 "a11y.stats.goals.row.format"    = "%1$@, %2$d ativas";
 
-/* ProgressOverView — hints dos cards inteiros */
+/* ProgressOverView, hints dos cards inteiros */
 "a11y.stats.card.usergoal.hint" = "Toque para mudar o objetivo.";
 "a11y.stats.card.tiers.hint"    = "Toque para ver como funcionam os níveis.";
 "a11y.stats.card.activity.hint" = "Toque para abrir o histórico de atividades.";
 "a11y.stats.card.goals.hint"    = "Toque para gerenciar metas rastreadas.";
 "a11y.stats.card.physical.hint" = "Toque para editar dados físicos.";
 
-/* ProfileRecentActivityView — botões dos dias */
+/* ProfileRecentActivityView, botões dos dias */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";
 "a11y.recent.day.empty.format"     = "%@, sem registro";
 "a11y.recent.day.today.format"     = "hoje, %1$@, %2$@";
@@ -937,7 +937,7 @@
 "a11y.recent.day.hint" = "Toque para abrir este dia.";
 
 
-/* MARK: - Acessibilidade (Fase 3 — Settings) */
+/* MARK: - Acessibilidade (Fase 3, Settings) */
 
 /* Estado de seleção genérico */
 "a11y.selected"     = "selecionado";
@@ -954,17 +954,17 @@
 /* Picker de objetivo fitness (UserGoalPickerView) */
 "a11y.usergoal.hint" = "Toque para escolher este objetivo.";
 
-/* Tracking goals — botões só-ícone */
+/* Tracking goals, botões só-ícone */
 "a11y.button.add.goal.label"     = "Nova meta de rastreio";
 "a11y.button.add.goal.hint" = "Toque para criar uma nova meta.";
 "a11y.button.remove.goal.label"  = "Remover meta";
 "a11y.button.restore.goal.label" = "Restaurar meta";
 
-/* Categorias — botão de lápis */
+/* Categorias, botão de lápis */
 "a11y.button.edit.category.label" = "Editar categoria";
 "a11y.button.edit.category.hint" = "Toque para editar esta categoria.";
 
-/* Linhas de notificação — botão de lápis */
+/* Linhas de notificação, botão de lápis */
 "a11y.button.edit.notification.label" = "Editar notificação";
 "a11y.button.edit.notification.hint" = "Toque para editar as notificações.";
 
@@ -988,7 +988,7 @@
 "a11y.section.collapsible.hint" = "Toque para recolher ou expandir.";
 
 
-/* MARK: - Acessibilidade (Fase 4 — Welcome / onboarding) */
+/* MARK: - Acessibilidade (Fase 4, Welcome / onboarding) */
 
 "a11y.welcome.progress.format"          = "Passo %1$d de %2$d";
 "a11y.welcome.back.button"              = "Voltar ao passo anterior";
@@ -998,7 +998,7 @@
 "a11y.welcome.optional.remove.hint" = "Toque para remover esta meta.";
 
 
-/* MARK: - Acessibilidade (Fase 5 — Watch app) */
+/* MARK: - Acessibilidade (Fase 5, Watch app) */
 
 /* Anel hero do Watch (ContentView) */
 "a11y.watch.hero.label"  = "Progresso diário";
@@ -1006,7 +1006,7 @@
 "a11y.watch.page.today"         = "Página de hoje";
 "a11y.watch.page.notifications" = "Página de notificações";
 
-/* Card de meta do Watch — header */
+/* Card de meta do Watch, header */
 "a11y.watch.card.expanded"   = "expandido";
 "a11y.watch.card.collapsed"  = "recolhido";
 "a11y.watch.card.hint.expand" = "Toque para expandir.";
@@ -1018,14 +1018,14 @@
 
 /* Stat card do Watch */
 
-/* Faixa "últimos 7 dias" do Watch — resumida num único elemento */
+/* Faixa "últimos 7 dias" do Watch, resumida num único elemento */
 "a11y.watch.recent.summary.format" = "%1$@: %2$d dias com conquistas em 7.";
 
 /* Linha de notificação do Watch */
 "a11y.watch.notification.row.format" = "%1$@, %2$@, %3$@";
 
 
-/* MARK: - Acessibilidade (Fase 6 — Widgets) */
+/* MARK: - Acessibilidade (Fase 6, Widgets) */
 
 /* Resumo do widget (small/medium/lockscreen, watch circular/rectangular) */
 "a11y.widget.summary.format"       = "Progresso diário, %1$@, %2$d por cento concluído";
@@ -1035,4 +1035,4 @@
 "a11y.widget.large.header.format"  = "%1$@, %2$@, %3$d por cento, %4$d pontos";
 "a11y.widget.calendar.month.format" = "%@";
 
-/* Watch widget — corner e inline já falam pelo texto natural */
+/* Watch widget, corner e inline já falam pelo texto natural */

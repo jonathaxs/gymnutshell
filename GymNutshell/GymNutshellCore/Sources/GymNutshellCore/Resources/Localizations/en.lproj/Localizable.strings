@@ -11,61 +11,61 @@
 /* MARK: - Models */
 
 
-/* DailyAchievement.swift — Cat theme (default) */
+/* DailyAchievement.swift, Cat theme (default) */
 "daily.achievement.level1" = "Little Cat";
 "daily.achievement.level2" = "Fitness Cat";
 "daily.achievement.level3" = "Big Cat";
 "daily.achievement.level4" = "Leader Cat";
 
-/* AppTheme.swift — Dog theme tier names */
+/* AppTheme.swift, Dog theme tier names */
 "daily.achievement.dog.level1" = "Little Dog";
 "daily.achievement.dog.level2" = "Fitness Dog";
 "daily.achievement.dog.level3" = "Snoop Dog";
 "daily.achievement.dog.level4" = "The Caramel Dog";
 
-/* AppTheme.swift — Bear theme tier names */
+/* AppTheme.swift, Bear theme tier names */
 "daily.achievement.bear.level1" = "Bear Cub";
 "daily.achievement.bear.level2" = "Brown Bear";
 "daily.achievement.bear.level3" = "Polar Bear";
 "daily.achievement.bear.level4" = "Mighty Bison";
 
-/* AppTheme.swift — Dino theme tier names */
+/* AppTheme.swift, Dino theme tier names */
 "daily.achievement.dino.level1" = "Baby Turtle";
 "daily.achievement.dino.level2" = "Crocodile";
 "daily.achievement.dino.level3" = "T-Rex";
 "daily.achievement.dino.level4" = "Big Dino";
 
-/* AppTheme.swift — Bird theme tier names */
+/* AppTheme.swift, Bird theme tier names */
 "daily.achievement.bird.level1" = "Little Chick";
 "daily.achievement.bird.level2" = "Bluebird";
 "daily.achievement.bird.level3" = "Eagle";
 "daily.achievement.bird.level4" = "Wise Owl";
 
-/* AppTheme.swift — Ocean theme tier names */
+/* AppTheme.swift, Ocean theme tier names */
 "daily.achievement.ocean.level1" = "Little Fish";
 "daily.achievement.ocean.level2" = "Dolphin";
 "daily.achievement.ocean.level3" = "Jellyfish";
 "daily.achievement.ocean.level4" = "Blue Whale";
 
-/* AppTheme.swift — Dragon theme tier names */
+/* AppTheme.swift, Dragon theme tier names */
 "daily.achievement.dragon.level1" = "Little Egg";
 "daily.achievement.dragon.level2" = "Lizard";
 "daily.achievement.dragon.level3" = "Dragon";
 "daily.achievement.dragon.level4" = "Elder Dragon";
 
-/* AppTheme.swift — Horse theme tier names */
+/* AppTheme.swift, Horse theme tier names */
 "daily.achievement.horse.level1" = "Colt";
 "daily.achievement.horse.level2" = "Unicorn";
 "daily.achievement.horse.level3" = "Jockey";
 "daily.achievement.horse.level4" = "Carousel Champion";
 
-/* AppTheme.swift — Primate theme tier names (enum case is still `.monkey` for compatibility) */
+/* AppTheme.swift, Primate theme tier names (enum case is still `.monkey` for compatibility) */
 "daily.achievement.monkey.level1" = "Little Primate";
 "daily.achievement.monkey.level2" = "Fit Primate";
 "daily.achievement.monkey.level3" = "Donkey Primate";
 "daily.achievement.monkey.level4" = "Master Primate";
 
-/* AppTheme.swift — Theme display names */
+/* AppTheme.swift, Theme display names */
 "app.theme.cat" = "Cat";
 "app.theme.dog" = "Dog";
 "app.theme.bear" = "Bear";
@@ -99,7 +99,7 @@
 "achievements.empty.title" = "No achievements yet";
 "achievements.empty.description" = "At the end of the day, you will unlock your achievement here.";
 
-/* StreakBonus — AchievementsView.swift */
+/* StreakBonus, AchievementsView.swift */
 "achievements.daily.row.description" = "Completed %d%% of daily goals.";
 "streak.bonus.weekly.level3.title" = "Fitness Week";
 "streak.bonus.weekly.level4.title" = "Muscular Week";
@@ -149,7 +149,7 @@
 "watch.stats.syncing" = "Open Gym Nutshell on iPhone to see statistics.";
 "watch.stats.recent" = "Recent";
 
-/* ProgressOverView.swift — stats rows and physical data */
+/* ProgressOverView.swift, stats rows and physical data */
 "profile.stats.days" = "Days";
 "profile.stats.points" = "Points";
 "profile.stats.bonuses" = "Bonuses";
@@ -172,7 +172,7 @@
 "settings.about.feedback" = "Send Feedback";
 "settings.about.description" = "Gym Nutshell is your gym daily goals in a nutshell.\n\nSet goals, track them, and watch consistency turn into results.";
 
-/* AboutView — Tip Jar entry */
+/* AboutView, Tip Jar entry */
 "settings.about.support.header" = "Support the developer";
 "settings.about.support.button" = "Leave a tip";
 
@@ -218,7 +218,7 @@
 /* BackupSettingsView.swift */
 "settings.backup.nav.title" = "Backup";
 "settings.backup.section.data" = "Local";
-"settings.backup.section.footer" = "Local export and import works through a `.json` file.";
+"settings.backup.section.footer" = "Local export and import works through a .json file.";
 "settings.backup.export" = "Export backup";
 "settings.backup.import" = "Import backup";
 "settings.backup.import.alert.title" = "Overwrite data?";
@@ -304,7 +304,7 @@
 "settings.section.about" = "About";
 
 
-/* GymNutshellApp.swift — DataStoreErrorView */
+/* GymNutshellApp.swift, DataStoreErrorView */
 "app.error.dataStore.title" = "Something went wrong";
 "app.error.dataStore.message" = "Gym Nutshell could not load your data.\nForce-close the app and reopen it to try again.";
 "settings.about.link" = "Gym Nutshell";
@@ -401,7 +401,7 @@
 "today.metric.fats" = "Good Fat";
 "today.metric.fiber" = "Fibers";
 
-/* TodayHeroView.swift — next level phrase */
+/* TodayHeroView.swift, next level phrase */
 "today.max.level" = "Maximum level reached today!";
 
 /* DailyTierView.swift */
@@ -415,7 +415,7 @@
 "today.tier.a11y.label" = "Today's achievement, %2$@";
 "today.tier.label.achievement" = "Achievement";
 
-/* TodayProgressRingView.swift — label */
+/* TodayProgressRingView.swift, label */
 "today.ring.label.progresso" = "Progress";
 
 /* TodayProgressRingView.swift */
@@ -426,7 +426,7 @@
 
 /* CheckinGoalRowView.swift */
 
-/* TodayView.swift — date hero button */
+/* TodayView.swift, date hero button */
 "today.hero.date.a11y.label" = "Today's date, %@";
 "today.hero.date.a11y.hint" = "Tap to open your notification history.";
 "today.greeting.morning"   = "Good morning!";
@@ -537,7 +537,7 @@
 
 /* EditCheckinDescView.swift */
 
-/* AppTheme — Categories */
+/* AppTheme, Categories */
 "app.theme.category.sport" = "Sport";
 "app.theme.category.animals" = "Animals";
 "app.theme.category.elements" = "Elements & Nature";
@@ -545,7 +545,7 @@
 "app.theme.category.warrior" = "Hero";
 "app.theme.category.space" = "Space";
 
-/* AppTheme — Gym */
+/* AppTheme, Gym */
 "app.theme.gym" = "Gym";
 "app.theme.running" = "Running";
 "daily.achievement.running.level1" = "Walker";
@@ -558,56 +558,56 @@
 "daily.achievement.gym.level3" = "Gym Rat";
 "daily.achievement.gym.level4" = "Muscly";
 
-/* AppTheme — Fire */
+/* AppTheme, Fire */
 "app.theme.fire" = "Fire";
 "daily.achievement.fire.level1" = "Candle";
 "daily.achievement.fire.level2" = "Flame";
 "daily.achievement.fire.level3" = "Volcano";
 "daily.achievement.fire.level4" = "Solar";
 
-/* AppTheme — Plant */
+/* AppTheme, Plant */
 "app.theme.plant" = "Forest";
 "daily.achievement.plant.level1" = "Little Sprout";
 "daily.achievement.plant.level2" = "Herb";
 "daily.achievement.plant.level3" = "Big Tree";
 "daily.achievement.plant.level4" = "Christmas Tree";
 
-/* AppTheme — Champion */
+/* AppTheme, Champion */
 "app.theme.champion" = "Medal";
 "daily.achievement.champion.level1" = "Bronze";
 "daily.achievement.champion.level2" = "Silver";
 "daily.achievement.champion.level3" = "Gold";
 "daily.achievement.champion.level4" = "Diamond";
 
-/* AppTheme — Number */
+/* AppTheme, Number */
 "app.theme.number" = "Numbers";
 "daily.achievement.number.level1" = "One";
 "daily.achievement.number.level2" = "Two";
 "daily.achievement.number.level3" = "Three";
 "daily.achievement.number.level4" = "Four";
 
-/* AppTheme — Doctor */
+/* AppTheme, Doctor */
 "app.theme.doctor" = "Doctor";
 "daily.achievement.doctor.level1" = "Apprentice";
 "daily.achievement.doctor.level2" = "Beginner";
 "daily.achievement.doctor.level3" = "Graduate";
 "daily.achievement.doctor.level4" = "Doctor Who";
 
-/* AppTheme — Ninja (Fighter) */
+/* AppTheme, Ninja (Fighter) */
 "app.theme.ninja" = "Fighter";
 "daily.achievement.ninja.level1" = "Trainee";
 "daily.achievement.ninja.level2" = "Swordsman";
 "daily.achievement.ninja.level3" = "Ninja";
 "daily.achievement.ninja.level4" = "Super";
 
-/* AppTheme — Astronaut (Exploration) */
+/* AppTheme, Astronaut (Exploration) */
 "app.theme.astronaut" = "Exploration";
 "daily.achievement.astronaut.level1" = "Satellite";
 "daily.achievement.astronaut.level2" = "Astronaut";
 "daily.achievement.astronaut.level3" = "Space rocket";
 "daily.achievement.astronaut.level4" = "Flying Saucer";
 
-/* AppTheme — Celestial */
+/* AppTheme, Celestial */
 "app.theme.celestial" = "Celestial Bodies";
 "daily.achievement.celestial.level1" = "Comet";
 "daily.achievement.celestial.level2" = "Moon";
@@ -615,7 +615,7 @@
 "daily.achievement.celestial.level4" = "Saturn";
 
 
-/* AppAccentColor.swift — Color names */
+/* AppAccentColor.swift, Color names */
 "color.red"    = "Red";
 "color.blue"   = "Blue";
 "color.purple" = "Purple";
@@ -631,7 +631,7 @@
 "settings.color.subtitle" = "Accent color used throughout the app";
 
 
-/* TierInfoView.swift / ProgressRingInfoView.swift — links in Settings > About */
+/* TierInfoView.swift / ProgressRingInfoView.swift, links in Settings > About */
 "settings.about.achievement"  = "Achievement";
 "settings.about.progressRing" = "Progress Ring";
 "settings.about.streakBonus"  = "Streak Bonuses";
@@ -687,7 +687,7 @@
 "settings.notifications.interval.stepper"  = "Every";
 "settings.notifications.interval.value"    = "%d min";
 
-/* NotificationIntervalEditView — sound picker */
+/* NotificationIntervalEditView, sound picker */
 "settings.notifications.sound.header"      = "Sound";
 "settings.notifications.sound.label"       = "Notification sound";
 "settings.notifications.sound.footer"      = "The Default option plays the tone you picked in iOS Settings → Notifications → Gym Nutshell → Sounds (Tri-tone, Note, Chord, etc.). Silent disables the sound only for this app.";
@@ -695,7 +695,7 @@
 "notifications.sound.default"              = "Default";
 "notifications.sound.silent"               = "Silent";
 
-/* NotificationKind — title / description on list + body of notification + footer */
+/* NotificationKind, title / description on list + body of notification + footer */
 "notifications.kind.progress.title"         = "Progress";
 "notifications.kind.progress.description"   = "How much is left to your next daily achievement.";
 "notifications.kind.progress.body"          = "Keep going! Every goal counts toward your next achievement.";
@@ -771,7 +771,7 @@
 
 /* Custom goals */
 "notifications.custom.description"          = "Reminders to meet today's goal.";
-"notifications.custom.body"                 = "Time to log %@ — keep moving toward today's goal.";
+"notifications.custom.body"                 = "Time to log %@, keep moving toward today's goal.";
 "notifications.custom.footer"               = "Periodic reminders stop once you hit today's goal for this custom tracker.";
 "notifications.history.delete" = "Delete";
 
@@ -781,20 +781,20 @@
 "settings.orientation.footer" = "Choose how the app should respond to device rotation.";
 
 
-/* MARK: - Accessibility (VoiceOver) — shared helpers in A11yHelpers.swift */
+/* MARK: - Accessibility (VoiceOver), shared helpers in A11yHelpers.swift */
 
-/* Progress band — color-coded zones spoken instead of just relying on the visual hue */
+/* Progress band, color-coded zones spoken instead of just relying on the visual hue */
 "a11y.band.red"    = "red zone, far from goal";
 "a11y.band.orange" = "orange zone, in progress";
 "a11y.band.green"  = "green zone, doing great";
 "a11y.band.cyan"   = "cyan zone, almost there";
 "a11y.band.blue"   = "blue zone, goal reached";
 
-/* Generic progress phrasing — band dropped from progress value after user testing */
+/* Generic progress phrasing, band dropped from progress value after user testing */
 "a11y.percent.format"          = "%d percent";
 "a11y.progress.value.format"   = "%d percent completed";
 
-/* Tracking goal row — header value drops percent + band to stay concise */
+/* Tracking goal row, header value drops percent + band to stay concise */
 "a11y.goalrow.value.format"    = "%1$d of %2$d %3$@ completed";
 "a11y.goalrow.value.restday"   = "on rest day mode, goal completed";
 "a11y.goalrow.a11y.label"      = "%@ goal";
@@ -819,17 +819,17 @@
 "a11y.hint.increment" = "Tap to increase.";
 "a11y.hint.decrement" = "Tap to decrease.";
 
-/* Rest day toggle — label reflects on/off, hint describes the action */
+/* Rest day toggle, label reflects on/off, hint describes the action */
 "a11y.hint.restday.activate"   = "Tap to activate rest day.";
 "a11y.hint.restday.deactivate" = "Tap to leave rest day mode.";
 
-/* Info sheets — row combine helpers */
+/* Info sheets, row combine helpers */
 "a11y.ringinfo.color.row.format"  = "%1$@, range %2$@";
 "a11y.tierinfo.row.format"        = "%1$@, %2$@, level %3$d";
 "a11y.bonusinfo.row.format"       = "%1$@, %2$@, %3$d points";
 
 
-/* MARK: - Accessibility (Phase 2 — Achievements + ProgressOver) */
+/* MARK: - Accessibility (Phase 2, Achievements + ProgressOver) */
 
 /* Calendar cell with a tier or bonus name spoken */
 "a11y.calendar.day.tier.format"        = "%1$@, achieved: %2$@";
@@ -857,7 +857,7 @@
 /* RecordDetail / EditToday header card */
 "a11y.record.header.format"     = "%1$@, %2$@, %3$d percent, level %4$d";
 
-/* ProgressOverView — stats cards */
+/* ProgressOverView, stats cards */
 "a11y.stats.days.label"            = "Days";
 "a11y.stats.days.value.format"     = "%d days";
 "a11y.stats.days.hint" = "Tap to open today's calendar.";
@@ -867,20 +867,20 @@
 "a11y.stats.bonuses.value.format"  = "%d bonuses";
 "a11y.stats.bonuses.hint" = "Tap for more information.";
 
-/* ProgressOverView — list rows inside cards */
+/* ProgressOverView, list rows inside cards */
 "a11y.stats.tier.row.format"     = "%1$@, %2$d days";
 "a11y.stats.bonus.row.format"    = "%1$@, %2$d times";
 "a11y.stats.activity.row.format" = "%1$@, %2$d days";
 "a11y.stats.goals.row.format"    = "%1$@, %2$d active";
 
-/* ProgressOverView — whole-card tap hints */
+/* ProgressOverView, whole-card tap hints */
 "a11y.stats.card.usergoal.hint" = "Tap to change goal.";
 "a11y.stats.card.tiers.hint"    = "Tap to see how tiers work.";
 "a11y.stats.card.activity.hint" = "Tap to open the activity log.";
 "a11y.stats.card.goals.hint"    = "Tap to manage tracked goals.";
 "a11y.stats.card.physical.hint" = "Tap to edit physical data.";
 
-/* ProfileRecentActivityView — day buttons */
+/* ProfileRecentActivityView, day buttons */
 "a11y.recent.day.with.tier.format" = "%1$@, %2$@";
 "a11y.recent.day.empty.format"     = "%@, no record";
 "a11y.recent.day.today.format"     = "today, %1$@, %2$@";
@@ -888,7 +888,7 @@
 "a11y.recent.day.hint" = "Tap to open this day.";
 
 
-/* MARK: - Accessibility (Phase 3 — Settings) */
+/* MARK: - Accessibility (Phase 3, Settings) */
 
 /* Generic selection state */
 "a11y.selected"     = "selected";
@@ -905,17 +905,17 @@
 /* Fitness goal picker (UserGoalPickerView) */
 "a11y.usergoal.hint" = "Tap to select this goal.";
 
-/* Tracking goals settings — image-only buttons */
+/* Tracking goals settings, image-only buttons */
 "a11y.button.add.goal.label"     = "New tracking goal";
 "a11y.button.add.goal.hint" = "Tap to create a new goal.";
 "a11y.button.remove.goal.label"  = "Remove goal";
 "a11y.button.restore.goal.label" = "Restore goal";
 
-/* Categories settings — pencil button */
+/* Categories settings, pencil button */
 "a11y.button.edit.category.label" = "Edit category";
 "a11y.button.edit.category.hint" = "Tap to edit this category.";
 
-/* Notification rows — pencil button */
+/* Notification rows, pencil button */
 "a11y.button.edit.notification.label" = "Edit notification";
 "a11y.button.edit.notification.hint" = "Tap to edit notification settings.";
 
@@ -939,7 +939,7 @@
 "a11y.section.collapsible.hint" = "Tap to collapse or expand.";
 
 
-/* MARK: - Accessibility (Phase 4 — Welcome / onboarding) */
+/* MARK: - Accessibility (Phase 4, Welcome / onboarding) */
 
 "a11y.welcome.progress.format"          = "Step %1$d of %2$d";
 "a11y.welcome.back.button"              = "Back to previous step";
@@ -949,9 +949,9 @@
 "a11y.welcome.optional.remove.hint" = "Tap to remove this goal.";
 
 
-/* MARK: - Accessibility (Phase 5 — Watch app) */
+/* MARK: - Accessibility (Phase 5, Watch app) */
 
-/* Watch hero ring (ContentView) — same wording as the iPhone ring */
+/* Watch hero ring (ContentView), same wording as the iPhone ring */
 "a11y.watch.hero.label"  = "Daily progress";
 "a11y.watch.page.stats"         = "Stats page";
 "a11y.watch.page.today"         = "Today page";
@@ -969,14 +969,14 @@
 
 /* Watch stats card */
 
-/* Watch recent strip — collapsed into a single summary */
+/* Watch recent strip, collapsed into a single summary */
 "a11y.watch.recent.summary.format" = "%1$@: %2$d days with achievements out of 7.";
 
 /* Watch notification row */
 "a11y.watch.notification.row.format" = "%1$@, %2$@, %3$@";
 
 
-/* MARK: - Accessibility (Phase 6 — Widgets) */
+/* MARK: - Accessibility (Phase 6, Widgets) */
 
 /* Widget summary (small/medium/lockscreen, watch circular/rectangular) */
 "a11y.widget.summary.format"       = "Daily progress, %1$@, %2$d percent completed";
@@ -986,4 +986,4 @@
 "a11y.widget.large.header.format"  = "%1$@, %2$@, %3$d percent, %4$d points";
 "a11y.widget.calendar.month.format" = "%@";
 
-/* Watch widget — corner and inline don't need extra labels (text already speaks) */
+/* Watch widget, corner and inline don't need extra labels (text already speaks) */

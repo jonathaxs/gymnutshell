@@ -11,7 +11,7 @@ import SwiftUI
 import GymNutshellCore
 
 struct SettingsView: View {
-    // Cor de destaque e tema — usados pra colorir ícones e passar ao TierInfoView.
+    // Cor de destaque e tema, usados pra colorir ícones e passar ao TierInfoView.
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     @AppStorage(AppTheme.storageKey) private var selectedTheme: AppTheme = .gym
     @AppStorage(UserProfile.sexKey) private var sex: String = "male"
@@ -31,12 +31,12 @@ struct SettingsView: View {
     var body: some View {
         // GeometryReader detecta a largura disponível pra forçar o split no iPhone landscape (≥700 pt).
         // NavigationSplitView respeita horizontalSizeClass; ao sobrescrever pra .regular em telas largas
-        // o split é exibido mesmo no iPhone landscape — onde o size class nativo ainda seria .compact.
+        // o split é exibido mesmo no iPhone landscape, onde o size class nativo ainda seria .compact.
         GeometryReader { geo in
         NavigationSplitView {
             // Sidebar: lista de seções de settings.
             List {
-                // Seção Perfil — dados físicos, objetivo fitness e metas do usuário.
+                // Seção Perfil, dados físicos, objetivo fitness e metas do usuário.
                 Section(header: Text(String(localized: "settings.section.edit", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
                     NavigationLink {
                         PhysicalDataSettingsView()
@@ -60,21 +60,21 @@ struct SettingsView: View {
 
                 // Seção de preferências do usuário.
                 Section(header: Text(String(localized: "settings.section.preferences", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
-                    // Tema — controla os emojis de mascote e nomes de nível em todo o app.
+                    // Tema, controla os emojis de mascote e nomes de nível em todo o app.
                     NavigationLink {
                         ThemeSettingsView()
                     } label: {
                         Label(String(localized: "settings.theme.title", bundle: .gymNutshellCore), systemImage: "theatermasks")
                             .foregroundStyle(.primary)
                     }
-                    // Cores — cor de destaque independente do sexo.
+                    // Cores, cor de destaque independente do sexo.
                     NavigationLink {
                         ColorSettingsView()
                     } label: {
                         Label(String(localized: "settings.color.title", bundle: .gymNutshellCore), systemImage: "paintpalette")
                             .foregroundStyle(.primary)
                     }
-                    // Widgets — fundo personalizado pros widgets da tela inicial.
+                    // Widgets, fundo personalizado pros widgets da tela inicial.
                     NavigationLink {
                         WidgetBackgroundSettingsView()
                     } label: {
@@ -82,7 +82,7 @@ struct SettingsView: View {
                             .foregroundStyle(.primary)
                     }
 
-                    // Sistema de medidas — abre uma página de seleção dedicada.
+                    // Sistema de medidas, abre uma página de seleção dedicada.
                     NavigationLink {
                         MeasurementSettingsView()
                     } label: {
@@ -90,7 +90,7 @@ struct SettingsView: View {
                             .foregroundStyle(.primary)
                     }
 
-                    // Orientação — trava o app em retrato/paisagem/ambas.
+                    // Orientação, trava o app em retrato/paisagem/ambas.
                     // Só faz sentido no iPhone; em iPad/Mac/Vision sempre fica liberado.
                     if UIDevice.current.userInterfaceIdiom == .phone {
                         NavigationLink {
@@ -102,9 +102,9 @@ struct SettingsView: View {
                     }
                 }
 
-                // Seção Sistema — notificações, integrações de plataforma e backup.
+                // Seção Sistema, notificações, integrações de plataforma e backup.
                 Section(header: Text(String(localized: "settings.section.system", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
-                    // Notificações — configuração completa das notificações locais do app.
+                    // Notificações, configuração completa das notificações locais do app.
                     NavigationLink {
                         NotificationsSettingsView()
                     } label: {
@@ -112,7 +112,7 @@ struct SettingsView: View {
                             .foregroundStyle(.primary)
                     }
 
-                    // Apple Health — abre uma página dedicada pra sincronização de sono e auto check-in.
+                    // Apple Health, abre uma página dedicada pra sincronização de sono e auto check-in.
                     NavigationLink {
                         HealthSettingsView()
                     } label: {
@@ -120,7 +120,7 @@ struct SettingsView: View {
                             .foregroundStyle(.primary)
                     }
 
-                    // Backup — exportação/importação via iCloud e local.
+                    // Backup, exportação/importação via iCloud e local.
                     NavigationLink {
                         BackupSettingsView()
                     } label: {
@@ -128,7 +128,7 @@ struct SettingsView: View {
                             .foregroundStyle(.primary)
                     }
 
-                    // Idioma — abre Ajustes do iOS na página do Gym Nutshell (onde aparece
+                    // Idioma, abre Ajustes do iOS na página do Gym Nutshell (onde aparece
                     // o seletor "Idioma preferido" gerado automaticamente pelo sistema).
                     Button {
                         if let url = NotificationManager.systemSettingsURL {
@@ -142,14 +142,14 @@ struct SettingsView: View {
                             Image(systemName: "arrow.up.forward.app")
                                 .font(.footnote.weight(.semibold))
                                 .foregroundStyle(.tertiary)
-                                // Ícone de "abre fora" é decorativo — o Button já diz "Language".
+                                // Ícone de "abre fora" é decorativo, o Button já diz "Language".
                                 .accessibilityHidden(true)
                         }
                     }
                     .foregroundStyle(.primary)
                 }
 
-                // Seção Sobre — conquista, anel de progresso e info de versão.
+                // Seção Sobre, conquista, anel de progresso e info de versão.
                 Section(header: Text(String(localized: "settings.section.about", bundle: .gymNutshellCore)).foregroundStyle(accentColor.color)) {
                     NavigationLink {
                         AboutView()
@@ -208,7 +208,7 @@ struct SettingsView: View {
                 showBackup = true
             }
             .onAppear {
-                // TabView monta SettingsView lazy — se o deep-link chegou enquanto a view
+                // TabView monta SettingsView lazy, se o deep-link chegou enquanto a view
                 // ainda não existia, lê a flag persistente e empurra agora.
                 if UserDefaults.standard.string(forKey: "pendingSettingsRoute") == "backup" {
                     UserDefaults.standard.removeObject(forKey: "pendingSettingsRoute")
@@ -234,10 +234,10 @@ struct SettingsView: View {
         // Cor de destaque aplicada no nível do NavigationSplitView pra garantir
         // que os ícones sejam coloridos tanto no iPhone quanto no iPad.
         .tint(accentColor.color)
-        // Cor de fundo igual ao systemGroupedBackground — corrige barra de status branca no iPad (light mode).
+        // Cor de fundo igual ao systemGroupedBackground, corrige barra de status branca no iPad (light mode).
         .background(Color(.systemGroupedBackground).ignoresSafeArea())
         // Sobrescreve o size class horizontal pra forçar o split no iPhone landscape (≥700 pt).
-        // Em portrait o size class nativo (.compact) é mantido — NavigationSplitView colapsa normalmente.
+        // Em portrait o size class nativo (.compact) é mantido, NavigationSplitView colapsa normalmente.
         .environment(\.horizontalSizeClass, geo.size.width >= 700 ? .regular : .compact)
         } // GeometryReader
     }
@@ -245,7 +245,7 @@ struct SettingsView: View {
 
 // MARK: - Apple Watch instructions page
 
-/// Página com passos manuais pra instalar o app no Apple Watch — usada porque
+/// Página com passos manuais pra instalar o app no Apple Watch, usada porque
 /// a Apple não expõe URL scheme público pra abrir o app companion Watch.
 private struct AppleWatchInstructionsView: View {
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
@@ -255,7 +255,7 @@ private struct AppleWatchInstructionsView: View {
 
     var body: some View {
         List {
-            // Ícone do app — redondo, no padrão watchOS.
+            // Ícone do app, redondo, no padrão watchOS.
             Section {
                 HStack {
                     Spacer()
@@ -286,7 +286,7 @@ private struct AppleWatchInstructionsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    /// Ícone do app clipado em círculo — espelha o estilo da face do app no watchOS.
+    /// Ícone do app clipado em círculo, espelha o estilo da face do app no watchOS.
     private var appIcon: some View {
         let size: CGFloat = 80
         return Image("AboutIcon")

@@ -45,7 +45,7 @@ final class OrientationLockManager: ObservableObject {
         let prefs = UIWindowScene.GeometryPreferences.iOS(interfaceOrientations: mask)
         scene.requestGeometryUpdate(prefs) { _ in }
         // Força a hierarquia de UIViewController a reavaliar `supportedInterfaceOrientations`
-        // — sem isso, o app pode continuar mostrando a orientação anterior até a próxima rotação.
+        //, sem isso, o app pode continuar mostrando a orientação anterior até a próxima rotação.
         scene.windows.first?.rootViewController?.setNeedsUpdateOfSupportedInterfaceOrientations()
     }
 }

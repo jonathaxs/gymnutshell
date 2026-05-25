@@ -10,7 +10,7 @@
 import SwiftUI
 import GymNutshellCore
 
-/// Seção de calendário pra AchievementsView — título do mês, chevrons anterior/próximo e a grade de emojis.
+/// Seção de calendário pra AchievementsView, título do mês, chevrons anterior/próximo e a grade de emojis.
 struct AchievementsCalendarSection: View {
 
     let visibleMonthTitle: String

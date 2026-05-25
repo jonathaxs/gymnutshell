@@ -19,7 +19,7 @@ struct GoalsNotificationsSettingsView: View {
 
     @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
 
-    // Estado de colapso das categorias — chave separada das Metas pra não conflitar
+    // Estado de colapso das categorias, chave separada das Metas pra não conflitar
     // com `settings.goal.collapsed` (usado em TrackingGoalsSettingsView).
     @AppStorage("settings.notifications.goals.collapsed") private var collapsedRaw: String = ""
 
@@ -48,7 +48,7 @@ struct GoalsNotificationsSettingsView: View {
                 }
             }
 
-            // Metas personalizadas sem categoria — sempre no final, também recolhível.
+            // Metas personalizadas sem categoria, sempre no final, também recolhível.
             if !unassignedCustomGoals.isEmpty {
                 let unassignedId = "__unassigned__"
                 Section {
@@ -122,7 +122,7 @@ struct GoalsNotificationsSettingsView: View {
 
     private func rebuildCategorySections() {
         let vitaminDCategory = GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
-        // Filtra metas removidas pelo usuário em Hoje — sem isso elas continuam
+        // Filtra metas removidas pelo usuário em Hoje, sem isso elas continuam
         // listadas aqui mesmo após sumir da TodayView e do cálculo de progresso.
         let removed = RemovedItemsStore.load()
         let fixedOrder = GoalOrderStore.load().filter { !removed.contains($0) }

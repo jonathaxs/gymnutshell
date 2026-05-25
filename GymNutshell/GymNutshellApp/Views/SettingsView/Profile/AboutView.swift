@@ -22,7 +22,7 @@ struct AboutView: View {
     var body: some View {
         List {
 
-            // Seção de identidade do app — ícone real, nome e string de versão.
+            // Seção de identidade do app, ícone real, nome e string de versão.
             Section {
                 HStack {
                     Spacer()
@@ -41,7 +41,7 @@ struct AboutView: View {
                 .listRowInsets(EdgeInsets(top: 12, leading: 16, bottom: 6, trailing: 16))
             }
 
-            // Descrição do app — texto centralizado explicando o conceito.
+            // Descrição do app, texto centralizado explicando o conceito.
             Section {
                 Text(String(localized: "settings.about.description", bundle: .gymNutshellCore))
                     .font(.body)
@@ -68,7 +68,7 @@ struct AboutView: View {
                 }
             }
 
-            // Apoie o desenvolvedor — abre o Tip Jar (IAP consumível).
+            // Apoie o desenvolvedor, abre o Tip Jar (IAP consumível).
             Section(String(localized: "settings.about.support.header", bundle: .gymNutshellCore)) {
                 Button {
                     showTipJar = true

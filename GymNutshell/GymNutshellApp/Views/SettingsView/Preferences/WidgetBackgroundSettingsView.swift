@@ -15,12 +15,12 @@ import GymNutshellCore
 
 struct WidgetBackgroundSettingsView: View {
 
-    // Modo selecionado — armazenado no App Group pro widget extension ler.
+    // Modo selecionado, armazenado no App Group pro widget extension ler.
     @AppStorage(WidgetBackgroundStore.modeKey,
                 store: UserDefaults(suiteName: "group.com.jonathaxs.gymnutshell"))
     private var mode: WidgetBackgroundMode = .accent
 
-    // Cor de destaque atual — usada pelo preview quando mode == .accent.
+    // Cor de destaque atual, usada pelo preview quando mode == .accent.
     @AppStorage(AppAccentColor.storageKey) private var storedAccentRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color {
         (AppAccentColor(rawValue: storedAccentRaw) ?? .blue).color
@@ -63,7 +63,7 @@ struct WidgetBackgroundSettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 8)
                     .listRowBackground(Color.clear)
-                    // Previews puramente visuais — ocultos do VoiceOver pra evitar
+                    // Previews puramente visuais, ocultos do VoiceOver pra evitar
                     // ruído ("imagem, imagem" enquanto o usuário ajusta as opções).
                     .accessibilityHidden(true)
                 }

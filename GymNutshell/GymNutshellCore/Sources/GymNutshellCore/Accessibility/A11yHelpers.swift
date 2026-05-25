@@ -3,7 +3,7 @@
 //
 //  Propósito: Helpers centralizados para construir strings de VoiceOver
 //             (labels, values, hints) reaproveitáveis em todos os targets
-//             — iPhone app, Watch app e widgets. Toda a montagem fica aqui
+//            , iPhone app, Watch app e widgets. Toda a montagem fica aqui
 //             pra que mudar a frase de "faixa verde" não exija varrer dezenas
 //             de views.
 //
@@ -32,7 +32,7 @@ public enum A11yProgressBand: Sendable {
         }
     }
 
-    /// Frase localizada que descreve a faixa — inclui sinal de estado.
+    /// Frase localizada que descreve a faixa, inclui sinal de estado.
     /// Ex.: "faixa verde, indo muito bem".
     public var localizedDescription: String {
         let key: String
@@ -76,7 +76,7 @@ public enum A11y {
     }
 
     /// Value para um row de meta em dia de descanso. Não tem percentual nem faixa
-    /// — o estado em si já comunica que a meta está cumprida.
+    ///, o estado em si já comunica que a meta está cumprida.
     public static func goalRowRestDayValue() -> String {
         String(localized: "a11y.goalrow.value.restday", bundle: .gymNutshellCore)
     }
@@ -102,7 +102,7 @@ public enum A11y {
                 ? String(format: fmt, dateString, p, band)
                 : String(format: fmt, dateString, p, band)
         } else {
-            // sem dados — passado sem registro ou hoje ainda zerado
+            // sem dados, passado sem registro ou hoje ainda zerado
             let key: String = isToday ? "a11y.daycell.today.empty.format" : "a11y.daycell.empty.format"
             let fmt = String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
             core = String(format: fmt, dateString)
@@ -114,7 +114,7 @@ public enum A11y {
         return core
     }
 
-    /// Data falada por extenso (ex.: "sábado, 16 de maio") — sem ano por padrão
+    /// Data falada por extenso (ex.: "sábado, 16 de maio"), sem ano por padrão
     /// para reduzir verbosidade dentro de grids. Respeita a localização do bundle.
     public static func spokenDate(for date: Date) -> String {
         let df = DateFormatter()
@@ -133,7 +133,7 @@ public enum A11y {
     }
 
     /// Hint do botão OFF/ON de rest day. `currentlyOn` reflete o estado atual
-    /// — quando true (descansando), tocar sai do modo; quando false, ativa.
+    ///, quando true (descansando), tocar sai do modo; quando false, ativa.
     /// O label do botão é o próprio texto visível ("ON"/"OFF"), por isso esse
     /// helper devolve só o hint.
     public static func restDayToggleHint(currentlyOn: Bool) -> String {
@@ -141,7 +141,7 @@ public enum A11y {
         return String(localized: String.LocalizationValue(key), bundle: .gymNutshellCore)
     }
 
-    /// Hint genérico "Toque para mais informações" — usado em elementos
+    /// Hint genérico "Toque para mais informações", usado em elementos
     /// tappáveis (ring, tier) que abrem uma sheet explicativa.
     public static func moreInfoHint() -> String {
         String(localized: "a11y.hint.more.info", bundle: .gymNutshellCore)

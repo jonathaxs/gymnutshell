@@ -16,7 +16,7 @@ public enum OrderedGoalsResolver {
     /// primeiro pela ordem do `GoalCategoryOrderStore`, depois pela ordem do
     /// `GoalOrderStore` dentro de cada categoria. Respeita o modo VitaminD.
     ///
-    /// Esta é a fonte da verdade — toda view que itera metas built-in deveria
+    /// Esta é a fonte da verdade, toda view que itera metas built-in deveria
     /// passar por aqui em vez de chamar `GoalOrderStore.load()` direto.
     public static func orderedActiveBuiltinKeys() -> [String] {
         let removed = RemovedItemsStore.load()

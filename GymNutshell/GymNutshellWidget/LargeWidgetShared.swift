@@ -2,7 +2,7 @@
 //  GymNutshellWidget/LargeWidgetShared.swift
 //
 //  Propósito: Infra compartilhada pelos widgets systemLarge ("Calendário" e "Metas")
-//             — Provider de timeline, helpers de fundo/cor de texto, ring e header.
+//            , Provider de timeline, helpers de fundo/cor de texto, ring e header.
 //             Tudo aqui é interno ao target do widget.
 // ⌘
 
@@ -132,7 +132,7 @@ struct LargeHeader: View {
                     Text("\(snapshot.progressPercent)%")
                         .font(.system(size: 32, weight: .bold))
                         .foregroundStyle(textColor)
-                    Text("— \(tierPoints) pts")
+                    Text(", \(tierPoints) pts")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(textColor)
                 }

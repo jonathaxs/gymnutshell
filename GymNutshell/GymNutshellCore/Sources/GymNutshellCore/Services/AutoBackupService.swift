@@ -17,7 +17,7 @@ public enum AutoBackupService {
     public static let enabledKey = "backup.icloud.autoEnabled"
 
     /// Roda o backup automático se todas as condições estiverem atendidas.
-    /// Seguro chamar várias vezes por sessão — vira no-op depois do primeiro sucesso do dia.
+    /// Seguro chamar várias vezes por sessão, vira no-op depois do primeiro sucesso do dia.
     @MainActor
     public static func performIfNeeded(modelContext: ModelContext) async {
         guard UserDefaults.standard.bool(forKey: enabledKey) else { return }
@@ -36,7 +36,7 @@ public enum AutoBackupService {
             try await ICloudBackupManager.save(data)
             NotificationManager.shared.fireBackupCompleted()
         } catch {
-            // Falha silenciosa — o próximo foreground tenta de novo.
+            // Falha silenciosa, o próximo foreground tenta de novo.
         }
     }
 }

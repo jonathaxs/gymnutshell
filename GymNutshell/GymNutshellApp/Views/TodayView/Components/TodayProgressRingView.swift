@@ -14,11 +14,11 @@ import GymNutshellCore
 // MARK: - TodayProgressRingView
 
 // Mostra o progresso geral do dia (metas de rastreio + check-in) como um anel.
-// Pressionar causa um efeito de expansão spring com tint roxo — puramente visual, sem navegação.
+// Pressionar causa um efeito de expansão spring com tint roxo, puramente visual, sem navegação.
 struct TodayProgressRingView: View {
 
     let progress: Double
-    /// Chamado quando o usuário toca (não pressiona) o anel — abre a sheet de informação.
+    /// Chamado quando o usuário toca (não pressiona) o anel, abre a sheet de informação.
     var onTap: (() -> Void)? = nil
 
     var size: CGFloat = 108
@@ -26,7 +26,7 @@ struct TodayProgressRingView: View {
 
     /// Texto opcional renderizado acima do anel (ex.: "Progresso"). Quando presente,
     /// é incluído no mesmo subtree que escala no press e vira parte do mesmo
-    /// elemento de VoiceOver — não fala em separado.
+    /// elemento de VoiceOver, não fala em separado.
     var headerText: String? = nil
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -41,7 +41,7 @@ struct TodayProgressRingView: View {
 
     private var percentage: Int {
         // Truncação pra paridade com dailyPercentage (TodayView), widget do iPhone
-        // e Watch — todos usam .rounded(.down). Truncar é o correto pra anel:
+        // e Watch, todos usam .rounded(.down). Truncar é o correto pra anel:
         // "9%" significa "pelo menos 9% feito". Padrão Apple Activity rings.
         Int((clampedProgress * 100).rounded(.down))
     }
@@ -56,7 +56,7 @@ struct TodayProgressRingView: View {
 
     var body: some View {
         // VStack agrupa o header opcional ("Progresso") + anel. A escala / gesto /
-        // a11y ficam no VStack inteiro — header e anel sobem juntos no press e
+        // a11y ficam no VStack inteiro, header e anel sobem juntos no press e
         // viram um único "Anel de progresso diário" no VoiceOver.
         VStack(spacing: 20) {
             if let headerText {
@@ -70,7 +70,7 @@ struct TodayProgressRingView: View {
                 Circle()
                     .stroke(Color.secondary.opacity(0.2), lineWidth: lineWidth)
 
-                // Arco de progresso — começa no topo (rotacionado -90°), ponta arredondada
+                // Arco de progresso, começa no topo (rotacionado -90°), ponta arredondada
                 Circle()
                     .trim(from: 0, to: clampedProgress)
                     .stroke(ringColor, style: StrokeStyle(lineWidth: lineWidth, lineCap: .round))
@@ -86,7 +86,7 @@ struct TodayProgressRingView: View {
             }
             .frame(width: size, height: size)
         }
-        // Expande ao pressionar — header + anel juntos.
+        // Expande ao pressionar, header + anel juntos.
         .scaleEffect(isPressed ? 1.20 : 1.0)
         .animation(
             reduceMotion ? nil : .spring(response: 0.25, dampingFraction: 0.50),
@@ -102,7 +102,7 @@ struct TodayProgressRingView: View {
         .simultaneousGesture(
             TapGesture().onEnded { onTap?() }
         )
-        // Acessibilidade — anel é tappável (abre a sheet), então marca como botão.
+        // Acessibilidade, anel é tappável (abre a sheet), então marca como botão.
         // Value usa string simples "X percent completed" (sem faixa de cor) pra
         // não ficar verboso quando o usuário percorre ring → tier em sequência.
         .accessibilityElement(children: .ignore)

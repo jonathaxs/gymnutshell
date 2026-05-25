@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/ProfileView/Components/ProfileStatsRow.swift
 //
-//  Propósito: Linha com três cards de estatística — total de dias, total de pontos e contagem de bônus.
+//  Propósito: Linha com três cards de estatística, total de dias, total de pontos e contagem de bônus.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-28.
 // ⌘

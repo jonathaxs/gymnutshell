@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/AchievementsView/Components/AchievementsHistoryRows.swift
 //
-//  Propósito: Linhas da lista de histórico em Conquistas — uma para registros
+//  Propósito: Linhas da lista de histórico em Conquistas, uma para registros
 //             diários (com botão de editar quando dentro da janela) e outra para
 //             bônus de sequência.
 // ⌘
@@ -56,7 +56,7 @@ struct HistoryDailyRow: View {
                                        record.percent, record.points))
             .accessibilityHint(String(localized: "a11y.record.row.hint", bundle: .gymNutshellCore))
 
-            // Botão de edição — visível só pra registros dentro da janela editável.
+            // Botão de edição, visível só pra registros dentro da janela editável.
             if canEdit {
                 Button(action: onEdit) {
                     Image(systemName: "square.and.pencil")

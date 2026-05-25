@@ -32,7 +32,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
 
     private let center = UNUserNotificationCenter.current()
 
-    // Identifiers já gravados no histórico nesta sessão — evita duplicatas entre willPresent e didReceive.
+    // Identifiers já gravados no histórico nesta sessão, evita duplicatas entre willPresent e didReceive.
     private var loggedNotificationIdentifiers: Set<String> = []
 
     // MARK: - Setup
@@ -85,7 +85,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
               let routeRaw = userInfo["route"] as? String,
               let route = NotificationRoute(rawValue: routeRaw) else { return }
         // Evento puros (achievement, streakBonus, appleHealth, backup) são gravados no ponto de
-        // disparo — não precisam de segunda gravação aqui.
+        // disparo, não precisam de segunda gravação aqui.
         if let kind = NotificationKind(rawValue: kindIdRaw), !kind.isIntervalBased { return }
         loggedNotificationIdentifiers.insert(request.identifier)
         let title = request.content.title
@@ -127,7 +127,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
     // MARK: - Abre Ajustes do iOS
 
     /// URL pra abrir a tela do app dentro de Ajustes do iOS.
-    /// Em watchOS retorna nil — o Watch não tem tela de app específica em Settings.
+    /// Em watchOS retorna nil, o Watch não tem tela de app específica em Settings.
     /// Constante `app-settings:` é o mesmo valor de `UIApplication.openSettingsURLString`,
     /// hardcoded aqui pra manter o Core livre de UIKit.
     public static var systemSettingsURL: URL? {

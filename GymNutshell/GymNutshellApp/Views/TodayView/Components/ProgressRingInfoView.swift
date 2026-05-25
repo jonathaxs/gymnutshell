@@ -16,7 +16,7 @@ import GymNutshellCore
 struct ProgressRingInfoView: View {
 
     var isSheet: Bool = false
-    /// Percentual atual do dia (0–100) — passado pela TodayHeroView quando aberto como sheet.
+    /// Percentual atual do dia (0–100), passado pela TodayHeroView quando aberto como sheet.
     /// nil quando acessado via Settings > Sobre (sem contexto de progresso atual).
     var currentPercent: Int? = nil
 
@@ -77,7 +77,7 @@ struct ProgressRingInfoView: View {
             }
             .listRowBackground(Color.clear)
 
-            // Seção das cores — sem indicador de nível.
+            // Seção das cores, sem indicador de nível.
             Section(String(localized: "ring.info.section.colors", bundle: .gymNutshellCore)) {
                 ForEach(ringColors, id: \.label) { item in
                     HStack(spacing: 14) {

@@ -2,7 +2,7 @@
 //  GymNutshell/GymNutshellApp/Views/SettingsView/Preferences/OrientationSettingsView.swift
 //
 //  Propósito: Permite ao usuário travar a orientação do app em retrato
-//             ou aceitar ambas. Tap aplica imediato via OrientationLockManager —
+//             ou aceitar ambas. Tap aplica imediato via OrientationLockManager ,
 //             sem botão de Salvar, mesmo padrão do MeasurementSettingsView.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-25.

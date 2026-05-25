@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWatch/ContentView.swift
 //
-//  Propósito: Tela principal do Watch app — hero superior (WatchHeroView) com anel
+//  Propósito: Tela principal do Watch app, hero superior (WatchHeroView) com anel
 //             de progresso médio e nome do nível. Embaixo, cards de metas
 //             (WatchGoalCard) com fundo preenchendo conforme o progresso.
 //             A lista respeita a ordem e o filtro de remoção definidos no iPhone
@@ -37,7 +37,7 @@ struct ContentView: View {
     @AppStorage(AppAccentColor.storageKey)        private var storedColorRaw:       String = AppAccentColor.blue.rawValue
     @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw:  String = GoalCategory.vitamina.rawValue
 
-    // Valores-alvo das metas — observados como @AppStorage pra que SwiftUI
+    // Valores-alvo das metas, observados como @AppStorage pra que SwiftUI
     // re-renderize quando o iPhone mandar novos valores via WatchConnectivity.
     @AppStorage("tracking.workout")  private var workoutGoalValue:  Int = DefaultGoals.workout
     @AppStorage("tracking.cardio")   private var cardioGoalValue:   Int = DefaultGoals.cardio
@@ -50,12 +50,12 @@ struct ContentView: View {
     @AppStorage("tracking.creatine") private var creatineGoalValue: Int = DefaultGoals.creatine
     @AppStorage("tracking.vitaminD") private var vitaminDGoalValue: Int = DefaultGoals.vitaminD
 
-    // Trigger de refresh — quando UserDefaults muda (incluindo a ordem de metas
+    // Trigger de refresh, quando UserDefaults muda (incluindo a ordem de metas
     // ou removedItems), incrementa pra forçar re-render do goalEntries (que é
     // computed property baseada em GoalOrderStore.load() / RemovedItemsStore.load()).
     @State private var refreshTick: Int = 0
 
-    // Toggles de "dia de descanso" — sincronizam iPhone ↔ Watch via WatchConnectivity.
+    // Toggles de "dia de descanso", sincronizam iPhone ↔ Watch via WatchConnectivity.
     @AppStorage("workoutRestDay") private var workoutRestDay: Bool = false
     @AppStorage("cardioRestDay")  private var cardioRestDay:  Bool = false
 
@@ -157,8 +157,8 @@ struct ContentView: View {
         }
     }
 
-    /// Lista final de metas a exibir — respeita:
-    ///   1. Ordem das categorias (`GoalCategoryOrderStore`) — mesma escolhida em
+    /// Lista final de metas a exibir, respeita:
+    ///   1. Ordem das categorias (`GoalCategoryOrderStore`), mesma escolhida em
     ///      App Settings → Goals → Categories.
     ///   2. Dentro de cada categoria, ordem das metas (`GoalOrderStore`).
     ///   3. Filtro de itens removidos (`RemovedItemsStore`).
@@ -174,7 +174,7 @@ struct ContentView: View {
         var result: [GoalEntry] = []
         var usedKeys = Set<String>()
 
-        // Itera categoria por categoria — dentro de cada uma, mantém ordem do GoalOrderStore.
+        // Itera categoria por categoria, dentro de cada uma, mantém ordem do GoalOrderStore.
         for category in categoryOrder {
             for key in allKeys where !usedKeys.contains(key) {
                 let effective = GoalCategory.effectiveCategory(for: key, vitaminDCategory: vitaminDCategory)
@@ -241,11 +241,11 @@ struct ContentView: View {
             for: UserDefaults.didChangeNotification,
             object: UserDefaults.standard
         )) { _ in
-            // Filtra por UserDefaults.standard — sem isso, o save abaixo (que escreve
+            // Filtra por UserDefaults.standard, sem isso, o save abaixo (que escreve
             // no App Group) dispara outra notificação e cai num loop infinito que trava
             // o app no carregamento.
             refreshTick &+= 1
-            // Recalcula snapshot localmente e atualiza o widget do Watch — assim o
+            // Recalcula snapshot localmente e atualiza o widget do Watch, assim o
             // progresso na complication acompanha incrementos feitos no próprio Watch
             // (não depende mais do iPhone enviar de volta).
             WidgetSnapshotStore.save(WidgetSnapshot.buildCurrent())

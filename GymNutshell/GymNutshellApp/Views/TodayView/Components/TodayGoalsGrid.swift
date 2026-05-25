@@ -4,7 +4,7 @@
 //  Propósito: Layout coluna-major do grid de metas em Hoje (modo wide).
 //             Recebe células já renderizadas e distribui em N colunas calculadas
 //             a partir da largura disponível, mantendo ordem topo→baixo por coluna.
-//             Sem dependência do state do TodayView — só células + chave de animação.
+//             Sem dependência do state do TodayView, só células + chave de animação.
 // ⌘
 
 import SwiftUI
@@ -24,7 +24,7 @@ struct TodayGridCell: Identifiable {
 ///
 /// Distribuição: itens caem de cima pra baixo na coluna 1, depois a 2, etc. Em vez
 /// de LazyVGrid (que alinha por linha e cria gaps quando categorias têm alturas
-/// diferentes), usa um HStack de VStacks — cada coluna sobe livremente sem ser
+/// diferentes), usa um HStack de VStacks, cada coluna sobe livremente sem ser
 /// puxada pela mais alta da linha.
 struct TodayGoalsGrid: View {
     let cells: [TodayGridCell]
@@ -35,7 +35,7 @@ struct TodayGoalsGrid: View {
             let cellMinWidth: CGFloat = 320
             let columnSpacing: CGFloat = 16
             let available = proxy.size.width
-            // Cap nos itens disponíveis — sem isso, em janelas absurdamente largas
+            // Cap nos itens disponíveis, sem isso, em janelas absurdamente largas
             // (4K macOS / Vision Pro) o número de colunas calculado é maior que o
             // de células, e a regra "remainder vai pras últimas colunas" empurra
             // todo o conteúdo pro lado direito da tela.
@@ -60,7 +60,7 @@ struct TodayGoalsGrid: View {
     // Cada coluna recebe um pedaço contínuo da lista (não intercalado), pra que
     // a ordem visual leia "topo→baixo, depois próxima coluna".
     // Distribuição: base = N/cols (chão), remainder = N % cols. As colunas finais
-    // recebem o item extra — assim, ao adicionar uma nova categoria, ela cai na
+    // recebem o item extra, assim, ao adicionar uma nova categoria, ela cai na
     // coluna da direita (que tinha espaço útil) em vez de empurrar a coluna
     // esquerda pra ficar mais alta.
     @ViewBuilder

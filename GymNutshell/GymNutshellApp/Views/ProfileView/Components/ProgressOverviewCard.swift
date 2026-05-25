@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/ProfileView/Components/ProgressOverviewCard.swift
 //
-//  Propósito: Card de seção usado na ProgressOverView — título, divisória colorida
+//  Propósito: Card de seção usado na ProgressOverView, título, divisória colorida
 //             com a cor de destaque do usuário e bloco de linhas.
 // ⌘
 

@@ -11,7 +11,7 @@ import Foundation
 
 public struct WatchStatsSummary: Codable, Sendable {
 
-    /// Um dia dentro dos últimos 7 — emoji da conquista e percentual concluído.
+    /// Um dia dentro dos últimos 7, emoji da conquista e percentual concluído.
     public struct DayEntry: Codable, Sendable {
         public let emoji: String    // vazio se não há registro naquele dia
         public let percent: Int

@@ -23,7 +23,7 @@ struct EditTodayView: View {
     @AppStorage(AppTheme.storageKey) private var selectedTheme: AppTheme = .gym
     @AppStorage(UserProfile.sexKey) private var sex: String = "male"
 
-    // MARK: - Valores editáveis — metas explícitas do DailyRecord
+    // MARK: - Valores editáveis, metas explícitas do DailyRecord
     @State private var water: Int
     @State private var protein: Int
     @State private var carbs: Int
@@ -31,7 +31,7 @@ struct EditTodayView: View {
     @State private var fiber: Int
     @State private var sleep: Int
 
-    // Metas de treino e suplementos — lidas do customValues do record (ou didWorkout/didCardio para compat).
+    // Metas de treino e suplementos, lidas do customValues do record (ou didWorkout/didCardio para compat).
     @State private var workoutIntake: Int
     @State private var cardioIntake: Int
     @State private var creatineIntake: Int
@@ -41,7 +41,7 @@ struct EditTodayView: View {
     @State private var customTrackingGoals: [CustomTrackingGoal] = []
     @State private var customTrackingIntakes: [String: Int] = [:]
 
-    // Estado local de "dia de descanso" — não persistido no DailyRecord,
+    // Estado local de "dia de descanso", não persistido no DailyRecord,
     // só afeta o recálculo da porcentagem durante a edição.
     @State private var workoutRestDay: Bool = false
     @State private var cardioRestDay: Bool = false
@@ -55,13 +55,13 @@ struct EditTodayView: View {
     @State private var removedItems: Set<String> = []
     @State private var orderedCategories: [GoalCategory] = []
 
-    // Modo da VitaminD — vitamina (minutos) ou suplemento (UI) — lido do UserDefaults.
+    // Modo da VitaminD, vitamina (minutos) ou suplemento (UI), lido do UserDefaults.
     @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
     private var vitaminDCategory: GoalCategory {
         GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
     }
 
-    /// Passo efetivo da Vitamina D — respeita valor customizado salvo em
+    /// Passo efetivo da Vitamina D, respeita valor customizado salvo em
     /// "tracking.vitaminD.increment", cai pro default do modo se nunca foi editado.
     private var vitaminDIncrement: Int {
         let stored = UserDefaults.standard.integer(forKey: "tracking.vitaminD.increment")
@@ -97,7 +97,7 @@ struct EditTodayView: View {
         _cardioIntake   = State(initialValue: storedIntakes["tracking.cardio"]   ?? (record.didCardio  ? 15 : 0))
         _creatineIntake = State(initialValue: storedIntakes["tracking.creatine"] ?? 0)
         _vitaminDIntake = State(initialValue: storedIntakes["tracking.vitaminD"] ?? 0)
-        // Restaura os flags de "dia de descanso" salvos no record — sem isso o tier
+        // Restaura os flags de "dia de descanso" salvos no record, sem isso o tier
         // recalculado em edição cairia pra level1 mesmo quando o usuário tinha marcado descanso.
         _workoutRestDay = State(initialValue: record.workoutRestDay)
         _cardioRestDay  = State(initialValue: record.cardioRestDay)
@@ -352,7 +352,7 @@ struct EditTodayView: View {
         record.fiber   = fiber
         record.sleep   = sleep
 
-        // Reconstrói o customValues com todos os intakes — built-in novos + customizados.
+        // Reconstrói o customValues com todos os intakes, built-in novos + customizados.
         var allIntakes = customTrackingIntakes
         allIntakes["tracking.workout"]  = workoutIntake
         allIntakes["tracking.cardio"]   = cardioIntake

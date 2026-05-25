@@ -47,7 +47,7 @@ struct TrackingGoalRow: View {
             }
 
             // Representação visual do progresso pra inspeção histórica.
-            // Oculto do a11y — o value composto abaixo já comunica X de Y completed.
+            // Oculto do a11y, o value composto abaixo já comunica X de Y completed.
             ProgressView(value: Double(value), total: Double(goal))
                 .tint(Color.accentColor)
                 .scaleEffect(x: 1, y: 2, anchor: .center)

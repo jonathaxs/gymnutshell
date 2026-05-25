@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/AchievementsView/Components/AchievementsEmptyState.swift
 //
-//  Propósito: Card de estado vazio da Conquistas — ícone na cor de destaque
+//  Propósito: Card de estado vazio da Conquistas, ícone na cor de destaque
 //             do usuário e texto sem truncação.
 // ⌘
 

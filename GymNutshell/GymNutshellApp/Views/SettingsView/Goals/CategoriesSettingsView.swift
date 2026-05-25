@@ -85,7 +85,7 @@ struct CategoriesSettingsView: View {
                 deletedCustomIds.append(c.id)
             }
         }
-        // Só categorias personalizadas podem ser removidas — ignora tentativas em fixas.
+        // Só categorias personalizadas podem ser removidas, ignora tentativas em fixas.
         let removableOffsets = IndexSet(offsets.filter { idx in
             if case .custom = items[idx] { return true }
             return false

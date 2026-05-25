@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomeStartStep.swift
 //
-//  Propósito: Primeira etapa do onboarding — permite ao usuário escolher entre iniciar um novo perfil
+//  Propósito: Primeira etapa do onboarding, permite ao usuário escolher entre iniciar um novo perfil
 //             ou restaurar a partir de um arquivo de backup exportado anteriormente.
 //             Layout: texto introdutório rolável no topo; subtítulo + botões fixados no rodapé.
 //             "Restaurar backup" abre um sheet com as opções de restauração via iCloud e arquivo local.

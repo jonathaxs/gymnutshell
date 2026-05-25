@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWidget/LargeGoalsWidget.swift
 //
-//  Propósito: Widget systemLarge "Metas" — lista das metas ativas com barras
+//  Propósito: Widget systemLarge "Metas", lista das metas ativas com barras
 //             de progresso individuais. Compartilha o WidgetSnapshot escrito
 //             pelo app principal.
 // ⌘
@@ -34,7 +34,7 @@ private struct GoalsLargeView: View {
 
     private var fg: Color { largeWidgetTextColor(for: snapshot) }
 
-    /// Mostra até 6 metas — cabe sem corte vertical com o header acima.
+    /// Mostra até 6 metas, cabe sem corte vertical com o header acima.
     private var visibleGoals: [GoalProgress] {
         Array(snapshot.goals.prefix(6))
     }

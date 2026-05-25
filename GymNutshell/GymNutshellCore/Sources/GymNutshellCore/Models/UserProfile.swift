@@ -53,7 +53,7 @@ public enum UserProfile {
     }
 }
 
-/// Easter egg — exercício/grupo muscular favorito do usuário.
+/// Easter egg, exercício/grupo muscular favorito do usuário.
 public enum FavoriteExercise: String, CaseIterable, Identifiable, Sendable {
     case unknown
     case back

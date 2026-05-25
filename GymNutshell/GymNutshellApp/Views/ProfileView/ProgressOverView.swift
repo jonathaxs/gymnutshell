@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/ProfileView/ProgressOverView.swift
 //
-//  Propósito: Tela de progresso — mostra dados de desempenho derivados dos registros diários
+//  Propósito: Tela de progresso, mostra dados de desempenho derivados dos registros diários
 //             e dos bônus de sequência. Seções: estatísticas de resumo, distribuição por nível,
 //             bônus de sequência, atividade, últimos 7 dias, metas ativas e dados físicos.
 //             Tocar num dia em "Últimos 7 dias" leva pra aquela data na AchievementsView.
@@ -43,12 +43,12 @@ struct ProgressOverView: View {
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
-    // Navegação entre abas — compartilhada com a AchievementsView via AppStorage.
+    // Navegação entre abas, compartilhada com a AchievementsView via AppStorage.
     @AppStorage(UserProfile.selectedTabKey) private var selectedTab: Int = 0
     @AppStorage(UserProfile.achievementsSelectedDateKey) private var achievementsDateTimestamp: Double = Date().timeIntervalSince1970
     @AppStorage(UserProfile.achievementsFilterModeKey) private var achievementsFilterMode: String = "day"
 
-    // Contagem de metas ativas — carregada no onAppear pra a stat ficar atualizada.
+    // Contagem de metas ativas, carregada no onAppear pra a stat ficar atualizada.
     @State private var removedItems: Set<String> = []
     @State private var customTrackingGoals: [CustomTrackingGoal] = []
     @State private var showBonusInfoSheet = false
@@ -141,7 +141,7 @@ struct ProgressOverView: View {
                     case .physicalData: PhysicalDataSettingsView()
                     }
                 }
-                // Em wide o cabeçalho nativo fica oculto — usamos o customizado
+                // Em wide o cabeçalho nativo fica oculto, usamos o customizado
                 // dentro do conteúdo. Em narrow segue o comportamento padrão do iOS.
                 .toolbar(isWide ? .hidden : .visible, for: .navigationBar)
             }
@@ -179,7 +179,7 @@ struct ProgressOverView: View {
         }
     }
 
-    // Cabeçalho customizado usado no wideLayout — bell + título alinhados ao
+    // Cabeçalho customizado usado no wideLayout, bell + título alinhados ao
     // mesmo maxWidth (860pt) do conteúdo abaixo, pra terem o mesmo recuo lateral.
     @ViewBuilder
     private var wideTitleBar: some View {
@@ -189,7 +189,7 @@ struct ProgressOverView: View {
             } label: {
                 Image(systemName: "bell")
                     .font(.title3)
-                    // Sino segue accent color — sem foregroundStyle explícito o
+                    // Sino segue accent color, sem foregroundStyle explícito o
                     // `.buttonStyle(.plain)` força a cor primária e o sino fica preto/branco.
                     .foregroundStyle(accentColor)
             }
@@ -268,7 +268,7 @@ struct ProgressOverView: View {
     @ViewBuilder
     private var wideLayout: some View {
         VStack(spacing: 16) {
-            // Resumo de pontos — ocupa a largura toda.
+            // Resumo de pontos, ocupa a largura toda.
             statsSummaryRow
 
             // Dois VStacks alinhados ao topo formam o grid de 2 colunas.
@@ -324,12 +324,12 @@ struct ProgressOverView: View {
                 .frame(maxWidth: .infinity)
             }
 
-            // Objetivo fitness — largura toda, centralizado, abaixo das duas colunas.
+            // Objetivo fitness, largura toda, centralizado, abaixo das duas colunas.
             if !userGoalRaw.isEmpty {
                 userGoalCard(centered: true)
             }
 
-            // Últimos 7 dias — ocupa a largura toda, abaixo das duas colunas.
+            // Últimos 7 dias, ocupa a largura toda, abaixo das duas colunas.
             ProfileRecentActivityView(
                 entries: last7Days,
                 selectedTheme: selectedTheme,

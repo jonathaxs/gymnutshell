@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomeThemeStep.swift
 //
-//  Propósito: Etapa do onboarding — permite ao usuário escolher o tema do mascote
+//  Propósito: Etapa do onboarding, permite ao usuário escolher o tema do mascote
 //             antes de ver o resumo das metas. A seleção é devolvida via binding
 //             e persistida no fim do onboarding. Os temas são exibidos agrupados por categoria.
 //
@@ -48,7 +48,7 @@ struct WelcomeThemeStep: View {
                                 let isSelected = selectedTheme == theme
                                 let themeName = theme.displayName(sex: sex)
                                 HStack(spacing: 14) {
-                                    // Bloco esquerdo (prévia + nome + check) — elemento único
+                                    // Bloco esquerdo (prévia + nome + check), elemento único
                                     // a11y; botão info FORA pra ficar focável separado.
                                     HStack(spacing: 14) {
                                         Text(theme.themeEmojis(sex: sex))
@@ -97,7 +97,7 @@ struct WelcomeThemeStep: View {
                     }
                 }
 
-                // Nota de rodapé — fonte menor, estilo caption.
+                // Nota de rodapé, fonte menor, estilo caption.
                 Text(String(localized: "welcome.step.theme.footer", bundle: .gymNutshellCore))
                     .font(.caption)
                     .foregroundStyle(.secondary)

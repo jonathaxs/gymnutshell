@@ -20,21 +20,21 @@ public enum AppDateFormatters {
         return f
     }()
 
-    /// Inicial do dia da semana (1 letra) — "S", "M", etc. Locale do sistema.
+    /// Inicial do dia da semana (1 letra), "S", "M", etc. Locale do sistema.
     public static let weekdayInitial: DateFormatter = {
         let f = DateFormatter()
         f.dateFormat = "EEEEE"
         return f
     }()
 
-    /// Data em estilo medium localizado — ex.: "May 16, 2026" / "16 de mai. de 2026".
+    /// Data em estilo medium localizado, ex.: "May 16, 2026" / "16 de mai. de 2026".
     public static let mediumDate: DateFormatter = {
         let f = DateFormatter()
         f.dateStyle = .medium
         return f
     }()
 
-    /// Mês e ano localizado em forma standalone — ex.: "May 2026" / "Maio 2026".
+    /// Mês e ano localizado em forma standalone, ex.: "May 2026" / "Maio 2026".
     /// Usa `LLLL` (standalone) em vez de `MMMM` pra capitalização correta em
     /// idiomas como pt-BR sem precisar de `.capitalized` manual.
     public static let monthYear: DateFormatter = {

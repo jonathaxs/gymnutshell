@@ -30,7 +30,7 @@ struct MonthlyCalendarView: View {
 
     private let calendar = Calendar.current
 
-    // Cor de destaque — segue a escolha do usuário em Settings > Cores.
+    // Cor de destaque, segue a escolha do usuário em Settings > Cores.
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
@@ -53,7 +53,7 @@ struct MonthlyCalendarView: View {
         let days = daysInMonth(for: monthDate)
 
         VStack(spacing: 8) {
-            // Cabeçalho dos dias da semana (D S T Q Q S S) — decorativo;
+            // Cabeçalho dos dias da semana (D S T Q Q S S), decorativo;
             // ocultado do VoiceOver pra não falar "D, S, T..." em swipe.
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 12) {
                 ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { _, symbol in
@@ -109,7 +109,7 @@ struct MonthlyCalendarView: View {
             guard isInDisplayedMonth else { return }
             selectedDate = date
         }
-        // Acessibilidade — célula vira UM elemento focável; dias fora do mês
+        // Acessibilidade, célula vira UM elemento focável; dias fora do mês
         // visível ficam ocultos pra reduzir ruído na varredura por swipe.
         .accessibilityElement(children: .ignore)
         .accessibilityHidden(!isInDisplayedMonth)

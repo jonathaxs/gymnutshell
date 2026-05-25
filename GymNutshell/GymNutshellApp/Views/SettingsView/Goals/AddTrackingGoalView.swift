@@ -57,7 +57,7 @@ struct AddTrackingGoalView: View {
     @State private var newCategoryName: String = ""
     @State private var newCategorySupportsRestDay: Bool = false
 
-    // True quando o usuário digitou algo que não é emoji — significa que o teclado
+    // True quando o usuário digitou algo que não é emoji, significa que o teclado
     // de emoji não está habilitado no iPhone/iPad (iOS cai no teclado padrão).
     @State private var isNonEmojiAttempt: Bool = false
 
@@ -143,7 +143,7 @@ struct AddTrackingGoalView: View {
     @ViewBuilder
     private var form: some View {
         Form {
-            // Seleção de categoria — fixa ou personalizada.
+            // Seleção de categoria, fixa ou personalizada.
             Section(String(localized: "settings.addgoal.section.category", bundle: .gymNutshellCore)) {
                 Picker(String(localized: "settings.addgoal.section.category", bundle: .gymNutshellCore), selection: $selectedCategory) {
                     ForEach(GoalCategory.allCases, id: \.self) { category in
@@ -174,7 +174,7 @@ struct AddTrackingGoalView: View {
                 }
             }
 
-            // Nova categoria — aparece acima da seção Ícone quando ativada.
+            // Nova categoria, aparece acima da seção Ícone quando ativada.
             if isCreatingNewCategory {
                 Section {
                     Toggle(String(localized: "settings.addgoal.category.new.restDay", bundle: .gymNutshellCore),
@@ -248,7 +248,7 @@ struct AddTrackingGoalView: View {
                 }
             }
         }
-        // O form preenche a largura do container — sem cap interno, o fundo cinza
+        // O form preenche a largura do container, sem cap interno, o fundo cinza
         // do Form sempre chega nas bordas (iPad landscape, sheet no macOS, etc.).
         .frame(maxWidth: .infinity)
         .navigationTitle(editingGoal.map { "\($0.emoji) \($0.name)" } ?? String(localized: "settings.addgoal.title.new", bundle: .gymNutshellCore))
@@ -293,7 +293,7 @@ struct AddTrackingGoalView: View {
     }
 
     private func save() {
-        // Resolve a categoria efetiva — cria a nova se o usuário preencheu o formulário.
+        // Resolve a categoria efetiva, cria a nova se o usuário preencheu o formulário.
         var resolvedSelection = selectedCategory
         if isCreatingNewCategory, !trimmedNewCategoryName.isEmpty {
             let newCategory = CustomGoalCategory(
@@ -334,7 +334,7 @@ struct AddTrackingGoalView: View {
 struct EmojiTextField: UIViewRepresentable {
     let placeholder: String
     @Binding var text: String
-    /// Sinaliza quando o usuário digita um caractere não-emoji — indica que o teclado
+    /// Sinaliza quando o usuário digita um caractere não-emoji, indica que o teclado
     /// de emoji não está habilitado e o iOS caiu pro teclado padrão.
     @Binding var isNonEmojiAttempt: Bool
 
@@ -369,7 +369,7 @@ struct EmojiTextField: UIViewRepresentable {
         }
 
         @objc func editingChanged(_ sender: UITextField) {
-            // Guarda só o primeiro caractere — que o delegate já garantiu ser um emoji.
+            // Guarda só o primeiro caractere, que o delegate já garantiu ser um emoji.
             let value = sender.text ?? ""
             let trimmed = String(value.prefix(1))
             if sender.text != trimmed { sender.text = trimmed }
@@ -383,14 +383,14 @@ struct EmojiTextField: UIViewRepresentable {
                 return true
             }
             guard string.count == 1, string.containsEmoji else {
-                // Entrada rejeitada — provavelmente teclado de emoji desativado.
+                // Entrada rejeitada, provavelmente teclado de emoji desativado.
                 DispatchQueue.main.async { self.isNonEmojiAttempt = true }
                 return false
             }
             DispatchQueue.main.async { self.isNonEmojiAttempt = false }
             textField.text = string
             text = string
-            // Fecha o teclado pra ficar natural — um emoji basta.
+            // Fecha o teclado pra ficar natural, um emoji basta.
             textField.resignFirstResponder()
             return false
         }

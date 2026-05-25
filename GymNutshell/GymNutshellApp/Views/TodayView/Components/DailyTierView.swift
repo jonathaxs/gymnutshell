@@ -3,7 +3,7 @@
 //
 //  Propósito: Mostra o nível atual de DailyAchievement no bloco hero da TodayView.
 //             Exibe emoji, nome do nível e o nível com a faixa percentual.
-//             Expande quando pressionado — sem navegação.
+//             Expande quando pressionado, sem navegação.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-19.
 // ⌘
@@ -15,7 +15,7 @@ import GymNutshellCore
 
 // Elemento hero que mostra o nível de conquista atual do usuário hoje.
 // Escala e opacidade do emoji refletem o nível.
-// Press causa um efeito de expansão spring — puramente decorativo, igual ao anel de progresso.
+// Press causa um efeito de expansão spring, puramente decorativo, igual ao anel de progresso.
 struct DailyTierView: View {
 
     let achievement: DailyAchievement
@@ -25,7 +25,7 @@ struct DailyTierView: View {
 
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
-    // Sexo do usuário — usado pra selecionar o nome de tier no gênero correto.
+    // Sexo do usuário, usado pra selecionar o nome de tier no gênero correto.
     @AppStorage(UserProfile.sexKey) private var sex: String = "male"
 
     @GestureState private var isPressed: Bool = false
@@ -51,7 +51,7 @@ struct DailyTierView: View {
 
     var body: some View {
         // Tudo (header "Conquista" + emoji + nome) num só VStack que escala junto
-        // no press e vira UM elemento de VoiceOver — "Conquista de hoje, Galo, botão".
+        // no press e vira UM elemento de VoiceOver, "Conquista de hoje, Galo, botão".
         // O texto "Conquista" fica visível mas não fala separado: o label custom
         // já encapsula "Conquista de hoje" na frase.
         VStack(spacing: 6) {
@@ -87,7 +87,7 @@ struct DailyTierView: View {
         .simultaneousGesture(
             TapGesture().onEnded { onTap?() }
         )
-        // Acessibilidade — label combina "Conquista de hoje" + nome do tier;
+        // Acessibilidade, label combina "Conquista de hoje" + nome do tier;
         // hint genérico abre a sheet. Sem value (pontos confundem com tiers de
         // emoji como Galo).
         .accessibilityElement(children: .ignore)

@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/TodayView/Components/TodayGoalsListView.swift
 //
-//  Propósito: Container estrutural pra lista de metas — limita o conteúdo à largura
+//  Propósito: Container estrutural pra lista de metas, limita o conteúdo à largura
 //             máxima do design (330 pt) e centraliza horizontalmente.
 //             Usado tanto no layout retrato quanto no layout wide da TodayView.
 //

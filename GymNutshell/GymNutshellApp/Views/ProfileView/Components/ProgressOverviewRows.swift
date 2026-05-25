@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/ProfileView/Components/ProgressOverviewRows.swift
 //
-//  Propósito: Linhas reutilizáveis dos cards da ProgressOverView — tier, bônus,
+//  Propósito: Linhas reutilizáveis dos cards da ProgressOverView, tier, bônus,
 //             atividade e metas ativas. Cada linha encapsula label visual + a11y.
 // ⌘
 
@@ -31,7 +31,7 @@ struct TierRow: View {
     }
 }
 
-/// Linha de bônus de sequência — toda a linha é tappável e abre a sheet informativa.
+/// Linha de bônus de sequência, toda a linha é tappável e abre a sheet informativa.
 struct BonusRow: View {
     let label: String
     let count: Int
@@ -55,7 +55,7 @@ struct BonusRow: View {
     }
 }
 
-/// Linha de atividade (treino/cardio) — emoji + nome + total de dias.
+/// Linha de atividade (treino/cardio), emoji + nome + total de dias.
 struct ActivityRow: View {
     let emoji: String
     let label: String
@@ -78,7 +78,7 @@ struct ActivityRow: View {
     }
 }
 
-/// Linha de metas ativas — emoji fixo ✅ + label + contagem.
+/// Linha de metas ativas, emoji fixo ✅ + label + contagem.
 struct GoalsRow: View {
     let label: String
     let count: Int

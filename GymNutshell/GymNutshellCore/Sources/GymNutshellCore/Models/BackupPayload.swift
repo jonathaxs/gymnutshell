@@ -97,7 +97,7 @@ public struct BackupPayload: Codable, Sendable {
         }
     }
 
-    /// Preferências visuais do usuário — persistidas em UserDefaults via @AppStorage.
+    /// Preferências visuais do usuário, persistidas em UserDefaults via @AppStorage.
     public struct AppearanceSnapshot: Codable, Sendable {
         public let theme: String
         public let accentColor: String

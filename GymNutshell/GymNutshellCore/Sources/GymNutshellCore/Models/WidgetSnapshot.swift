@@ -211,7 +211,7 @@ extension WidgetSnapshot {
         }
     }
 
-    // Emoji / label por chave de meta — espelha a tabela em `NotificationKind`.
+    // Emoji / label por chave de meta, espelha a tabela em `NotificationKind`.
     private static func emoji(forTrackingKey key: String) -> String {
         switch key {
         case "tracking.workout":  return "🏋️"

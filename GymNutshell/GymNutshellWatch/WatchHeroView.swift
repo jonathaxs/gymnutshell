@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWatch/WatchHeroView.swift
 //
-//  Propósito: Hero superior do Watch app — anel de progresso médio do dia
+//  Propósito: Hero superior do Watch app, anel de progresso médio do dia
 //             + emoji do tier + nome do tier + percentual.
 //             Cor do anel acompanha o tier (vermelho/laranja/verde/azul).
 // ⌘

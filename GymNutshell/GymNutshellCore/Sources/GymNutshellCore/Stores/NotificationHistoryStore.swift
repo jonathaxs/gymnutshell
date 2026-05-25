@@ -57,7 +57,7 @@ public final class NotificationHistoryStore {
         persist()
     }
 
-    /// Limpa todo o histórico — usado no teste de setup ou ação de "limpar".
+    /// Limpa todo o histórico, usado no teste de setup ou ação de "limpar".
     public func clear() {
         entries = []
         persist()
@@ -65,14 +65,14 @@ public final class NotificationHistoryStore {
 
     /// Substitui o histórico local com dados recebidos via WatchConnectivity.
     /// Poda entradas com mais de 3 dias antes de persistir.
-    /// Chamado apenas pelo WatchConnectivityManager — não dispara sync de volta.
+    /// Chamado apenas pelo WatchConnectivityManager, não dispara sync de volta.
     public func applyRemote(_ data: Data) {
         do {
             let decoded = try JSONDecoder().decode([NotificationHistoryEntry].self, from: data)
             entries = prune(decoded)
             persist()
         } catch {
-            // Histórico remoto malformado — não sobrescreve o local.
+            // Histórico remoto malformado, não sobrescreve o local.
         }
     }
 
@@ -93,7 +93,7 @@ public final class NotificationHistoryStore {
             let data = try JSONEncoder().encode(entries)
             UserDefaults.standard.set(data, forKey: Self.storageKey)
         } catch {
-            // Falha de serialização é silenciosa — o histórico não é crítico.
+            // Falha de serialização é silenciosa, o histórico não é crítico.
         }
     }
 

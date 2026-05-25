@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomeUserGoalStep.swift
 //
-//  Propósito: Etapa do onboarding — permite ao usuário escolher seu objetivo de fitness
+//  Propósito: Etapa do onboarding, permite ao usuário escolher seu objetivo de fitness
 //             (bulking, manutenção ou cutting) via cards selecionáveis.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-10.

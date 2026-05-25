@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/SettingsView/Backup/BackupSettingsView.swift
 //
-//  Propósito: Permite ao usuário gerenciar backups — tanto iCloud (sync via iCloud Drive)
+//  Propósito: Permite ao usuário gerenciar backups, tanto iCloud (sync via iCloud Drive)
 //             quanto local (exportação/importação manual como arquivos JSON).
 //             A seção do iCloud aparece primeiro; a seção local logo abaixo.
 //
@@ -61,7 +61,7 @@ struct BackupSettingsView: View {
     @State private var iCloudRestoring: Bool = false
     @State private var isPresentingICloudRestoreAlert: Bool = false
 
-    // Toggle de backup automático diário — acionado na primeira abertura do app após a meia-noite.
+    // Toggle de backup automático diário, acionado na primeira abertura do app após a meia-noite.
     @AppStorage(AutoBackupService.enabledKey) private var autoBackupEnabled: Bool = false
 
     // MARK: - Alerts compartilhados
@@ -74,10 +74,10 @@ struct BackupSettingsView: View {
 
     var body: some View {
         List {
-            // Seção iCloud — aparece primeiro, acima do local.
+            // Seção iCloud, aparece primeiro, acima do local.
             iCloudSection
 
-            // Seção local — exportação/importação manual via arquivos JSON.
+            // Seção local, exportação/importação manual via arquivos JSON.
             localSection
         }
         .navigationTitle(String(localized: "settings.backup.nav.title", bundle: .gymNutshellCore))
@@ -91,7 +91,7 @@ struct BackupSettingsView: View {
             await refreshICloudStatus()
         }
 
-        // File exporter — acionado depois que a exportação local dá certo.
+        // File exporter, acionado depois que a exportação local dá certo.
         .fileExporter(
             isPresented: $isExporting,
             document: exportDocument ?? BackupDocument(data: Data()),
@@ -99,7 +99,7 @@ struct BackupSettingsView: View {
             defaultFilename: exportFilename
         ) { _ in }
 
-        // File importer — deixa o usuário escolher um arquivo de backup .json.
+        // File importer, deixa o usuário escolher um arquivo de backup .json.
         .fileImporter(
             isPresented: $isImporting,
             allowedContentTypes: [.json]
@@ -211,7 +211,7 @@ struct BackupSettingsView: View {
                 }
                 .disabled(iCloudSaving || iCloudRestoring)
 
-                // Botão restaurar do iCloud — exibido só se um backup existir.
+                // Botão restaurar do iCloud, exibido só se um backup existir.
                 if iCloudLastBackup != nil {
                     Button {
                         isPresentingICloudRestoreAlert = true
@@ -227,7 +227,7 @@ struct BackupSettingsView: View {
                     .disabled(iCloudSaving || iCloudRestoring)
                 }
             } else {
-                // iCloud indisponível — exibe mensagem informativa.
+                // iCloud indisponível, exibe mensagem informativa.
                 Label(String(localized: "settings.backup.icloud.unavailable", bundle: .gymNutshellCore), systemImage: "icloud.slash")
                     .foregroundStyle(.secondary)
             }
@@ -253,7 +253,7 @@ struct BackupSettingsView: View {
 
     private var localSection: some View {
         Section {
-            // Botão exportar — monta o JSON e abre o share sheet do sistema.
+            // Botão exportar, monta o JSON e abre o share sheet do sistema.
             Button {
                 prepareExport()
             } label: {
@@ -261,7 +261,7 @@ struct BackupSettingsView: View {
                       systemImage: "square.and.arrow.up")
             }
 
-            // Botão importar — abre o document picker pra arquivos .json.
+            // Botão importar, abre o document picker pra arquivos .json.
             Button {
                 isImporting = true
             } label: {
@@ -357,7 +357,7 @@ struct BackupSettingsView: View {
 
     /// Restaura um BackupPayload no UserDefaults e no SwiftData.
     /// Usado tanto pela importação local quanto pela restauração do iCloud.
-    /// Erros de delete do SwiftData são silenciosamente ignorados — comportamento
+    /// Erros de delete do SwiftData são silenciosamente ignorados, comportamento
     /// preservado da implementação original.
     private func restorePayload(_ payload: BackupPayload) {
         try? BackupManager.applyPayload(payload, into: modelContext)

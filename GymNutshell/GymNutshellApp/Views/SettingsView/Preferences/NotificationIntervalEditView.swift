@@ -3,7 +3,7 @@
 //
 //  Propósito: Sheet que permite editar o intervalo (em minutos) entre notificações
 //             recorrentes de um kind editável (Progresso, Metas fixas e personalizadas).
-//             Padrão visual inspirado em TrackingGoalDetailView — Form + Stepper + toolbar.
+//             Padrão visual inspirado em TrackingGoalDetailView, Form + Stepper + toolbar.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-23.
 // ⌘

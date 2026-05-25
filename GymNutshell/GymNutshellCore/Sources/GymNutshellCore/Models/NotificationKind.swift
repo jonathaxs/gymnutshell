@@ -92,7 +92,7 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
     }
 
     /// Hora limite (24h) a partir da qual não agendamos mais lembretes no dia.
-    /// Sono tem cutoff mais cedo (19h) a pedido do usuário — não faz sentido sugerir cochilo à noite.
+    /// Sono tem cutoff mais cedo (19h) a pedido do usuário, não faz sentido sugerir cochilo à noite.
     public var dailyCutoffHour: Int {
         switch self {
         case .sleep: return 19
@@ -101,7 +101,7 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
     }
 
     /// Hora mínima (24h) a partir da qual os lembretes podem começar no dia.
-    /// Sono só sugere a partir das 10h — antes disso o usuário provavelmente acabou de acordar.
+    /// Sono só sugere a partir das 10h, antes disso o usuário provavelmente acabou de acordar.
     public var dailyStartHour: Int {
         switch self {
         case .sleep: return 10
@@ -109,7 +109,7 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    /// SF Symbol exibido na linha do row de Ajustes — apenas para kinds da seção Sistema.
+    /// SF Symbol exibido na linha do row de Ajustes, apenas para kinds da seção Sistema.
     /// Metas usam emoji (via `emoji`), não ícone.
     /// Progresso usa `circle.dotted` pra bater com a página "Anel do Progresso" em Ajustes.
     public var systemIcon: String? {
@@ -159,7 +159,7 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
         }
     }
 
-    /// Inverso de `trackingOrderKey` — resolve um NotificationKind a partir da chave do GoalOrderStore.
+    /// Inverso de `trackingOrderKey`, resolve um NotificationKind a partir da chave do GoalOrderStore.
     public static func from(trackingOrderKey key: String) -> NotificationKind? {
         allCases.first { $0.trackingOrderKey == key }
     }

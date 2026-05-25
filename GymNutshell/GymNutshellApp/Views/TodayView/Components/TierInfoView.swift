@@ -19,7 +19,7 @@ struct TierInfoView: View {
     let sex: String
     var isSheet: Bool = false
 
-    // Contexto de progresso — passado pela TodayHeroView quando aberto como sheet.
+    // Contexto de progresso, passado pela TodayHeroView quando aberto como sheet.
     // nil quando acessado via Settings > Sobre (sem contexto de progresso atual).
     var nextLevelPercent: Int? = nil
     var nextLevelName: String = ""
@@ -86,7 +86,7 @@ struct TierInfoView: View {
             }
             .listRowBackground(Color.clear)
 
-            // Seção "Conquistas" com os 4 tiers — "Nível X" no canto direito de cada linha.
+            // Seção "Conquistas" com os 4 tiers, "Nível X" no canto direito de cada linha.
             Section(String(localized: "tier.info.section.levels", bundle: .gymNutshellCore)) {
                 ForEach(tiers, id: \.self) { tier in
                     let name = theme.name(for: tier, sex: sex)

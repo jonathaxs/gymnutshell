@@ -31,16 +31,16 @@ struct PhysicalDataSettingsView: View {
     @State private var heightInchesText: String = ""
     @State private var birthday: Date = Self.defaultBirthday
     @State private var sex: String = "other"
-    // Easter egg — exercício/grupo muscular favorito.
+    // Easter egg, exercício/grupo muscular favorito.
     @AppStorage(UserProfile.favoriteExerciseKey) private var favoriteExerciseRaw: String = FavoriteExercise.unknown.rawValue
 
-    // Data de nascimento padrão exibida quando o usuário ainda não escolheu uma —
+    // Data de nascimento padrão exibida quando o usuário ainda não escolheu uma ,
     // usa 25 anos atrás (idade default antiga do app), evitando "0 anos".
     private static var defaultBirthday: Date {
         Calendar.current.date(byAdding: .year, value: -25, to: Date()) ?? Date()
     }
 
-    // Range válido pro DatePicker — de 120 anos atrás até a data de hoje.
+    // Range válido pro DatePicker, de 120 anos atrás até a data de hoje.
     private var birthdayRange: ClosedRange<Date> {
         let now = Date()
         let minDate = Calendar.current.date(byAdding: .year, value: -120, to: now) ?? now

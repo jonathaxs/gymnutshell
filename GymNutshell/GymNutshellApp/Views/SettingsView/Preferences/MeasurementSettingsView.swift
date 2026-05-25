@@ -2,7 +2,7 @@
 //  GymNutshell/GymNutshellApp/Views/SettingsView/Preferences/MeasurementSettingsView.swift
 //
 //  Propósito: Permite ao usuário escolher entre os sistemas de medidas Métrico, US e UK.
-//             Selecionar uma linha salva imediatamente via @AppStorage — sem botão de Salvar.
+//             Selecionar uma linha salva imediatamente via @AppStorage, sem botão de Salvar.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-22.
 // ⌘

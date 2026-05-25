@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/TodayView/Components/TodayCategoryHeader.swift
 //
-//  Propósito: Header colapsável de categoria em Hoje — texto centralizado,
+//  Propósito: Header colapsável de categoria em Hoje, texto centralizado,
 //             chevron e fundo arredondado que sinaliza estado aberto/recolhido.
 //             Compartilhado entre categorias fixas e categorias criadas pelo usuário.
 // ⌘

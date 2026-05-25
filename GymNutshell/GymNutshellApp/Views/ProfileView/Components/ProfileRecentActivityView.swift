@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/ProfileView/Components/ProfileRecentActivityView.swift
 //
-//  Propósito: Grade "Últimos 7 dias" — mostra o emoji do nível (ou um ponto) pra cada um
+//  Propósito: Grade "Últimos 7 dias", mostra o emoji do nível (ou um ponto) pra cada um
 //             dos últimos 7 dias do calendário. Tocar num dia dispara o callback onDayTap pra
 //             que a ProfileView possa navegar até aquela data na AchievementsView.
 //
@@ -31,7 +31,7 @@ struct ProfileRecentActivityView: View {
                 .padding(.horizontal, 4)
                 .accessibilityAddTraits(.isHeader)
 
-            // Células dos sete dias — tocar navega pra aquele dia na AchievementsView.
+            // Células dos sete dias, tocar navega pra aquele dia na AchievementsView.
             HStack(spacing: 6) {
                 ForEach(entries, id: \.date) { entry in
                     Button {

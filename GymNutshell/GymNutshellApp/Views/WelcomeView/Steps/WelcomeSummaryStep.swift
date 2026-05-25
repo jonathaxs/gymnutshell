@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomeSummaryStep.swift
 //
-//  Propósito: Etapa final do onboarding — exibe as metas diárias calculadas organizadas por categoria
+//  Propósito: Etapa final do onboarding, exibe as metas diárias calculadas organizadas por categoria
 //             e permite ao usuário adicionar opcionalmente Gordura, Creatina e Vitamina D antes de concluir.
 //             Os parágrafos informativos aparecem no fim, depois das metas opcionais.
 //
@@ -104,7 +104,7 @@ struct WelcomeSummaryStep: View {
                         )
                     }
 
-                    // Rodapé informativo — centralizado para alinhar com as metas.
+                    // Rodapé informativo, centralizado para alinhar com as metas.
                     // Sentinela de scroll fica dentro do VStack pra reduzir o espaçamento após a creatina.
                     VStack(alignment: .center, spacing: 10) {
                         Color.clear.frame(height: 1)

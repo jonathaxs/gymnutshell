@@ -18,7 +18,7 @@ struct ColorSettingsView: View {
         AppAccentColor(rawValue: selectedColorRaw) ?? .blue
     }
 
-    // Grade 4 colunas — exibe todas as 8 cores com nome e checkmark.
+    // Grade 4 colunas, exibe todas as 8 cores com nome e checkmark.
     private let columns = [GridItem(.flexible()), GridItem(.flexible()),
                            GridItem(.flexible()), GridItem(.flexible())]
 

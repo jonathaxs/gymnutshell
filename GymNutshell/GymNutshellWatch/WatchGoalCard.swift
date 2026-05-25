@@ -1,7 +1,7 @@
 // ⌘
 //  GymNutshellWatch/WatchGoalCard.swift
 //
-//  Propósito: Card de meta do Watch — pílula com preenchimento proporcional ao
+//  Propósito: Card de meta do Watch, pílula com preenchimento proporcional ao
 //             progresso. Tap expande os controles −/+ e (quando aplicável) o
 //             toggle ON/OFF de dia de descanso.
 // ⌘
@@ -42,7 +42,7 @@ struct WatchGoalCard: View {
             // Fundo cinza ocupando a largura total.
             Color.secondary.opacity(0.18)
 
-            // Preenchimento proporcional — Rectangle clipado pelo Capsule externo
+            // Preenchimento proporcional, Rectangle clipado pelo Capsule externo
             // garante que mesmo com largura pequena o fill respeite a curva da pílula.
             GeometryReader { geo in
                 Rectangle()
@@ -105,7 +105,7 @@ struct WatchGoalCard: View {
     @ViewBuilder
     private var controls: some View {
         HStack(spacing: 8) {
-            // Botão ON/OFF — só pra metas que suportam dia de descanso.
+            // Botão ON/OFF, só pra metas que suportam dia de descanso.
             if restActive != nil {
                 onOffButton(isOn: restActive == true)
             }
@@ -179,7 +179,7 @@ struct WatchGoalCard: View {
                 )
         }
         .buttonStyle(.plain)
-        // Sem override de label — texto "ON"/"OFF" do botão já vira label
+        // Sem override de label, texto "ON"/"OFF" do botão já vira label
         // automático. Hint explica o efeito.
         .accessibilityHint(A11y.restDayToggleHint(currentlyOn: isOn))
     }

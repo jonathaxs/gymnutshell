@@ -9,7 +9,7 @@
 
 import Foundation
 
-/// Item de categoria — pode ser uma categoria fixa do app ou uma criada pelo usuário.
+/// Item de categoria, pode ser uma categoria fixa do app ou uma criada pelo usuário.
 public enum CategoryItem: Hashable, Identifiable, Sendable {
     case builtin(GoalCategory)
     case custom(CustomGoalCategory)

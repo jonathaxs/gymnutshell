@@ -9,11 +9,11 @@
 //
 //  Estratégia:
 //    * `applicationContext`: só guarda o último snapshot. Se mandar 5x seguidas,
-//       só o último chega — perfeito pra dizer "esse é o estado atual".
+//       só o último chega, perfeito pra dizer "esse é o estado atual".
 //    * `transferUserInfo`: queue persistente. Se Watch tá sem rede, fica esperando.
 //
 //  Ambos os lados aplicam os recebidos no UserDefaults. As views com @AppStorage
-//  reagem automaticamente — sem código extra de invalidação.
+//  reagem automaticamente, sem código extra de invalidação.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-04-26.
 // ⌘
@@ -29,14 +29,14 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
 
     public static let shared = WatchConnectivityManager()
 
-    /// Chaves de ingestão diária — sincronizadas em ambas as direções.
+    /// Chaves de ingestão diária, sincronizadas em ambas as direções.
     private static let intakeKeys: [String] = [
         "workoutIntake", "cardioIntake", "sleepHours", "waterIntake",
         "proteinIntake", "carbIntake", "goodFatIntake", "fiberIntake",
         "creatineIntake", "vitaminDIntake"
     ]
 
-    /// Chaves de preferência — sincronizadas só do iPhone pro Watch
+    /// Chaves de preferência, sincronizadas só do iPhone pro Watch
     /// (Watch não muda essas configurações).
     private static let preferenceKeys: [String] = [
         // Aparência e perfil
@@ -45,7 +45,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         AppAccentColor.storageKey,
         GoalCategory.vitaminDCategoryKey,
 
-        // Idioma — o iPhone escreve essa chave em sendSnapshot() antes de ler preferenceKeys.
+        // Idioma, o iPhone escreve essa chave em sendSnapshot() antes de ler preferenceKeys.
         // O Watch aplica no init() antes do SwiftUI inicializar, garantindo o idioma correto.
         "app.preferredLanguage",
 
@@ -55,11 +55,11 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         "goal.category.order",
         "goal.category.unifiedOrder",
 
-        // Toggles de "dia de descanso" — sincronizam com o ON/OFF do Watch
+        // Toggles de "dia de descanso", sincronizam com o ON/OFF do Watch
         "workoutRestDay",
         "cardioRestDay",
 
-        // Valores-alvo de cada meta — o Watch precisa pra mostrar `0/N`
+        // Valores-alvo de cada meta, o Watch precisa pra mostrar `0/N`
         // com o N que o usuário configurou no iPhone.
         "tracking.workout",
         "tracking.cardio",
@@ -80,20 +80,20 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
 
     /// Flag de supressão temporária do observer durante a aplicação de updates remotos.
     /// Sem isso, escrever no UserDefaults durante `applySnapshot` dispara o observer,
-    /// que detecta a "mudança" e tenta mandar o snapshot de volta — ping-pong infinito.
+    /// que detecta a "mudança" e tenta mandar o snapshot de volta, ping-pong infinito.
     private var suppressObservation: Bool = false
 
-    /// Assinatura textual do conjunto de preferências — usado pra detectar mudança
+    /// Assinatura textual do conjunto de preferências, usado pra detectar mudança
     /// em qualquer chave de preferência sem precisar comparar tipos heterogêneos.
     private var lastPrefsSignature: String = ""
 
-    /// Snapshot dos dados de histórico de notificações — para detectar mudanças no iPhone
+    /// Snapshot dos dados de histórico de notificações, para detectar mudanças no iPhone
     /// e incluir o histórico atualizado no próximo sendSnapshot. Apenas iOS.
     private var lastKnownHistoryData: Data? = nil
 
     private static let historyKey = "notifications.history.v1"
 
-    /// Último resumo de estatísticas calculado pelo iPhone — incluído no próximo sendSnapshot.
+    /// Último resumo de estatísticas calculado pelo iPhone, incluído no próximo sendSnapshot.
     private var cachedStatsSummaryData: Data? = nil
 
     private func currentPrefsSignature() -> String {
@@ -113,7 +113,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
 
     // MARK: - Ativação
 
-    /// Configura o WCSession e ativa. Idempotente — chamar várias vezes é seguro.
+    /// Configura o WCSession e ativa. Idempotente, chamar várias vezes é seguro.
     /// Deve ser chamado cedo no ciclo de vida do app (no `init` do App).
     public func activate() {
         guard WCSession.isSupported() else { return }
@@ -133,7 +133,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         lastKnownHistoryData = defaults.data(forKey: Self.historyKey)
         #endif
 
-        // Observa qualquer mudança em UserDefaults — quando uma chave de ingestão muda,
+        // Observa qualquer mudança em UserDefaults, quando uma chave de ingestão muda,
         // envia o delta pra contraparte automaticamente. Isso garante sync em tempo
         // real iPhone ↔ Watch sem precisar de chamada explícita em cada view.
         NotificationCenter.default.addObserver(
@@ -145,13 +145,13 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
     }
 
     @objc private func userDefaultsDidChange() {
-        // Quando estamos aplicando um update remoto, ignora — caso contrário o
+        // Quando estamos aplicando um update remoto, ignora, caso contrário o
         // próprio set dispara observer → reenvia → loop.
         guard !suppressObservation else { return }
 
         let defaults = UserDefaults.standard
 
-        // Ingestões — delta por chave (mais leve, melhor pra real-time bidirecional).
+        // Ingestões, delta por chave (mais leve, melhor pra real-time bidirecional).
         var intakeChanged = false
         for key in Self.intakeKeys {
             let current = defaults.integer(forKey: key)
@@ -167,7 +167,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         }
         #endif
 
-        // Preferências — qualquer mudança dispara snapshot completo. Como prefs
+        // Preferências, qualquer mudança dispara snapshot completo. Como prefs
         // mudam pouco (settings page), o overhead é ínfimo e simplifica o protocolo.
         let signature = currentPrefsSignature()
         if signature != lastPrefsSignature {
@@ -176,7 +176,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
             return
         }
 
-        // Histórico de notificações — detectado apenas no iPhone (Watch nunca envia snapshot).
+        // Histórico de notificações, detectado apenas no iPhone (Watch nunca envia snapshot).
         // Quando uma entrada é adicionada ou removida no iPhone, envia snapshot atualizado pro Watch.
         #if os(iOS)
         let currentHistoryData = defaults.data(forKey: Self.historyKey)
@@ -190,7 +190,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
     // MARK: - Envio (iPhone → Watch)
 
     /// Envia snapshot completo do estado atual.
-    /// `updateApplicationContext` substitui qualquer snapshot anterior — ideal pra "estado atual".
+    /// `updateApplicationContext` substitui qualquer snapshot anterior, ideal pra "estado atual".
     public func sendSnapshot() {
         guard WCSession.default.activationState == .activated else { return }
         let defaults = UserDefaults.standard
@@ -232,7 +232,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         }
 
         // Inclui snapshot pré-computado pra complication do Watch.
-        // buildCurrent() lê UserDefaults.standard do iPhone — só faz sentido no iOS.
+        // buildCurrent() lê UserDefaults.standard do iPhone, só faz sentido no iOS.
         #if os(iOS)
         if let snapshotData = try? JSONEncoder().encode(WidgetSnapshot.buildCurrent()) {
             payload["widgetSnapshot"] = snapshotData
@@ -242,7 +242,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         do {
             try WCSession.default.updateApplicationContext(payload)
         } catch {
-            // Falha silenciosa — próximo scenePhase tenta de novo.
+            // Falha silenciosa, próximo scenePhase tenta de novo.
         }
     }
 
@@ -251,7 +251,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
     /// Envia uma única atualização de ingestão como delta.
     /// Estratégia em duas camadas:
     ///   1. Se a contraparte estiver `isReachable` (ambos apps em foreground), usa
-    ///      `sendMessage` — entrega imediata (~ms).
+    ///      `sendMessage`, entrega imediata (~ms).
     ///   2. Caso contrário (ou se sendMessage falhar), cai pra `transferUserInfo`
     ///      que é uma fila FIFO persistente entregue quando a contraparte abrir.
     public func sendIntakeUpdate(key: String, value: Int) {
@@ -398,12 +398,12 @@ extension WatchConnectivityManager: WCSessionDelegate {
         activationDidCompleteWith activationState: WCSessionActivationState,
         error: Error?
     ) {
-        // No-op. Erros são silenciosos — próximo activate() retenta.
+        // No-op. Erros são silenciosos, próximo activate() retenta.
     }
 
     #if os(iOS)
     public func sessionDidBecomeInactive(_ session: WCSession) {
-        // No-op — chamado quando o iPhone troca de Watch pareado.
+        // No-op, chamado quando o iPhone troca de Watch pareado.
     }
 
     public func sessionDidDeactivate(_ session: WCSession) {
@@ -434,7 +434,7 @@ extension WatchConnectivityManager: WCSessionDelegate {
         }
     }
 
-    /// Recebe `sendMessage` — entregue só quando a contraparte está reachable.
+    /// Recebe `sendMessage`, entregue só quando a contraparte está reachable.
     /// Tratamos a mesma payload de `applyIntakeUpdate` que o transferUserInfo.
     public func session(
         _ session: WCSession,

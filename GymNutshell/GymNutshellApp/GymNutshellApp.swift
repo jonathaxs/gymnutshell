@@ -14,7 +14,7 @@ import WidgetKit
 @main
 struct GymNutshellApp: App {
 
-    // AppDelegate registrado pra fornecer `supportedInterfaceOrientationsFor:` —
+    // AppDelegate registrado pra fornecer `supportedInterfaceOrientationsFor:` ,
     // sem isso o travamento de orientação escolhido em Ajustes → Orientação não
     // surte efeito. Não tem outra função.
     @UIApplicationDelegateAdaptor(GymNutshellAppDelegate.self) private var appDelegate

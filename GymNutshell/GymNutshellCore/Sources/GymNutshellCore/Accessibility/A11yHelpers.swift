@@ -76,7 +76,7 @@ public enum A11y {
     }
 
     /// Value para um row de meta em dia de descanso. Não tem percentual nem faixa
-    ///, o estado em si já comunica que a meta está cumprida.
+    /// o estado em si já comunica que a meta está cumprida.
     public static func goalRowRestDayValue() -> String {
         String(localized: "a11y.goalrow.value.restday", bundle: .gymNutshellCore)
     }
@@ -123,7 +123,7 @@ public enum A11y {
         return df.string(from: date)
     }
 
-    /// Hint para botões de incremento/decremento (Watch ±).
+    /// Hint para botões de incremento/decremento (Watch).
     public static func incrementHint() -> String {
         String(localized: "a11y.hint.increment", bundle: .gymNutshellCore)
     }
@@ -134,7 +134,7 @@ public enum A11y {
 
     /// Hint do botão OFF/ON de rest day. `currentlyOn` reflete o estado atual
     ///, quando true (descansando), tocar sai do modo; quando false, ativa.
-    /// O label do botão é o próprio texto visível ("ON"/"OFF"), por isso esse
+    /// O label do botão é o próprio texto visível (ON/OFF), por isso esse
     /// helper devolve só o hint.
     public static func restDayToggleHint(currentlyOn: Bool) -> String {
         let key = currentlyOn ? "a11y.hint.restday.deactivate" : "a11y.hint.restday.activate"

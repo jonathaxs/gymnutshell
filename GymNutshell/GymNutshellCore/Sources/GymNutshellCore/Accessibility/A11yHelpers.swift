@@ -3,7 +3,7 @@
 //
 //  Propósito: Helpers centralizados para construir strings de VoiceOver
 //             (labels, values, hints) reaproveitáveis em todos os targets
-//            , iPhone app, Watch app e widgets. Toda a montagem fica aqui
+//             iPhone app, Watch app e widgets. Toda a montagem fica aqui
 //             pra que mudar a frase de "faixa verde" não exija varrer dezenas
 //             de views.
 //
@@ -133,7 +133,7 @@ public enum A11y {
     }
 
     /// Hint do botão OFF/ON de rest day. `currentlyOn` reflete o estado atual
-    ///, quando true (descansando), tocar sai do modo; quando false, ativa.
+    /// quando true (descansando), tocar sai do modo; quando false, ativa.
     /// O label do botão é o próprio texto visível (ON/OFF), por isso esse
     /// helper devolve só o hint.
     public static func restDayToggleHint(currentlyOn: Bool) -> String {

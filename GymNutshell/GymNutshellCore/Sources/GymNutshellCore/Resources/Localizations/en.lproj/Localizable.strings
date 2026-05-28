@@ -446,7 +446,7 @@
 /* WelcomeFitnessGoalStep.swift */
 "welcome.step.goal.title" = "Your goal";
 "welcome.step.goal.info.choose" = "Choose what best describes your current goal.";
-"welcome.step.goal.info.editable" = "You can change it in app settings.";
+"welcome.step.goal.info.editable" = "You can change later it in app settings.";
 
 
 /* WelcomeThemeStep.swift */

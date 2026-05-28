@@ -57,14 +57,6 @@ struct WelcomeSummaryStep: View {
                                        : "\(goals.water) ml")
                     }
 
-                    // MARK: Treino
-                    summaryCategory(GoalCategory.treino) {
-                        summaryRow(icon: "🏋️", label: String(localized: "today.goals.workout", bundle: .gymNutshellCore),
-                                   value: "\(goals.workout) min")
-                        summaryRow(icon: "🏃", label: String(localized: "today.goals.cardio", bundle: .gymNutshellCore),
-                                   value: "\(goals.cardio) min")
-                    }
-
                     // MARK: Nutrição
                     summaryCategory(GoalCategory.nutricao) {
                         summaryRow(icon: "🔥", label: String(localized: "today.metric.calories", bundle: .gymNutshellCore),
@@ -82,6 +74,14 @@ struct WelcomeSummaryStep: View {
                             accentColor: accentColor,
                             isIncluded: $includeFats
                         )
+                    }
+
+                    // MARK: Treino
+                    summaryCategory(GoalCategory.treino) {
+                        summaryRow(icon: "🏋️", label: String(localized: "today.goals.workout", bundle: .gymNutshellCore),
+                                   value: "\(goals.workout) min")
+                        summaryRow(icon: "🏃", label: String(localized: "today.goals.cardio", bundle: .gymNutshellCore),
+                                   value: "\(goals.cardio) min")
                     }
 
                     // MARK: Suplemento

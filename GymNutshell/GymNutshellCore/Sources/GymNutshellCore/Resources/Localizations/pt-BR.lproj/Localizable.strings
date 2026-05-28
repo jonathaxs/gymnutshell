@@ -482,7 +482,7 @@
 "welcome.step.goal.title" = "Seu objetivo";
 "welcome.step.goal.info.choose" = "Escolha o que melhor descreve seu objetivo atual.";
 /* (mantido, o texto já usa apenas "objetivo") */
-"welcome.step.goal.info.editable" = "O objetivo pode ser alterado em ajustes do app.";
+"welcome.step.goal.info.editable" = "Você pode mudar depois em ajustes do app.";
 
 
 /* WelcomeThemeStep.swift */

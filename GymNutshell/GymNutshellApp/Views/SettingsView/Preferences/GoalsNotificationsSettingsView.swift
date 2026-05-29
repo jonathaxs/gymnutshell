@@ -17,8 +17,6 @@ struct GoalsNotificationsSettingsView: View {
     @State private var categorySections: [MetaCategorySection] = []
     @State private var unassignedCustomGoals: [CustomTrackingGoal] = []
 
-    @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
-
     // Estado de colapso das categorias, chave separada das Metas pra não conflitar
     // com `settings.goal.collapsed` (usado em TrackingGoalsSettingsView).
     @AppStorage("settings.notifications.goals.collapsed") private var collapsedRaw: String = ""
@@ -121,18 +119,17 @@ struct GoalsNotificationsSettingsView: View {
     // MARK: - Montagem das subseções
 
     private func rebuildCategorySections() {
-        let vitaminDCategory = GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
         // Filtra metas removidas pelo usuário em Hoje, sem isso elas continuam
         // listadas aqui mesmo após sumir da TodayView e do cálculo de progresso.
         let removed = RemovedItemsStore.load()
         let fixedOrder = GoalOrderStore.load().filter { !removed.contains($0) }
 
-        // Kinds fixos agrupados por categoria efetiva, já na ordem do GoalOrderStore.
+        // Kinds fixos agrupados por categoria, já na ordem do GoalOrderStore.
         var kindsByCategory: [GoalCategory: [NotificationKind]] = [:]
         for trackingKey in fixedOrder {
             guard
                 let kind = NotificationKind.from(trackingOrderKey: trackingKey),
-                let category = GoalCategory.effectiveCategory(for: trackingKey, vitaminDCategory: vitaminDCategory)
+                let category = GoalCategory.defaultCategory(for: trackingKey)
             else { continue }
             kindsByCategory[category, default: []].append(kind)
         }

@@ -72,9 +72,8 @@ struct WelcomeView: View {
 
     // Se o usuário escolheu incluir Good Fat no rastreio.
     @State private var includeFats: Bool = false
-    // Se o usuário escolheu incluir as metas de check-in Creatine e Vitamin D.
+    // Se o usuário escolheu incluir a meta de check-in Creatina.
     @State private var includeCreatine: Bool = false
-    @State private var includeVitaminD: Bool = false
 
     // MARK: - Resultado calculado exibido na etapa de resumo
 
@@ -217,7 +216,6 @@ struct WelcomeView: View {
 
         // Marca metas opcionais de suplementos como removidas se o usuário não incluiu.
         if !includeCreatine { RemovedItemsStore.remove("tracking.creatine") }
-        if !includeVitaminD { RemovedItemsStore.remove("tracking.vitaminD") }
 
         // Marca o onboarding como concluído.
         defaults.set(true, forKey: UserProfile.didCompleteOnboardingKey)
@@ -318,7 +316,6 @@ struct WelcomeView: View {
                         accentColor: sexColor,
                         includeFats: $includeFats,
                         includeCreatine: $includeCreatine,
-                        includeVitaminD: $includeVitaminD,
                         scrolledToEnd: $summaryScrolledToEnd,
                         isWide: isWide
                     )

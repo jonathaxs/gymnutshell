@@ -210,7 +210,7 @@
 "settings.addgoal.category.new.button" = "New category";
 "settings.addgoal.category.new.section" = "Custom category";
 "settings.addgoal.category.new.name.placeholder" = "example: Stretching";
-"settings.addgoal.category.new.restDay" = "Enable Day off toggle";
+"settings.addgoal.category.new.restDay" = "Day off toggle (ON/OFF)";
 "settings.goals.custom.badge" = "Custom";
 "settings.goals.categories.title" = "Categories";
 
@@ -348,9 +348,6 @@
 "settings.goaldetail.save" = "Save";
 "settings.goaldetail.increment.stepper" = "Adjust step";
 "settings.goaldetail.increment.footer" = "The step is how far the slider advances toward the target value.";
-"settings.vitaminD.category.section" = "Category";
-"settings.vitaminD.category.label" = "Category";
-"settings.vitaminD.category.footer" = "Switching to Supplement changes the unit to IU with a 2000 IU default.\nSwitching back to Vitamin returns it to 10 minutes of sun exposure.";
 
 
 /* TrackingGoalsSettingsView.swift */
@@ -384,7 +381,6 @@
 "goal.category.essencial" = "Essential";
 "goal.category.nutricao" = "Nutrition";
 "goal.category.treino" = "Training";
-"goal.category.vitamina" = "Vitamin";
 "goal.category.suplemento" = "Supplement";
 
 
@@ -392,7 +388,6 @@
 "today.goals.workout" = "Weight Training";
 "today.goals.cardio" = "Cardio";
 "today.goals.creatine" = "Creatine";
-"today.goals.vitaminD" = "Vitamin D";
 "today.restday.label" = "Day off";
 "today.restday.on" = "      ON      ";
 "today.restday.off" = "     OFF     ";
@@ -765,11 +760,6 @@
 "notifications.kind.cardio.description"     = "Reminders to complete today's cardio.";
 "notifications.kind.cardio.body"            = "Cardio time! A bit of movement makes a difference.";
 "notifications.kind.cardio.footer"          = "Periodic reminders stop once you hit your cardio goal.";
-
-"notifications.kind.vitaminD.title"         = "Vitamin D";
-"notifications.kind.vitaminD.description"   = "Reminders for your daily vitamin D / supplement dose.";
-"notifications.kind.vitaminD.body"          = "Have you taken your vitamin D today?";
-"notifications.kind.vitaminD.footer"        = "Periodic reminders stop once you log today's dose.";
 
 "notifications.kind.creatine.title"         = "Creatine";
 "notifications.kind.creatine.description"   = "Reminders for your daily creatine dose.";

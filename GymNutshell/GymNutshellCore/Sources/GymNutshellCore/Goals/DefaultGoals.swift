@@ -39,6 +39,4 @@ public enum DefaultGoals {
     // MARK: - Suplementos
     public static let creatine: Int = 5
     public static let creatineIncrement: Int = 1
-    public static let vitaminD: Int = 10
-    public static let vitaminDIncrement: Int = 5
 }

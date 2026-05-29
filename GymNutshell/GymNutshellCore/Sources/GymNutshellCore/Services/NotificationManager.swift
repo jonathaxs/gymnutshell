@@ -151,7 +151,7 @@ public final class NotificationManager: NSObject, UNUserNotificationCenterDelega
         NotificationPreferences.setEnabled(false, for: .backup)
         NotificationPreferences.setEnabled(true, for: .water)
         for kind in [NotificationKind.sleep, .protein, .carbs, .goodFat, .fiber,
-                     .workout, .cardio, .vitaminD, .creatine] {
+                     .workout, .cardio, .creatine] {
             NotificationPreferences.setEnabled(false, for: kind)
         }
     }

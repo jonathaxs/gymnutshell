@@ -3,8 +3,7 @@
 //
 //  Propósito: Hub central pra gerenciar todas as metas diárias agrupadas por categoria ,
 //             métricas fixas, objetivo fitness e metas de rastreio personalizadas criadas pelo usuário.
-//             Cada categoria é colapsável (chevron estilo Finder). A VitaminD pode alternar entre
-//             os modos Vitamina (min) e Suplemento (UI) diretamente no TrackingGoalDetailView.
+//             Cada categoria é colapsável (chevron estilo Finder).
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-11.
 // ⌘
@@ -34,17 +33,8 @@ struct TrackingGoalsSettingsView: View {
     // Sistema de medidas, controla exibição da unidade de água (ml vs fl oz).
     @AppStorage(UserProfile.measurementSystemKey) private var measurementSystem: MeasurementSystem = .metric
 
-    // Modo VitaminD, controla se ela aparece como Vitamina (min) ou Suplemento (UI).
-    @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
-
     // Estado de colapso das categorias na Settings.
     @AppStorage("settings.goal.collapsed") private var settingsCollapsedRaw: String = ""
-
-    // MARK: - Categoria VitaminD
-
-    private var vitaminDCategory: GoalCategory {
-        GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
-    }
 
     // MARK: - Colapso de categorias
 
@@ -69,9 +59,7 @@ struct TrackingGoalsSettingsView: View {
     // MARK: - Helpers de categoria
 
     private func fixedKeysForCategory(_ category: GoalCategory) -> [String] {
-        orderedGoalKeys.filter {
-            GoalCategory.effectiveCategory(for: $0, vitaminDCategory: vitaminDCategory) == category
-        }
+        orderedGoalKeys.filter { GoalCategory.defaultCategory(for: $0) == category }
     }
 
     private func customGoalsForCategory(_ category: GoalCategory) -> [CustomTrackingGoal] {
@@ -89,7 +77,6 @@ struct TrackingGoalsSettingsView: View {
     // MARK: - Metadados
 
     // Retorna metadados de exibição pra uma chave de meta fixa.
-    // VitaminD adapta unidade/fallback/incremento ao modo atual.
     // O incremento usa o valor salvo pelo usuário em TrackingGoalDetailView, com fallback no padrão.
     private func meta(for key: String) -> (icon: String, unit: String, fallback: Int, increment: Int)? {
         switch key {
@@ -116,11 +103,6 @@ struct TrackingGoalsSettingsView: View {
             return ("🌾", "g", DefaultGoals.fiber,   storedIncrement(for: key, fallback: 5))
         case "tracking.creatine":
             return ("🧪", "g", DefaultGoals.creatine, storedIncrement(for: key, fallback: DefaultGoals.creatineIncrement))
-        case "tracking.vitaminD":
-            return (vitaminDCategory == .suplemento ? "💊" : "☀️",
-                    GoalCategory.vitaminDUnit(for: vitaminDCategory),
-                    GoalCategory.vitaminDFallback(for: vitaminDCategory),
-                    storedIncrement(for: key, fallback: GoalCategory.vitaminDIncrement(for: vitaminDCategory)))
         default: return nil
         }
     }
@@ -148,7 +130,6 @@ struct TrackingGoalsSettingsView: View {
         case "tracking.goodFat":  return String(localized: "settings.goal.fats", bundle: .gymNutshellCore)
         case "tracking.fiber":    return String(localized: "settings.goal.fiber", bundle: .gymNutshellCore)
         case "tracking.creatine": return String(localized: "today.goals.creatine", bundle: .gymNutshellCore)
-        case "tracking.vitaminD": return String(localized: "today.goals.vitaminD", bundle: .gymNutshellCore)
         default: return key
         }
     }

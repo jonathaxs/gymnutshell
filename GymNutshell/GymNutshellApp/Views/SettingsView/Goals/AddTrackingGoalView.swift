@@ -73,10 +73,10 @@ struct AddTrackingGoalView: View {
         newCategoryName.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private static let reservedEmojis: Set<String> = ["🏋️","🏃","💤","💧","🍗","🍞","🧈","🌾","🧪","☀️"]
+    private static let reservedEmojis: Set<String> = ["🏋️","🏃","💤","💧","🍗","🍞","🧈","🌾","🧪"]
     private static let reservedNames: Set<String> = [
-        "workout", "cardio", "sleep", "water", "protein", "carbs", "fats", "fiber", "creatine", "vitamin d",
-        "treino", "sono", "água", "proteína", "carboidratos", "gorduras", "fibra", "creatina", "vitamina d"
+        "workout", "cardio", "sleep", "water", "protein", "carbs", "fats", "fiber", "creatine",
+        "treino", "sono", "água", "proteína", "carboidratos", "gorduras", "fibra", "creatina"
     ]
 
     /// Emoji igual ao de uma meta fixa ou de outra meta personalizada existente.

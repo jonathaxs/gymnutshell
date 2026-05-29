@@ -58,7 +58,6 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
     case fiber
     case workout
     case cardio
-    case vitaminD
     case creatine
 
     public var id: String { rawValue }
@@ -68,7 +67,7 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
     public var isEditable: Bool {
         switch self {
         case .progress, .sleep, .water, .calories, .protein, .carbs, .goodFat, .fiber,
-             .workout, .cardio, .vitaminD, .creatine:
+             .workout, .cardio, .creatine:
             return true
         case .achievement, .streakBonus, .appleHealth, .backup:
             return false
@@ -85,7 +84,7 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
         case .progress: return 150
         case .water:    return 120
         case .sleep:    return 180
-        case .calories, .protein, .carbs, .goodFat, .fiber, .workout, .cardio, .vitaminD, .creatine:
+        case .calories, .protein, .carbs, .goodFat, .fiber, .workout, .cardio, .creatine:
             return 120
         default:
             return 0
@@ -138,7 +137,6 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
         case .goodFat:  return "🧈"
         case .fiber:    return "🌾"
         case .creatine: return "🧪"
-        case .vitaminD: return "☀️"
         default:        return nil
         }
     }
@@ -157,7 +155,6 @@ public enum NotificationKind: String, CaseIterable, Identifiable, Sendable {
         case .goodFat:  return "tracking.goodFat"
         case .fiber:    return "tracking.fiber"
         case .creatine: return "tracking.creatine"
-        case .vitaminD: return "tracking.vitaminD"
         default:        return nil
         }
     }

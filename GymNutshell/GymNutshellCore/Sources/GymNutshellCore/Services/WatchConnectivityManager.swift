@@ -33,7 +33,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
     private static let intakeKeys: [String] = [
         "workoutIntake", "cardioIntake", "sleepHours", "waterIntake",
         "proteinIntake", "carbIntake", "goodFatIntake", "fiberIntake",
-        "creatineIntake", "vitaminDIntake"
+        "creatineIntake"
     ]
 
     /// Chaves de preferência, sincronizadas só do iPhone pro Watch
@@ -43,7 +43,6 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         AppTheme.storageKey,
         UserProfile.sexKey,
         AppAccentColor.storageKey,
-        GoalCategory.vitaminDCategoryKey,
 
         // Idioma, o iPhone escreve essa chave em sendSnapshot() antes de ler preferenceKeys.
         // O Watch aplica no init() antes do SwiftUI inicializar, garantindo o idioma correto.
@@ -70,8 +69,7 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
         "tracking.carbs",
         "tracking.goodFat",
         "tracking.fiber",
-        "tracking.creatine",
-        "tracking.vitaminD"
+        "tracking.creatine"
     ]
 
     /// Última cópia de cada chave de ingestão que foi enviada/recebida.

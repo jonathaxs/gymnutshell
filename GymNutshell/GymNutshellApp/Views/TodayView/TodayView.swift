@@ -45,7 +45,6 @@ struct TodayView: View {
 
     // Suplementos
     @AppStorage("creatineIntake") private var creatineIntake: Int = 0
-    @AppStorage("vitaminDIntake") private var vitaminDIntake: Int = 0
 
     @AppStorage("lastFinishedDate") private var lastFinishedDate: String = ""
 
@@ -72,9 +71,6 @@ struct TodayView: View {
 
     // Auto detecção de treinos do Apple Health.
     @AppStorage("healthkit.autoWorkoutCheckin") private var autoWorkoutCheckin: Bool = false
-
-    // Modo da meta VitaminD, controla se ela fica na categoria Vitamina (min) ou Suplemento (UI).
-    @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
 
     // Estado de colapso das categorias de metas na TodayView.
     @AppStorage("today.goal.collapsed") private var todayCollapsedRaw: String = ""
@@ -109,7 +105,6 @@ struct TodayView: View {
     private let goodFatGoal:  Int = GoalsProvider.goodFat
     private let fiberGoal:    Int = GoalsProvider.fiber
     private let creatineGoal: Int = GoalsProvider.creatine
-    private var vitaminDGoal: Int { GoalsProvider.vitaminD }
 
     // MARK: - Helpers de exibição de água (imperial converte ml ↔ fl oz na camada de UI)
 
@@ -135,17 +130,6 @@ struct TodayView: View {
     private var waterIncrement: Int { measurementSystem == .us ? 8 : 250 }
 
     // MARK: - Categorias de metas
-
-    private var vitaminDCategory: GoalCategory {
-        GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
-    }
-
-    /// Passo efetivo da Vitamina D, respeita valor customizado salvo em
-    /// "tracking.vitaminD.increment", cai pro default do modo se nunca foi editado.
-    private var vitaminDIncrement: Int {
-        let stored = UserDefaults.standard.integer(forKey: "tracking.vitaminD.increment")
-        return stored > 0 ? stored : GoalCategory.vitaminDIncrement(for: vitaminDCategory)
-    }
 
     private var todayCollapsedCategories: Set<String> {
         Set(todayCollapsedRaw.split(separator: ",").map(String.init).filter { !$0.isEmpty })
@@ -203,7 +187,6 @@ struct TodayView: View {
         case "tracking.goodFat":  return ProgressHelpers.normalizedProgress(current: goodFatIntake,  goal: goodFatGoal)
         case "tracking.fiber":    return ProgressHelpers.normalizedProgress(current: fiberIntake,    goal: fiberGoal)
         case "tracking.creatine": return ProgressHelpers.normalizedProgress(current: creatineIntake, goal: creatineGoal)
-        case "tracking.vitaminD": return ProgressHelpers.normalizedProgress(current: vitaminDIntake, goal: vitaminDGoal)
         default: return 0
         }
     }
@@ -312,12 +295,6 @@ struct TodayView: View {
             TrackingGoalRowView(emoji: "🧪", title: String(localized: "today.goals.creatine", bundle: .gymNutshellCore),
                                 unit: "g", increment: DefaultGoals.creatineIncrement,
                                 goal: creatineGoal, value: $creatineIntake)
-        case "tracking.vitaminD":
-            TrackingGoalRowView(emoji: vitaminDCategory == .suplemento ? "💊" : "☀️",
-                                title: String(localized: "today.goals.vitaminD", bundle: .gymNutshellCore),
-                                unit: GoalCategory.vitaminDUnit(for: vitaminDCategory),
-                                increment: vitaminDIncrement,
-                                goal: vitaminDGoal, value: $vitaminDIntake)
         default:
             EmptyView()
         }
@@ -354,7 +331,6 @@ struct TodayView: View {
         allIntakes["tracking.workout"]  = workoutIntake
         allIntakes["tracking.cardio"]   = cardioIntake
         allIntakes["tracking.creatine"] = creatineIntake
-        allIntakes["tracking.vitaminD"] = vitaminDIntake
 
         let record = DailyRecord(
             date: date,
@@ -396,7 +372,6 @@ struct TodayView: View {
         goodFatIntake  = 0
         fiberIntake    = 0
         creatineIntake = 0
-        vitaminDIntake = 0
         customTrackingIntakes = [:]
         CustomTrackingIntakesStore.reset()
         customTrackingRestDays = [:]
@@ -543,7 +518,7 @@ struct TodayView: View {
     @ViewBuilder
     private func todayCategorySection(_ category: GoalCategory) -> some View {
         let fixedKeys = activeGoalKeys.filter {
-            GoalCategory.effectiveCategory(for: $0, vitaminDCategory: vitaminDCategory) == category
+            GoalCategory.defaultCategory(for: $0) == category
         }
         let customGoalsInCategory = customTrackingGoals.filter { $0.category == category }
 
@@ -654,7 +629,7 @@ struct TodayView: View {
         switch item {
         case .builtin(let category):
             let fixedKeys = activeGoalKeys.filter {
-                GoalCategory.effectiveCategory(for: $0, vitaminDCategory: vitaminDCategory) == category
+                GoalCategory.defaultCategory(for: $0) == category
             }
             let customs = customTrackingGoals.filter { $0.category == category }
             return !fixedKeys.isEmpty || !customs.isEmpty

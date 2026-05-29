@@ -224,7 +224,6 @@ extension WidgetSnapshot {
         case "tracking.goodFat":  return "🧈"
         case "tracking.fiber":    return "🌾"
         case "tracking.creatine": return "🧪"
-        case "tracking.vitaminD": return "☀️"
         default: return "•"
         }
     }
@@ -242,7 +241,6 @@ extension WidgetSnapshot {
         case "tracking.goodFat":  locKey = "today.metric.fats"
         case "tracking.fiber":    locKey = "today.metric.fiber"
         case "tracking.creatine": locKey = "today.goals.creatine"
-        case "tracking.vitaminD": locKey = "today.goals.vitaminD"
         default: return key
         }
         return String(localized: String.LocalizationValue(locKey), bundle: .gymNutshellCore)
@@ -301,11 +299,6 @@ extension WidgetSnapshot {
             return ProgressHelpers.normalizedProgress(
                 current: defaults.integer(forKey: "creatineIntake"),
                 goal: GoalsProvider.creatine
-            )
-        case "tracking.vitaminD":
-            return ProgressHelpers.normalizedProgress(
-                current: defaults.integer(forKey: "vitaminDIntake"),
-                goal: GoalsProvider.vitaminD
             )
         default:
             return 0

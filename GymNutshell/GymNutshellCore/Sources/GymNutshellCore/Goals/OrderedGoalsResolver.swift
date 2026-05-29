@@ -14,7 +14,7 @@ public enum OrderedGoalsResolver {
 
     /// Retorna as chaves `tracking.*` ativas (não removidas) na ordem correta:
     /// primeiro pela ordem do `GoalCategoryOrderStore`, depois pela ordem do
-    /// `GoalOrderStore` dentro de cada categoria. Respeita o modo VitaminD.
+    /// `GoalOrderStore` dentro de cada categoria.
     ///
     /// Esta é a fonte da verdade, toda view que itera metas built-in deveria
     /// passar por aqui em vez de chamar `GoalOrderStore.load()` direto.
@@ -23,20 +23,12 @@ public enum OrderedGoalsResolver {
         let goalOrder = GoalOrderStore.load().filter { !removed.contains($0) }
         let categoryOrder = GoalCategoryOrderStore.load()
 
-        let vitaminDRaw = UserDefaults.standard.string(forKey: GoalCategory.vitaminDCategoryKey)
-            ?? GoalCategory.vitamina.rawValue
-        let vitaminDCategory = GoalCategory(rawValue: vitaminDRaw) ?? .vitamina
-
         var result: [String] = []
         var used = Set<String>()
 
         for category in categoryOrder {
             for key in goalOrder where !used.contains(key) {
-                let effective = GoalCategory.effectiveCategory(
-                    for: key,
-                    vitaminDCategory: vitaminDCategory
-                )
-                if effective == category {
+                if GoalCategory.defaultCategory(for: key) == category {
                     result.append(key)
                     used.insert(key)
                 }

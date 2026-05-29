@@ -58,10 +58,6 @@ public enum GoalsProvider {
         stored(key: "tracking.creatine", fallback: DefaultGoals.creatine)
     }
 
-    public static var vitaminD: Int {
-        stored(key: "tracking.vitaminD", fallback: DefaultGoals.vitaminD)
-    }
-
     // MARK: - Salvar
     public static func save(_ result: GoalsCalculator.Result) {
         let defaults = UserDefaults.standard

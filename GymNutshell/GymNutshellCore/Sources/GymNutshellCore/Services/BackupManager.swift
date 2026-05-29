@@ -38,7 +38,6 @@ public enum BackupManager {
         let customCategories     = CustomGoalCategoriesStore.load()
         let categoryOrderIds     = UnifiedCategoryOrderStore.load().map(\.id)
         let builtinCategoryOrder = GoalCategoryOrderStore.load().map(\.rawValue)
-        let vitaminDMode         = defaults.string(forKey: GoalCategory.vitaminDCategoryKey)
 
         let goals = BackupPayload.GoalsSnapshot(
             calories: GoalsProvider.calories,
@@ -88,7 +87,6 @@ public enum BackupManager {
             customCategories:     customCategories,
             categoryOrder:        categoryOrderIds,
             builtinCategoryOrder: builtinCategoryOrder,
-            vitaminDCategoryMode: vitaminDMode,
             preferences:          preferences
         )
 
@@ -230,10 +228,6 @@ public enum BackupManager {
         }
         if let categoryOrder = payload.categoryOrder {
             defaults.set(categoryOrder, forKey: UnifiedCategoryOrderStore.key)
-        }
-
-        if let vitaminDMode = payload.vitaminDCategoryMode {
-            defaults.set(vitaminDMode, forKey: GoalCategory.vitaminDCategoryKey)
         }
 
         if let prefs = payload.preferences {

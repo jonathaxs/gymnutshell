@@ -27,7 +27,6 @@ public struct BackupPayload: Codable, Sendable {
     public let customCategories: [CustomGoalCategory]?
     public let categoryOrder: [String]?
     public let builtinCategoryOrder: [String]?
-    public let vitaminDCategoryMode: String?
     public let preferences: PreferencesSnapshot?
 
     public init(
@@ -43,7 +42,6 @@ public struct BackupPayload: Codable, Sendable {
         customCategories: [CustomGoalCategory]?,
         categoryOrder: [String]?,
         builtinCategoryOrder: [String]?,
-        vitaminDCategoryMode: String?,
         preferences: PreferencesSnapshot?
     ) {
         self.version = version
@@ -58,7 +56,6 @@ public struct BackupPayload: Codable, Sendable {
         self.customCategories = customCategories
         self.categoryOrder = categoryOrder
         self.builtinCategoryOrder = builtinCategoryOrder
-        self.vitaminDCategoryMode = vitaminDCategoryMode
         self.preferences = preferences
     }
 

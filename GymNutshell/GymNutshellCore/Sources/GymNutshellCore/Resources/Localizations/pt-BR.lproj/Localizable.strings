@@ -246,7 +246,7 @@
 "settings.addgoal.category.new.button" = "Nova categoria";
 "settings.addgoal.category.new.section" = "Categoria personalizada";
 "settings.addgoal.category.new.name.placeholder" = "ex: Alongamento";
-"settings.addgoal.category.new.restDay" = "Colocar botão de descanso";
+"settings.addgoal.category.new.restDay" = "Botão de descanso (ON/OFF)";
 "settings.goals.custom.badge" = "Personalizada";
 "settings.goals.categories.title" = "Categorias";
 
@@ -384,9 +384,6 @@
 "settings.goaldetail.save" = "Salvar";
 "settings.goaldetail.increment.stepper" = "Ajustar passo";
 "settings.goaldetail.increment.footer" = "O passo é o quanto o slider avança no valor da meta.";
-"settings.vitaminD.category.section" = "Categoria";
-"settings.vitaminD.category.label" = "Categoria";
-"settings.vitaminD.category.footer" = "Ao trocar pra Suplemento, a unidade muda pra UI e o padrão pra 2000 UI.\nAo voltar pra Vitamina, retorna a 10 minutos de exposição solar.";
 
 
 /* TrackingGoalsSettingsView.swift */
@@ -420,7 +417,6 @@
 "goal.category.essencial" = "Essencial";
 "goal.category.nutricao" = "Nutrição";
 "goal.category.treino" = "Treino";
-"goal.category.vitamina" = "Vitamina";
 "goal.category.suplemento" = "Suplemento";
 
 
@@ -428,7 +424,6 @@
 "today.goals.workout" = "Musculação";
 "today.goals.cardio" = "Cardio";
 "today.goals.creatine" = "Creatina";
-"today.goals.vitaminD" = "Vitamina D";
 "today.restday.label" = "Dia de descanso";
 "today.restday.on" = "      ON      ";
 "today.restday.off" = "     OFF     ";
@@ -814,11 +809,6 @@
 "notifications.kind.cardio.description"     = "Lembretes para completar o cardio do dia.";
 "notifications.kind.cardio.body"            = "Hora do cardio! Um pouco de movimento faz diferença.";
 "notifications.kind.cardio.footer"          = "Lembretes periódicos param quando você atinge a meta de cardio.";
-
-"notifications.kind.vitaminD.title"         = "Vitamina D";
-"notifications.kind.vitaminD.description"   = "Lembretes para a dose diária de vitamina D / suplemento.";
-"notifications.kind.vitaminD.body"          = "Já tomou sua vitamina D hoje?";
-"notifications.kind.vitaminD.footer"        = "Lembretes periódicos param quando você registra a dose do dia.";
 
 "notifications.kind.creatine.title"         = "Creatina";
 "notifications.kind.creatine.description"   = "Lembretes para a dose diária de creatina.";

@@ -29,14 +29,12 @@ struct ContentView: View {
     @AppStorage("goodFatIntake")  private var goodFatIntake:  Int = 0
     @AppStorage("fiberIntake")    private var fiberIntake:    Int = 0
     @AppStorage("creatineIntake") private var creatineIntake: Int = 0
-    @AppStorage("vitaminDIntake") private var vitaminDIntake: Int = 0
 
     // MARK: - Preferências
 
     @AppStorage(AppTheme.storageKey)              private var storedThemeRaw:       String = AppTheme.gym.rawValue
     @AppStorage(UserProfile.sexKey)               private var sex:                  String = "male"
     @AppStorage(AppAccentColor.storageKey)        private var storedColorRaw:       String = AppAccentColor.blue.rawValue
-    @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw:  String = GoalCategory.vitamina.rawValue
 
     // Valores-alvo das metas, observados como @AppStorage pra que SwiftUI
     // re-renderize quando o iPhone mandar novos valores via WatchConnectivity.
@@ -50,7 +48,6 @@ struct ContentView: View {
     @AppStorage("tracking.goodFat")  private var goodFatGoalValue:  Int = DefaultGoals.goodFat
     @AppStorage("tracking.fiber")    private var fiberGoalValue:    Int = DefaultGoals.fiber
     @AppStorage("tracking.creatine") private var creatineGoalValue: Int = DefaultGoals.creatine
-    @AppStorage("tracking.vitaminD") private var vitaminDGoalValue: Int = DefaultGoals.vitaminD
 
     // Trigger de refresh, quando UserDefaults muda (incluindo a ordem de metas
     // ou removedItems), incrementa pra forçar re-render do goalEntries (que é
@@ -65,7 +62,6 @@ struct ContentView: View {
 
     private var theme: AppTheme            { AppTheme(rawValue: storedThemeRaw) ?? .gym }
     private var accent: AppAccentColor     { AppAccentColor(rawValue: storedColorRaw) ?? .blue }
-    private var vitaminDCategory: GoalCategory { GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina }
 
     // MARK: - Metas exibidas
 
@@ -153,15 +149,6 @@ struct ContentView: View {
                 unit: "g", increment: DefaultGoals.creatineIncrement,
                 update: { creatineIntake = $0 }
             )
-        case "tracking.vitaminD":
-            return GoalEntry(
-                id: key, emoji: "☀️",
-                displayName: String(localized: "today.goals.vitaminD", bundle: .gymNutshellCore),
-                current: vitaminDIntake, goal: vitaminDGoalValue,
-                unit: GoalCategory.vitaminDUnit(for: vitaminDCategory),
-                increment: GoalCategory.vitaminDIncrement(for: vitaminDCategory),
-                update: { vitaminDIntake = $0 }
-            )
         default:
             return nil
         }
@@ -187,8 +174,7 @@ struct ContentView: View {
         // Itera categoria por categoria, dentro de cada uma, mantém ordem do GoalOrderStore.
         for category in categoryOrder {
             for key in allKeys where !usedKeys.contains(key) {
-                let effective = GoalCategory.effectiveCategory(for: key, vitaminDCategory: vitaminDCategory)
-                guard effective == category else { continue }
+                guard GoalCategory.defaultCategory(for: key) == category else { continue }
                 if let entry = entry(forTrackingKey: key) {
                     result.append(entry)
                     usedKeys.insert(key)
@@ -298,7 +284,6 @@ struct ContentView: View {
         case "tracking.goodFat":  return "goodFatIntake"
         case "tracking.fiber":    return "fiberIntake"
         case "tracking.creatine": return "creatineIntake"
-        case "tracking.vitaminD": return "vitaminDIntake"
         default:                  return goalId
         }
     }

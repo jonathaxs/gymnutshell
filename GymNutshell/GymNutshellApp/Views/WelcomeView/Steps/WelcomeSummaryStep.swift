@@ -2,7 +2,7 @@
 //  GymNutshell/GymNutshellApp/Views/WelcomeView/Steps/WelcomeSummaryStep.swift
 //
 //  Propósito: Etapa final do onboarding, exibe as metas diárias calculadas organizadas por categoria
-//             e permite ao usuário adicionar opcionalmente Gordura, Creatina e Vitamina D antes de concluir.
+//             e permite ao usuário adicionar opcionalmente Gordura e Creatina antes de concluir.
 //             Os parágrafos informativos aparecem no fim, depois das metas opcionais.
 //
 //  Created by Jonathas Motta (@jonathaxs) on 2026-03-10.
@@ -21,7 +21,6 @@ struct WelcomeSummaryStep: View {
     let accentColor: Color
     @Binding var includeFats: Bool
     @Binding var includeCreatine: Bool
-    @Binding var includeVitaminD: Bool
     @Binding var scrolledToEnd: Bool
     var isWide: Bool = false
 
@@ -92,17 +91,6 @@ struct WelcomeSummaryStep: View {
                             value: "\(goals.creatine)g",
                             accentColor: accentColor,
                             isIncluded: $includeCreatine
-                        )
-                    }
-
-                    // MARK: Vitamina
-                    summaryCategory(GoalCategory.vitamina) {
-                        OptionalTrackingGoalRow(
-                            icon: "☀️",
-                            label: String(localized: "today.goals.vitaminD", bundle: .gymNutshellCore),
-                            value: "\(DefaultGoals.vitaminD) min",
-                            accentColor: accentColor,
-                            isIncluded: $includeVitaminD
                         )
                     }
 

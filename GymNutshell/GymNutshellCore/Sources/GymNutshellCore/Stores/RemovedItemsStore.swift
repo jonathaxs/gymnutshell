@@ -12,8 +12,7 @@ public enum RemovedItemsStore {
 
     public static let removableTrackingKeys: Set<String> = [
         "tracking.goodFat",
-        "tracking.creatine",
-        "tracking.vitaminD"
+        "tracking.creatine"
     ]
 
     private static let udKey = "app.removedBuiltinItems"

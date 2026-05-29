@@ -36,7 +36,6 @@ struct EditTodayView: View {
     @State private var workoutIntake: Int
     @State private var cardioIntake: Int
     @State private var creatineIntake: Int
-    @State private var vitaminDIntake: Int
 
     // Metas personalizadas e suas ingestões pra esse registro.
     @State private var customTrackingGoals: [CustomTrackingGoal] = []
@@ -56,19 +55,6 @@ struct EditTodayView: View {
     @State private var removedItems: Set<String> = []
     @State private var orderedCategories: [GoalCategory] = []
 
-    // Modo da VitaminD, vitamina (minutos) ou suplemento (UI), lido do UserDefaults.
-    @AppStorage(GoalCategory.vitaminDCategoryKey) private var vitaminDCategoryRaw: String = GoalCategory.vitamina.rawValue
-    private var vitaminDCategory: GoalCategory {
-        GoalCategory(rawValue: vitaminDCategoryRaw) ?? .vitamina
-    }
-
-    /// Passo efetivo da Vitamina D, respeita valor customizado salvo em
-    /// "tracking.vitaminD.increment", cai pro default do modo se nunca foi editado.
-    private var vitaminDIncrement: Int {
-        let stored = UserDefaults.standard.integer(forKey: "tracking.vitaminD.increment")
-        return stored > 0 ? stored : GoalCategory.vitaminDIncrement(for: vitaminDCategory)
-    }
-
     // MARK: - Metas
     private let waterGoal: Int    = GoalsProvider.water
     private let proteinGoal: Int  = GoalsProvider.protein
@@ -80,7 +66,6 @@ struct EditTodayView: View {
     private let workoutGoal: Int  = GoalsProvider.workout
     private let cardioGoal: Int   = GoalsProvider.cardio
     private let creatineGoal: Int = GoalsProvider.creatine
-    private let vitaminDGoal: Int = GoalsProvider.vitaminD
 
     // MARK: - Initializer
     init(record: DailyRecord) {
@@ -92,14 +77,13 @@ struct EditTodayView: View {
         _fiber   = State(initialValue: record.fiber)
         _sleep   = State(initialValue: record.sleep)
 
-        // Lê workout/cardio/creatine/vitaminD do customValues; usa didWorkout/didCardio como fallback
+        // Lê workout/cardio/calorias/creatina do customValues; usa didWorkout/didCardio como fallback
         // pra registros antigos que ainda não tinham esses valores no dicionário.
         let storedIntakes = (try? JSONDecoder().decode([String: Int].self, from: record.customValues)) ?? [:]
         _caloriesIntake = State(initialValue: storedIntakes["tracking.calories"] ?? 0)
         _workoutIntake  = State(initialValue: storedIntakes["tracking.workout"]  ?? (record.didWorkout ? 1 : 0))
         _cardioIntake   = State(initialValue: storedIntakes["tracking.cardio"]   ?? (record.didCardio  ? 15 : 0))
         _creatineIntake = State(initialValue: storedIntakes["tracking.creatine"] ?? 0)
-        _vitaminDIntake = State(initialValue: storedIntakes["tracking.vitaminD"] ?? 0)
         // Restaura os flags de "dia de descanso" salvos no record, sem isso o tier
         // recalculado em edição cairia pra level1 mesmo quando o usuário tinha marcado descanso.
         _workoutRestDay = State(initialValue: record.workoutRestDay)
@@ -128,7 +112,6 @@ struct EditTodayView: View {
         case "tracking.goodFat":  return ProgressHelpers.normalizedProgress(current: goodFat,  goal: goodFatGoal)
         case "tracking.fiber":    return ProgressHelpers.normalizedProgress(current: fiber,    goal: fiberGoal)
         case "tracking.creatine": return ProgressHelpers.normalizedProgress(current: creatineIntake, goal: creatineGoal)
-        case "tracking.vitaminD": return ProgressHelpers.normalizedProgress(current: vitaminDIntake, goal: vitaminDGoal)
         default: return 0
         }
     }
@@ -218,12 +201,6 @@ struct EditTodayView: View {
             TrackingGoalRowView(emoji: "🧪", title: String(localized: "today.goals.creatine", bundle: .gymNutshellCore),
                                 unit: "g", increment: DefaultGoals.creatineIncrement,
                                 goal: creatineGoal, value: $creatineIntake)
-        case "tracking.vitaminD":
-            TrackingGoalRowView(emoji: vitaminDCategory == .suplemento ? "💊" : "☀️",
-                                title: String(localized: "today.goals.vitaminD", bundle: .gymNutshellCore),
-                                unit: GoalCategory.vitaminDUnit(for: vitaminDCategory),
-                                increment: vitaminDIncrement,
-                                goal: vitaminDGoal, value: $vitaminDIntake)
         default:
             EmptyView()
         }
@@ -243,9 +220,7 @@ struct EditTodayView: View {
     // Renderiza o cabeçalho e as linhas de meta de uma categoria, ou EmptyView se nenhuma meta ativa estiver nela.
     @ViewBuilder
     private func goalCategorySection(for category: GoalCategory) -> some View {
-        let keysInCategory = activeGoalKeys.filter {
-            GoalCategory.effectiveCategory(for: $0, vitaminDCategory: vitaminDCategory) == category
-        }
+        let keysInCategory = activeGoalKeys.filter { GoalCategory.defaultCategory(for: $0) == category }
         if !keysInCategory.isEmpty {
             Text(category.displayName)
                 .font(.caption.weight(.semibold))
@@ -343,7 +318,7 @@ struct EditTodayView: View {
                 userCategories = CustomGoalCategoriesStore.load()
                 // Carrega intakes customizados, excluindo as chaves built-in (tratadas como @State acima).
                 if let dict = try? JSONDecoder().decode([String: Int].self, from: record.customValues) {
-                    let builtinKeys: Set<String> = ["tracking.calories", "tracking.workout", "tracking.cardio", "tracking.creatine", "tracking.vitaminD"]
+                    let builtinKeys: Set<String> = ["tracking.calories", "tracking.workout", "tracking.cardio", "tracking.creatine"]
                     customTrackingIntakes = dict.filter { !builtinKeys.contains($0.key) }
                 }
             }
@@ -366,7 +341,6 @@ struct EditTodayView: View {
         allIntakes["tracking.workout"]  = workoutIntake
         allIntakes["tracking.cardio"]   = cardioIntake
         allIntakes["tracking.creatine"] = creatineIntake
-        allIntakes["tracking.vitaminD"] = vitaminDIntake
         record.customValues = (try? JSONEncoder().encode(allIntakes)) ?? Data()
 
         // Atualiza os campos booleanos pra manter compatibilidade com as estatísticas.

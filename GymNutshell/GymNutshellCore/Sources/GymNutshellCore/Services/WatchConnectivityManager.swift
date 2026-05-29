@@ -32,8 +32,8 @@ public final class WatchConnectivityManager: NSObject, @unchecked Sendable {
     /// Chaves de ingestão diária, sincronizadas em ambas as direções.
     private static let intakeKeys: [String] = [
         "workoutIntake", "cardioIntake", "sleepHours", "waterIntake",
-        "proteinIntake", "carbIntake", "goodFatIntake", "fiberIntake",
-        "creatineIntake"
+        "caloriesIntake", "proteinIntake", "carbIntake", "goodFatIntake",
+        "fiberIntake", "creatineIntake"
     ]
 
     /// Chaves de preferência, sincronizadas só do iPhone pro Watch

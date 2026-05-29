@@ -713,6 +713,7 @@ struct TodayView: View {
             // na borda esquerda como o usuário pediu.
             .frame(maxWidth: vertical ? 1400 : .infinity, alignment: vertical ? .center : .leading)
             .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, vertical ? 24 : 0)
 
             Spacer(minLength: 0)
         }

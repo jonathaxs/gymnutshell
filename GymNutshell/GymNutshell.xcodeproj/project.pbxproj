@@ -879,7 +879,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellApp/Resources/GymNutshellApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -887,6 +887,9 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take photos saved in your daily achievements.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your sleep and workout history from Apple Health to display your daily activity and calculate progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Save your sleep entries to Apple Health so your history stays in sync across apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Jonathas Motta";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -919,7 +922,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellApp/Resources/GymNutshellApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -927,6 +930,9 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take photos saved in your daily achievements.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your sleep and workout history from Apple Health to display your daily activity and calculate progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Save your sleep entries to Apple Health so your history stays in sync across apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Jonathas Motta";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1045,7 +1051,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWidget/Resources/GymNutshellWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_APP_SANDBOX = YES;
@@ -1083,7 +1089,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWidget/Resources/GymNutshellWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_APP_SANDBOX = YES;
@@ -1121,13 +1127,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatch/Resources/GymNutshellWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your sleep and workout history from Apple Health to display your daily activity and calculate progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Save your sleep entries to Apple Health so your history stays in sync across apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Jonathas Motta";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jonathaxs.GymNutshell;
@@ -1158,13 +1166,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatch/Resources/GymNutshellWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Nutshell;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your sleep and workout history from Apple Health to display your daily activity and calculate progress.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Save your sleep entries to Apple Health so your history stays in sync across apps.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2026 Jonathas Motta";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.jonathaxs.GymNutshell;
@@ -1285,7 +1295,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatchWidget/Resources/GymNutshellWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellWatchWidget/Resources/Info.plist;
@@ -1320,7 +1330,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatchWidget/Resources/GymNutshellWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellWatchWidget/Resources/Info.plist;

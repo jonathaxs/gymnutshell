@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		694791332FA58E5400E26A2B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 694791322FA58E5400E26A2B /* StoreKit.framework */; };
 		6947916E2FA591B500E26A2B /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947916D2FA591B500E26A2B /* WidgetKit.framework */; };
 		694791702FA591B500E26A2B /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6947916F2FA591B500E26A2B /* SwiftUI.framework */; };
 		6947917D2FA591B600E26A2B /* GymNutshellWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 6947916C2FA591B500E26A2B /* GymNutshellWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -122,7 +121,6 @@
 		694791122FA58B3C00E26A2B /* GymNutshellAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GymNutshellAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6947911C2FA58B3C00E26A2B /* GymNutshellAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GymNutshellAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6947912F2FA58DC600E26A2B /* GymNutshellCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GymNutshellCore; sourceTree = "<group>"; };
-		694791322FA58E5400E26A2B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6947916C2FA591B500E26A2B /* GymNutshellWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = GymNutshellWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6947916D2FA591B500E26A2B /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
 		6947916F2FA591B500E26A2B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
@@ -214,7 +212,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				694791D22FA6BE0D00E26A2B /* GymNutshellCore in Frameworks */,
-				694791332FA58E5400E26A2B /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +310,6 @@
 		694791312FA58E5400E26A2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				694791322FA58E5400E26A2B /* StoreKit.framework */,
 				6947916D2FA591B500E26A2B /* WidgetKit.framework */,
 				6947916F2FA591B500E26A2B /* SwiftUI.framework */,
 			);
@@ -879,7 +875,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellApp/Resources/GymNutshellApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -922,7 +918,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellApp/Resources/GymNutshellApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1051,7 +1047,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWidget/Resources/GymNutshellWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_APP_SANDBOX = YES;
@@ -1089,7 +1085,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWidget/Resources/GymNutshellWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_APP_SANDBOX = YES;
@@ -1127,7 +1123,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatch/Resources/GymNutshellWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1166,7 +1162,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatch/Resources/GymNutshellWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1295,7 +1291,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatchWidget/Resources/GymNutshellWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellWatchWidget/Resources/Info.plist;
@@ -1330,7 +1326,7 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = GymNutshellWatchWidget/Resources/GymNutshellWatchWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = W8T84CC8DH;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GymNutshellWatchWidget/Resources/Info.plist;

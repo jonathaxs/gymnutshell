@@ -533,7 +533,7 @@
 
 /* WelcomeStartStep.swift */
 "welcome.step.start.title" = "Olá!";
-"welcome.step.start.intro" = "Gym Nutshell é um companheiro diário na sua rotina de academia.\n\nRastreie sua hidratação, nutrição, sono, treinos e outras metas ao longo do dia.\n\nAcompanhe o seu avanço na tela de conquistas e progresso.";
+"welcome.step.start.intro" = "Gym Nutshell é um companheiro diário na sua rotina de academia.\n\nRastreie sua nutrição, hidratação, sono, treinos e outras metas ao longo do dia.\n\nAcompanhe o seu avanço na tela de conquistas e progresso.";
 "welcome.step.start.subtitle" = "Vamos lá!\nComece agora ou restaure um backup existente.";
 "welcome.start.new" = "Começar agora";
 "welcome.start.restore" = "Restaurar backup";

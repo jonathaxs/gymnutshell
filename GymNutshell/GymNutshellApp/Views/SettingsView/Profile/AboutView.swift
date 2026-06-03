@@ -15,8 +15,6 @@ struct AboutView: View {
     @AppStorage(AppAccentColor.storageKey) private var storedColorRaw: String = AppAccentColor.blue.rawValue
     private var accentColor: Color { (AppAccentColor(rawValue: storedColorRaw) ?? .blue).color }
 
-    @State private var showTipJar: Bool = false
-
     // MARK: - Body
 
     var body: some View {
@@ -67,22 +65,8 @@ struct AboutView: View {
                         .foregroundStyle(accentColor)
                 }
             }
-
-            // Apoie o desenvolvedor, abre o Tip Jar (IAP consumível).
-            Section(String(localized: "settings.about.support.header", bundle: .gymNutshellCore)) {
-                Button {
-                    showTipJar = true
-                } label: {
-                    Label(String(localized: "settings.about.support.button", bundle: .gymNutshellCore),
-                          systemImage: "heart.fill")
-                        .foregroundStyle(accentColor)
-                }
-            }
         }
         .listSectionSpacing(.compact)
-        .sheet(isPresented: $showTipJar) {
-            TipJarView()
-        }
         // Limita a largura da lista no iPad e paisagem.
         .navigationTitle(String(localized: "settings.about.title", bundle: .gymNutshellCore))
         .navigationBarTitleDisplayMode(.inline)

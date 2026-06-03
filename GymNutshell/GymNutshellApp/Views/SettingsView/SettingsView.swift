@@ -289,7 +289,7 @@ private struct AppleWatchInstructionsView: View {
     /// Ícone do app clipado em círculo, espelha o estilo da face do app no watchOS.
     private var appIcon: some View {
         let size: CGFloat = 80
-        return Image("AboutIcon")
+        return Image("AppleWatchIcon")
             .resizable()
             .interpolation(.high)
             .frame(width: size, height: size)

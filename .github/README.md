@@ -1,13 +1,17 @@
 # <img src="appicons/gymnutshell-tinted-rounded.png" width="56" align="absmiddle" alt="Ícone do Gym Nutshell">&nbsp;&nbsp;Gym Nutshell
 
-App de check-in diário de metas fitness, com conquistas, temas e bônus de sequência para transformar a rotina de treino e alimentação em um jogo.
+_Rastreie metas de nutrição, sono, suplementos e libere conquistas._
 
-Este repositório apresenta o projeto. O código de cada plataforma fica no seu próprio repositório, listado abaixo.
+O Gym Nutshell nasceu da minha rotina de academia. Eu precisava lembrar de bater a meta de proteína, água, fibras e creatina, e ainda registrar cardio e sono, mas não achei nenhum app que fizesse tudo isso junto.
+
+Durante o dia, você rastreia cada meta com sliders simples, incluindo calorias, carboidratos e gorduras, e recebe notificações durante o dia.
+
+Para deixar o app um pouco mais divertido, cada dia completo vira uma conquista temática, com sequências e um calendário do seu progresso.
 
 ## Baixar
 
 - **iPhone, iPad, Apple Watch e Mac:** [App Store](https://apps.apple.com/us/app/gym-nutshell/id6774739305)
-- **Android e Wear OS:** [GymNutshell-1.0.apk](https://jonathasmotta.com/downloads/GymNutshell-1.0.apk), para instalação direta no aparelho
+- **Android e Wear OS (Versão 1.0):** [GymNutshell-1.0.apk](https://jonathasmotta.com/downloads/GymNutshell-1.0.apk), para instalação direta no aparelho
 
 ## Repositórios
 
